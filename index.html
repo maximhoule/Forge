@@ -48,7 +48,7 @@ input,select{font-family:inherit}
 
 /* ===== App frame (phone column) ===== */
 #app{
-  max-width:var(--maxw); margin:0 auto; min-height:100vh; position:relative; overflow-x:clip;
+  max-width:var(--maxw); margin:0 auto; min-height:100vh; position:relative;
   background:radial-gradient(140% 60% at 80% -5%, rgba(255,90,44,.10), transparent 60%),
              radial-gradient(120% 50% at 0% 0%, rgba(77,163,255,.06), transparent 55%),
              var(--bg);
@@ -2903,7 +2903,11 @@ function boot(){
 boot();
 </script>
 <script>
-if('serviceWorker' in navigator){ window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); }); }
+if('serviceWorker' in navigator){
+  let __reloaded=false;
+  navigator.serviceWorker.addEventListener('controllerchange', function(){ if(__reloaded) return; __reloaded=true; location.reload(); });
+  window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').then(function(reg){ try{ reg.update(); }catch(e){} }).catch(function(){}); });
+}
 </script>
 </body>
 </html>
