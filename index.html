@@ -509,6 +509,36 @@ h2.screen-title{font-family:'Saira Condensed'; font-weight:700; font-size:30px; 
 .flex-wrap{border-radius:14px; overflow:hidden; border:1px solid var(--line)}
 #flexCanvas{width:100%; display:block; height:auto}
 
+/* Forge Relic panel + ember canvas */
+.relic-panel{position:relative; overflow:hidden; border-radius:18px; border:1px solid var(--line); padding:16px 16px 15px; margin-bottom:14px; display:flex; flex-direction:column; align-items:center; gap:8px; background:radial-gradient(130% 100% at 50% 118%, rgba(255,90,44,.12), var(--surface) 68%)}
+.relic-panel .ember-cv{position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0}
+.relic-art{position:relative; z-index:1; width:122px}
+.relic-art svg{width:100%; height:auto; display:block; filter:drop-shadow(0 6px 14px rgba(0,0,0,.4))}
+.relic-info{position:relative; z-index:1; text-align:center; width:100%}
+.relic-tier{font-family:'Saira Condensed'; font-weight:800; font-size:25px; letter-spacing:.5px; background:var(--grad-energy); -webkit-background-clip:text; background-clip:text; color:transparent; line-height:1.05}
+.relic-sub{font-size:11px; color:var(--muted-2); text-transform:uppercase; letter-spacing:.7px; font-weight:700; margin-top:3px}
+.relic-bar{height:6px; border-radius:99px; background:var(--surface-3); overflow:hidden; margin:10px auto 5px; max-width:240px}
+.relic-bar > i{display:block; height:100%; width:0; background:var(--grad-energy); border-radius:99px; transition:width .8s ease}
+.relic-next{font-size:11px; color:var(--muted); font-family:'JetBrains Mono'}
+
+/* Strength constellation */
+.cst-wrap{position:relative; border-radius:14px; overflow:hidden; border:1px solid var(--line); background:radial-gradient(130% 100% at 50% 0%, #1a2336, #0b0f17 78%)}
+.cst-wrap svg{width:100%; height:auto; display:block}
+.cst-star{transform-box:fill-box; transform-origin:center center; animation:cstTwinkle 3s ease-in-out infinite}
+@keyframes cstTwinkle{0%,100%{transform:scale(1)}50%{transform:scale(.78)}}
+.cst-flare{animation:cstFlare 1.8s ease-in-out infinite}
+@keyframes cstFlare{0%,100%{opacity:.85}50%{opacity:.3}}
+/* ghost race */
+.race-track{position:relative; background:repeating-linear-gradient(90deg,#12151c,#12151c 18px,#161b25 18px,#161b25 36px); border:1px solid var(--line); border-radius:12px; padding:9px 0; margin:8px 0 12px; overflow:hidden}
+.race-track .lane{position:relative; height:34px; margin:3px 0}
+.race-track .runner{position:absolute; top:1px; left:0; font-size:24px; will-change:left}
+.race-track .finish{position:absolute; top:0; bottom:0; right:8px; width:5px; background:repeating-linear-gradient(0deg,#fff,#fff 4px,#222 4px,#222 8px); opacity:.55}
+.race-clock{text-align:center; font-family:'JetBrains Mono'; font-size:30px; font-weight:700; color:var(--energy-1)}
+.race-result{text-align:center; font-family:'Saira Condensed'; font-weight:800; font-size:22px; min-height:26px; margin-top:6px}
+.race-result.win{color:var(--teal)}
+.race-result.lose{color:#FF8FAE}
+.gb-race{margin-top:9px}
+
 @media(prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
 </style>
 </head>
@@ -538,6 +568,17 @@ h2.screen-title{font-family:'Saira Condensed'; font-weight:700; font-size:30px; 
         <div class="rank" id="rankName">Novice</div>
         <div class="xp-bar"><i id="xpFill" style="width:0%"></i></div>
         <div class="xp-text"><span id="xpInto" class="mono">0 XP</span><span id="xpNeed">to next</span></div>
+      </div>
+    </div>
+
+    <div class="relic-panel">
+      <canvas class="ember-cv" id="emberCanvas"></canvas>
+      <div class="relic-art" id="relicArt"></div>
+      <div class="relic-info">
+        <div class="relic-tier" id="relicTierName">Raw Ore</div>
+        <div class="relic-sub" id="relicSub">Forge tier 0 / 8</div>
+        <div class="relic-bar"><i id="relicBar"></i></div>
+        <div class="relic-next" id="relicNext"></div>
       </div>
     </div>
 
@@ -1133,6 +1174,106 @@ function rankFor(L){
   if(L>=8) return 'Warrior'; if(L>=5) return 'Athlete'; if(L>=3) return 'Apprentice'; return 'Novice';
 }
 
+/* ---------- Forge Relic (long-term prestige track) + Living Ember home ---------- */
+function forgeScore(){ return (DB.stats.workouts||0) + (DB.stats.cardioSessions||0) + (DB.stats.prsSet||0); }
+const RELIC_TIERS=[
+  {n:'Raw Ore', at:0},
+  {n:'First Spark', at:3},
+  {n:'Ember', at:12},
+  {n:'Forged Blade', at:30},
+  {n:'Tempered', at:75},
+  {n:'Honed Edge', at:160},
+  {n:'Runed', at:320},
+  {n:'Molten Core', at:600},
+  {n:'Eternal Flame', at:1100}
+];
+function relicTier(){
+  const s=forgeScore(); let idx=0;
+  for(let i=0;i<RELIC_TIERS.length;i++){ if(s>=RELIC_TIERS[i].at) idx=i; }
+  const maxed = idx>=RELIC_TIERS.length-1;
+  const cur=RELIC_TIERS[idx].at, next= maxed?cur:RELIC_TIERS[idx+1].at;
+  const pct = maxed?100:((s-cur)/(next-cur)*100);
+  return {idx, tier:RELIC_TIERS[idx], score:s, maxed, pct, toNext: maxed?0:(next-s), nextName: maxed?'':RELIC_TIERS[idx+1].n};
+}
+function relicSVG(idx){
+  const heat=idx/8;
+  const glow = idx>=8?'#FFC24D':(idx>=7?'#FF4D8C':(idx>=2?'#FF8A2B':'#7A6450'));
+  const steel = idx<2?'#6B7280':(idx>=8?'#E9D7A8':(idx>=4?'#C2CCDB':'#9AA4B5'));
+  const dark = idx<2?'#3A4150':(idx>=8?'#9C854E':'#5C6677');
+  const glowR = (34 + heat*46).toFixed(0);
+  const haloOp = (0.18 + heat*0.5).toFixed(2);
+  const blur = (1.5 + heat*4).toFixed(1);
+  let s=`<defs>
+    <radialGradient id="relHalo" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="${glow}" stop-opacity="${haloOp}"/><stop offset="72%" stop-color="${glow}" stop-opacity="0"/></radialGradient>
+    <filter id="relGlow" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="0" stdDeviation="${blur}" flood-color="${glow}" flood-opacity="${(0.5+heat*0.4).toFixed(2)}"/></filter>
+    <linearGradient id="relSteel" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="${dark}"/><stop offset="50%" stop-color="${steel}"/><stop offset="100%" stop-color="${dark}"/></linearGradient></defs>`;
+  s+=`<circle cx="60" cy="82" r="${glowR}" fill="url(#relHalo)"/>`;
+  if(idx>=8){ s+=`<g opacity="0.85" filter="url(#relGlow)"><path d="M60 6 C49 34 43 52 55 66 C47 53 60 40 60 6Z" fill="#FF8A2B" opacity="0.55"/><path d="M60 4 C71 34 79 52 65 68 C75 53 60 38 60 4Z" fill="#FFB04D" opacity="0.5"/></g>`; }
+  if(idx<2){
+    s+=`<g filter="${idx>=1?'url(#relGlow)':'none'}"><polygon points="42,72 52,52 72,50 84,68 80,96 60,108 44,94" fill="url(#relSteel)" stroke="#2B313D" stroke-width="1.5"/>`;
+    if(idx>=1) s+=`<path d="M56,60 L62,80 L54,96" fill="none" stroke="${glow}" stroke-width="2.4" stroke-linecap="round"/>`;
+    s+=`<polygon points="50,58 60,55 57,66 49,66" fill="#FFFFFF" opacity="0.07"/></g>`;
+  } else {
+    const sharp = idx>=3; const tipY = sharp?16:42;
+    const blade = `60,${tipY} 52,46 54,114 66,114 68,46`;
+    s+=`<g filter="url(#relGlow)">`;
+    if(idx>=3){
+      s+=`<rect x="55" y="116" width="10" height="30" rx="4" fill="#6E4A2E"/>`;
+      s+=`<g stroke="#3C2716" stroke-width="1.3">`+[122,128,134,140].map(y=>`<line x1="55" y1="${y}" x2="65" y2="${y}"/>`).join('')+`</g>`;
+      s+=`<circle cx="60" cy="148" r="6.5" fill="${steel}" stroke="#2B313D" stroke-width="1"/>`;
+      s+=`<rect x="38" y="108" width="44" height="9" rx="3.5" fill="${steel}" stroke="#2B313D" stroke-width="1"/>`;
+    }
+    s+=`<polygon points="${blade}" fill="url(#relSteel)" stroke="${idx>=6?glow:'#2B313D'}" stroke-width="${idx>=6?1.6:1.2}"/>`;
+    s+=`<polygon points="60,${tipY+5} 57,50 58,110 60,110" fill="#FFFFFF" opacity="0.22"/>`;
+    if(idx>=4) s+=`<line x1="60" y1="${tipY+8}" x2="60" y2="106" stroke="#2B313D" stroke-width="2" opacity="0.5"/>`;
+    if(idx>=5) s+=`<polygon points="60,106 64,112 60,118 56,112" fill="${glow}" stroke="#FFFFFF" stroke-opacity="0.4"/>`;
+    if(idx>=6) s+=`<g fill="${glow}">`+[58,76,94].map(y=>`<circle cx="60" cy="${y}" r="2.1"/>`).join('')+`</g>`;
+    if(idx>=7) s+=`<g stroke="${idx>=8?'#FF7AB0':'#FF4D8C'}" stroke-width="1.4" fill="none" opacity="0.85" stroke-linecap="round"><path d="M60,40 q-5,18 -3,40"/><path d="M60,52 q6,16 3,34"/></g>`;
+    s+=`</g>`;
+  }
+  return `<svg viewBox="0 0 120 160">${s}</svg>`;
+}
+function renderRelic(){
+  const r=relicTier();
+  const art=$('#relicArt'); if(art) art.innerHTML=relicSVG(r.idx);
+  const nm=$('#relicTierName'); if(nm) nm.textContent=r.tier.n;
+  const sub=$('#relicSub'); if(sub) sub.textContent='Forge tier '+r.idx+' / '+(RELIC_TIERS.length-1);
+  const bar=$('#relicBar'); if(bar) bar.style.width=(r.maxed?100:Math.round(r.pct))+'%';
+  const nx=$('#relicNext'); if(nx) nx.textContent = r.maxed ? '🔥 Max tier — the flame is eternal' : (r.toNext+' more sessions → '+r.nextName);
+}
+function emberIntensity(){
+  const streak=DB.stats.currentStreak||0;
+  const cut=Date.now()-7*864e5; let v=0; (DB.log||[]).forEach(s=>{ if(s.ts>=cut && s.type!=='cardio') v+=s.volume||0; });
+  let i = Math.min(0.5, streak/14*0.5) + Math.min(0.4, v/30000) + relicTier().idx/8*0.2;
+  return Math.max(0.12, Math.min(1, i));
+}
+let _ember=null;
+function startEmbers(){
+  const cv=$('#emberCanvas'); if(!cv||!cv.getContext) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if(_ember) return;
+  const dpr=window.devicePixelRatio||1; const ctx=cv.getContext('2d');
+  cv.width=Math.max(1,cv.clientWidth*dpr); cv.height=Math.max(1,cv.clientHeight*dpr);
+  const intensity=emberIntensity(); const N=Math.round(10+intensity*42);
+  const spawn=()=>({x:Math.random()*cv.width, y:cv.height+Math.random()*24, r:(0.8+Math.random()*2)*dpr, vy:-(0.25+Math.random()*0.8*(0.6+intensity))*dpr, vx:(Math.random()-0.5)*0.35*dpr, life:0, max:120+Math.random()*150, hot:Math.random()});
+  const parts=[]; for(let i=0;i<N;i++){ const p=spawn(); p.y=Math.random()*cv.height; parts.push(p); }
+  function frame(){
+    const home=$('#screen-home');
+    if(!$('#emberCanvas') || !home || !home.classList.contains('active')){ _ember=null; return; }
+    ctx.clearRect(0,0,cv.width,cv.height);
+    for(const p of parts){
+      p.x+=p.vx; p.y+=p.vy; p.life++;
+      if(p.y<-12 || p.life>p.max){ const np=spawn(); p.x=np.x;p.y=np.y;p.r=np.r;p.vy=np.vy;p.vx=np.vx;p.life=0;p.max=np.max;p.hot=np.hot; }
+      const a=Math.max(0,1-p.life/p.max)*0.75;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,7); ctx.fillStyle='rgba('+(p.hot>0.62?'255,77,140':'255,150,50')+','+a.toFixed(2)+')'; ctx.fill();
+    }
+    _ember=requestAnimationFrame(frame);
+  }
+  _ember=requestAnimationFrame(frame);
+}
+function stopEmbers(){ if(_ember){ try{ cancelAnimationFrame(_ember); }catch(e){} _ember=null; } }
+
+
 /* ---------- helpers ---------- */
 const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>[...r.querySelectorAll(s)];
@@ -1286,6 +1427,7 @@ function renderHome(){
       <div style="font-size:12px;color:var(--muted)">${a.d}</div></div>
       <div class="tier ${a.tier}" style="position:static;opacity:1">${a.tier}</div></div>`).join('');
   }
+  renderRelic(); startEmbers();
 }
 
 /* ============================================================
@@ -1518,7 +1660,7 @@ function renderRecords(){
   </div>
   <div class="chart-card"><h3>${heading}</h3><p class="chart-sub">${sub}</p>${selectHtml}<div class="chart-box">${chartInner}</div></div>`;
 
-  html+=muscleCard(); html+=strengthCard();
+  html+=muscleCard(); html+=strengthCard(); html+=constellationCard();
   html+=`<div class="sec-label">🏆 Personal records</div>`;
   if(prRows.length){
     html+=prRows.map((p,i)=>`<div class="pr-row"><div class="pr-rank">${i+1}</div><div class="pr-info"><div class="pn">${esc(p.n)}</div><div class="pd">Best: ${p.weight} ${DB.settings.unit} × ${p.reps} · ${p.date}</div></div><div class="pr-val"><div class="e1">${Math.round(p.e1rm)}</div><div class="el">est 1RM · ${DB.settings.unit}</div></div></div>`).join('');
@@ -1632,6 +1774,7 @@ function syncSetInput(ei,si,field,val){
 function finishSession(){
   if(!activeSession) return;
   stopRest();
+  const _relicBefore=relicTier().idx;
   let volume=0, prHits=[];
   activeSession.entries.forEach(en=>{
     let bestSet=null;
@@ -1658,6 +1801,7 @@ function finishSession(){
   prHits.forEach(()=>gainXP(40));
   updateBalancedWeeks(); const newAch=checkAchievements();
   activeSession=null; Store.set('forge.activeSession', null); save();
+  if(relicTier().idx>_relicBefore){ setTimeout(()=>toast('🗡️','Relic advanced!','Your forge reached '+relicTier().tier.n), 750); }
   showSummary({volume, prHits, xp:60+prHits.length*40, newAch});
 }
 function updateStreak(){
@@ -1745,10 +1889,80 @@ function ghostFor(dist){
     if(Math.abs((x.distance||0)-dist)<=tol){ if(!best||x.durationMin<best.durationMin) best={durationMin:x.durationMin, date:x.date, distance:x.distance||dist}; } });
   return best;
 }
-function ghostBanner(dist){
+function ghostBanner(dist, pace){
   const g=ghostFor(dist); if(!g) return '';
-  const pace=g.durationMin/(g.distance||dist); const pm=Math.floor(pace), ps=Math.round((pace-pm)*60);
-  return `<div class="ghost-banner">👻<div class="gb-body"><div class="gb-t">Your ghost — beat it</div><div class="gb-d">Best <b>${g.durationMin} min</b> over ${(Math.round(g.distance*10)/10)} km · ~${pm}:${String(ps).padStart(2,'0')}/km · ${sd(g.date)}</div></div></div>`;
+  const p=g.durationMin/(g.distance||dist); const pm=Math.floor(p), ps=Math.round((p-pm)*60);
+  const btn=(pace&&pace>0)?`<button class="btn btn-ghost btn-sm gb-race" data-action="ghost-race" data-dist="${dist}" data-pace="${pace}">▶ Watch the race</button>`:'';
+  return `<div class="ghost-banner">👻<div class="gb-body"><div class="gb-t">Your ghost — beat it</div><div class="gb-d">Best <b>${g.durationMin} min</b> over ${(Math.round(g.distance*10)/10)} km · ~${pm}:${String(ps).padStart(2,'0')}/km · ${sd(g.date)}</div>${btn}</div></div>`;
+}
+
+
+/* ---------- Strength Constellation ---------- */
+function _cstHash(s){ let h=2166136261>>>0; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619)>>>0; } return h>>>0; }
+function constellationSVG(){
+  const names=Object.keys(DB.prs||{}); const W=320,H=200;
+  if(!names.length) return `<svg viewBox="0 0 ${W} ${H}"><text x="160" y="104" text-anchor="middle" fill="#6E7A93" font-size="12" font-family="Inter">Set personal records to light up your sky</text></svg>`;
+  const maxE=Math.max(1, ...names.map(n=>DB.prs[n].e1rm||0));
+  const pos={}; names.forEach(n=>{ pos[n]={x:20+(_cstHash(n)%1000)/1000*280, y:24+(_cstHash(n+'~')%1000)/1000*150}; });
+  const groups={}; names.forEach(n=>{ const g=(exInfo(n).g)||'Other'; (groups[g]=groups[g]||[]).push(n); });
+  let lines=''; Object.keys(groups).forEach(g=>{ const arr=groups[g]; if(arr.length<2) return; const s=arr.slice().sort((a,b)=>pos[a].x-pos[b].x); for(let i=1;i<s.length;i++){ const a=pos[s[i-1]],b=pos[s[i]]; lines+=`<line x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" x2="${b.x.toFixed(1)}" y2="${b.y.toFixed(1)}" stroke="#33405A" stroke-width="0.8" opacity="0.5"/>`; } });
+  let bg=''; for(let i=0;i<42;i++){ const x=(_cstHash('b'+i)%1000)/1000*W, y=(_cstHash('by'+i)%1000)/1000*H, r=((_cstHash('br'+i)%10)/10*0.7+0.3); bg+=`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${r.toFixed(1)}" fill="#8895B5" opacity="0.16"/>`; }
+  const wk=weekKey(); let top=names[0]; names.forEach(n=>{ if((DB.prs[n].e1rm||0)>(DB.prs[top].e1rm||0)) top=n; });
+  let stars='';
+  names.forEach(n=>{
+    const e=DB.prs[n].e1rm||0, b=e/maxE, p=pos[n], r=(1.6+b*4).toFixed(1);
+    const col=`rgb(${Math.round(207+(255-207)*b)},${Math.round(224-(224-178)*b)},${Math.round(255-(255-110)*b)})`;
+    const op=(0.5+b*0.5).toFixed(2), delay=((_cstHash(n)%30)/10).toFixed(1);
+    const recent = DB.prs[n].date && weekKey(DB.prs[n].date)===wk;
+    if(recent) stars+=`<circle class="cst-flare" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(+r+5).toFixed(1)}" fill="none" stroke="#FFC24D" stroke-width="1.2"/>`;
+    stars+=`<circle class="cst-star" style="animation-delay:${delay}s" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${r}" fill="${col}" opacity="${op}"/>`;
+    if(n===top) stars+=`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(+r+2.5).toFixed(1)}" fill="none" stroke="#FFD27A" stroke-width="0.9" opacity="0.6"/><text x="${p.x.toFixed(1)}" y="${(p.y-(+r+6)).toFixed(1)}" text-anchor="middle" font-size="8.5" fill="#FFD27A" font-family="Inter" font-weight="700">${esc(n)}</text>`;
+  });
+  return `<svg viewBox="0 0 ${W} ${H}">${bg}${lines}${stars}</svg>`;
+}
+function constellationCard(){
+  const names=Object.keys(DB.prs||{});
+  if(!names.length) return `<div class="sec-label">✨ Strength constellation</div><div class="cst-wrap">${constellationSVG()}</div>`;
+  let top=names[0]; names.forEach(n=>{ if((DB.prs[n].e1rm||0)>(DB.prs[top].e1rm||0)) top=n; });
+  return `<div class="sec-label">✨ Strength constellation</div><div class="cst-wrap">${constellationSVG()}</div><p class="hint" style="margin-top:8px;text-align:left">${names.length} lift${names.length>1?'s':''} mapped · brightest: ${esc(top)} (${Math.round(DB.prs[top].e1rm)} ${DB.settings.unit}). Every PR burns its star brighter.</p>`;
+}
+/* ---------- Ghost-race replay ---------- */
+let _race=null;
+function fmtMin(m){ const s=Math.max(0,Math.round(m*60)); return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
+function openGhostRace(dist, pace){
+  const g=ghostFor(dist); if(!g){ toast('👻','No ghost yet','Log a run at this distance first to race it'); return; }
+  openSheet(`<div class="grab"></div><h3>👻 Race your ghost</h3><p class="sh-lead">${(Math.round(dist*10)/10)} km · you vs your best (${g.durationMin} min)</p>
+    <div class="race-track"><div class="lane"><span class="runner" id="rcYou">🏃</span></div><div class="lane"><span class="runner" id="rcGhost">👻</span></div><div class="finish"></div></div>
+    <div class="race-clock" id="rcClock">0:00</div><div class="race-result" id="rcResult"></div>
+    <button class="btn btn-ghost" data-action="ghost-replay" data-dist="${dist}" data-pace="${pace}" style="margin-top:12px">↻ Replay</button>
+    <button class="btn btn-ghost btn-sm" data-action="close-sheet">Close</button>`);
+  setTimeout(()=>startRace(dist,pace), 130);
+}
+function startRace(dist, pace){
+  const g=ghostFor(dist); if(!g) return;
+  if(_race){ try{ cancelAnimationFrame(_race); }catch(e){} _race=null; }
+  const youT=Math.max(0.1, pace*dist), ghostT=Math.max(0.1, g.durationMin), maxT=Math.max(youT,ghostT);
+  const dur=5500, t0=Date.now();
+  const res0=$('#rcResult'); if(res0){ res0.textContent=''; res0.removeAttribute('data-done'); res0.className='race-result'; }
+  function frame(){
+    if(!overlay.classList.contains('show') || !$('#rcYou')){ _race=null; return; }
+    const t=(Date.now()-t0)/dur, simMin=Math.min(maxT, t*maxT);
+    const yf=Math.min(1, simMin/youT), gf=Math.min(1, simMin/ghostT);
+    const yEl=$('#rcYou'), gEl=$('#rcGhost'), clk=$('#rcClock');
+    if(yEl) yEl.style.left='calc('+(yf*100).toFixed(1)+'% - '+(yf*27).toFixed(0)+'px)';
+    if(gEl) gEl.style.left='calc('+(gf*100).toFixed(1)+'% - '+(gf*27).toFixed(0)+'px)';
+    if(clk) clk.textContent=fmtMin(simMin);
+    if(yf>=1 && gf>=1){
+      const r=$('#rcResult');
+      if(r && !r.dataset.done){ r.dataset.done='1'; const diff=Math.abs(youT-ghostT);
+        if(youT<ghostT){ r.innerHTML='🏆 You win by '+fmtMin(diff)+'!'; r.className='race-result win'; }
+        else if(youT>ghostT){ r.innerHTML='👻 Ghost wins by '+fmtMin(diff)+' — chase it down'; r.className='race-result lose'; }
+        else { r.innerHTML='Dead heat!'; r.className='race-result'; } }
+      if(clk) clk.textContent=fmtMin(maxT); _race=null; return;
+    }
+    _race=requestAnimationFrame(frame);
+  }
+  _race=requestAnimationFrame(frame);
 }
 
 function renderCardioPlan(dist, goal, segs, pace){
@@ -1757,7 +1971,7 @@ function renderCardioPlan(dist, goal, segs, pace){
   segs.forEach(s=>{ if(s.dist){ totalKm+=s.dist; if(pace) totalMin+=s.dist*pace; } });
   const distLabel = dist>=21 ? 'Half marathon' : dist+' km';
   const html=`
-  ${ghostBanner(dist)}
+  ${ghostBanner(dist, pace)}
   <div class="card">
     <div class="ghead" style="margin-bottom:6px"><h4 style="font-family:'Saira Condensed';font-weight:700;font-size:22px;margin:0">${distLabel} · ${goalNames[goal]}</h4></div>
     <p class="screen-lead" style="margin:2px 0 14px;font-size:12.5px">Effort is shown as RPE (1–10) and heart-rate zone, so it scales to <i>your</i> fitness — no fixed pace required.</p>
@@ -1784,6 +1998,7 @@ function renderCardioPlan(dist, goal, segs, pace){
 }
 function logCardio(dist, goal, min){
   const _ghost = min? ghostFor(dist) : null;
+  const _relicBefore=relicTier().idx;
   DB.log.unshift({id:uid(), ts:Date.now(), date:todayStr(), type:'cardio', distance:dist, goal, durationMin:min});
   DB.stats.cardioSessions++; DB.stats.distanceKm+=dist;
   updateStreak(); gainXP(50);
@@ -1792,6 +2007,7 @@ function logCardio(dist, goal, min){
   toast('🏃','Run logged',`${(Math.round(dist*10)/10)} km · ${msg}`);
   newAch.forEach(a=>setTimeout(()=>toast(a.ico, 'Award unlocked!', a.n, 'gold'), 350));
   if(_ghost && min && min < _ghost.durationMin){ setTimeout(()=>toast('🏆','New best time!',`${(Math.round(dist*10)/10)} km in ${min} min — you beat your ghost (${_ghost.durationMin} min)!`,'gold'), 550); }
+  if(relicTier().idx>_relicBefore){ setTimeout(()=>toast('🗡️','Relic advanced!','Your forge reached '+relicTier().tier.n), 700); }
   renderHome();
 }
 
@@ -2354,6 +2570,8 @@ document.addEventListener('click', e=>{
     case 'flex-card': openFlexCard(); break;
     case 'flex-save': saveFlexCard(); break;
     case 'flex-share': shareFlexCard(); break;
+    case 'ghost-race': openGhostRace(+t.dataset.dist, +t.dataset.pace); break;
+    case 'ghost-replay': startRace(+t.dataset.dist, +t.dataset.pace); break;
     case 'export-data': exportData(); break;
     case 'import-data': { const inp=$('#importFile'); if(inp) inp.click(); break; }
     case 'cal-prev': calMonth--; if(calMonth<0){ calMonth=11; calYear--; } renderRecords(); break;
