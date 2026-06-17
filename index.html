@@ -58,6 +58,7 @@ input,select{font-family:inherit}
   #app{box-shadow:0 0 0 1px var(--line-soft), 0 40px 90px -30px #000; min-height:96vh; margin-top:2vh; border-radius:26px; overflow:hidden; min-height:calc(100vh - 4vh)}
 }
 .screen{display:none; padding:14px 16px 8px; animation:fadeUp .32s ease}
+#screen-session{padding-bottom:calc(var(--sess-pad,220px) + env(safe-area-inset-bottom))}
 .screen.active{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
@@ -1240,6 +1241,7 @@ function go(screen){
   if(screen==='session') renderSession();
   // toggle session-bar visibility
   $('#sessionBar').style.display = (screen==='session' && activeSession) ? 'block' : 'none';
+  if(screen==='session' && activeSession) _fitSessionPad();
 }
 
 /* ============================================================
@@ -1618,6 +1620,7 @@ function renderSession(){
     </div>`;
   }).join('');
   $('#sessionBar').style.display='block';
+  _fitSessionPad();
   const _ss=$('#saveStatus'); if(_ss){ _ss.textContent='Saved ✓'; _ss.className='save-status saved'; }
 }
 function syncSetInput(ei,si,field,val){
@@ -2442,6 +2445,7 @@ function restAdjust(d){
   paintRest();
 }
 function testRestAlert(){ try{ _ensureAudio(); _alertAudio.currentTime=0; const p=_alertAudio.play(); if(p&&p.catch)p.catch(()=>{}); }catch(e){} try{ navigator.vibrate&&navigator.vibrate([200,90,200]); }catch(e){} try{ if('Notification' in window && Notification.permission==='granted'){ new Notification('Test — rest alert 🔔',{body:'This is how it will warn you.',tag:'forge-test'}); } }catch(e){} }
+function _fitSessionPad(){ try{ const b=$('#sessionBar'), s=$('#screen-session'); if(b&&s){ const h=b.offsetHeight; if(typeof h==='number' && h>0) s.style.setProperty('--sess-pad', (h+110)+'px'); } }catch(e){} }
 function paintRest(){
   const m=Math.floor(restSeconds/60), s=restSeconds%60;
   const el=$('#restTimer'); if(el){ el.textContent=m+':'+String(s).padStart(2,'0'); el.classList.toggle('run', restRunning); }
