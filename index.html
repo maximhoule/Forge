@@ -597,6 +597,35 @@ button:focus-visible,input:focus-visible,select:focus-visible,.toggle-row:focus-
 @keyframes rbIn{from{opacity:0; transform:translateX(-50%) translateY(14px)} to{opacity:1; transform:translateX(-50%) translateY(0)}}
 @keyframes rbPulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.6)}70%{box-shadow:0 0 0 9px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
 
+/* ===== Squad ===== */
+.squad-chips{margin-bottom:12px; flex-wrap:wrap}
+.lb-row{display:flex; align-items:center; gap:12px; padding:12px 13px; background:var(--surface); border:1px solid var(--line-soft); border-radius:var(--r-sm); margin-bottom:8px; box-shadow:var(--shadow-sm)}
+.lb-row.me{border-color:var(--energy-1); background:linear-gradient(120deg, rgba(255,90,44,.12), var(--surface))}
+.lb-row[data-action]{cursor:pointer; transition:transform .15s var(--ease)}
+.lb-row[data-action]:active{transform:scale(.99)}
+.lb-rank{font-family:'Saira Condensed'; font-weight:800; font-size:18px; width:26px; text-align:center; flex:0 0 auto}
+.lb-name{flex:1; font-weight:600; font-size:14.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0}
+.lb-you{font-family:'JetBrains Mono'; font-size:9px; font-weight:700; background:var(--grad-energy); color:#fff; padding:1px 5px; border-radius:5px; margin-left:5px}
+.lb-val{font-family:'JetBrains Mono'; font-size:12px; color:var(--muted); text-align:right; flex:0 0 auto; max-width:48%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.squad-empty{text-align:center; padding:22px 16px; background:var(--surface); border:1px dashed var(--line); border-radius:var(--r-md); box-shadow:var(--shadow-sm)}
+.squad-empty .se-ico{font-size:34px}
+.squad-empty .se-t{font-family:'Saira Condensed'; font-weight:800; font-size:19px; margin-top:6px}
+.squad-empty .se-d{font-size:12.5px; color:var(--muted); margin:5px auto 0; max-width:290px; line-height:1.45}
+.code-box{font-family:'JetBrains Mono'; font-size:11px; line-height:1.5; word-break:break-all; background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:12px; color:var(--muted); max-height:130px; overflow:auto; user-select:all; -webkit-user-select:all}
+.code-input{width:100%; font-family:'JetBrains Mono'; font-size:12px; background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:12px; color:var(--text); resize:vertical; box-sizing:border-box}
+.add-msg{font-size:12.5px; margin-top:8px; min-height:16px; color:var(--muted)}
+.add-msg.err{color:#FF8FAE}
+.cmp-head,.cmp-row{display:grid; grid-template-columns:1.05fr 1fr 1fr; gap:8px; align-items:center}
+.cmp-head{margin:10px 0 4px; font-family:'JetBrains Mono'; font-size:10px; text-transform:uppercase; letter-spacing:.6px; color:var(--muted-2)}
+.cmp-head .cmp-v{text-align:center; font-weight:700}
+.cmp-row{padding:9px 0; border-top:1px solid var(--line-soft)}
+.cmp-row .cmp-k{font-size:12px; color:var(--muted)}
+.cmp-row .cmp-v{text-align:center; font-family:'JetBrains Mono'; font-size:13px; color:var(--text)}
+.cmp-row .cmp-v.win{color:var(--energy-1); font-weight:700}
+.cmp-sub{font-family:'Saira Condensed'; font-weight:700; font-size:14px; margin:16px 0 2px; letter-spacing:-.01em}
+.lb-stale{font-family:'JetBrains Mono'; font-size:12px; color:var(--gold); margin-left:5px}
+.stale-note{font-size:12px; color:var(--gold); background:var(--gold-soft); border:1px solid rgba(255,200,61,.30); border-radius:10px; padding:9px 11px; margin-top:14px; line-height:1.45}
+
 @media(prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
 </style>
 </head>
@@ -665,6 +694,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,.toggle-row:focus-
     </div>
     <button class="btn btn-ghost" data-action="plate-calc" style="margin-bottom:14px">🧮 Plate calculator</button>
     <button class="btn btn-ghost" data-action="flex-card" style="margin-bottom:14px">📸 Create a flex card</button>
+    <button class="btn btn-ghost" data-action="go-squad" style="margin-bottom:14px">⚔️ Squad &amp; challenges</button>
 
     <div class="sec-head"><h3>Weekly quests</h3><span style="color:var(--muted-2);font-size:11px">Resets weekly</span></div>
     <div id="questCard" class="quest-card"></div>
@@ -767,8 +797,10 @@ button:focus-visible,input:focus-visible,select:focus-visible,.toggle-row:focus-
 
   <!-- ===== AWARDS ===== -->
   <section class="screen" id="screen-awards">
-    <p class="eyebrow">Achievements</p>
-    <h2 class="screen-title">Awards</h2>
+    <p class="eyebrow">Compete</p>
+    <h2 class="screen-title">Squad &amp; Awards</h2>
+    <div id="squadSection"></div>
+    <div class="sec-label">🏅 Achievements</div>
     <div class="ach-summary">
       <div class="big"><span id="achCount">0</span><small>/<span id="achTotal">36</span></small></div>
       <div style="flex:1"><div class="xp-bar"><i id="achFill" style="width:0%"></i></div>
@@ -841,13 +873,14 @@ const DB = {
   customEx: Store.get('forge.customEx', []),
   bodyweight: Store.get('forge.bodyweight', []),
   plan: Store.get('forge.plan', null),
-  quests: Store.get('forge.quests', null)
+  quests: Store.get('forge.quests', null),
+  friends: Store.get('forge.friends', [])
 };
 function save(){
   Store.set('forge.settings', DB.settings); Store.set('forge.stats', DB.stats);
   Store.set('forge.routines', DB.routines); Store.set('forge.log', DB.log);
   Store.set('forge.prs', DB.prs); Store.set('forge.ach', DB.achievements);
-  Store.set('forge.customEx', DB.customEx); Store.set('forge.bodyweight', DB.bodyweight); Store.set('forge.plan', DB.plan); Store.set('forge.quests', DB.quests);
+  Store.set('forge.customEx', DB.customEx); Store.set('forge.bodyweight', DB.bodyweight); Store.set('forge.plan', DB.plan); Store.set('forge.quests', DB.quests); Store.set('forge.friends', DB.friends);
   try{ Store.set('forge.activeSession', activeSession); }catch(e){}
 }
 let activeSession = Store.get('forge.activeSession', null);
@@ -1774,7 +1807,128 @@ function saveBodyweight(){
 /* ============================================================
    RENDER: AWARDS
    ============================================================ */
+
+/* ===================== SQUAD — share-code friend leaderboard (offline) ===================== */
+const SQUAD_PREFIX='FORGE-SQUAD-1:';
+function _b64e(s){ try{ return btoa(unescape(encodeURIComponent(s))); }catch(e){ return btoa(s); } }
+function _b64d(s){ try{ return decodeURIComponent(escape(atob(s))); }catch(e){ return atob(s); } }
+function timeAgo(ts){ if(!ts) return 'unknown'; const s=(Date.now()-ts)/1000; if(s<3600) return Math.max(1,Math.round(s/60))+' min ago'; if(s<86400) return Math.round(s/3600)+'h ago'; return Math.round(s/86400)+'d ago'; }
+function isStale(ts){ return !!ts && (Date.now()-ts) > 7*86400000; }
+function myTopLifts(n){ return Object.keys(DB.prs||{}).map(k=>({n:k, e:Math.round(DB.prs[k].e1rm||0)})).filter(x=>x.e>0).sort((a,b)=>b.e-a.e).slice(0, n||6); }
+function myStats(){
+  const li=levelInfo(DB.stats.xp); const r=relicTier();
+  return { lv:li.level, rk:li.rank, xp:DB.stats.xp, w:DB.stats.workouts||0, c:DB.stats.cardioSessions||0,
+    pr:DB.stats.prsSet||0, vol:Math.round(DB.stats.totalVolume||0), km:Math.round((DB.stats.distanceKm||0)*10)/10,
+    st:DB.stats.currentStreak||0, ls:DB.stats.longestStreak||0, ri:r.idx, rn:r.tier.n, L:myTopLifts(6) };
+}
+function myShareCode(){ const name=(DB.settings.name||'').trim()||'Me'; const payload=Object.assign({v:1, n:name, t:Date.now()}, myStats()); return SQUAD_PREFIX + _b64e(JSON.stringify(payload)); }
+function parseSquadCode(code){ if(!code) return null; code=String(code).trim(); const i=code.indexOf(SQUAD_PREFIX); if(i<0) return null;
+  try{ const o=JSON.parse(_b64d(code.slice(i+SQUAD_PREFIX.length).trim())); if(!o || typeof o.lv==='undefined') return null; return o; }catch(e){ return null; } }
+function addFriendFromCode(code){
+  const o=parseSquadCode(code);
+  if(!o) return {ok:false, msg:"That code doesn't look right — make sure you copied the whole thing."};
+  const name=String(o.n||'Friend').slice(0,24);
+  const base=name.toLowerCase().replace(/[^a-z0-9]/g,'')||'anon'; const fid='f_'+base;
+  const friend={ id:fid, name:name, updated:o.t||Date.now(), stats:o };
+  DB.friends=DB.friends||[]; const idx=DB.friends.findIndex(f=>f.id===fid); let verb='Added';
+  if(idx>=0){ DB.friends[idx]=friend; verb='Updated'; } else DB.friends.push(friend);
+  save(); return {ok:true, msg:verb+' '+name, name:name};
+}
+function removeFriend(id){ DB.friends=(DB.friends||[]).filter(f=>f.id!==id); save(); }
+const SQUAD_METRICS=[
+  {k:'lv', label:'Level', val:s=>s.lv||0, fmt:s=>'Lv '+(s.lv||0)+' · '+(s.rk||'')},
+  {k:'vol', label:'Volume', val:s=>s.vol||0, fmt:s=>fmt(s.vol||0)+' '+DB.settings.unit},
+  {k:'w', label:'Workouts', val:s=>s.w||0, fmt:s=>fmt(s.w||0)+' sessions'},
+  {k:'st', label:'Streak', val:s=>s.st||0, fmt:s=>(s.st||0)+'d now · '+(s.ls||0)+'d best'},
+  {k:'lift', label:'Best lift', val:s=>(s.L&&s.L[0]?s.L[0].e:0), fmt:s=>(s.L&&s.L[0]?(s.L[0].e+' '+DB.settings.unit+' · '+s.L[0].n):'—')},
+  {k:'km', label:'Distance', val:s=>s.km||0, fmt:s=>fmt(s.km||0)+' km'}
+];
+let squadMetric='lv';
+function squadEntries(){ const me=Object.assign({}, myStats()); const nm=(DB.settings.name||'').trim()||'You';
+  const list=[{id:'__me', name:nm, me:true, stats:me, updated:Date.now()}]; (DB.friends||[]).forEach(f=>list.push(f)); return list; }
+function renderSquad(){
+  const host=$('#squadSection'); if(!host) return;
+  const friends=DB.friends||[];
+  const metric=SQUAD_METRICS.find(m=>m.k===squadMetric)||SQUAD_METRICS[0];
+  const entries=squadEntries().slice().sort((a,b)=>metric.val(b.stats)-metric.val(a.stats));
+  let board;
+  if(friends.length===0){
+    board=`<div class="squad-empty"><div class="se-ico">⚔️</div><div class="se-t">Build your squad</div><div class="se-d">Share your code with a friend and add theirs back — then challenge each other on volume, lifts, streaks and more.</div></div>`;
+  } else {
+    const chips=SQUAD_METRICS.map(m=>`<button class="chip ${m.k===squadMetric?'on':''}" data-action="squad-metric" data-k="${m.k}">${m.label}</button>`).join('');
+    board=`<div class="chips squad-chips">${chips}</div>`+entries.map((e,i)=>{
+      const medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':String(i+1);
+      return `<div class="lb-row ${e.me?'me':''}" ${e.me?'':'data-action="squad-view" data-id="'+e.id+'"'}>
+        <div class="lb-rank">${medal}</div>
+        <div class="lb-name">${esc(e.name)}${e.me?' <span class="lb-you">YOU</span>':''}${(!e.me && isStale(e.updated))?' <span class="lb-stale" title="Old snapshot">↻</span>':''}</div>
+        <div class="lb-val">${metric.fmt(e.stats)}</div></div>`;
+    }).join('');
+  }
+  host.innerHTML=`<div class="sec-label" style="margin-top:2px">⚔️ Squad${friends.length?' · '+(friends.length+1)+' athletes':''}</div>
+    <div class="btn-row" style="margin-bottom:12px"><button class="btn btn-primary btn-sm" data-action="squad-share">Share my code</button><button class="btn btn-ghost btn-sm" data-action="squad-add">Add a friend</button></div>
+    ${board}`;
+}
+function openSquadShare(){
+  const nm=(DB.settings.name||'').trim();
+  openSheet(`<div class="grab"></div><h3>Share my code</h3>
+    <p class="sh-lead">Send this to a friend. They paste it into "Add a friend" to put you on their squad. Re-share anytime to refresh your numbers.</p>
+    <div class="form-field" style="margin-bottom:12px"><label>Your display name</label><input id="squadName" type="text" maxlength="24" placeholder="e.g. Alex" value="${esc(nm)}"></div>
+    <div class="code-box" id="squadCodeBox">${esc(myShareCode())}</div>
+    <button class="btn btn-primary" data-action="squad-copy" style="margin-top:12px">Copy code</button>
+    ${navigator.share?'<button class="btn btn-ghost" data-action="squad-share-native" style="margin-top:10px">Share…</button>':''}
+    <button class="btn btn-ghost btn-sm" data-action="close-sheet">Done</button>`);
+}
+function squadFallbackCopy(code){ try{ const ta=document.createElement('textarea'); ta.value=code; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); toast('📋','Copied','Send it to your friend'); }catch(e){ toast('📋','Select & copy','Long-press the code box to copy it'); } }
+function copySquadCode(){ const code=myShareCode();
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(code).then(()=>toast('📋','Copied','Send it to your friend')).catch(()=>squadFallbackCopy(code)); }
+  else squadFallbackCopy(code); }
+function openSquadAdd(){
+  openSheet(`<div class="grab"></div><h3>Add a friend</h3>
+    <p class="sh-lead">Paste the code your friend sent you.</p>
+    <textarea id="friendCode" class="code-input" rows="4" placeholder="Paste FORGE-SQUAD code here…"></textarea>
+    <div id="friendAddMsg" class="add-msg"></div>
+    <button class="btn btn-primary" data-action="squad-add-submit" style="margin-top:12px">Add to squad</button>
+    <button class="btn btn-ghost btn-sm" data-action="close-sheet">Cancel</button>`);
+}
+function submitFriendCode(){
+  const ta=$('#friendCode'); const res=addFriendFromCode(ta?ta.value:'');
+  if(res.ok){ closeSheet(); go('awards'); toast('🤝', res.msg+'!', 'On your squad'); }
+  else { const m=$('#friendAddMsg'); if(m){ m.textContent=res.msg; m.className='add-msg err'; } }
+}
+function openSquadCompare(id){
+  const f=(DB.friends||[]).find(x=>x.id===id); if(!f) return;
+  const me=myStats(), them=f.stats;
+  const rows=[
+    ['Level', 'Lv '+me.lv+' '+(me.rk||''), 'Lv '+them.lv+' '+(them.rk||''), me.lv, them.lv],
+    ['Workouts', fmt(me.w), fmt(them.w), me.w, them.w],
+    ['Volume', fmt(me.vol)+' '+DB.settings.unit, fmt(them.vol)+' '+DB.settings.unit, me.vol, them.vol],
+    ['Current streak', me.st+'d', (them.st||0)+'d', me.st, them.st||0],
+    ['Longest streak', me.ls+'d', (them.ls||0)+'d', me.ls, them.ls||0],
+    ['Distance', fmt(me.km)+' km', fmt(them.km||0)+' km', me.km, them.km||0],
+    ['Forge relic', me.rn, them.rn||'—', me.ri, them.ri||0]
+  ];
+  const rowsHtml=rows.map(r=>{ const meWin=r[3]>r[4], themWin=r[4]>r[3];
+    return `<div class="cmp-row"><div class="cmp-k">${r[0]}</div><div class="cmp-v ${meWin?'win':''}">${esc(String(r[1]))}</div><div class="cmp-v ${themWin?'win':''}">${esc(String(r[2]))}</div></div>`; }).join('');
+  const allLifts={};
+  (me.L||[]).forEach(l=>{ allLifts[l.n]=allLifts[l.n]||{me:0,them:0}; allLifts[l.n].me=l.e; });
+  (them.L||[]).forEach(l=>{ allLifts[l.n]=allLifts[l.n]||{me:0,them:0}; allLifts[l.n].them=l.e; });
+  const liftKeys=Object.keys(allLifts).sort((a,b)=>Math.max(allLifts[b].me,allLifts[b].them)-Math.max(allLifts[a].me,allLifts[a].them)).slice(0,8);
+  const liftRows=liftKeys.map(n=>{ const a=allLifts[n].me||0,b=allLifts[n].them||0;
+    return `<div class="cmp-row"><div class="cmp-k">${esc(n)}</div><div class="cmp-v ${a>b?'win':''}">${a?a+' '+DB.settings.unit:'—'}</div><div class="cmp-v ${b>a?'win':''}">${b?b+' '+DB.settings.unit:'—'}</div></div>`; }).join('');
+  openSheet(`<div class="grab"></div><h3>You vs ${esc(f.name)}</h3>
+    <p class="sh-lead">Their snapshot · updated ${timeAgo(f.updated)}</p>
+    <div class="cmp-head"><div class="cmp-k"></div><div class="cmp-v">You</div><div class="cmp-v">${esc(f.name)}</div></div>
+    ${rowsHtml}
+    ${liftRows?`<div class="cmp-sub">Top lifts · est 1RM</div>${liftRows}`:''}
+    ${isStale(f.updated)?`<div class="stale-note">↻ ${esc(f.name)}'s snapshot is ${timeAgo(f.updated)} old — ask them to re-share their code for current numbers.</div>`:''}
+    <button class="btn btn-primary" data-action="squad-copy" style="margin-top:16px">📋 Copy my code to send back</button>
+    <button class="btn btn-ghost btn-sm" data-action="squad-remove" data-id="${f.id}" style="margin-top:10px; color:#FF8FAE">Remove ${esc(f.name)}</button>
+    <button class="btn btn-ghost btn-sm" data-action="close-sheet">Close</button>`);
+}
+document.addEventListener('input', e=>{ if(e.target && e.target.id==='squadName'){ DB.settings.name=String(e.target.value).slice(0,24); save(); const b=$('#squadCodeBox'); if(b) b.textContent=myShareCode(); } });
+
 function renderAwards(){
+  renderSquad();
   const unlocked=ACH.filter(a=>DB.achievements[a.id]).length;
   $('#achCount').textContent=unlocked; $('#achTotal').textContent=ACH.length;
   $('#achFill').style.width=(unlocked/ACH.length*100)+'%';
@@ -2185,14 +2339,14 @@ let calYear=new Date().getFullYear(), calMonth=new Date().getMonth();
 /* ---- data backup / restore ---- */
 function backupPayload(){ return { _app:'FORGE', _v:1, exported:new Date().toISOString(),
   settings:DB.settings, stats:DB.stats, routines:DB.routines, log:DB.log, prs:DB.prs,
-  achievements:DB.achievements, customEx:DB.customEx, bodyweight:DB.bodyweight, plan:DB.plan, quests:DB.quests }; }
+  achievements:DB.achievements, customEx:DB.customEx, bodyweight:DB.bodyweight, plan:DB.plan, quests:DB.quests, friends:DB.friends }; }
 function applyBackup(d){
   if(!d || d._app!=='FORGE' || !d.stats) return false;
   DB.settings=d.settings||DB.settings;
   DB.stats=Object.assign({}, DB.stats, d.stats);
   DB.routines=d.routines||[]; DB.log=d.log||[]; DB.prs=d.prs||{};
   DB.achievements=d.achievements||{}; DB.customEx=d.customEx||[];
-  DB.bodyweight=d.bodyweight||[]; DB.plan=d.plan||null; DB.quests=d.quests||null;
+  DB.bodyweight=d.bodyweight||[]; DB.plan=d.plan||null; DB.quests=d.quests||null; DB.friends=d.friends||[];
   save(); return true;
 }
 function exportData(){
@@ -2490,7 +2644,7 @@ document.addEventListener('click', e=>{
       DB.settings.name=$('#setName').value.trim(); save(); closeSheet(); renderHome(); toast('⚙','Saved','Settings updated'); break;
     case 'reset-data':
       if(confirm('Reset ALL data? This erases your routines, logs, PRs and awards. Cannot be undone.')){
-        ['settings','stats','routines','log','prs','ach','customEx','bodyweight','plan','quests','activeSession'].forEach(k=>Store.set('forge.'+k, k==='settings'?{name:'',unit:'kg',sound:true}:(k==='stats'?{xp:0,totalVolume:0,distanceKm:0,prsSet:0,routinesCreated:0,workouts:0,cardioSessions:0,currentStreak:0,longestStreak:0,lastWorkoutDate:null, balancedWeeks:0, lastBalancedWeek:null}:(['routines','log','customEx','bodyweight'].includes(k)?[]:{}))));
+        ['settings','stats','routines','log','prs','ach','customEx','bodyweight','plan','quests','activeSession','friends'].forEach(k=>Store.set('forge.'+k, k==='settings'?{name:'',unit:'kg',sound:true}:(k==='stats'?{xp:0,totalVolume:0,distanceKm:0,prsSet:0,routinesCreated:0,workouts:0,cardioSessions:0,currentStreak:0,longestStreak:0,lastWorkoutDate:null, balancedWeeks:0, lastBalancedWeek:null}:(['routines','log','customEx','bodyweight','friends'].includes(k)?[]:{}))));
         location.reload();
       } break;
 
@@ -2636,6 +2790,15 @@ document.addEventListener('click', e=>{
     case 'flex-card': openFlexCard(); break;
     case 'flex-save': saveFlexCard(); break;
     case 'flex-share': shareFlexCard(); break;
+    case 'go-squad': go('awards'); break;
+    case 'squad-share': openSquadShare(); break;
+    case 'squad-copy': copySquadCode(); break;
+    case 'squad-share-native': if(navigator.share) navigator.share({title:'My FORGE squad code', text:myShareCode()}).catch(()=>{}); break;
+    case 'squad-add': openSquadAdd(); break;
+    case 'squad-add-submit': submitFriendCode(); break;
+    case 'squad-metric': squadMetric=t.dataset.k; renderSquad(); break;
+    case 'squad-view': openSquadCompare(t.dataset.id); break;
+    case 'squad-remove': { removeFriend(t.dataset.id); closeSheet(); go('awards'); toast('👋','Removed','They are off your squad'); break; }
     case 'ghost-race': openGhostRace(+t.dataset.dist, +t.dataset.pace); break;
     case 'ghost-replay': startRace(+t.dataset.dist, +t.dataset.pace); break;
     case 'export-data': exportData(); break;
