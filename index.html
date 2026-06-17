@@ -32,7 +32,7 @@
   --maxw:480px;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0}
+html,body{margin:0;padding:0;overflow-x:hidden}
 body{
   background:var(--bg); color:var(--text);
   font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
@@ -539,6 +539,64 @@ h2.screen-title{font-family:'Saira Condensed'; font-weight:700; font-size:30px; 
 .race-result.lose{color:#FF8FAE}
 .gb-race{margin-top:9px}
 
+/* ===================== QUALITY PASS ===================== */
+:root{
+  --bg:#0C0F14; --line:#343C4B; --line-soft:#272E3A;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.30), 0 2px 6px -3px rgba(0,0,0,.42);
+  --shadow-md:0 2px 5px rgba(0,0,0,.30), 0 14px 30px -14px rgba(0,0,0,.62);
+  --ring:0 0 0 2px var(--bg), 0 0 0 4px rgba(92,176,255,.75);
+}
+/* Elevation + a faint lit top edge for a crafted, premium surface */
+.card,.chart-card,.hero,.tcard,.exblock,.hist-row,.badge,.relic-panel,.cst-wrap{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.045), var(--shadow-md);
+}
+.stat{box-shadow:inset 0 1px 0 rgba(255,255,255,.04), var(--shadow-sm)}
+/* Smoother screen entrance */
+.screen{animation:screenIn .42s var(--ease-out)}
+@keyframes screenIn{from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:none}}
+/* Tactile feedback on a refined curve */
+.btn{transition:transform .12s var(--ease), box-shadow .22s var(--ease), background .22s var(--ease), border-color .2s var(--ease)}
+.btn:active{transform:translateY(1px) scale(.992)}
+.btn-primary{box-shadow:0 6px 18px -9px var(--energy-glow), 0 2px 6px -3px rgba(0,0,0,.45)}
+.btn-primary:active{box-shadow:0 3px 10px -7px var(--energy-glow)}
+.icon-btn,.cal-nav,.chip,.toggle-row,.nav-item{transition:transform .15s var(--ease), color .15s var(--ease), background .2s var(--ease), border-color .2s var(--ease)}
+.icon-btn:active,.cal-nav:active,.chip:active,.toggle-row:active{transform:scale(.96)}
+.tcard,.hist-row,.badge{transition:transform .2s var(--ease), box-shadow .25s var(--ease), border-color .2s var(--ease)}
+.tcard:active,.hist-row:active{transform:scale(.992)}
+/* Desktop hover affordances */
+@media(hover:hover){
+  .tcard:hover,.badge:hover{transform:translateY(-2px)}
+  .btn-primary:hover{box-shadow:0 12px 26px -9px var(--energy-glow), 0 2px 6px -3px rgba(0,0,0,.45)}
+  .btn-ghost:hover,.icon-btn:hover,.cal-nav:hover{border-color:var(--muted-2)}
+  .nav-item:hover{color:var(--muted)}
+}
+/* Visible keyboard focus (accessibility) */
+:focus-visible{outline:none}
+button:focus-visible,input:focus-visible,select:focus-visible,.toggle-row:focus-visible,[data-action]:focus-visible{box-shadow:var(--ring)}
+/* Crisper display typography */
+.logo{letter-spacing:.6px}
+.sec-label,.cal-title,h3{letter-spacing:-.012em}
+/* Calendar: keep it on-screen on narrow phones */
+.cal-grid{min-width:0}
+.cal-foot{flex-wrap:wrap; gap:6px 10px}
+.cal-foot>span{min-width:0}
+
+/* Resume-workout bar — keeps an in-progress session reachable from any tab */
+#resumeBar{position:fixed; left:50%; transform:translateX(-50%); bottom:calc(82px + env(safe-area-inset-bottom)); z-index:46; width:calc(100% - 26px); max-width:calc(var(--maxw) - 26px); display:flex; align-items:center; gap:11px; padding:11px 15px; border:none; border-radius:15px; color:#fff; text-align:left; cursor:pointer;
+  background:linear-gradient(120deg,#FF8A2B,#FF4D8C);
+  box-shadow:0 14px 32px -10px rgba(255,90,44,.6), 0 4px 14px rgba(0,0,0,.42);
+  animation:rbIn .4s var(--ease-out)}
+#resumeBar:active{transform:translateX(-50%) scale(.985)}
+#resumeBar .rb-dot{width:10px; height:10px; border-radius:50%; background:#fff; animation:rbPulse 1.7s ease-out infinite; flex:0 0 auto}
+#resumeBar .rb-text{flex:1; display:flex; flex-direction:column; line-height:1.15; min-width:0}
+#resumeBar .rb-text b{font-family:'Saira Condensed'; font-weight:700; font-size:15px; letter-spacing:.2px}
+#resumeBar .rb-text span{font-size:11.5px; opacity:.92; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+#resumeBar .rb-cta{font-weight:700; font-size:13px; flex:0 0 auto; background:rgba(255,255,255,.22); padding:6px 11px; border-radius:9px}
+@keyframes rbIn{from{opacity:0; transform:translateX(-50%) translateY(14px)} to{opacity:1; transform:translateX(-50%) translateY(0)}}
+@keyframes rbPulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.6)}70%{box-shadow:0 0 0 9px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
+
 @media(prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
 </style>
 </head>
@@ -720,6 +778,11 @@ h2.screen-title{font-family:'Saira Condensed'; font-weight:700; font-size:30px; 
   </section>
 
   <!-- ===== NAV ===== -->
+  <button id="resumeBar" data-action="resume-session" style="display:none" aria-label="Resume workout in progress">
+    <span class="rb-dot"></span>
+    <span class="rb-text"><b>Workout in progress</b><span id="resumeMeta">Tap to resume</span></span>
+    <span class="rb-cta">Resume ›</span>
+  </button>
   <nav class="nav">
     <button class="nav-item on" data-nav="home"><span class="ni-ico">🏠</span><span class="ni-lbl">Home</span></button>
     <button class="nav-item" data-nav="train"><span class="ni-ico">🏋</span><span class="ni-lbl">Train</span></button>
@@ -785,6 +848,7 @@ function save(){
   Store.set('forge.routines', DB.routines); Store.set('forge.log', DB.log);
   Store.set('forge.prs', DB.prs); Store.set('forge.ach', DB.achievements);
   Store.set('forge.customEx', DB.customEx); Store.set('forge.bodyweight', DB.bodyweight); Store.set('forge.plan', DB.plan); Store.set('forge.quests', DB.quests);
+  try{ Store.set('forge.activeSession', activeSession); }catch(e){}
 }
 let activeSession = Store.get('forge.activeSession', null);
 
@@ -1383,6 +1447,7 @@ function go(screen){
   // toggle session-bar visibility
   $('#sessionBar').style.display = (screen==='session' && activeSession) ? 'block' : 'none';
   if(screen==='session' && activeSession) _fitSessionPad();
+  syncResumeBar(screen);
 }
 
 /* ============================================================
@@ -2560,6 +2625,7 @@ document.addEventListener('click', e=>{
     }
     case 'new-plan': if(confirm('Start a new plan? Your current plan and its progress will be cleared.')){ DB.plan=null; save(); renderRunPlan(); } break;
     // tools
+    case 'resume-session': go('session'); break;
     case 'plate-calc': openPlateCalc(); break;
     case 'interval-timer': openIntervalTimer(); break;
     case 'it-mode': itMode=t.dataset.mode; renderItSetup(); break;
@@ -2609,6 +2675,14 @@ document.addEventListener('input', e=>{
   if(el.classList.contains('s-weight')) syncSetInput(+el.dataset.ei, +el.dataset.si, 'weight', el.value);
   if(el.classList.contains('s-reps')) syncSetInput(+el.dataset.ei, +el.dataset.si, 'reps', el.value);
 });
+// backup: commit on blur/change too (some mobile keyboards batch input events)
+document.addEventListener('change', e=>{
+  if(!activeSession || !e.target || !e.target.classList) return;
+  const el=e.target;
+  if(el.classList.contains('s-weight')) syncSetInput(+el.dataset.ei, +el.dataset.si, 'weight', el.value);
+  if(el.classList.contains('s-reps')) syncSetInput(+el.dataset.ei, +el.dataset.si, 'reps', el.value);
+});
+document.addEventListener('focusout', e=>{ if(activeSession && e.target && e.target.classList && (e.target.classList.contains('s-weight')||e.target.classList.contains('s-reps'))) flushSave(); });
 
 /* ============================================================
    REST TIMER
@@ -2814,10 +2888,17 @@ function shareFlexCard(){
   } else { saveFlexCard(); }
 }
 
+function syncResumeBar(screen){
+  const b=$('#resumeBar'); if(!b) return;
+  const show = !!activeSession && screen!=='session';
+  b.style.display = show ? 'flex' : 'none';
+  if(show){ let d=0,t=0; activeSession.entries.forEach(en=>en.sets.forEach(s=>{ t++; if(s.done) d++; })); const m=$('#resumeMeta'); if(m) m.textContent=activeSession.title+' · '+d+'/'+t+' sets logged'; }
+}
 function boot(){
-  // if an active session was in progress, offer to resume by landing on home; session retained
+  // if a workout was in progress, drop the user straight back into it — nothing is lost
+  if(activeSession){ go('session'); return; }
   renderHome();
-  if(activeSession){ $('#sessionBar').style.display='none'; }
+  syncResumeBar('home');
 }
 boot();
 </script>
