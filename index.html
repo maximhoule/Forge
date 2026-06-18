@@ -297,6 +297,55 @@ h2.screen-title{font-family:'Saira Condensed'; font-weight:700; font-size:30px; 
 .form-field label{display:block; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--muted-2); font-weight:700; margin-bottom:7px}
 .form-field input, .form-field select{width:100%; background:var(--bg); border:1px solid var(--line); border-radius:11px; padding:13px 14px; color:var(--text); font-size:15px}
 .form-field input:focus, .form-field select:focus{outline:none; border-color:var(--energy-1)}
+.row2{display:flex; align-items:center; gap:8px}
+.row2 input{flex:1; min-width:0}
+.row2 .u{font-size:12px; color:var(--muted-2)}
+.vital{padding:13px 0; border-top:1px solid var(--line-soft)}
+.vital:first-child{border-top:0; padding-top:2px}
+.vital-top{display:flex; justify-content:space-between; align-items:baseline; gap:10px}
+.vital-k{font-weight:700; font-size:13.5px}
+.vital-v{font-family:'JetBrains Mono'; font-size:21px; font-weight:700; color:var(--text); white-space:nowrap}
+.vital-v small{font-size:11px; color:var(--muted-2); font-weight:500}
+.vital-sub{font-size:11.5px; color:var(--muted); margin-top:4px; line-height:1.42}
+.vital-tag{display:inline-block; font-family:'JetBrains Mono'; font-size:10px; font-weight:700; color:var(--cool); background:rgba(92,176,255,.14); padding:1px 7px; border-radius:6px}
+.hz-list{margin:9px 0 2px; display:flex; flex-direction:column; gap:5px}
+.hz-row{display:flex; justify-content:space-between; font-size:12px}
+.hz-n{color:var(--muted)}
+.hz-v{font-family:'JetBrains Mono'; color:var(--text)}
+.pace-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:4px}
+.pace-vo2{font-family:'JetBrains Mono'; font-size:11px; color:var(--muted-2)}
+.pace-row{display:flex; align-items:center; gap:11px; width:100%; text-align:left; background:none; border:0; border-top:1px solid var(--line-soft); padding:11px 0; cursor:pointer; color:var(--text)}
+.pace-row:first-of-type{border-top:0}
+.pace-row:active{opacity:.55}
+.pace-dot{width:9px; height:9px; border-radius:99px; flex:0 0 auto}
+.pace-k{flex:1; font-weight:700; font-size:13.5px; display:flex; flex-direction:column; min-width:0}
+.pace-note{font-weight:400; font-size:11px; color:var(--muted); margin-top:1px}
+.pace-v{font-family:'JetBrains Mono'; font-size:17px; font-weight:700; white-space:nowrap}
+.pace-v small{font-size:10px; color:var(--muted-2); font-weight:500}
+.gps-warn{font-size:12px; color:var(--gold); background:var(--gold-soft); border:1px solid rgba(255,200,61,.30); border-radius:10px; padding:10px 12px; margin-bottom:14px; line-height:1.45}
+.gps-card{text-align:center}
+.gps-sig{display:inline-flex; align-items:center; gap:7px; font-size:11px; color:var(--muted); font-family:'JetBrains Mono'; margin-bottom:8px}
+.gps-dot{width:8px; height:8px; border-radius:99px; background:var(--muted-2); transition:background .3s}
+.gps-dot.good{background:#34EAD0} .gps-dot.ok{background:#FFD24D} .gps-dot.weak{background:#FF4D8C}
+.gps-dist{font-family:'Saira Condensed'; font-weight:800; font-size:62px; line-height:1; letter-spacing:-.02em; color:var(--text)}
+.gps-dist small{font-size:20px; color:var(--muted); font-weight:700; margin-left:6px}
+.gps-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:9px; margin-top:16px}
+.gps-cell{background:var(--surface-2); border:1px solid var(--line-soft); border-radius:12px; padding:11px 6px}
+.gps-cell .gl{font-size:9.5px; text-transform:uppercase; letter-spacing:.6px; color:var(--muted-2); font-weight:700}
+.gps-cell .gv{font-family:'JetBrains Mono'; font-size:19px; font-weight:700; margin-top:4px; color:var(--text)}
+.gps-btns{margin-top:18px}
+.gps-note{font-size:11.5px; color:var(--muted); margin-top:12px; line-height:1.45}
+.route-wrap{background:radial-gradient(120% 100% at 50% 0%, #141a26, #0a0e16 82%); border:1px solid var(--line); border-radius:12px; padding:6px}
+.route-wrap svg{display:block; width:100%; height:auto; border-radius:8px}
+.sp-head{font-family:'JetBrains Mono'; font-size:10px; text-transform:uppercase; letter-spacing:.6px; color:var(--muted-2); margin:12px 0 6px}
+.sp-row{display:flex; align-items:center; gap:9px; margin:5px 0}
+.sp-k{font-family:'JetBrains Mono'; font-size:12px; color:var(--muted); width:18px; text-align:right; flex:0 0 auto}
+.sp-bar{flex:1; height:8px; background:var(--surface-3); border-radius:99px; overflow:hidden}
+.sp-bar > i{display:block; height:100%; background:var(--grad-energy); border-radius:99px}
+.sp-v{font-family:'JetBrains Mono'; font-size:12.5px; width:46px; text-align:right; color:var(--text); flex:0 0 auto}
+.sp-v.fast{color:var(--gold); font-weight:700}
+.sp-neg{font-size:11.5px; color:var(--teal); margin-top:8px}
+#stStreakSub{color:var(--muted)}
 .ex-pick{display:flex; align-items:center; gap:9px; padding:11px 12px; border-radius:11px; background:var(--surface-2); border:1px solid var(--line-soft); margin-bottom:8px}
 .ex-pick .epn{flex:1; font-weight:600; font-size:14px}
 .ex-pick .epg{font-size:10px; color:var(--muted-2); text-transform:uppercase; letter-spacing:.5px; font-weight:700}
@@ -521,13 +570,6 @@ h2.screen-title{font-family:'Saira Condensed'; font-weight:700; font-size:30px; 
 .relic-bar > i{display:block; height:100%; width:0; background:var(--grad-energy); border-radius:99px; transition:width .8s ease}
 .relic-next{font-size:11px; color:var(--muted); font-family:'JetBrains Mono'}
 
-/* Strength constellation */
-.cst-wrap{position:relative; border-radius:14px; overflow:hidden; border:1px solid var(--line); background:radial-gradient(130% 100% at 50% 0%, #1a2336, #0b0f17 78%)}
-.cst-wrap svg{width:100%; height:auto; display:block}
-.cst-star{transform-box:fill-box; transform-origin:center center; animation:cstTwinkle 3s ease-in-out infinite}
-@keyframes cstTwinkle{0%,100%{transform:scale(1)}50%{transform:scale(.78)}}
-.cst-flare{animation:cstFlare 1.8s ease-in-out infinite}
-@keyframes cstFlare{0%,100%{opacity:.85}50%{opacity:.3}}
 /* ghost race */
 .race-track{position:relative; background:repeating-linear-gradient(90deg,#12151c,#12151c 18px,#161b25 18px,#161b25 36px); border:1px solid var(--line); border-radius:12px; padding:9px 0; margin:8px 0 12px; overflow:hidden}
 .race-track .lane{position:relative; height:34px; margin:3px 0}
@@ -549,7 +591,7 @@ h2.screen-title{font-family:'Saira Condensed'; font-weight:700; font-size:30px; 
   --ring:0 0 0 2px var(--bg), 0 0 0 4px rgba(92,176,255,.75);
 }
 /* Elevation + a faint lit top edge for a crafted, premium surface */
-.card,.chart-card,.hero,.tcard,.exblock,.hist-row,.badge,.relic-panel,.cst-wrap{
+.card,.chart-card,.hero,.tcard,.exblock,.hist-row,.badge,.relic-panel{
   box-shadow:inset 0 1px 0 rgba(255,255,255,.045), var(--shadow-md);
 }
 .stat{box-shadow:inset 0 1px 0 rgba(255,255,255,.04), var(--shadow-sm)}
@@ -670,7 +712,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,.toggle-row:focus-
     </div>
 
     <div class="stat-grid">
-      <div class="stat hot"><div class="k">🔥 Streak</div><div class="v"><span id="stStreak">0</span> <small>days</small></div></div>
+      <div class="stat hot"><div class="k">🔥 Streak</div><div class="v"><span id="stStreak">0</span><small id="stStreakSub"> days</small></div></div>
       <div class="stat"><div class="k">🏋 Workouts</div><div class="v" id="stWorkouts">0</div></div>
       <div class="stat gold"><div class="k">📈 Volume</div><div class="v"><span id="stVolume">0</span><small id="stVolUnit"> kg</small></div></div>
       <div class="stat cool"><div class="k">🏃 Distance</div><div class="v"><span id="stDist">0</span><small> km</small></div></div>
@@ -742,6 +784,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,.toggle-row:focus-
     <div class="chips" style="margin-bottom:18px">
       <button class="chip cool on" data-tab="quick" data-action="cardio-tab">Quick session</button>
       <button class="chip cool" data-tab="plan" data-action="cardio-tab">Distance plan</button>
+      <button class="chip cool" data-tab="gps" data-action="cardio-tab">GPS run</button>
     </div>
     <div id="cardio-quick">
     <p class="screen-lead">Choose a distance and a goal — your session scales to match.</p>
@@ -773,6 +816,8 @@ button:focus-visible,input:focus-visible,select:focus-visible,.toggle-row:focus-
       </div>
     </div>
 
+    <div id="pacesCardWrap"></div>
+
     <div class="card">
       <div class="form-field" style="margin-bottom:0">
         <label>Target pace — optional (min/km, for time estimates)</label>
@@ -785,6 +830,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,.toggle-row:focus-
     <div id="cardioPlan"></div>
     </div>
     <div id="cardio-plan" style="display:none"></div>
+    <div id="cardio-gps" style="display:none"></div>
   </section>
 
   <!-- ===== RECORDS ===== -->
@@ -863,9 +909,9 @@ const Store = (() => {
 
 /* ---------- state ---------- */
 const DB = {
-  settings: Store.get('forge.settings', {name:'', unit:'kg', sound:true}),
+  settings: Store.get('forge.settings', {name:'', unit:'kg', sound:true, voice:false, sex:'', birthYear:null, heightCm:null, restHR:null}),
   stats: Store.get('forge.stats', {xp:0, totalVolume:0, distanceKm:0, prsSet:0, routinesCreated:0,
-                                   workouts:0, cardioSessions:0, currentStreak:0, longestStreak:0, lastWorkoutDate:null, balancedWeeks:0, lastBalancedWeek:null}),
+                                   workouts:0, cardioSessions:0, currentStreak:0, longestStreak:0, lastWorkoutDate:null, balancedWeeks:0, lastBalancedWeek:null, streakFreezes:0}),
   routines: Store.get('forge.routines', []),
   log: Store.get('forge.log', []),
   prs: Store.get('forge.prs', {}),
@@ -1500,6 +1546,7 @@ function renderHome(){
   $('#xpFill').style.width=li.pct+'%';
 
   $('#stStreak').textContent=DB.stats.currentStreak;
+  { const _fz=DB.stats.streakFreezes||0, _ss=$('#stStreakSub'); if(_ss) _ss.textContent=' days'+(_fz>0?' · ❄️'+_fz:''); }
   $('#stWorkouts').textContent=DB.stats.workouts;
   $('#stVolume').textContent=fmt(DB.stats.totalVolume);
   $('#stVolUnit').textContent=' '+DB.settings.unit;
@@ -1667,26 +1714,30 @@ function muscleCard(){
   </div>`;
 }
 const STD=[
-  {name:'Back Squat', short:'Squat', lv:[1.0,1.5,2.0,2.5]},
-  {name:'Barbell Bench Press', short:'Bench', lv:[0.75,1.1,1.5,2.0]},
-  {name:'Deadlift', short:'Deadlift', lv:[1.25,1.75,2.25,3.0]},
-  {name:'Overhead Press', short:'Press', lv:[0.5,0.7,0.9,1.2]}
+  {name:'Back Squat', short:'Squat', lv:[1.0,1.5,2.0,2.5], lvF:[0.7,1.0,1.4,1.8]},
+  {name:'Barbell Bench Press', short:'Bench', lv:[0.75,1.1,1.5,2.0], lvF:[0.5,0.7,0.95,1.3]},
+  {name:'Deadlift', short:'Deadlift', lv:[1.25,1.75,2.25,3.0], lvF:[0.9,1.3,1.7,2.2]},
+  {name:'Overhead Press', short:'Press', lv:[0.5,0.7,0.9,1.2], lvF:[0.35,0.5,0.65,0.85]}
 ];
 const STD_LEVELS=['Beginner','Novice','Intermediate','Advanced','Elite'];
 function bwLatest(){ if(!DB.bodyweight.length) return null; const s=DB.bodyweight.slice().sort((a,b)=>a.date<b.date?-1:1); return s[s.length-1].weight; }
 function strengthScores(){
   const bw=bwLatest(); if(!bw) return {needBW:true};
+  const sex=DB.settings.sex||''; const age=currentAge();
+  const af=(age && age>40)? Math.max(0.8, 1-0.006*(age-40)) : 1;
   const axes=[]; let sum=0, have=0;
   STD.forEach(st=>{
+    const base=(sex==='female' && st.lvF)? st.lvF : st.lv;
+    const lv=base.map(x=>x*af);
     const pr=DB.prs[st.name]; const e=pr?pr.e1rm:0; const ratio=e>0?e/bw:0;
-    const elite=st.lv[st.lv.length-1]; const score01=Math.max(0,Math.min(1, ratio/elite));
-    let lvl=0; for(let i=0;i<st.lv.length;i++){ if(ratio>=st.lv[i]) lvl=i+1; }
+    const elite=lv[lv.length-1]; const score01=Math.max(0,Math.min(1, ratio/elite));
+    let lvl=0; for(let i=0;i<lv.length;i++){ if(ratio>=lv[i]) lvl=i+1; }
     axes.push({label:st.short, name:st.name, ratio, score01, lvl, has:e>0});
     if(e>0){ sum+=score01; have++; }
   });
   const overall = have? sum/have : 0; const cuts=[0,0.2,0.4,0.6,0.8]; let oLvl=0;
   for(let i=0;i<cuts.length;i++){ if(overall>=cuts[i]) oLvl=i; }
-  return {bw, axes, overall, overallLabel:STD_LEVELS[oLvl], have};
+  return {bw, axes, overall, overallLabel:STD_LEVELS[oLvl], have, sex, age, af};
 }
 function radarSVG(axes){
   const N=axes.length, W=300, H=210, cx=150, cy=98, R=74;
@@ -1716,8 +1767,77 @@ function strengthCard(){
     <div class="ss-top"><div class="ss-rank">${r.overallLabel}</div><div class="chart-sub" style="margin:0;text-align:right">Overall level<br>vs body weight</div></div>
     ${r.have?`<div class="chart-box" style="margin-top:2px">${radarSVG(r.axes)}</div>`:`<p class="chart-sub">Log a Squat, Bench, Deadlift or Overhead Press to plot your profile.</p>`}
     <div class="ss-list">${list}</div>
-    <p class="hint" style="margin-top:10px">Standards are approximate, relative to your body weight (${cn(r.bw)} ${DB.settings.unit}).</p>
+    <p class="hint" style="margin-top:10px">${(r.sex||r.age)?`Adjusted for ${[r.sex==='female'?'female':(r.sex==='male'?'male':null), r.age?('age '+r.age):null].filter(Boolean).join(', ')} · relative to body weight (${cn(r.bw)} ${DB.settings.unit}).`:`Approximate, relative to body weight (${cn(r.bw)} ${DB.settings.unit}). <span data-action="open-profile" style="color:var(--cool)">Add sex &amp; age for sharper standards →</span>`}</p>
   </div>`;
+}
+
+
+/* ===================== PROFILE & DERIVED FITNESS METRICS ===================== */
+function currentAge(){ const y=DB.settings.birthYear; return (y && y>1900)? (new Date().getFullYear()-y) : null; }
+function maxHR(){ const a=currentAge(); return a? Math.round(208 - 0.7*a) : null; }            // Tanaka et al.
+function bwKg(){ const bw=bwLatest(); if(!bw) return null; return DB.settings.unit==='lb'? bw*0.453592 : bw; }
+function bmiInfo(){ const h=DB.settings.heightCm, kg=bwKg(); if(!(h>0 && kg)) return null;
+  const m=h/100, bmi=kg/(m*m); const label=bmi<18.5?'Underweight':(bmi<25?'Healthy':(bmi<30?'Overweight':'Obese')); return {bmi, label}; }
+// VO2max from a single run effort (Daniels VDOT model)
+function vo2FromRun(km, min){ if(!(km>0 && min>0)) return null; const v=(km*1000)/min;
+  const vo2=-4.60 + 0.182258*v + 0.000104*v*v;
+  const pct=0.8 + 0.1894393*Math.exp(-0.012778*min) + 0.2989558*Math.exp(-0.1932605*min);
+  return (pct>0)? vo2/pct : null; }
+function bestVo2(){ const runs=(DB.log||[]).filter(l=>l.type==='cardio' && l.durationMin>0 && l.distance>=1.5 && l.durationMin>=6 && l.durationMin<=90);
+  let best=null, run=null; runs.forEach(r=>{ const v=vo2FromRun(r.distance, r.durationMin); if(v && (best===null || v>best)){ best=v; run=r; } });
+  return best? {vo2:best, run} : null; }
+function vo2FromRestHR(){ const hr=DB.settings.restHR, mx=maxHR(); if(!(hr>0 && mx)) return null; return 15.3*(mx/hr); } // Uth-Sorensen
+function vo2Category(v, age, sex){ if(!(v>0)) return null;
+  const labels=['Poor','Fair','Good','Very good','Excellent'];
+  const M={u20:[45,50,55,60],a20:[42,47,52,57],a30:[40,45,50,55],a40:[37,42,47,52],a50:[34,39,44,49],a60:[30,35,40,45]};
+  const F={u20:[39,44,49,54],a20:[36,41,46,51],a30:[34,39,44,49],a40:[31,36,41,46],a50:[28,33,38,43],a60:[25,30,35,40]};
+  let cuts;
+  if(age && (sex==='male'||sex==='female')){ const t=sex==='female'?F:M;
+    const b=age<20?'u20':age<30?'a20':age<40?'a30':age<50?'a40':age<60?'a50':'a60'; cuts=t[b]; }
+  else cuts=[32,38,45,52];
+  let i=0; for(;i<cuts.length;i++){ if(v<cuts[i]) break; } return {label:labels[i]};
+}
+function hrZones(){ const mx=maxHR(); if(!mx) return null; const rest=(DB.settings.restHR>0)?DB.settings.restHR:null;
+  const calc=p=> rest? Math.round(rest + p*(mx-rest)) : Math.round(p*mx);
+  const defs=[['Z1 Recovery',0.5,0.6],['Z2 Aerobic',0.6,0.7],['Z3 Tempo',0.7,0.8],['Z4 Threshold',0.8,0.9],['Z5 Max',0.9,1.0]];
+  return {mx, rest, zones:defs.map(d=>({name:d[0], lo:calc(d[1]), hi:calc(d[2])}))}; }
+
+function profileCard(){
+  const s=DB.settings; const age=currentAge(); const haveProfile=!!(s.sex||age||s.heightCm);
+  const bestV=bestVo2(); const vRest=vo2FromRestHR();
+  let vo2=null, vsrc='';
+  if(bestV){ vo2=bestV.vo2; vsrc='from your best run · '+cn(Math.round(bestV.run.distance*10)/10)+' km in '+bestV.run.durationMin+' min'; }
+  else if(vRest){ vo2=vRest; vsrc='estimated from resting heart rate'; }
+  const cat=vo2? vo2Category(vo2, age, s.sex) : null;
+  const bmi=bmiInfo(); const hz=hrZones();
+  let blocks='';
+  if(vo2){ blocks+=`<div class="vital"><div class="vital-top"><div class="vital-k">VO₂max · estimate</div><div class="vital-v">${vo2.toFixed(1)}<small> ml/kg/min</small></div></div><div class="vital-sub">${cat?`<span class="vital-tag">${cat.label}${age&&s.sex?' for your age/sex':''}</span> · `:''}${vsrc}</div></div>`; }
+  else { blocks+=`<div class="vital"><div class="vital-k">VO₂max · estimate</div><div class="vital-sub" style="margin-top:4px">Log a hard run of 1.5 km or more — or add your resting heart rate below — and FORGE will estimate it.</div></div>`; }
+  if(bmi){ blocks+=`<div class="vital"><div class="vital-top"><div class="vital-k">BMI</div><div class="vital-v">${bmi.bmi.toFixed(1)}</div></div><div class="vital-sub"><span class="vital-tag">${bmi.label}</span> · BMI ignores muscle, so trained lifters often read high.</div></div>`; }
+  if(hz){ const zr=hz.zones.map(z=>`<div class="hz-row"><span class="hz-n">${z.name}</span><span class="hz-v">${z.lo}–${z.hi}</span></div>`).join('');
+    blocks+=`<div class="vital"><div class="vital-top"><div class="vital-k">Heart-rate zones</div><div class="vital-v">${hz.mx}<small> max bpm</small></div></div><div class="hz-list">${zr}</div><div class="vital-sub">${hz.rest?('Karvonen method · resting '+hz.rest+' bpm'):'bpm · add resting HR for personalized zones'}</div></div>`; }
+  const cta=haveProfile?'Edit body &amp; profile':'＋ Add your details for accurate analysis';
+  return `<div class="sec-label">🫀 Fitness profile</div><div class="chart-card">
+    ${haveProfile?'':`<p class="chart-sub" style="margin:0 0 12px">Add your sex, age and height to sharpen your strength standards, plus estimate VO₂max and heart-rate zones.</p>`}
+    ${blocks}
+    <button class="btn ${haveProfile?'btn-ghost':'btn-cool'}" data-action="open-profile" style="margin-top:10px">${cta}</button>
+  </div>`;
+}
+function openProfile(){
+  const s=DB.settings; const age=currentAge(); const metric=(s.unit!=='lb'); const hCm=s.heightCm||null;
+  let heightField;
+  if(metric){ heightField=`<div class="form-field"><label>Height (cm)</label><input id="pHeight" type="number" inputmode="numeric" min="100" max="250" value="${hCm?Math.round(hCm):''}" placeholder="175"></div>`; }
+  else { let ft='',inch=''; if(hCm){ const ti=hCm/2.54; ft=Math.floor(ti/12); inch=Math.round(ti-ft*12); }
+    heightField=`<div class="form-field"><label>Height</label><div class="row2"><input id="pFt" type="number" inputmode="numeric" min="3" max="8" value="${ft}" placeholder="5"><span class="u">ft</span><input id="pIn" type="number" inputmode="numeric" min="0" max="11" value="${inch}" placeholder="9"><span class="u">in</span></div></div>`; }
+  openSheet(`<div class="grab"></div><h3>Body &amp; profile</h3>
+    <p class="sh-lead">These sharpen your strength standards, VO₂max estimate and heart-rate zones. All optional — stored only on this device.</p>
+    <div class="form-field"><label>Sex · for strength &amp; VO₂max norms</label>
+      <div class="chips"><button class="chip ${s.sex==='male'?'on':''}" data-action="set-sex" data-sex="male">Male</button><button class="chip ${s.sex==='female'?'on':''}" data-action="set-sex" data-sex="female">Female</button></div></div>
+    <div class="form-field"><label>Age</label><input id="pAge" type="number" inputmode="numeric" min="10" max="100" value="${age||''}" placeholder="30"></div>
+    ${heightField}
+    <div class="form-field"><label>Resting heart rate · bpm, optional</label><input id="pRest" type="number" inputmode="numeric" min="30" max="120" value="${s.restHR||''}" placeholder="60"></div>
+    <button class="btn btn-primary" data-action="save-profile" style="margin-top:8px">Save profile</button>
+    <button class="btn btn-ghost btn-sm" data-action="close-sheet">Cancel</button>`);
 }
 
 function renderRecords(){
@@ -1758,7 +1878,7 @@ function renderRecords(){
   </div>
   <div class="chart-card"><h3>${heading}</h3><p class="chart-sub">${sub}</p>${selectHtml}<div class="chart-box">${chartInner}</div></div>`;
 
-  html+=muscleCard(); html+=strengthCard(); html+=constellationCard();
+  html+=muscleCard(); html+=strengthCard(); html+=profileCard();
   html+=`<div class="sec-label">🏆 Personal records</div>`;
   if(prRows.length){
     html+=prRows.map((p,i)=>`<div class="pr-row"><div class="pr-rank">${i+1}</div><div class="pr-info"><div class="pn">${esc(p.n)}</div><div class="pd">Best: ${p.weight} ${DB.settings.unit} × ${p.reps} · ${p.date}</div></div><div class="pr-val"><div class="e1">${Math.round(p.e1rm)}</div><div class="el">est 1RM · ${DB.settings.unit}</div></div></div>`).join('');
@@ -1779,7 +1899,10 @@ function renderRecords(){
   if(hasLog){
     html+=DB.log.map(x=>{
       if(x.type==='cardio'){
-        return `<div class="hist-row"><div class="hist-main" data-action="toggle-log"><div class="hist-ico c">🏃</div><div class="hist-body"><div class="hist-title">${(Math.round(x.distance*10)/10)} km · ${gn[x.goal]||'Run'}</div><div class="hist-meta">${x.durationMin?x.durationMin+' min':'Cardio session'}</div></div><div class="hist-date">${sd(x.date)}</div></div></div>`;
+        const _rt=(x.path && x.path.length>1);
+        const _avg=(x.distance>0 && x.durationMin>0)?fmtMin(x.durationMin/x.distance):null;
+        const _det=(_rt?`<div class="route-wrap" style="margin:6px 0 4px">${routeSVG(x.path,300,150)}</div>`:'')+((x.splits&&x.splits.length)?splitsTable(x.splits):'')+(_avg?`<div class="hd-row"><span>Avg pace</span><span class="mono">${_avg} /km</span></div>`:'');
+        return `<div class="hist-row"><div class="hist-main" data-action="toggle-log"><div class="hist-ico c">🏃</div><div class="hist-body"><div class="hist-title">${(Math.round(x.distance*10)/10)} km · ${gn[x.goal]||'Run'}</div><div class="hist-meta">${x.durationMin?x.durationMin+' min':'Cardio session'}${_rt?' · 🗺 route':''}</div></div><div class="hist-date">${sd(x.date)}</div></div>${_det?`<div class="hist-detail">${_det}</div>`:''}</div>`;
       }
       const setCount=(x.entries||[]).reduce((a,e)=>a+(e.sets||[]).length,0);
       const detail=(x.entries||[]).map(e=>{ const best=(e.sets||[]).reduce((b,s)=>{ const k=(+s.weight||0); return k>b.w?{w:k,r:(+s.reps||0)}:b; },{w:0,r:0}); return `<div class="hd-row"><span>${esc(e.exercise)}</span><span class="mono">${(e.sets||[]).length} sets · best ${best.w||0}×${best.r||0}</span></div>`; }).join('');
@@ -2023,16 +2146,26 @@ function finishSession(){
   if(relicTier().idx>_relicBefore){ setTimeout(()=>toast('🗡️','Relic advanced!','Your forge reached '+relicTier().tier.n), 750); }
   showSummary({volume, prHits, xp:60+prHits.length*40, newAch});
 }
+function _daysBetween(a,b){ return Math.round((new Date(b+'T00:00:00')-new Date(a+'T00:00:00'))/86400000); }
 function updateStreak(){
   const t=todayStr(); const last=DB.stats.lastWorkoutDate;
-  if(last===t) {/* already today, streak unchanged */}
+  if(last===t) return; // already trained today
+  let broke=false, used=0, earned=false;
+  if(!last){ DB.stats.currentStreak=1; }
   else{
-    const y=new Date(); y.setDate(y.getDate()-1);
-    const yStr=y.getFullYear()+'-'+String(y.getMonth()+1).padStart(2,'0')+'-'+String(y.getDate()).padStart(2,'0');
-    if(last===yStr) DB.stats.currentStreak++; else DB.stats.currentStreak=1;
-    DB.stats.lastWorkoutDate=t;
+    const gap=_daysBetween(last,t);
+    if(gap<=2){ DB.stats.currentStreak++; }                 // trained yesterday OR one rest day — free
+    else{
+      const need=gap-2, have=DB.stats.streakFreezes||0;     // extra rest days beyond the free one
+      if(have>=need){ DB.stats.streakFreezes=have-need; used=need; DB.stats.currentStreak++; }
+      else{ DB.stats.currentStreak=1; broke=true; }
+    }
   }
+  DB.stats.lastWorkoutDate=t;
+  if(!broke && DB.stats.currentStreak>0 && DB.stats.currentStreak%7===0){ DB.stats.streakFreezes=Math.min(5,(DB.stats.streakFreezes||0)+1); earned=true; }
   if(DB.stats.currentStreak>DB.stats.longestStreak) DB.stats.longestStreak=DB.stats.currentStreak;
+  if(used>0) setTimeout(()=>toast('❄️','Streak saved!',used+' rest day'+(used>1?'s':'')+' covered by a freeze'),900);
+  if(earned) setTimeout(()=>toast('❄️','Freeze earned','Banked a rest-day save · '+DB.stats.streakFreezes+' in reserve'),1150);
 }
 function gainXP(n){ DB.stats.xp+=n; }
 function checkAchievements(){
@@ -2116,35 +2249,6 @@ function ghostBanner(dist, pace){
 }
 
 
-/* ---------- Strength Constellation ---------- */
-function _cstHash(s){ let h=2166136261>>>0; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619)>>>0; } return h>>>0; }
-function constellationSVG(){
-  const names=Object.keys(DB.prs||{}); const W=320,H=200;
-  if(!names.length) return `<svg viewBox="0 0 ${W} ${H}"><text x="160" y="104" text-anchor="middle" fill="#6E7A93" font-size="12" font-family="Inter">Set personal records to light up your sky</text></svg>`;
-  const maxE=Math.max(1, ...names.map(n=>DB.prs[n].e1rm||0));
-  const pos={}; names.forEach(n=>{ pos[n]={x:20+(_cstHash(n)%1000)/1000*280, y:24+(_cstHash(n+'~')%1000)/1000*150}; });
-  const groups={}; names.forEach(n=>{ const g=(exInfo(n).g)||'Other'; (groups[g]=groups[g]||[]).push(n); });
-  let lines=''; Object.keys(groups).forEach(g=>{ const arr=groups[g]; if(arr.length<2) return; const s=arr.slice().sort((a,b)=>pos[a].x-pos[b].x); for(let i=1;i<s.length;i++){ const a=pos[s[i-1]],b=pos[s[i]]; lines+=`<line x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" x2="${b.x.toFixed(1)}" y2="${b.y.toFixed(1)}" stroke="#33405A" stroke-width="0.8" opacity="0.5"/>`; } });
-  let bg=''; for(let i=0;i<42;i++){ const x=(_cstHash('b'+i)%1000)/1000*W, y=(_cstHash('by'+i)%1000)/1000*H, r=((_cstHash('br'+i)%10)/10*0.7+0.3); bg+=`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${r.toFixed(1)}" fill="#8895B5" opacity="0.16"/>`; }
-  const wk=weekKey(); let top=names[0]; names.forEach(n=>{ if((DB.prs[n].e1rm||0)>(DB.prs[top].e1rm||0)) top=n; });
-  let stars='';
-  names.forEach(n=>{
-    const e=DB.prs[n].e1rm||0, b=e/maxE, p=pos[n], r=(1.6+b*4).toFixed(1);
-    const col=`rgb(${Math.round(207+(255-207)*b)},${Math.round(224-(224-178)*b)},${Math.round(255-(255-110)*b)})`;
-    const op=(0.5+b*0.5).toFixed(2), delay=((_cstHash(n)%30)/10).toFixed(1);
-    const recent = DB.prs[n].date && weekKey(DB.prs[n].date)===wk;
-    if(recent) stars+=`<circle class="cst-flare" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(+r+5).toFixed(1)}" fill="none" stroke="#FFC24D" stroke-width="1.2"/>`;
-    stars+=`<circle class="cst-star" style="animation-delay:${delay}s" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${r}" fill="${col}" opacity="${op}"/>`;
-    if(n===top) stars+=`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(+r+2.5).toFixed(1)}" fill="none" stroke="#FFD27A" stroke-width="0.9" opacity="0.6"/><text x="${p.x.toFixed(1)}" y="${(p.y-(+r+6)).toFixed(1)}" text-anchor="middle" font-size="8.5" fill="#FFD27A" font-family="Inter" font-weight="700">${esc(n)}</text>`;
-  });
-  return `<svg viewBox="0 0 ${W} ${H}">${bg}${lines}${stars}</svg>`;
-}
-function constellationCard(){
-  const names=Object.keys(DB.prs||{});
-  if(!names.length) return `<div class="sec-label">✨ Strength constellation</div><div class="cst-wrap">${constellationSVG()}</div>`;
-  let top=names[0]; names.forEach(n=>{ if((DB.prs[n].e1rm||0)>(DB.prs[top].e1rm||0)) top=n; });
-  return `<div class="sec-label">✨ Strength constellation</div><div class="cst-wrap">${constellationSVG()}</div><p class="hint" style="margin-top:8px;text-align:left">${names.length} lift${names.length>1?'s':''} mapped · brightest: ${esc(top)} (${Math.round(DB.prs[top].e1rm)} ${DB.settings.unit}). Every PR burns its star brighter.</p>`;
-}
 /* ---------- Ghost-race replay ---------- */
 let _race=null;
 function fmtMin(m){ const s=Math.max(0,Math.round(m*60)); return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
@@ -2215,10 +2319,10 @@ function renderCardioPlan(dist, goal, segs, pace){
   $('#cardioPlan').innerHTML=html;
   $('#cardioPlan').scrollIntoView({behavior:'smooth', block:'start'});
 }
-function logCardio(dist, goal, min){
+function logCardio(dist, goal, min, extra){
   const _ghost = min? ghostFor(dist) : null;
   const _relicBefore=relicTier().idx;
-  DB.log.unshift({id:uid(), ts:Date.now(), date:todayStr(), type:'cardio', distance:dist, goal, durationMin:min});
+  DB.log.unshift(Object.assign({id:uid(), ts:Date.now(), date:todayStr(), type:'cardio', distance:dist, goal, durationMin:min}, extra||{}));
   DB.stats.cardioSessions++; DB.stats.distanceKm+=dist;
   updateStreak(); gainXP(50);
   updateBalancedWeeks(); const newAch=checkAchievements(); save();
@@ -2322,12 +2426,200 @@ function renderRunPlan(){
   </div>` + weeks.map(w=>renderWeek(w, pl)).join('');
   host.innerHTML=html;
 }
+
+/* ===================== TRAINING PACES (from VO2max · Daniels VDOT) ===================== */
+function vVO2(target){ const a=0.000104,b=0.182258,c=-4.60-target; const d=b*b-4*a*c; if(d<0) return null; return (-b+Math.sqrt(d))/(2*a); }
+function trainingPaces(){
+  const bv=bestVo2(), vr=vo2FromRestHR(); let vo2=null, src='';
+  if(bv){ vo2=bv.vo2; src='from your best run'; } else if(vr){ vo2=vr; src='from resting HR + age'; }
+  if(!vo2) return null;
+  const zones=[
+    {k:'Easy', pct:0.70, note:'conversational · most of your running', col:'#34EAD0'},
+    {k:'Tempo', pct:0.86, note:'comfortably hard · 20–40 min', col:'#FF8A2B'},
+    {k:'Interval', pct:0.97, note:'VO₂max · 3–5 min reps', col:'#FF4D8C'},
+    {k:'Reps', pct:1.05, note:'short & fast · speed and form', col:'#FFD24D'}
+  ];
+  const paces=zones.map(z=>{ const v=vVO2(vo2*z.pct); const min=v?1000/v:null; return Object.assign({}, z, {min, disp:min?fmtMin(min):'—', dec:min?(Math.round(min*100)/100):''}); });
+  return {vo2, src, paces};
+}
+function pacesCard(){
+  const tp=trainingPaces();
+  if(!tp) return `<div class="sec-label">🎯 Training paces</div><div class="card tight"><p class="chart-sub" style="margin:0 0 12px">Personalized easy / tempo / interval paces show up here once FORGE can estimate your VO₂max — log a hard run of 1.5 km+, or add your age &amp; resting heart rate in your profile.</p><button class="btn btn-ghost btn-sm" data-action="open-profile">👤 Set up profile</button></div>`;
+  const rows=tp.paces.map(p=>`<button class="pace-row" data-action="use-pace" data-pace="${p.dec}" data-k="${p.k}" data-disp="${p.disp}"><span class="pace-dot" style="background:${p.col}"></span><span class="pace-k">${p.k}<span class="pace-note">${p.note}</span></span><span class="pace-v">${p.disp}<small>/km</small></span></button>`).join('');
+  return `<div class="sec-label">🎯 Training paces</div><div class="card">
+    <div class="pace-head"><div class="eyebrow" style="margin:0">Target paces · ${tp.src}</div><div class="pace-vo2">VO₂ ${tp.vo2.toFixed(0)}</div></div>
+    ${rows}
+    <p class="hint" style="margin-top:10px">Tap a pace to drop it into the box below. Estimated via the Daniels VDOT model — keep easy days truly easy.</p>
+  </div>`;
+}
+
+
+/* ===================== GPS RUN TRACKING ===================== */
+let _gps=null, _gpsDone=null;
+function _compactPath(points){
+  if(!points || points.length<2) return null;
+  const max=160; let pts=points;
+  if(points.length>max){ pts=[]; const step=points.length/max; for(let i=0;i<points.length;i+=step) pts.push(points[Math.floor(i)]); pts.push(points[points.length-1]); }
+  return pts.map(p=>[Math.round(p.lat*1e5)/1e5, Math.round(p.lng*1e5)/1e5]);
+}
+function routeSVG(path,w,h){
+  w=w||300; h=h||150;
+  if(!path || path.length<2) return '';
+  const lat=path.map(p=>p[0]), lng=path.map(p=>p[1]);
+  const midLat=(Math.min.apply(null,lat)+Math.max.apply(null,lat))/2, k=Math.cos(midLat*Math.PI/180)||1;
+  const xs=lng.map(v=>v*k), ys=lat.slice();
+  const minX=Math.min.apply(null,xs),maxX=Math.max.apply(null,xs),minY=Math.min.apply(null,ys),maxY=Math.max.apply(null,ys);
+  const pad=14, spanX=(maxX-minX)||1e-6, spanY=(maxY-minY)||1e-6;
+  const scale=Math.min((w-2*pad)/spanX,(h-2*pad)/spanY);
+  const offX=(w-spanX*scale)/2, offY=(h-spanY*scale)/2;
+  const px=i=>offX+(xs[i]-minX)*scale, py=i=>offY+(maxY-ys[i])*scale;
+  let d=''; for(let i=0;i<path.length;i++){ d+=(i?'L':'M')+px(i).toFixed(1)+' '+py(i).toFixed(1); }
+  const gid='rt'+Math.random().toString(36).slice(2,7);
+  return `<svg viewBox="0 0 ${w} ${h}" width="100%" style="display:block"><defs><linearGradient id="${gid}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FF8A2B"/><stop offset="100%" stop-color="#FF4D8C"/></linearGradient></defs><path d="${d}" fill="none" stroke="url(#${gid})" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="${px(0).toFixed(1)}" cy="${py(0).toFixed(1)}" r="5" fill="#34EAD0" stroke="#0C0F14" stroke-width="2"/><circle cx="${px(path.length-1).toFixed(1)}" cy="${py(path.length-1).toFixed(1)}" r="5" fill="#FF4D8C" stroke="#0C0F14" stroke-width="2"/></svg>`;
+}
+function gpsSupported(){ return typeof navigator!=='undefined' && !!navigator.geolocation; }
+function _haversine(a,b){ const R=6371000, toR=Math.PI/180;
+  const dLat=(b.lat-a.lat)*toR, dLng=(b.lng-a.lng)*toR, la1=a.lat*toR, la2=b.lat*toR;
+  const h=Math.sin(dLat/2)**2 + Math.cos(la1)*Math.cos(la2)*Math.sin(dLng/2)**2;
+  return 2*R*Math.asin(Math.min(1,Math.sqrt(h))); }
+function _fmtClock(ms){ let s=Math.floor(ms/1000); const h=Math.floor(s/3600); s-=h*3600; const m=Math.floor(s/60); s-=m*60;
+  return (h>0?(h+':'+String(m).padStart(2,'0')):m)+':'+String(s).padStart(2,'0'); }
+function _gpsElapsedMs(){ if(!_gps) return 0; return _gps.accumMs + ((_gps.running && _gps.resumedAt)?(Date.now()-_gps.resumedAt):0); }
+
+/* ---------- Voice cues (offline speech synthesis) ---------- */
+function speak(text){ try{ if(DB.settings.voice===true && typeof window!=='undefined' && window.speechSynthesis){ const u=new SpeechSynthesisUtterance(text); u.rate=1.0; u.pitch=1.0; u.volume=1.0; window.speechSynthesis.cancel(); window.speechSynthesis.speak(u); } }catch(e){} }
+function _spokenPace(sec){ sec=Math.round(sec); const m=Math.floor(sec/60), s=sec%60; return m+' minute'+(m===1?'':'s')+(s?(' '+s+' second'+(s===1?'':'s')):''); }
+function _spokenClock(sec){ sec=Math.round(sec); const h=Math.floor(sec/3600), m=Math.floor((sec%3600)/60), s=sec%60; const p=[]; if(h)p.push(h+' hour'+(h>1?'s':'')); if(m)p.push(m+' minute'+(m>1?'s':'')); if(s&&!h)p.push(s+' second'+(s>1?'s':'')); return p.join(' ')||'0 seconds'; }
+/* ---------- Run splits table ---------- */
+function splitsTable(splits){
+  if(!splits || !splits.length) return '';
+  const secs=splits.map(s=>s.sec), fastest=Math.min.apply(null,secs);
+  const rows=splits.map(s=>{ const w=Math.max(14, Math.round((fastest/s.sec)*100)), isF=s.sec===fastest;
+    return `<div class="sp-row"><span class="sp-k">${s.km}</span><div class="sp-bar"><i style="width:${w}%${isF?';background:var(--gold)':''}"></i></div><span class="sp-v${isF?' fast':''}">${fmtMin(s.sec/60)}</span></div>`; }).join('');
+  let neg='';
+  if(splits.length>=2){ const h=Math.floor(splits.length/2);
+    const a=splits.slice(0,h).reduce((x,s)=>x+s.sec,0)/h, b=splits.slice(h).reduce((x,s)=>x+s.sec,0)/(splits.length-h);
+    if(b<a*0.99) neg=`<div class="sp-neg">▼ Negative split — you finished faster than you started</div>`; }
+  return `<div class="sp-head">Splits · min/km</div>${rows}${neg}`;
+}
+
+function gpsView(){
+  if(!gpsSupported()) return `<div class="card tight"><p class="chart-sub" style="margin:0">This browser doesn’t make GPS available to the app. Try the latest Chrome or Safari, opened from the app’s web address.</p></div>`;
+  const insecure=(typeof window!=='undefined' && window.isSecureContext===false);
+  const warn=insecure?`<div class="gps-warn">⚠️ GPS needs the app opened from its <b>https</b> web address — not a saved file. It likely won’t work here.</div>`:'';
+  const active=!!(_gps && _gps.active);
+  if(!active && _gpsDone){
+    const s=_gpsDone;
+    return `<div class="card gps-card">
+      <div class="eyebrow" style="margin-bottom:4px">Run saved 🎉</div>
+      <div class="gps-dist">${s.km.toFixed(2)}<small>km</small></div>
+      <div class="gps-grid"><div class="gps-cell"><div class="gl">Time</div><div class="gv">${_fmtClock(s.min*60000)}</div></div><div class="gps-cell"><div class="gl">Avg pace</div><div class="gv">${s.avg||'—'}</div></div><div class="gps-cell"><div class="gl">Saved</div><div class="gv">✓</div></div></div>
+      ${(s.path && s.path.length>1)?`<div class="route-wrap" style="margin-top:16px">${routeSVG(s.path,300,160)}</div><p class="gps-note">Your route · find it again under this run in History.</p>`:'<p class="gps-note" style="margin-top:14px">Route was too short to map, but the run is saved.</p>'}
+      ${splitsTable(s.splits)}
+      <button class="btn btn-cool" data-action="gps-reset" style="margin-top:14px">Track another run</button>
+    </div>`;
+  }
+  if(!active){
+    return `${warn}<p class="screen-lead">Track a run with your phone’s GPS — live distance, pace and time. Keep the screen on and the app in front; tracking pauses if the phone locks or you switch apps.</p>
+    <div class="card gps-card">
+      <div class="gps-dist">0.00<small>km</small></div>
+      <div class="gps-grid"><div class="gps-cell"><div class="gl">Time</div><div class="gv">0:00</div></div><div class="gps-cell"><div class="gl">Pace</div><div class="gv">—</div></div><div class="gps-cell"><div class="gl">Avg</div><div class="gv">—</div></div></div>
+      <button class="btn btn-cool" data-action="gps-start" style="margin-top:18px">▶ Start GPS run</button>
+      <p class="gps-note">Uses high-accuracy GPS, so expect heavier battery use. Weak or jittery fixes are filtered out, so standing still won’t pile on phantom distance.</p>
+    </div>`;
+  }
+  const paused=_gps.paused;
+  return `<div class="card gps-card">
+    <div class="gps-sig"><span class="gps-dot" id="gpsDot"></span><span id="gpsSig">Acquiring GPS…</span>${paused?' · <b style="color:var(--gold)">PAUSED</b>':''}</div>
+    <div class="gps-dist" id="gpsDist">0.00<small>km</small></div>
+    <div class="gps-grid">
+      <div class="gps-cell"><div class="gl">Time</div><div class="gv" id="gpsTime">0:00</div></div>
+      <div class="gps-cell"><div class="gl">Pace</div><div class="gv" id="gpsPace">—</div></div>
+      <div class="gps-cell"><div class="gl">Avg</div><div class="gv" id="gpsAvg">—</div></div>
+    </div>
+    <div class="gps-btns">
+      ${paused?`<button class="btn btn-cool" data-action="gps-resume">▶ Resume</button>`:`<button class="btn btn-ghost" data-action="gps-pause">⏸ Pause</button>`}
+      <button class="btn btn-primary" data-action="gps-finish" style="margin-top:10px">■ Finish &amp; save</button>
+      <button class="btn btn-ghost btn-sm" data-action="gps-discard">Discard</button>
+    </div>
+  </div>`;
+}
+function gpsStart(){
+  if(!gpsSupported()){ toast('📍','GPS unavailable','This browser doesn’t expose location'); return; }
+  if(_gps && _gps.active) return;
+  _gps={ active:true, running:true, paused:false, points:[], distance:0, last:null, curSpeed:null, acc:null, accumMs:0, resumedAt:Date.now(), err:null, watchId:null, tick:null, splits:[], kmCount:0, lastKmElapsed:0 };
+  try{ _gps.watchId=navigator.geolocation.watchPosition(_gpsOnPos, _gpsOnErr, {enableHighAccuracy:true, maximumAge:1000, timeout:20000}); }
+  catch(e){ _gpsOnErr({code:-1}); }
+  _gps.tick=setInterval(_gpsPaint, 1000);
+  _acquireWake();
+  const gw=$('#cardio-gps'); if(gw) gw.innerHTML=gpsView(); _gpsPaint();
+}
+function _gpsOnPos(pos){
+  if(!_gps||!_gps.active) return;
+  const c=pos.coords; _gps.acc=c.accuracy; _gps.err=null;
+  if(typeof c.speed==='number' && c.speed>=0 && !isNaN(c.speed)) _gps.curSpeed=c.speed;
+  if(_gps.paused){ _gpsPaint(); return; }
+  if(c.accuracy>25){ _gpsPaint(); return; }
+  const p={lat:c.latitude, lng:c.longitude, t:pos.timestamp||Date.now()};
+  if(_gps.last){
+    const d=_haversine(_gps.last,p), dt=(p.t-_gps.last.t)/1000, v=dt>0?d/dt:0;
+    if(v<=12 && d>=2){ _gps.distance+=d; if(_gps.curSpeed==null && dt>0) _gps.curSpeed=v; _gps.last=p; _gps.points.push(p); }
+    else if(d>=2){ _gps.last=p; }            // big jump: re-anchor, don't count
+    /* d<2: stationary jitter — keep anchor, add nothing */
+  } else { _gps.last=p; _gps.points.push(p); }
+  while(_gps.distance >= (_gps.kmCount+1)*1000){
+    _gps.kmCount++;
+    const el=_gpsElapsedMs()/1000, sp=Math.max(1,Math.round(el-_gps.lastKmElapsed)); _gps.lastKmElapsed=el;
+    _gps.splits.push({km:_gps.kmCount, sec:sp});
+    speak('Kilometer '+_gps.kmCount+'. '+_spokenPace(sp)+' per kilometer.');
+  }
+  _gpsPaint();
+}
+function _gpsOnErr(err){
+  if(!_gps) return;
+  let m='GPS error';
+  if(err){ if(err.code===1) m='Location permission denied'; else if(err.code===2) m='Position unavailable'; else if(err.code===3) m='GPS timed out — open sky helps'; }
+  _gps.err=m; _gpsPaint();
+  if(err && err.code===1) toast('📍','Location blocked','Allow location for this site, then start again');
+}
+function _gpsPaint(){
+  if(!_gps) return;
+  const km=_gps.distance/1000, $d=$('#gpsDist'); if($d) $d.innerHTML=km.toFixed(2)+'<small>km</small>';
+  const ms=_gpsElapsedMs(), $t=$('#gpsTime'); if($t) $t.textContent=_fmtClock(ms);
+  const $p=$('#gpsPace'); if($p){ const v=_gps.curSpeed; $p.textContent=(v && v>0.4)?fmtMin((1000/v)/60):'—'; }
+  const $a=$('#gpsAvg'); if($a){ const min=ms/60000; $a.textContent=(km>0.05 && min>0)?fmtMin(min/km):'—'; }
+  const $s=$('#gpsSig'); if($s){ $s.textContent=_gps.err?_gps.err:(_gps.acc==null?'Acquiring GPS…':('GPS ±'+Math.round(_gps.acc)+' m')); }
+  const $dot=$('#gpsDot'); if($dot) $dot.className='gps-dot'+(_gps.err?' weak':(_gps.acc==null?'':(_gps.acc<=10?' good':(_gps.acc<=25?' ok':' weak'))));
+}
+function gpsPause(){ if(!_gps||!_gps.active||_gps.paused) return; _gps.accumMs=_gpsElapsedMs(); _gps.running=false; _gps.paused=true; _gps.resumedAt=null; _gps.last=null;
+  const gw=$('#cardio-gps'); if(gw) gw.innerHTML=gpsView(); _gpsPaint(); }
+function gpsResume(){ if(!_gps||!_gps.active||!_gps.paused) return; _gps.running=true; _gps.paused=false; _gps.resumedAt=Date.now();
+  const gw=$('#cardio-gps'); if(gw) gw.innerHTML=gpsView(); _gpsPaint(); }
+function _gpsStopHardware(){ try{ if(_gps && _gps.watchId!=null) navigator.geolocation.clearWatch(_gps.watchId); }catch(e){} if(_gps && _gps.tick) clearInterval(_gps.tick); _releaseWake(); }
+function gpsFinish(){
+  if(!_gps) return;
+  const path=_compactPath(_gps.points), splits=(_gps.splits||[]).slice();
+  const kmR=Math.round((_gps.distance/1000)*100)/100, min=Math.round((_gpsElapsedMs()/60000)*10)/10;
+  _gpsStopHardware(); _gps=null;
+  if(kmR<0.1){ toast('📍','Nothing to save','That run was too short to log'); _gpsDone=null; renderCardioTabs(); return; }
+  const extra={}; if(path) extra.path=path; if(splits.length) extra.splits=splits;
+  logCardio(kmR, 'gps', min, extra);
+  _gpsDone={km:kmR, min:min, path:path, splits:splits, avg:(kmR>0&&min>0)?fmtMin(min/kmR):null};
+  if(DB.settings.voice===true){ const a=(kmR>0&&min>0)?(' Average pace '+_spokenPace((min/kmR)*60)+' per kilometer.'):''; speak('Run complete. '+kmR+' kilometers in '+_spokenClock(min*60)+'.'+a); }
+  renderCardioTabs();
+}
+function gpsDiscard(){ if(!_gps) return; if(!confirm('Discard this run? It won’t be saved.')) return; _gpsStopHardware(); _gps=null;
+  const gw=$('#cardio-gps'); if(gw) gw.innerHTML=gpsView(); toast('🗑','Discarded','Run not saved'); }
+
 function renderCardioTabs(){
-  const q=cardioTab==='quick';
-  $('#cardio-quick').style.display=q?'block':'none';
-  $('#cardio-plan').style.display=q?'none':'block';
+  const tab=cardioTab;
+  $('#cardio-quick').style.display=tab==='quick'?'block':'none';
+  $('#cardio-plan').style.display=tab==='plan'?'block':'none';
+  var gel=$('#cardio-gps'); if(gel) gel.style.display=tab==='gps'?'block':'none';
   $$('[data-action="cardio-tab"]').forEach(c=>c.classList.toggle('on', c.dataset.tab===cardioTab));
-  if(!q) renderRunPlan();
+  var pw=$('#pacesCardWrap'); if(pw) pw.innerHTML=pacesCard();
+  if(tab==='plan') renderRunPlan();
+  if(tab==='gps' && gel){ gel.innerHTML=gpsView(); if(_gps && _gps.active) _gpsPaint(); }
 }
 
 
@@ -2504,9 +2796,13 @@ function openSettings(){
     <div class="form-field"><label>Rest timer alert</label>
       <button class="toggle-row" data-action="toggle-sound"><span>Beep when rest ends</span><span class="tog ${DB.settings.sound===false?'':'on'}"><span class="tog-dot"></span></span></button>
     </div>
+    <div class="form-field"><label>Voice cues</label>
+      <button class="toggle-row" data-action="toggle-voice"><span>Speak run splits &amp; rest alerts</span><span class="tog ${DB.settings.voice===true?'on':''}"><span class="tog-dot"></span></span></button>
+    </div>
     <button class="btn btn-ghost" data-action="enable-alerts" style="margin-bottom:10px">🔔 Enable lock-screen alerts</button>
     <button class="btn btn-ghost" data-action="test-alert" style="margin-bottom:8px">▶ Test the alert</button>
     <button class="btn btn-primary" data-action="save-settings" style="margin-top:8px">Save</button>
+    <button class="btn btn-ghost" data-action="open-profile" style="margin-top:10px">👤 Body &amp; profile · sharper analysis</button>
     <div class="divider"></div>
     <button class="btn btn-ghost" data-action="show-principles" style="margin-bottom:10px">📖 The training principles</button>
     <div class="divider"></div>
@@ -2642,9 +2938,22 @@ document.addEventListener('click', e=>{
       $$('[data-action="set-unit"]').forEach(c=>c.classList.toggle('on', c===t)); break;
     case 'save-settings':
       DB.settings.name=$('#setName').value.trim(); save(); closeSheet(); renderHome(); toast('⚙','Saved','Settings updated'); break;
+    case 'open-profile': openProfile(); break;
+    case 'set-sex':
+      DB.settings.sex=t.dataset.sex; save();
+      $$('[data-action="set-sex"]').forEach(c=>c.classList.toggle('on', c===t)); break;
+    case 'save-profile': {
+      const yr=new Date().getFullYear();
+      const av=($('#pAge')||{}).value, aRaw=parseInt(av,10);
+      if(aRaw>=10 && aRaw<=100) DB.settings.birthYear=yr-aRaw; else if(av==='') DB.settings.birthYear=null;
+      if($('#pHeight')){ const hv=$('#pHeight').value, h=parseFloat(hv); DB.settings.heightCm=(h>=100&&h<=250)?Math.round(h):(hv===''?null:DB.settings.heightCm); }
+      else if($('#pFt')){ const fv=($('#pFt')||{}).value, ft=parseFloat(fv), inch=parseFloat(($('#pIn')||{}).value)||0; if(ft>=3&&ft<=8) DB.settings.heightCm=Math.round((ft*12+inch)*2.54); else if(fv==='') DB.settings.heightCm=null; }
+      const rv=($('#pRest')||{}).value, r=parseInt(rv,10); DB.settings.restHR=(r>=30&&r<=120)?r:(rv===''?null:DB.settings.restHR);
+      save(); closeSheet(); var rec=$('#screen-records'); if(rec&&rec.classList.contains('active')) renderRecords(); renderHome(); toast('👤','Profile saved','Standards & zones updated'); break;
+    }
     case 'reset-data':
       if(confirm('Reset ALL data? This erases your routines, logs, PRs and awards. Cannot be undone.')){
-        ['settings','stats','routines','log','prs','ach','customEx','bodyweight','plan','quests','activeSession','friends'].forEach(k=>Store.set('forge.'+k, k==='settings'?{name:'',unit:'kg',sound:true}:(k==='stats'?{xp:0,totalVolume:0,distanceKm:0,prsSet:0,routinesCreated:0,workouts:0,cardioSessions:0,currentStreak:0,longestStreak:0,lastWorkoutDate:null, balancedWeeks:0, lastBalancedWeek:null}:(['routines','log','customEx','bodyweight','friends'].includes(k)?[]:{}))));
+        ['settings','stats','routines','log','prs','ach','customEx','bodyweight','plan','quests','activeSession','friends'].forEach(k=>Store.set('forge.'+k, k==='settings'?{name:'',unit:'kg',sound:true,voice:false,sex:'',birthYear:null,heightCm:null,restHR:null}:(k==='stats'?{xp:0,totalVolume:0,distanceKm:0,prsSet:0,routinesCreated:0,workouts:0,cardioSessions:0,currentStreak:0,longestStreak:0,lastWorkoutDate:null, balancedWeeks:0, lastBalancedWeek:null, streakFreezes:0}:(['routines','log','customEx','bodyweight','friends'].includes(k)?[]:{}))));
         location.reload();
       } break;
 
@@ -2739,6 +3048,10 @@ document.addEventListener('click', e=>{
     // rest timer
     case 'rest-toggle': toggleRest(); break;
     case 'toggle-sound': DB.settings.sound=(DB.settings.sound===false); save(); openSettings(); break;
+    case 'toggle-voice':
+      if(DB.settings.voice!==true){ if(typeof window==='undefined' || !window.speechSynthesis){ toast('🔇','Not supported','This browser can’t speak'); break; } DB.settings.voice=true; save(); speak('Voice cues on. I’ll call your splits.'); }
+      else { DB.settings.voice=false; save(); }
+      openSettings(); break;
     case 'enable-alerts': if('Notification' in window && Notification.requestPermission){ try{ Notification.requestPermission().then(p=>{ toast(p==='granted'?'🔔':'🔕', p==='granted'?'Alerts enabled':'Not enabled', p==='granted'?'You will be warned even with the screen off':'Allow notifications in your site settings'); }).catch(()=>{}); }catch(e){} } else { toast('🔕','Not available','This needs the installed or hosted version'); } break;
     case 'test-alert': testRestAlert(); break;
     case 'rest-15': restAdjust(-15); break;
@@ -2806,6 +3119,13 @@ document.addEventListener('click', e=>{
     case 'cal-prev': calMonth--; if(calMonth<0){ calMonth=11; calYear--; } renderRecords(); break;
     case 'cal-next': { const now=new Date(); if(calYear<now.getFullYear() || (calYear===now.getFullYear() && calMonth<now.getMonth())){ calMonth++; if(calMonth>11){ calMonth=0; calYear++; } renderRecords(); } break; }
     case 'build-cardio': buildCardio(); break;
+    case 'use-pace': { const pi=$('#paceInput'); if(pi) pi.value=t.dataset.pace; toast('🎯','Pace set',t.dataset.k+' · '+t.dataset.disp+'/km — now build your session'); break; }
+    case 'gps-start': gpsStart(); break;
+    case 'gps-pause': gpsPause(); break;
+    case 'gps-resume': gpsResume(); break;
+    case 'gps-finish': gpsFinish(); break;
+    case 'gps-discard': gpsDiscard(); break;
+    case 'gps-reset': _gpsDone=null; renderCardioTabs(); break;
     case 'log-cardio': logCardio(parseFloat(t.dataset.dist), t.dataset.goal, parseInt(t.dataset.min)||0); break;
   }
 });
@@ -2829,6 +3149,7 @@ function flushSave(){ try{ save(); if(activeSession) Store.set('forge.activeSess
 window.addEventListener('pagehide', flushSave);
 window.addEventListener('beforeunload', flushSave);
 document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState==='hidden') flushSave(); });
+document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState==='visible' && _gps && _gps.active && _gps.running){ _acquireWake(); _gpsPaint(); } });
 setInterval(flushSave, 15000);
 
 
@@ -2874,6 +3195,7 @@ function _restAlert(){
   _playAlertSound();
   try{ navigator.vibrate&&navigator.vibrate([200,90,200,90,320]); }catch(e){}
   try{ if('Notification' in window && Notification.permission==='granted'){ new Notification('Rest over 💪',{body:'Time for your next set.',tag:'forge-rest',renotify:true,silent:DB.settings.sound===false}); } }catch(e){}
+  speak('Rest over. Next set.');
   toast('⏱','Rest over','Time for your next set');
   _stopKeepAlive(); _releaseWake(); highlightNextSet();
 }
