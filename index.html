@@ -794,19 +794,47 @@ button:focus-visible,input:focus-visible,select:focus-visible,.toggle-row:focus-
 .swap-row .sw-g{font-family:'JetBrains Mono'; font-size:10px; color:var(--muted-2); text-transform:uppercase; letter-spacing:.8px; flex:0 0 auto}
 .ex-actions{display:flex; gap:14px; flex:0 0 auto; align-items:center}
 /* My weapon */
-.weapon-panel{display:flex; align-items:center; gap:14px; width:100%; text-align:left; padding:13px 15px; margin-bottom:14px; border-radius:var(--r-lg);
-  background:linear-gradient(140deg, rgba(92,176,255,.06), var(--surface) 50%); border:1px solid var(--line); color:var(--text);
+.weapon-panel{display:flex; align-items:center; gap:14px; width:100%; text-align:left; padding:12px 14px; margin-bottom:14px; border-radius:var(--r-lg);
+  background:linear-gradient(140deg, rgba(255,138,43,.05), var(--surface) 55%); border:1px solid var(--line); color:var(--text);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.05), var(--shadow-md); transition:transform .2s var(--ease)}
 .weapon-panel:active{transform:scale(.99)}
-.wpn-art{flex:0 0 auto; width:54px; display:grid; place-items:center; filter:drop-shadow(0 6px 16px rgba(0,0,0,.5))}
-.wpn-art svg{width:42px; height:auto}
+.wpn-plinth{position:relative; flex:0 0 auto; width:62px; height:90px; border-radius:14px; overflow:hidden; display:grid; place-items:center;
+  background:radial-gradient(80% 60% at 50% 30%, #1D2431, #0E1219 82%); border:1px solid var(--line-soft)}
+.wpn-plinth svg{position:relative; z-index:1; filter:drop-shadow(0 5px 10px rgba(0,0,0,.55))}
+.wpn-glow{position:absolute; left:-30%; right:-30%; bottom:-34%; height:72%; border-radius:99px; filter:blur(8px);
+  background:radial-gradient(50% 60% at 50% 100%, rgba(255,138,43,.85), rgba(255,77,140,.25) 60%, transparent 78%)}
+.wpn-glow.f0{opacity:.12}.wpn-glow.f1{opacity:.32}.wpn-glow.f2{opacity:.52}.wpn-glow.f3{opacity:.75; animation:forgeGlow 2.6s ease-in-out infinite}
+@keyframes forgeGlow{50%{opacity:.95}}
 .wpn-meta{flex:1; min-width:0}
 .wpn-eyebrow{font-family:'JetBrains Mono'; font-size:9.5px; text-transform:uppercase; letter-spacing:1.4px; color:var(--muted-2); font-weight:700}
-.wpn-name{font-family:'Saira Condensed'; font-weight:800; font-size:20px; letter-spacing:.2px; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-.wpn-sub{font-size:11.5px; color:var(--muted); margin-top:2px}
-.wpn-big{display:grid; place-items:center; padding:12px 0 16px; background:radial-gradient(60% 70% at 50% 42%, rgba(255,138,43,.10), transparent 75%); border-radius:14px; margin-bottom:8px}
+.wpn-name{font-family:'Saira Condensed'; font-weight:800; font-size:20px; letter-spacing:.2px; margin:2px 0 6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.pips{display:inline-flex; gap:5px; align-items:center}
+.pip{width:7px; height:7px; border-radius:99px; background:var(--surface-3); border:1px solid var(--line)}
+.pip.on{background:var(--grad-energy); border-color:transparent; box-shadow:0 0 6px rgba(255,90,44,.5)}
+.pip.on.myth{background:linear-gradient(135deg,#FFE08A,#FFB13D); box-shadow:0 0 8px rgba(255,210,77,.7)}
+.wpn-stage{display:flex; align-items:center; gap:8px}
+.wpn-stage small{font-size:10.5px; color:var(--muted-2)}
+.wpn-chevron{flex:0 0 auto; color:var(--muted-2); font-size:22px; line-height:1}
+.wpn-big{display:grid; place-items:center; padding:14px 0 14px; background:radial-gradient(60% 70% at 50% 45%, rgba(255,138,43,.12), transparent 75%); border-radius:14px; margin-bottom:6px}
+.wpn-big .pips{margin-top:12px}
+.wpn-form{margin-top:8px; font-family:'JetBrains Mono'; font-size:10px; letter-spacing:1.2px; text-transform:uppercase; color:var(--muted-2); font-weight:700}
+.wpn-grid{display:grid; grid-template-columns:1fr 1fr; gap:9px; margin:12px 0 4px}
+.wpn-tile{background:var(--surface-2); border:1px solid var(--line-soft); border-radius:13px; padding:11px 12px; text-align:left}
+.wt-i{font-size:15px; line-height:1; margin-bottom:7px; opacity:.9}
+.wt-v{font-family:'Saira Condensed'; font-weight:800; font-size:19px; line-height:1.05; letter-spacing:.2px; font-variant-numeric:tabular-nums; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.wt-v small{font-family:'Inter'; font-size:10.5px; font-weight:600; color:var(--muted-2); letter-spacing:0}
+.wt-c{font-size:10.5px; color:var(--muted); margin-top:4px; line-height:1.4}
+.wpn-prog{margin-top:10px; background:var(--surface-2); border:1px solid var(--line-soft); border-radius:13px; padding:12px 13px}
+.wpn-prog .sq-bar.big{margin-bottom:0}
+.wp-top{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; font-size:12.5px; font-weight:700}
+.wp-fs{font-family:'JetBrains Mono'; font-size:10.5px; color:var(--muted-2); font-weight:500}
+.wp-cap{font-size:10.5px; color:var(--muted-2); margin-top:8px; line-height:1.4}
+.sq-bar.gold>i{background:linear-gradient(90deg,#FFE08A,#FFB13D)}
 /* Live heart rate */
 .hr-connect{width:100%; padding:11px; border-radius:12px; background:var(--surface-2); border:1px dashed var(--line); color:var(--muted); font-size:13px; font-weight:600}
+.hr-help{font-size:11px; color:var(--muted-2); margin-top:9px; line-height:1.55; text-align:left}
+.hr-help b{color:var(--muted)}
+.hr-help .hr-all{display:inline; padding:0; border:0; background:none; color:var(--cool); font-size:11px; font-weight:600}
 .hr-pill{display:inline-flex; align-items:center; gap:6px; font-family:'JetBrains Mono'; font-weight:700; font-size:16px; padding:9px 16px; border-radius:99px; background:var(--surface-2); border:1px solid var(--line); color:var(--text); animation:hrBeat 1.1s ease-in-out infinite}
 .hr-pill small{font-size:10px; color:var(--muted-2); font-weight:500}
 @keyframes hrBeat{0%,100%{transform:scale(1)}12%{transform:scale(1.035)}}
@@ -2383,69 +2411,130 @@ function weaponName(w){
   else if(w.tot>=20) suf=' of Balance';
   return WPN_STAGE[w.stage]+' '+archN+suf;
 }
+function stagePips(stage){ let s=''; for(let i=0;i<5;i++) s+='<span class="pip'+(i<=stage?(stage===4?' on myth':' on'):'')+'"></span>'; return '<span class="pips">'+s+'</span>'; }
 function weaponSVG(w, size){
   size=size||90; const id='wp'+Math.random().toString(36).slice(2,7);
-  const gold=w.stage>=3, edge=w.stage>=2;
-  let art='';
-  const runeAt=(x,y)=>`<path d="M${x} ${y-4}L${x+3.4} ${y}L${x} ${y+4}L${x-3.4} ${y}Z" fill="#FFD24D" opacity=".95"><animate attributeName="opacity" values=".55;1;.55" dur="2.6s" repeatCount="indefinite"/></path>`;
-  const wrapLines=(x,y0,wd,n)=>{ let s=''; for(let i=0;i<n;i++) s+=`<line x1="${x}" y1="${y0+i*6}" x2="${x+wd}" y2="${y0+i*6+2.5}" stroke="#7A5230" stroke-width="2.4"/>`; return s; };
+  const S=w.stage, gold=S>=3, edge=S>=2, rough=S===0;
+  const hiL=rough?'#B9C1CD':'#ECF2FA', midL=rough?'#8B94A4':'#B3BFD2', loL=rough?'#5E6673':'#7C89A0';
+  const hiD=rough?'#8A93A2':'#9AA6BB', midD=rough?'#5A6270':'#66738B', loD=rough?'#3E4550':'#454F64';
+  const steelLF=`url(#${id}a)`, steelDF=`url(#${id}b)`, edgeF=`url(#${id}e)`, goldFill=`url(#${id}g)`;
+  const fit = gold? goldFill : steelDF;
+  const G=['M-3 0L0 -4L3 0L0 4Z','M-3 -3L3 3M3 -3L-3 3','M0 -4L0 4M-3 -0.5L3 -0.5'];
+  const runeAt=(x,y,i)=>`<g class="wpn-rune" transform="translate(${x} ${y})"><circle r="4.6" fill="#FFC94D" opacity=".45" filter="url(#${id}bl)"/><path d="${G[i%3]}" fill="none" stroke="#FFE79A" stroke-width="1.5" stroke-linecap="round"><animate attributeName="opacity" values=".55;1;.55" dur="2.8s" begin="${(i*0.4).toFixed(1)}s" repeatCount="indefinite"/></path></g>`;
+  const grip=(x,y,wd,h)=>{ let s=`<rect x="${x}" y="${y}" width="${wd}" height="${h}" rx="3.5" fill="#43301F"/>`;
+    const n=Math.max(0,Math.min(5,w.wraps));
+    for(let i=0;i<n;i++){ const yy=y+4+i*((h-8)/5); s+=`<path d="M${x} ${yy}L${x+wd} ${yy+2.6}L${x+wd} ${yy+5.4}L${x} ${yy+2.8}Z" fill="#6E4E33"/>`; }
+    if(n===0) s+=`<line x1="${x+2.5}" y1="${y+4}" x2="${x+2.5}" y2="${y+h-4}" stroke="#5A4128" stroke-width="1"/>`;
+    return s; };
+  const nick=(x,y,a)=>`<line class="wpn-nick" x1="${x-2}" y1="${y}" x2="${x+2}" y2="${y+a}" stroke="#39414E" stroke-width="1.6" stroke-linecap="round"/>`;
+  const flameArt=(cx,cy,rx,ry)=>{ if(!w.flame) return ['',''];
+    const op=[0,.32,.5,.72][w.flame];
+    let back=`<ellipse class="wpn-flame" cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="url(#${id}f)" opacity="${op}"><animate attributeName="opacity" values="${(op*.65).toFixed(2)};${op};${(op*.65).toFixed(2)}" dur="3s" repeatCount="indefinite"/></ellipse>`;
+    if(w.flame>=2){
+      back+=`<path class="wpn-flame" d="M${cx-16} ${cy+20}C${cx-24} ${cy+4} ${cx-20} ${cy-12} ${cx-10} ${cy-20}C${cx-13} ${cy-6} ${cx-9} ${cy+6} ${cx-4} ${cy+16}Z" fill="${edgeF}" opacity=".55" filter="url(#${id}bl)"><animateTransform attributeName="transform" type="translate" values="0 0;0 -3;0 0" dur="1.9s" repeatCount="indefinite"/></path>`;
+      back+=`<path class="wpn-flame" d="M${cx+15} ${cy+18}C${cx+23} ${cy+2} ${cx+19} ${cy-14} ${cx+9} ${cy-21}C${cx+12} ${cy-7} ${cx+8} ${cy+5} ${cx+3} ${cy+14}Z" fill="${edgeF}" opacity=".5" filter="url(#${id}bl)"><animateTransform attributeName="transform" type="translate" values="0 0;0 -4;0 0" dur="2.3s" repeatCount="indefinite"/></path>`;
+    }
+    let front='';
+    if(w.flame>=3){ for(let i=0;i<3;i++){ const ex=cx-14+i*14, ey=cy+14, d=(1.8+i*0.4).toFixed(1);
+      front+=`<circle class="wpn-flame" cx="${ex}" cy="${ey}" r="1.5" fill="#FFD24D"><animate attributeName="cy" values="${ey};${ey-26}" dur="${d}s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="${d}s" repeatCount="indefinite"/></circle>`; } }
+    return [back,front]; };
+  let art='', fb='', ff='', clipD=[];
   if(w.arch==='hammer'){
-    art+=`<rect x="56" y="52" width="8" height="146" rx="3" fill="url(#${id}s)"/>`;
-    art+=wrapLines(54,150,12,Math.max(2,w.wraps));
-    art+=`<path d="M28 22 L92 22 Q98 22 98 30 L98 56 Q98 64 92 64 L28 64 Q22 64 22 56 L22 30 Q22 22 28 22 Z" fill="url(#${id}s)" stroke="#39435A" stroke-width="1.6"/>`;
-    art+=`<rect x="22" y="26" width="76" height="5" fill="#DAE3F2" opacity=".55"/>`;
-    if(edge) art+=`<rect x="22" y="58" width="76" height="4" fill="url(#${id}e)" opacity=".9"/>`;
-    if(gold){ art+=`<rect x="52" y="64" width="16" height="8" rx="2" fill="#FFD24D"/>`; }
-    art+=`<circle cx="60" cy="200" r="7" fill="${gold?'#FFD24D':'#8A96AB'}"/>`;
-    for(let i=0;i<w.runes;i++) art+=runeAt(34+i*10.5, 43);
+    const bodyD='M52 20L94 23Q101 24 101 32L101 42Q101 50 94 51L52 54Z';
+    clipD=[bodyD,'M52 26L18 36L52 48Z','M56 20L64 20L60 6Z'];
+    art+=`<rect x="56" y="58" width="8" height="140" rx="3" fill="#4A3527"/>`;
+    art+=`<rect x="57" y="58" width="1.6" height="52" fill="${steelDF}"/><rect x="61.4" y="58" width="1.6" height="52" fill="${steelDF}"/>`;
+    art+=`<rect x="54" y="112" width="12" height="5" rx="2" fill="${fit}"/>`;
+    art+=grip(53.5,156,13,38);
+    art+=`<rect x="55" y="196" width="10" height="8" rx="3" fill="${fit}"/>`;
+    art+=`<path d="M52 26L18 36L52 36Z" fill="${steelLF}"/><path d="M52 36L18 36L52 48Z" fill="${steelDF}"/>`;
+    art+=`<path d="${bodyD}" fill="${steelDF}"/>`;
+    art+=`<path d="M52 20L94 23L92 30L52 27Z" fill="${steelLF}" opacity=".95"/>`;
+    art+=`<rect x="97.6" y="24.5" width="3.4" height="25" rx="1.6" fill="${gold?goldFill:steelLF}"/>`;
+    art+=`<path d="M56 20L60 6L60 20Z" fill="${steelLF}"/><path d="M60 6L64 20L60 20Z" fill="${steelDF}"/>`;
+    art+=`<rect x="55.6" y="48" width="8.8" height="9" rx="2" fill="#2E3646"/>`;
+    if(edge) art+=`<path class="wpn-edge" d="M101 27L101 47" stroke="${edgeF}" stroke-width="2.6" stroke-linecap="round" filter="url(#${id}bl)" opacity=".8"/><path d="M101 27L101 47" stroke="${edgeF}" stroke-width="1.5" stroke-linecap="round"/>`;
+    if(rough) art+=nick(30,33,3)+nick(84,24,3);
+    for(let i=0;i<w.runes;i++) art+=runeAt(57+i*7.4, 40, i);
+    const F=flameArt(60,34,46,36); fb=F[0]; ff=F[1];
   } else if(w.arch==='spear'){
-    art+=`<rect x="58" y="56" width="4.6" height="146" rx="2" fill="url(#${id}s)"/>`;
-    art+=`<path d="M60 6 C75 34 71 54 60 64 C49 54 45 34 60 6 Z" fill="url(#${id}s)" stroke="#39435A" stroke-width="1.4"/>`;
-    if(edge) art+=`<path d="M60 10 C70 32 67 50 60 58" fill="none" stroke="url(#${id}e)" stroke-width="2.4" stroke-linecap="round"/>`;
-    if(gold) art+=`<rect x="53" y="64" width="14" height="7" rx="2" fill="#FFD24D"/>`;
-    art+=wrapLines(56,126,9,Math.max(2,w.wraps));
-    art+=`<circle cx="60" cy="202" r="4.5" fill="${gold?'#FFD24D':'#8A96AB'}"/>`;
-    for(let i=0;i<w.runes;i++) art+=runeAt(60, 80+i*13);
+    clipD=['M60 8C50 22 48.5 42 60 60Z','M60 8C70 22 71.5 42 60 60Z'];
+    art+=`<rect x="58.4" y="62" width="3.2" height="138" rx="1.6" fill="#4A3527"/><line x1="59.2" y1="64" x2="59.2" y2="198" stroke="#6B4E35" stroke-width=".8"/>`;
+    art+=`<path d="M60 8C50 22 48.5 42 60 60Z" fill="${steelLF}"/><path d="M60 8C70 22 71.5 42 60 60Z" fill="${steelDF}"/>`;
+    art+=`<line x1="60" y1="12" x2="60" y2="56" stroke="#F4F8FE" stroke-width="1" opacity="${rough?0.25:0.6}"/>`;
+    art+=`<path d="M55.5 60L64.5 60L63 74L57 74Z" fill="${fit}"/><circle cx="60" cy="64.5" r="1" fill="#2E3646"/><circle cx="60" cy="70" r="1" fill="#2E3646"/>`;
+    if(gold) art+=`<rect x="49" y="74" width="22" height="3.6" rx="1.8" fill="${goldFill}"/>`;
+    art+=grip(56,120,8,34);
+    art+=`<path d="M58.4 200L60 212L61.6 200Z" fill="${steelDF}"/>`;
+    if(edge) art+=`<path class="wpn-edge" d="M60 9C51 22 49.6 41 59 58" fill="none" stroke="${edgeF}" stroke-width="2.4" stroke-linecap="round" filter="url(#${id}bl)" opacity=".75"/><path d="M60 9C51 22 49.6 41 59 58" fill="none" stroke="${edgeF}" stroke-width="1.4" stroke-linecap="round"/><path d="M60 9C69 22 70.4 41 61 58" fill="none" stroke="${edgeF}" stroke-width="1.4" stroke-linecap="round" opacity=".85"/>`;
+    if(rough) art+=nick(53,30,4);
+    for(let i=0;i<w.runes;i++) art+= (i<3? runeAt(60, 22+i*13, i) : runeAt(60, 86+(i-3)*13, i));
+    const F=flameArt(60,30,42,40); fb=F[0]; ff=F[1];
   } else {
-    art+=`<path d="M60 8 L72 40 L69 142 L51 142 L48 40 Z" fill="url(#${id}s)" stroke="#39435A" stroke-width="1.4"/>`;
-    art+=`<line x1="60" y1="20" x2="60" y2="136" stroke="#39435A" stroke-width="1.6" opacity=".8"/>`;
-    if(edge) art+=`<path d="M60 10 L71 40 L68.4 140" fill="none" stroke="url(#${id}e)" stroke-width="2.2" stroke-linecap="round"/>`;
-    art+=`<rect x="36" y="142" width="48" height="9" rx="4" fill="${gold?'#FFD24D':'#8A96AB'}"/>`;
-    art+=`<rect x="54" y="151" width="12" height="38" rx="4" fill="#3A3026"/>`;
-    art+=wrapLines(53,156,14,Math.max(2,w.wraps));
-    art+=`<circle cx="60" cy="197" r="7" fill="${gold?'#FFD24D':'#8A96AB'}"/>`;
-    for(let i=0;i<w.runes;i++) art+=runeAt(60, 44+i*15);
+    clipD=['M60 16L49.5 46L51.8 152L60 152Z','M60 16L70.5 46L68.2 152L60 152Z'];
+    art+=`<path d="M60 16L49.5 46L51.8 152L60 152Z" fill="${steelLF}"/><path d="M60 16L70.5 46L68.2 152L60 152Z" fill="${steelDF}"/>`;
+    if(S>=1) art+=`<path class="wpn-fuller" d="M60 28L57.6 48L58.7 146L61.3 146L62.4 48Z" fill="#2C3442" opacity=".5"/><line x1="60" y1="30" x2="60" y2="144" stroke="#F4F8FE" stroke-width=".9" opacity=".55"/>`;
+    if(edge) art+=`<path class="wpn-edge" d="M60 17L50.3 46L52.4 150" fill="none" stroke="${edgeF}" stroke-width="2.4" stroke-linecap="round" filter="url(#${id}bl)" opacity=".7"/><path d="M60 17L50.3 46L52.4 150" fill="none" stroke="${edgeF}" stroke-width="1.4" stroke-linecap="round"/><path d="M60 17L69.7 46L67.6 150" fill="none" stroke="${edgeF}" stroke-width="1.4" stroke-linecap="round" opacity=".85"/>`;
+    art+=`<path d="M31 152Q60 143 89 152Q60 161 31 152Z" fill="${fit}"/><path d="M31 152Q60 145 89 152" fill="none" stroke="#F4F8FE" stroke-width="1" opacity=".5"/><circle cx="60" cy="152" r="4.6" fill="${gold?goldFill:steelLF}"/>`;
+    art+=grip(54.5,158,11,36);
+    art+=`<circle cx="60" cy="200" r="7" fill="${fit}"/><circle cx="58" cy="198" r="2.4" fill="#F4F8FE" opacity=".55"/>`;
+    if(S>=4) art+=`<circle cx="60" cy="200" r="2.6" fill="#FF4D8C"><animate attributeName="opacity" values=".7;1;.7" dur="2.2s" repeatCount="indefinite"/></circle>`;
+    if(rough) art+=nick(52.6,70,4)+nick(67.8,100,4);
+    for(let i=0;i<w.runes;i++) art+=runeAt(60, 46+i*15, i);
+    const F=flameArt(60,34,44,44); fb=F[0]; ff=F[1];
   }
-  const flameOp=[0,.35,.6,.9][w.flame]||0;
-  const flame=flameOp?`<ellipse cx="60" cy="${w.arch==='hammer'?42:36}" rx="46" ry="${w.arch==='hammer'?34:44}" fill="url(#${id}f)" opacity="${flameOp}"><animate attributeName="opacity" values="${flameOp*.7};${flameOp};${flameOp*.7}" dur="3.2s" repeatCount="indefinite"/></ellipse>`:'';
-  return `<svg viewBox="0 0 120 210" width="${size}" height="${Math.round(size*1.75)}" style="display:block">
+  let shimmer='';
+  if(S>=4) shimmer=`<g class="wpn-shimmer" clip-path="url(#${id}c)"><rect x="0" y="0" width="120" height="224" fill="url(#${id}sh)"/></g>`;
+  return `<svg viewBox="0 0 120 224" width="${size}" height="${Math.round(size*224/120)}" data-arch="${w.arch}" data-stage="${S}" style="display:block">
   <defs>
-    <linearGradient id="${id}s" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#C7D1E0"/><stop offset="55%" stop-color="#8A96AB"/><stop offset="100%" stop-color="#55617A"/></linearGradient>
-    <linearGradient id="${id}e" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF8A2B"/><stop offset="100%" stop-color="#FF4D8C"/></linearGradient>
-    <radialGradient id="${id}f"><stop offset="0%" stop-color="#FF8A2B" stop-opacity=".8"/><stop offset="60%" stop-color="#FF4D8C" stop-opacity=".28"/><stop offset="100%" stop-color="#FF4D8C" stop-opacity="0"/></radialGradient>
-  </defs>${flame}${art}</svg>`;
+    <linearGradient id="${id}a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${hiL}"/><stop offset=".5" stop-color="${midL}"/><stop offset="1" stop-color="${loL}"/></linearGradient>
+    <linearGradient id="${id}b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${hiD}"/><stop offset=".5" stop-color="${midD}"/><stop offset="1" stop-color="${loD}"/></linearGradient>
+    <linearGradient id="${id}e" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFB061"/><stop offset="1" stop-color="#FF4D8C"/></linearGradient>
+    <linearGradient id="${id}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE08A"/><stop offset="1" stop-color="#E8A93A"/></linearGradient>
+    <radialGradient id="${id}f"><stop offset="0" stop-color="#FFD24D" stop-opacity=".85"/><stop offset=".55" stop-color="#FF8A2B" stop-opacity=".35"/><stop offset="1" stop-color="#FF4D8C" stop-opacity="0"/></radialGradient>
+    <linearGradient id="${id}sh" x1="0" y1="0" x2="0" y2="60" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/><stop offset=".5" stop-color="#FFFFFF" stop-opacity=".3"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/><animateTransform attributeName="gradientTransform" type="translate" values="0 -80;0 244" dur="3.4s" repeatCount="indefinite"/></linearGradient>
+    <filter id="${id}bl" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="2.2"/></filter>
+    ${S>=4?`<clipPath id="${id}c">${clipD.map(d=>`<path d="${d}"/>`).join('')}</clipPath>`:''}
+  </defs>${fb}${art}${shimmer}${ff}</svg>`;
 }
 function renderWeapon(){
   const host=$('#weaponCard'); if(!host) return;
   const w=weaponStats(), nm=weaponName(w);
-  host.innerHTML=`<button class="weapon-panel" data-action="weapon-open"><div class="wpn-art">${weaponSVG(w,74)}</div><div class="wpn-meta"><div class="wpn-eyebrow">⚒ My weapon</div><div class="wpn-name">${esc(nm)}</div><div class="wpn-sub">Forged by your training · tap to inspect</div></div></button>`;
+  host.innerHTML=`<button class="weapon-panel" data-action="weapon-open">
+    <div class="wpn-plinth"><div class="wpn-glow f${w.flame}"></div>${weaponSVG(w,46)}</div>
+    <div class="wpn-meta"><div class="wpn-eyebrow">⚒ My weapon</div><div class="wpn-name">${esc(nm)}</div>
+      <div class="wpn-stage">${stagePips(w.stage)}<small>${WPN_STAGE[w.stage]} · tap to inspect</small></div></div>
+    <div class="wpn-chevron">›</div></button>`;
   const sig=w.arch+'-'+w.stage+'-'+w.runes+'-'+w.flame;
-  if(DB.weapon && DB.weapon.sig && DB.weapon.sig!==sig) setTimeout(()=>toast('⚒️','Your weapon evolved', nm), 500);
+  if(DB.weapon && DB.weapon.sig && DB.weapon.sig!==sig) setTimeout(()=>{ _burstT=0; burst('gold'); toast('⚒️','Your weapon evolved', nm); }, 500);
   if(!DB.weapon || DB.weapon.sig!==sig){ DB.weapon={sig:sig}; save(); }
 }
 function openWeapon(){
   const w=weaponStats(), nm=weaponName(w), st=DB.stats;
-  const nxt=[12,60,160,320][w.stage];
+  const THR=[0,12,60,160,320];
+  const formT = w.arch==='hammer' ? 'Warhammer · forged by strength'
+             : w.arch==='spear'  ? 'Spear · forged by distance'
+             : 'Blade · a balanced forging';
+  const flameT=['Cold','Kindled','Burning','Roaring'][w.flame];
+  let prog;
+  if(w.stage>=4){
+    prog=`<div class="wpn-prog"><div class="wp-top"><span>Masterwork</span><span class="wp-fs">forge score ${fmt(w.fs)}</span></div><div class="sq-bar big gold"><i style="width:100%"></i></div><div class="wp-cap">The forge has no further stage — only legend.</div></div>`;
+  } else {
+    const cur=THR[w.stage], next=THR[w.stage+1];
+    const pct=Math.max(4, Math.min(100, Math.round((w.fs-cur)/(next-cur)*100)));
+    prog=`<div class="wpn-prog"><div class="wp-top"><span>${WPN_STAGE[w.stage]} → ${WPN_STAGE[w.stage+1]}</span><span class="wp-fs">${fmt(w.fs)} / ${fmt(next)}</span></div><div class="sq-bar big"><i style="width:${pct}%"></i></div><div class="wp-cap">Forge score grows with every session, run, PR and slain boss.</div></div>`;
+  }
   openSheet(`<div class="grab"></div><h3>${esc(nm)}</h3>
-  <p class="sh-lead">No two athletes forge the same weapon — yours is shaped by everything you log.</p>
-  <div class="wpn-big">${weaponSVG(w,140)}</div>
-  <div class="hd-row"><span>Form</span><span class="mono">${w.arch==='hammer'?'Warhammer · strength-forged':w.arch==='spear'?'Spear · distance-forged':'Blade · balanced forging'}</span></div>
-  <div class="hd-row"><span>Steel</span><span class="mono">${fmt(Math.round(st.totalVolume||0))} ${DB.settings.unit} shaped it</span></div>
-  <div class="hd-row"><span>Grip wraps</span><span class="mono">${w.wraps} · one per 15 km (${fmt(Math.round(st.distanceKm||0))} km run)</span></div>
-  <div class="hd-row"><span>Runes</span><span class="mono">${w.runes} · one per 2 PRs (${st.prsSet||0} struck)</span></div>
-  <div class="hd-row"><span>Flame</span><span class="mono">${['cold','kindled','burning','roaring'][w.flame]} · ${st.currentStreak||0}-day streak</span></div>
-  <div class="hd-row"><span>Stage</span><span class="mono">${WPN_STAGE[w.stage]}${w.stage<4?(' · '+WPN_STAGE[w.stage+1]+' at forge score '+nxt):' · masterwork'}</span></div>
-  <button class="btn btn-ghost btn-sm" data-action="close-sheet" style="margin-top:14px">Close</button>`);
+  <div class="wpn-big">${weaponSVG(w,132)}${stagePips(w.stage)}<div class="wpn-form">${formT}</div></div>
+  <div class="wpn-grid">
+    <div class="wpn-tile"><div class="wt-i">⚒</div><div class="wt-v">${fmt(Math.round(st.totalVolume||0))}<small> ${DB.settings.unit}</small></div><div class="wt-c">of volume shaped the steel</div></div>
+    <div class="wpn-tile"><div class="wt-i">✦</div><div class="wt-v">${w.runes}<small> / 6 runes</small></div><div class="wt-c">${st.prsSet||0} PRs · one rune per 2</div></div>
+    <div class="wpn-tile"><div class="wt-i">🧵</div><div class="wt-v">${w.wraps}<small> / 6 wraps</small></div><div class="wt-c">${fmt(Math.round(st.distanceKm||0))} km · one per 15</div></div>
+    <div class="wpn-tile"><div class="wt-i">🔥</div><div class="wt-v">${flameT}</div><div class="wt-c">${st.currentStreak||0}-day streak feeds it</div></div>
+  </div>
+  ${prog}
+  <p class="sh-lead" style="margin-top:12px; margin-bottom:2px">No two athletes forge the same weapon — yours is shaped by everything you log.</p>
+  <button class="btn btn-ghost btn-sm" data-action="close-sheet" style="margin-top:8px">Close</button>`);
 }
 
 function renderAwards(){
@@ -2917,11 +3006,25 @@ function splitsTable(splits){
 let _hr=null;
 function hrSupported(){ return typeof navigator!=='undefined' && !!navigator.bluetooth; }
 function parseHR(dv){ try{ const f=dv.getUint8(0); return (f&1)? dv.getUint16(1,true) : dv.getUint8(1); }catch(e){ return null; } }
-async function hrConnect(){
+async function hrConnect(all){
   if(!hrSupported()){ toast('❤','Not available here','Bluetooth HR needs Chrome on Android, on the https app'); return; }
+  let dev=null;
   try{
-    const dev=await navigator.bluetooth.requestDevice({filters:[{services:['heart_rate']}]});
-    const srv=await (await dev.gatt.connect()).getPrimaryService('heart_rate');
+    const opts = all? {acceptAllDevices:true, optionalServices:['heart_rate']} : {filters:[{services:['heart_rate']}]};
+    dev=await navigator.bluetooth.requestDevice(opts);
+  }catch(e){
+    if(e && e.name==='NotFoundError'){ if(!all) toast('❤','No broadcaster found','Most watches need broadcast mode ON first — or tap "Show all devices" to check yours is visible'); }
+    else toast('❤','Could not scan','Check Bluetooth is on and Chrome has the Nearby-devices permission');
+    return;
+  }
+  let srv=null;
+  try{ srv=await (await dev.gatt.connect()).getPrimaryService('heart_rate'); }
+  catch(e){
+    try{ dev.gatt.disconnect(); }catch(x){}
+    toast('❤', (dev.name||'Device')+' found — no HR broadcast', 'It is visible but not broadcasting heart rate. Turn on its broadcast/share-HR mode, then reconnect.');
+    return;
+  }
+  try{
     const chr=await srv.getCharacteristic('heart_rate_measurement');
     await chr.startNotifications();
     _hr={dev, chr, bpm:null, on:true};
@@ -2929,15 +3032,16 @@ async function hrConnect(){
       const b=parseHR(e.target.value);
       if(b && b>30 && b<250){ _hr.bpm=b; if(_gps && _gps.active && _gps.running && _gps.hrs) _gps.hrs.push(b); _hrPaint(); }
     });
-    dev.addEventListener('gattserverdisconnected', ()=>{ if(_hr){ _hr.on=false; _hr.bpm=null; _hrPaint(); toast('❤','Monitor disconnected','Connection to the strap was lost'); } });
+    dev.addEventListener('gattserverdisconnected', ()=>{ if(_hr){ _hr.on=false; _hr.bpm=null; _hrPaint(); toast('❤','Monitor disconnected','Connection to the sensor was lost'); } });
     toast('❤','Heart rate connected', dev.name || 'Monitor paired'); _hrPaint();
-  }catch(e){ if(e && e.name!=='NotFoundError') toast('❤','Could not connect','Is the strap on, awake and in range?'); }
+  }catch(e){ try{ dev.gatt.disconnect(); }catch(x){} toast('❤','Could not read heart rate','The device connected but would not stream HR — try re-enabling its broadcast mode'); }
 }
 function hrDisconnect(){ try{ if(_hr && _hr.dev && _hr.dev.gatt) _hr.dev.gatt.disconnect(); }catch(e){} _hr=null; _hrPaint(); }
 function hrZoneOf(bpm){ const hz=hrZones(); if(!hz || !bpm) return null; let z=null; hz.zones.forEach((zz,i)=>{ if(bpm>=zz.lo) z={i:i+1, name:zz.name}; }); return z; }
 function _hrPaint(){
   const el=$('#hrLive'); if(!el) return;
-  if(!_hr || !_hr.on){ el.innerHTML = hrSupported()? `<button class="hr-connect" data-action="hr-connect">❤ Connect heart-rate monitor</button>` : ''; return; }
+  if(!_hr || !_hr.on){ el.innerHTML = hrSupported()? `<button class="hr-connect" data-action="hr-connect">❤ Connect heart-rate monitor</button>
+    <div class="hr-help">Watch not showing up? Most watches must have <b>broadcast mode</b> switched on first (Garmin: Sensors → Wrist HR → Broadcast · Polar: "HR visible to other devices" · some only broadcast during a workout). Chest straps work instantly. <button class="mini-link hr-all" data-action="hr-connect-all">Show all Bluetooth devices</button></div>` : ''; return; }
   const b=_hr.bpm, z=b?hrZoneOf(b):null;
   el.innerHTML=`<button class="hr-pill z${z?z.i:0}" data-action="hr-disconnect" title="Tap to disconnect">❤ ${b||'—'}<small> bpm</small>${z?' · '+z.name:''}</button>`;
 }
@@ -3602,6 +3706,7 @@ document.addEventListener('click', e=>{
     case 'gps-discard': gpsDiscard(); break;
     case 'gps-reset': _gpsDone=null; renderCardioTabs(); break;
     case 'hr-connect': hrConnect(); break;
+    case 'hr-connect-all': hrConnect(true); break;
     case 'hr-disconnect': hrDisconnect(); break;
     case 'boss-fight': startBoss(); break;
     case 'swap-ex': openSwap(+t.dataset.ei); break;
