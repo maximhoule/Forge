@@ -846,6 +846,15 @@ button:focus-visible,input:focus-visible,select:focus-visible,.toggle-row:focus-
 /* Equipped title under the rank */
 .hero-title{font-family:'Saira Condensed'; font-weight:600; font-size:13.5px; color:var(--gold); letter-spacing:.4px; margin-top:1px}
 
+/* ===== Manual run log ===== */
+.log-ok{margin-top:14px; border-color:rgba(52,234,208,.45)}
+.lo-t{font-weight:700; font-size:14.5px}
+.lo-s{font-size:12px; color:var(--muted); margin-top:5px; line-height:1.5}
+/* pace target on plan segments */
+.tag.ptag{background:rgba(255,138,43,.14); color:#FFB47A; border:1px solid rgba(255,138,43,.35)}
+/* squad leader */
+.lb-row.top{border-color:rgba(255,210,77,.55); background:linear-gradient(120deg, rgba(255,210,77,.10), var(--surface))}
+.lb-row.top .lb-rank{filter:drop-shadow(0 0 5px rgba(255,210,77,.55))}
 @media(prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
 </style>
 </head>
@@ -970,6 +979,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,.toggle-row:focus-
       <button class="chip cool on" data-tab="quick" data-action="cardio-tab">Quick session</button>
       <button class="chip cool" data-tab="plan" data-action="cardio-tab">Distance plan</button>
       <button class="chip cool" data-tab="gps" data-action="cardio-tab">GPS run</button>
+      <button class="chip cool" data-tab="log" data-action="cardio-tab">Log run</button>
     </div>
     <div id="cardio-quick">
     <p class="screen-lead">Choose a distance and a goal — your session scales to match.</p>
@@ -1016,6 +1026,31 @@ button:focus-visible,input:focus-visible,select:focus-visible,.toggle-row:focus-
     </div>
     <div id="cardio-plan" style="display:none"></div>
     <div id="cardio-gps" style="display:none"></div>
+    <div id="cardio-log" style="display:none">
+    <p class="screen-lead">Ran on a treadmill or without GPS? Log it here — it counts fully and feeds your VO₂max.</p>
+    <div class="card">
+      <p class="eyebrow" style="margin-bottom:10px">Where</p>
+      <div class="chips" id="logWhereChips">
+        <button class="chip cool on" data-action="log-where" data-w="out">🌤 Outdoor</button>
+        <button class="chip cool" data-action="log-where" data-w="tm">🏃 Treadmill</button>
+      </div>
+      <div class="form-field" id="tmInclineWrap" style="display:none; margin-top:14px; margin-bottom:0">
+        <label>Incline % · set 1 to match outdoor effort</label>
+        <input type="number" id="tmIncline" inputmode="decimal" value="1" min="0" max="15" step="0.5">
+      </div>
+    </div>
+    <div class="card">
+      <div class="form-field"><label>Distance (km)</label><input type="number" id="logDist" inputmode="decimal" placeholder="e.g. 5.0" min="0.2" step="0.1"></div>
+      <div class="form-field" style="margin-bottom:0"><label>Time</label>
+        <div class="row2"><input type="number" id="logMin" inputmode="numeric" placeholder="25" min="0"><span class="u">min</span><input type="number" id="logSec" inputmode="numeric" placeholder="00" min="0" max="59"><span class="u">sec</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="form-field" style="margin-bottom:0"><label>Average heart rate — optional (bpm)</label><input type="number" id="logHR" inputmode="numeric" placeholder="e.g. 152" min="40" max="230"></div>
+    </div>
+    <button class="btn btn-cool" data-action="log-run-submit">Log run</button>
+    <div id="logRunResult"></div>
+    </div>
   </section>
 
   <!-- ===== RECORDS ===== -->
@@ -1977,8 +2012,8 @@ function vo2FromRun(km, min){ if(!(km>0 && min>0)) return null; const v=(km*1000
   const vo2=-4.60 + 0.182258*v + 0.000104*v*v;
   const pct=0.8 + 0.1894393*Math.exp(-0.012778*min) + 0.2989558*Math.exp(-0.1932605*min);
   return (pct>0)? vo2/pct : null; }
-function bestVo2(){ const runs=(DB.log||[]).filter(l=>l.type==='cardio' && l.durationMin>0 && l.distance>=1.5 && l.durationMin>=6 && l.durationMin<=90);
-  let best=null, run=null; runs.forEach(r=>{ const v=vo2FromRun(r.distance, r.durationMin); if(v && (best===null || v>best)){ best=v; run=r; } });
+function bestVo2(){ const runs=(DB.log||[]).filter(l=>l.type==='cardio' && l.durationMin>0 && (l.effKm||l.distance)>=1.5 && l.durationMin>=6 && l.durationMin<=90);
+  let best=null, run=null; runs.forEach(r=>{ const v=vo2FromRun((r.effKm||r.distance), r.durationMin); if(v && (best===null || v>best)){ best=v; run=r; } });
   return best? {vo2:best, run} : null; }
 function vo2FromRestHR(){ const hr=DB.settings.restHR, mx=maxHR(); if(!(hr>0 && mx)) return null; return 15.3*(mx/hr); } // Uth-Sorensen
 function vo2Category(v, age, sex){ if(!(v>0)) return null;
@@ -2000,7 +2035,7 @@ function profileCard(){
   const s=DB.settings; const age=currentAge(); const haveProfile=!!(s.sex||age||s.heightCm);
   const bestV=bestVo2(); const vRest=vo2FromRestHR();
   let vo2=null, vsrc='';
-  if(bestV){ vo2=bestV.vo2; vsrc='from your best run · '+cn(Math.round(bestV.run.distance*10)/10)+' km in '+bestV.run.durationMin+' min'; }
+  if(bestV){ vo2=bestV.vo2; vsrc='from your best '+(bestV.run.indoor?'treadmill run':'run')+' · '+cn(Math.round(bestV.run.distance*10)/10)+' km in '+bestV.run.durationMin+' min'+(bestV.run.indoor?' · incline-adjusted':''); }
   else if(vRest){ vo2=vRest; vsrc='estimated from resting heart rate'; }
   const cat=vo2? vo2Category(vo2, age, s.sex) : null;
   const bmi=bmiInfo(); const hz=hrZones();
@@ -2089,15 +2124,15 @@ function renderRecords(){
   html+=`</div>`;
 
   html+=calSection();
-  const gn={fat:'Fat burn',endurance:'Endurance',speed:'Speed',recovery:'Recovery'};
+  const gn={fat:'Fat burn',endurance:'Endurance',speed:'Speed',recovery:'Recovery',gps:'GPS run',treadmill:'Treadmill',run:'Run'};
   html+=`<div class="sec-label">🗂 History</div>`;
   if(hasLog){
     html+=DB.log.map(x=>{
       if(x.type==='cardio'){
         const _rt=(x.path && x.path.length>1);
         const _avg=(x.distance>0 && x.durationMin>0)?fmtMin(x.durationMin/x.distance):null;
-        const _det=(_rt?`<div class="route-wrap" style="margin:6px 0 4px">${routeSVG(x.path,300,150)}</div>`:'')+((x.splits&&x.splits.length)?splitsTable(x.splits):'')+(_avg?`<div class="hd-row"><span>Avg pace</span><span class="mono">${_avg} /km</span></div>`:'')+((x.hrAvg)?`<div class="hd-row"><span>Heart rate</span><span class="mono">${x.hrAvg} avg · ${x.hrMax} max</span></div>`:'');
-        return `<div class="hist-row"><div class="hist-main" data-action="toggle-log"><div class="hist-ico c">🏃</div><div class="hist-body"><div class="hist-title">${(Math.round(x.distance*10)/10)} km · ${gn[x.goal]||'Run'}</div><div class="hist-meta">${x.durationMin?x.durationMin+' min':'Cardio session'}${_rt?' · 🗺 route':''}</div></div><div class="hist-date">${sd(x.date)}</div></div>${_det?`<div class="hist-detail">${_det}</div>`:''}</div>`;
+        const _det=(_rt?`<div class="route-wrap" style="margin:6px 0 4px">${routeSVG(x.path,300,150)}</div>`:'')+((x.splits&&x.splits.length)?splitsTable(x.splits):'')+(_avg?`<div class="hd-row"><span>Avg pace</span><span class="mono">${_avg} /km</span></div>`:'')+((x.incline!=null)?`<div class="hd-row"><span>Treadmill incline</span><span class="mono">${x.incline}%${x.effKm?(' · '+x.effKm+' km eff.'):''}</span></div>`:'')+((x.hrAvg)?`<div class="hd-row"><span>Heart rate</span><span class="mono">${x.hrAvg} avg${x.hrMax?(' · '+x.hrMax+' max'):''}</span></div>`:'');
+        return `<div class="hist-row"><div class="hist-main" data-action="toggle-log"><div class="hist-ico c">🏃</div><div class="hist-body"><div class="hist-title">${(Math.round(x.distance*10)/10)} km · ${gn[x.goal]||'Run'}</div><div class="hist-meta">${x.durationMin?(x.durationMin+' min'+(_avg?' · '+_avg+'/km':'')):'Cardio session'}${_rt?' · 🗺 route':''}</div></div><div class="hist-date">${sd(x.date)}</div></div>${_det?`<div class="hist-detail">${_det}</div>`:''}</div>`;
       }
       const setCount=(x.entries||[]).reduce((a,e)=>a+(e.sets||[]).length,0);
       const detail=(x.entries||[]).map(e=>{ const best=(e.sets||[]).reduce((b,s)=>{ const k=(+s.weight||0); return k>b.w?{w:k,r:(+s.reps||0)}:b; },{w:0,r:0}); return `<div class="hd-row"><span>${esc(e.exercise)}</span><span class="mono">${(e.sets||[]).length} sets · best ${best.w||0}×${best.r||0}</span></div>`; }).join('');
@@ -2186,7 +2221,7 @@ function renderSquad(){
     const chips=SQUAD_METRICS.map(m=>`<button class="chip ${m.k===squadMetric?'on':''}" data-action="squad-metric" data-k="${m.k}">${m.label}</button>`).join('');
     board=`<div class="chips squad-chips">${chips}</div>`+entries.map((e,i)=>{
       const medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':String(i+1);
-      return `<div class="lb-row ${e.me?'me':''}" ${e.me?'':'data-action="squad-view" data-id="'+e.id+'"'}>
+      return `<div class="lb-row ${e.me?'me':''}${i===0?' top':''}" ${e.me?'':'data-action="squad-view" data-id="'+e.id+'"'}>
         <div class="lb-rank">${medal}</div>
         <div class="lb-name">${esc(e.name)}${e.me?' <span class="lb-you">YOU</span>':''}${(!e.me && isStale(e.updated))?' <span class="lb-stale" title="Old snapshot">↻</span>':''}</div>
         <div class="lb-val">${metric.fmt(e.stats)}</div></div>`;
@@ -2810,7 +2845,7 @@ function renderCardioPlan(dist, goal, segs, pace){
     ${segs.map(s=>`<div class="seg"><div class="sdot" style="background:${s.color}"></div>
       <div class="sbody"><div class="sname"><span>${esc(s.phase)}</span><span class="smeta">${s.dist?s.dist+' km':esc(s.detail||'')}</span></div>
       <div class="sdesc">${s.desc}</div>
-      <div class="stags"><span class="tag rpe">RPE ${s.rpe}</span><span class="tag ztag">Zone ${s.zone.replace('Z','')}</span></div></div></div>`).join('')}
+      <div class="stags"><span class="tag rpe">RPE ${s.rpe}</span><span class="tag ztag">Zone ${s.zone.replace('Z','')}</span>${zonePaceTag(s.zone)}</div></div></div>`).join('')}
     <div class="cardio-total"><div><div class="eyebrow" style="margin:0">Session total</div></div>
       <div style="text-align:right"><div class="ct-v">${(Math.round(totalKm*10)/10)} km${pace?` · ~${Math.round(totalMin)} min`:''}</div></div></div>
   </div>
@@ -3159,11 +3194,40 @@ function gpsFinish(){
 function gpsDiscard(){ if(!_gps) return; if(!confirm('Discard this run? It won’t be saved.')) return; _gpsStopHardware(); _gps=null;
   const gw=$('#cardio-gps'); if(gw) gw.innerHTML=gpsView(); toast('🗑','Discarded','Run not saved'); }
 
+let logWhere='out';
+function tmEffKm(dist,inc){ const f=Math.max(0.85, Math.min(1.9, 1+4.5*((inc/100)-0.01))); return Math.round(dist*f*100)/100; }
+function zonePace(z){ const tp=trainingPaces(); if(!tp) return null;
+  const k={Z1:'Easy',Z2:'Easy',Z3:'Tempo',Z4:'Interval',Z5:'Reps'}[z]; if(!k) return null;
+  const p=tp.paces.find(x=>x.k===k); return p?p.disp:null; }
+function zonePaceTag(z){ const p=zonePace(z); return p?('<span class="tag ptag">⌖ '+p+'/km</span>'):''; }
+function submitLogRun(){
+  const dist=parseFloat(($('#logDist')||{}).value)||0;
+  const mm=parseInt(($('#logMin')||{}).value,10)||0, ss=parseInt(($('#logSec')||{}).value,10)||0;
+  const min=Math.round((mm+ss/60)*10)/10;
+  if(dist<0.2){ toast('🏃','Enter a distance','At least 0.2 km'); return; }
+  if(min<=0){ toast('⏱','Enter a time','How long did the run take?'); return; }
+  const pace=min/dist;
+  if(pace<2 || pace>20){ toast('🤔','Check those numbers','That works out to '+fmtMin(pace)+' /km'); return; }
+  const extra={};
+  const hr=parseInt(($('#logHR')||{}).value,10); if(hr>=40 && hr<=230) extra.hrAvg=hr;
+  let goal='run';
+  if(logWhere==='tm'){
+    goal='treadmill'; extra.indoor=true;
+    let inc=parseFloat(($('#tmIncline')||{}).value); if(!(inc>=0)) inc=1; inc=Math.min(15,inc);
+    extra.incline=inc; extra.effKm=tmEffKm(dist,inc);
+  }
+  logCardio(Math.round(dist*100)/100, goal, min, extra);
+  const vNow=myVo2();
+  const res=$('#logRunResult'); if(res) res.innerHTML='<div class="card log-ok"><div class="lo-t">Logged ✓ · '+cn(dist)+' km · '+fmtMin(pace)+'/km</div><div class="lo-s">'+(extra.effKm?('Treadmill @ '+extra.incline+'% → counted as '+extra.effKm+' km outdoor-equivalent for VO₂max. '):'')+'VO₂max estimate is now '+(vNow||'—')+' — your training paces update with it.</div></div>';
+  ['logDist','logMin','logSec','logHR'].forEach(id=>{ const el=$('#'+id); if(el) el.value=''; });
+  var pw=$('#pacesCardWrap'); if(pw) pw.innerHTML=pacesCard();
+}
 function renderCardioTabs(){
   const tab=cardioTab;
   $('#cardio-quick').style.display=tab==='quick'?'block':'none';
   $('#cardio-plan').style.display=tab==='plan'?'block':'none';
   var gel=$('#cardio-gps'); if(gel) gel.style.display=tab==='gps'?'block':'none';
+  var lel=$('#cardio-log'); if(lel) lel.style.display=tab==='log'?'block':'none';
   $$('[data-action="cardio-tab"]').forEach(c=>c.classList.toggle('on', c.dataset.tab===cardioTab));
   var pw=$('#pacesCardWrap'); if(pw) pw.innerHTML=pacesCard();
   if(tab==='plan') renderRunPlan();
@@ -3707,6 +3771,8 @@ document.addEventListener('click', e=>{
     case 'gps-reset': _gpsDone=null; renderCardioTabs(); break;
     case 'hr-connect': hrConnect(); break;
     case 'hr-connect-all': hrConnect(true); break;
+    case 'log-where': { logWhere=t.dataset.w; $$('#logWhereChips .chip').forEach(c=>c.classList.toggle('on', c.dataset.w===logWhere)); const iw=$('#tmInclineWrap'); if(iw) iw.style.display=logWhere==='tm'?'block':'none'; break; }
+    case 'log-run-submit': submitLogRun(); break;
     case 'hr-disconnect': hrDisconnect(); break;
     case 'boss-fight': startBoss(); break;
     case 'swap-ex': openSwap(+t.dataset.ei); break;
