@@ -14,7 +14,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Cinzel:wght@700;800&display=swap" rel="stylesheet">
 <style>
 /* ===== Tokens ===== */
 :root{
@@ -98,7 +98,7 @@ h2.screen-title{font-family:'Saira Condensed'; font-weight:700; font-size:30px; 
 .rank{font-family:'Saira Condensed'; font-weight:700; font-size:23px; letter-spacing:.4px}
 .greet{color:var(--muted); font-size:13px; margin-bottom:9px}
 .xp-bar{height:8px; border-radius:99px; background:var(--surface-3); overflow:hidden; margin-top:3px}
-.xp-bar > i{display:block; height:100%; background:var(--grad-energy); border-radius:99px; transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+.xp-bar > i{display:block; height:100%; background:var(--xpgrad, var(--grad-energy)); border-radius:99px; transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
 .xp-text{display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-top:6px}
 .xp-text .mono{color:var(--text)}
 
@@ -556,8 +556,6 @@ h2.screen-title{font-family:'Saira Condensed'; font-weight:700; font-size:30px; 
 .it-done-t{font-family:'Saira Condensed'; font-weight:800; font-size:34px}
 .it-done-s{color:var(--muted); font-size:14px}
 /* flex card */
-.flex-wrap{border-radius:14px; overflow:hidden; border:1px solid var(--line)}
-#flexCanvas{width:100%; display:block; height:auto}
 
 /* Forge Relic panel + ember canvas */
 .relic-panel{position:relative; overflow:hidden; border-radius:18px; border:1px solid var(--line); padding:16px 16px 15px; margin-bottom:14px; display:flex; flex-direction:column; align-items:center; gap:8px; background:radial-gradient(130% 100% at 50% 118%, rgba(255,90,44,.12), var(--surface) 68%)}
@@ -855,6 +853,195 @@ button:focus-visible,input:focus-visible,select:focus-visible,.toggle-row:focus-
 /* squad leader */
 .lb-row.top{border-color:rgba(255,210,77,.55); background:linear-gradient(120deg, rgba(255,210,77,.10), var(--surface))}
 .lb-row.top .lb-rank{filter:drop-shadow(0 0 5px rgba(255,210,77,.55))}
+/* ===================== V29 — GAME FEEL ===================== */
+:root{--r-lg:16px; --r-md:12px; --r-sm:10px; --font-epic:'Cinzel','Saira Condensed',serif}
+/* Epic display type */
+.logo{font-family:var(--font-epic); font-weight:800; letter-spacing:2.5px;
+  background:linear-gradient(120deg,#FFE7C2,#FF8A2B 45%,#FF4D8C); -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:drop-shadow(0 0 12px rgba(255,110,60,.35))}
+.brand .sub{letter-spacing:2.2px; text-transform:uppercase; font-size:9px}
+.screen-title{font-family:var(--font-epic); font-weight:800; text-transform:uppercase; letter-spacing:1px; font-size:21px}
+.screen-title::after{content:''; display:block; width:74px; height:3px; margin-top:9px; background:var(--grad-energy);
+  clip-path:polygon(0 50%, 7px 0, calc(100% - 7px) 0, 100% 50%, calc(100% - 7px) 100%, 7px 100%); box-shadow:0 0 10px rgba(255,90,44,.6)}
+p.eyebrow:has(+ h2.screen-title){color:#FFB47A; letter-spacing:3px}
+p.eyebrow:has(+ h2.screen-title)::before{content:'⟡  '; opacity:.8}
+p.eyebrow:has(+ h2.screen-title)::after{content:'  ⟡'; opacity:.8}
+.rank{font-family:var(--font-epic); font-weight:700; font-size:18px; letter-spacing:1px; text-transform:uppercase}
+.sheet h3{font-family:var(--font-epic); font-weight:700; font-size:19px; letter-spacing:.5px}
+.boss-name{font-family:var(--font-epic); font-weight:800; font-size:18px; letter-spacing:.6px; text-transform:uppercase}
+.wpn-name{font-family:var(--font-epic); font-weight:700; font-size:15px; letter-spacing:.3px}
+/* Chamfered game chrome */
+.btn-primary,.btn-cool{clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
+  box-shadow:none; position:relative; filter:drop-shadow(0 7px 16px rgba(255,77,140,.30))}
+.btn-cool{filter:drop-shadow(0 7px 16px rgba(46,123,214,.35))}
+.btn-primary::after,.btn-cool::after{content:''; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg, rgba(255,255,255,.22), transparent 34%)}
+.btn-primary:active,.btn-cool:active{filter:drop-shadow(0 3px 8px rgba(255,77,140,.3)) brightness(1.12)}
+.tag{clip-path:polygon(5px 0,100% 0,100% calc(100% - 5px),calc(100% - 5px) 100%,0 100%,0 5px)}
+.hero,.boss-card,.weapon-panel{clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px)}
+.boss-card{box-shadow:none; filter:drop-shadow(0 0 20px rgba(255,77,140,.35)); animation:bossPulse 3.2s ease-in-out infinite}
+@keyframes bossPulse{50%{filter:drop-shadow(0 0 30px rgba(255,77,140,.55))}}
+.boss-card.slain{filter:drop-shadow(0 0 16px rgba(255,210,77,.4)); animation:none}
+.weapon-panel{box-shadow:inset 0 1px 0 rgba(255,255,255,.05); filter:drop-shadow(0 8px 16px rgba(0,0,0,.45))}
+.boss-eyebrow{display:inline-block; background:linear-gradient(90deg, rgba(255,77,140,.26), rgba(255,77,140,.07));
+  border:1px solid rgba(255,77,140,.4); padding:3px 10px 3px 8px; clip-path:polygon(0 0,100% 0,calc(100% - 7px) 100%,0 100%); color:#FFB7CC; margin-bottom:3px}
+/* Segmented energy bars */
+.xp-bar{position:relative}
+.xp-bar::after{content:''; position:absolute; inset:0; pointer-events:none; border-radius:inherit;
+  background:repeating-linear-gradient(90deg, transparent 0 calc(10% - 2px), rgba(10,13,18,.85) calc(10% - 2px) 10%)}
+.sq-bar.big{position:relative}
+.sq-bar.big::after{content:''; position:absolute; inset:0; pointer-events:none;
+  background:repeating-linear-gradient(90deg, transparent 0 calc(20% - 2px), rgba(10,13,18,.85) calc(20% - 2px) 20%)}
+/* Nav power bar */
+.nav::before{content:''; position:absolute; top:-1px; left:10%; right:10%; height:2px;
+  background:linear-gradient(90deg, transparent, var(--energy-1), var(--energy-2), transparent); opacity:.7}
+.nav-item.on{color:#fff; filter:drop-shadow(0 0 8px rgba(255,110,60,.45))}
+/* Utilities row now a duo */
+.btn-row.trio.duo{grid-template-columns:1fr 1fr}
+/* Level-up moment */
+.lvlup{position:fixed; inset:0; z-index:420; pointer-events:none; display:grid; place-items:center; animation:lvlFade 2.1s var(--ease-out) forwards}
+.lvl-flash{position:absolute; inset:-20%; background:radial-gradient(45% 32% at 50% 46%, rgba(255,150,70,.5), rgba(255,77,140,.22) 45%, transparent 70%); animation:lvlFlash 1.9s var(--ease-out) forwards}
+.lvl-ring{position:absolute; width:150px; height:150px; border:2.5px solid rgba(255,170,90,.9); border-radius:99px; box-shadow:0 0 24px rgba(255,110,60,.5); animation:lvlRing 1.5s var(--ease-out) forwards}
+.lvl-txt{position:relative; text-align:center; animation:lvlTxt 1.9s var(--spring) forwards}
+.lvl-txt small{display:block; font-family:'JetBrains Mono'; font-size:11px; letter-spacing:6px; color:#FFC9A3; text-transform:uppercase}
+.lvl-txt b{display:block; font-family:var(--font-epic); font-weight:800; font-size:84px; line-height:1; margin-top:4px;
+  background:linear-gradient(180deg,#FFF3DC,#FFB061 55%,#FF4D8C); -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:drop-shadow(0 6px 22px rgba(255,90,44,.55))}
+.lvl-txt em{display:block; font-style:normal; font-family:var(--font-epic); font-size:15px; letter-spacing:2.5px; text-transform:uppercase; color:#FFD24D; margin-top:8px}
+@keyframes lvlFlash{0%{opacity:0; transform:scale(.7)} 18%{opacity:1} 100%{opacity:0; transform:scale(1.25)}}
+@keyframes lvlRing{0%{opacity:.9; transform:scale(.2)} 100%{opacity:0; transform:scale(3.4)}}
+@keyframes lvlTxt{0%{opacity:0; transform:scale(.5)} 22%{opacity:1; transform:scale(1.06)} 34%{transform:scale(1)} 78%{opacity:1} 100%{opacity:0; transform:scale(1.04) translateY(-8px)}}
+@keyframes lvlFade{0%,82%{opacity:1}100%{opacity:0}}
+/* ===== v30: exercise-library accordion ===== */
+.exg{border:1px solid var(--line-soft); border-radius:12px; margin-bottom:9px; overflow:hidden; background:var(--surface)}
+.exg-head{display:flex; width:100%; align-items:center; gap:11px; padding:13px 14px; background:none; border:0; color:var(--text); font-weight:700; font-size:14.5px; cursor:pointer}
+.xh-i{font-size:16px; line-height:1}
+.xh-c{margin-left:auto; font-family:'JetBrains Mono'; font-size:10.5px; color:var(--muted-2); background:var(--surface-3); padding:2px 9px; border-radius:99px}
+.xh-ch{color:var(--muted-2); font-size:12px; transition:transform .25s var(--ease)}
+.exg.open .xh-ch{transform:rotate(180deg)}
+.exg-body{display:none; padding:0 10px 10px}
+.exg.open .exg-body{display:block}
+#exPickList.searching .exg-body{display:block}
+#exPickList.searching .xh-ch{display:none}
+.exg-sub{font-family:'JetBrains Mono'; font-size:9.5px; letter-spacing:1px; text-transform:uppercase; color:var(--muted-2); margin:11px 4px 5px}
+.ex-pick{cursor:pointer}
+/* ===================== V32 — ASCENT · CACHES · SPRITE ===================== */
+.sprite-den{display:flex; align-items:center; gap:12px; width:100%; text-align:left; padding:10px 14px 10px 10px; margin-bottom:14px; border-radius:var(--r-lg);
+  background:radial-gradient(90% 130% at 12% 50%, rgba(255,138,43,.13), transparent 55%), linear-gradient(140deg, #171320, var(--surface) 60%);
+  border:1px solid var(--line); color:var(--text);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06), var(--shadow-md); transition:transform .2s var(--ease)}
+.sprite-den:active{transform:scale(.99)}
+.sd-stagebox{flex:0 0 auto; width:86px; height:86px; display:grid; place-items:center; border-radius:14px;
+  background:radial-gradient(60% 70% at 50% 62%, rgba(255,138,43,.16), transparent 75%)}
+.sd-meta{flex:1; min-width:0}
+.sd-eyebrow{font-family:'Cinzel', serif; font-size:9px; text-transform:uppercase; letter-spacing:2.2px; color:#C99A6B; font-weight:700}
+.sd-name{font-family:var(--font-epic); font-weight:800; font-size:17px; letter-spacing:.4px; margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.sd-mood{display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--muted); margin-top:4px; font-weight:600}
+.sd-mood i{width:7px; height:7px; border-radius:99px; box-shadow:0 0 7px currentColor; flex:0 0 auto}
+.spr-hero{position:relative; text-align:center; padding:12px 0 16px; margin:2px 0 12px; border-radius:16px; border:1px solid var(--line-soft);
+  background:radial-gradient(62% 78% at 50% 44%, rgba(255,138,43,.15), transparent 74%), var(--surface-2)}
+.spr-art{display:grid; place-items:center; padding:4px 0 2px}
+.spr-art.hop svg{animation:sprHop .6s var(--spring)}
+@keyframes sprHop{0%{transform:translateY(0)}35%{transform:translateY(-14px) rotate(-3deg) scale(1.05)}70%{transform:translateY(0) rotate(2deg) scale(.98)}100%{transform:translateY(0)}}
+.spr-name{font-family:var(--font-epic); font-weight:800; font-size:24px; letter-spacing:.5px; margin-top:6px}
+.spr-stage{font-family:'Cinzel', serif; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:#C99A6B; font-weight:700; margin-top:4px}
+.spr-moodchip{display:inline-flex; align-items:center; gap:7px; margin-top:10px; padding:6px 13px; border-radius:99px;
+  background:var(--surface); border:1px solid var(--line); font-size:11.5px; font-weight:700; letter-spacing:.3px}
+.spr-moodchip i{width:8px; height:8px; border-radius:99px; box-shadow:0 0 8px currentColor}
+.spr-card{padding:13px 14px; border-radius:13px; background:var(--surface-2); border:1px solid var(--line-soft); margin-top:10px}
+.spr-sec{display:flex; justify-content:space-between; align-items:baseline; font-family:'JetBrains Mono'; font-size:9.5px; text-transform:uppercase; letter-spacing:1.8px; color:var(--muted-2); font-weight:700; margin-bottom:10px}
+.spr-secr{letter-spacing:.4px; color:#FFD24D; text-transform:none; font-size:10px}
+.ev-track{display:flex; justify-content:space-between; gap:4px; position:relative; padding-top:2px}
+.ev-track::before{content:''; position:absolute; left:9%; right:9%; top:6px; height:2px; background:var(--surface-3); border-radius:2px}
+.ev-step{flex:1; text-align:center; position:relative}
+.ev-dot{display:block; width:10px; height:10px; border-radius:99px; margin:0 auto 6px; background:var(--surface-3); border:1px solid var(--line); position:relative; z-index:1}
+.ev-step.past .ev-dot{background:var(--grad-energy); border-color:transparent}
+.ev-step.now .ev-dot{background:var(--grad-energy); border-color:transparent; box-shadow:0 0 10px rgba(255,110,60,.85)}
+.ev-lbl{font-size:8.5px; color:var(--muted-2); letter-spacing:.3px; display:block; line-height:1.25}
+.ev-step.now .ev-lbl{color:#FFB47A; font-weight:800}
+.spr-evbar{display:flex; align-items:center; gap:9px; margin-top:11px}
+.spr-evbar .sq-bar{flex:1}
+.spr-evbar span{font-family:'JetBrains Mono'; font-size:10px; color:var(--muted); flex:0 0 auto}
+.sl-row{display:flex; align-items:center; gap:11px; font-size:12px; color:var(--muted); padding:5px 0; line-height:1.4}
+.sl-row b{color:var(--text); font-weight:700}
+.sl-i{font-size:15px; flex:0 0 22px; text-align:center}
+.spr-empty{font-size:11.5px; color:var(--muted-2); line-height:1.5}
+.spr-namerow{display:flex; gap:8px}
+.spr-namerow input{flex:1; min-width:0}
+.spr-namerow .btn{width:auto; white-space:nowrap}
+/* The Ascent */
+.ascent-panel{display:flex; align-items:center; gap:13px; width:100%; text-align:left; padding:12px 14px; margin-bottom:14px; border-radius:var(--r-lg);
+  background:linear-gradient(160deg, #121A2A, var(--surface) 70%); border:1px solid var(--line); color:var(--text);
+  clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05); transition:transform .2s var(--ease)}
+.ascent-panel:active{transform:scale(.99)}
+.asc-plinth{flex:0 0 auto; width:46px; height:46px; border-radius:12px; display:grid; place-items:center; font-size:24px;
+  background:radial-gradient(70% 70% at 50% 35%, #1D2431, #0E1219 85%); border:1px solid var(--line-soft)}
+.asc-meta{flex:1; min-width:0}
+.asc-eyebrow{font-family:'JetBrains Mono'; font-size:9.5px; text-transform:uppercase; letter-spacing:1.4px; color:var(--muted-2); font-weight:700}
+.asc-name{font-family:var(--font-epic); font-weight:700; font-size:15.5px; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.asc-sub{font-size:11px; color:var(--muted); margin-top:2px}
+.asc-head{display:flex; justify-content:space-between; align-items:baseline; font-weight:700; font-size:13.5px; margin-bottom:8px}
+.ah-n{font-family:'JetBrains Mono'; font-size:10.5px; color:var(--muted-2); font-weight:500}
+.asc-map{margin-top:12px; border-radius:14px; overflow:hidden; border:1px solid var(--line-soft)}
+.asc-map svg{display:block}
+.asc-cur{display:flex; gap:12px; margin-top:12px; padding:13px 14px; border-radius:13px; background:var(--surface-2); border:1px solid rgba(255,138,43,.35)}
+.asc-cur.summit{border-color:rgba(255,210,77,.5)}
+.ac-ico{font-size:26px; line-height:1; flex:0 0 auto}
+.ac-body{flex:1; min-width:0}
+.ac-name{font-family:var(--font-epic); font-weight:700; font-size:14.5px}
+.ac-desc{font-size:12px; color:var(--muted); margin-top:2px; line-height:1.45}
+.ac-rew{font-family:'JetBrains Mono'; font-size:10px; color:#FFD24D; margin-top:6px}
+.ac-prog{display:flex; align-items:center; gap:9px; margin-top:8px}
+.ac-pv{font-family:'JetBrains Mono'; font-size:10.5px; color:var(--muted); flex:0 0 auto}
+.ac-hint{font-size:10.5px; color:var(--muted-2); margin-top:7px; font-style:italic}
+/* Vault + loot */
+.vault-open{display:flex; gap:13px; align-items:center; padding:12px 13px; border-radius:13px; background:var(--surface-2); border:1px solid var(--line-soft); margin-bottom:10px}
+.vo-art{flex:0 0 auto}
+.vo-meta{flex:1; min-width:0}
+.vo-t{font-weight:800; font-size:15px}
+.vo-s{font-size:11px; color:var(--muted); margin-top:3px; line-height:1.45}
+.cache-live{animation:cacheFloat 2.6s ease-in-out infinite}
+@keyframes cacheFloat{50%{transform:translateY(-4px)}}
+.loot-grid{display:grid; grid-template-columns:1fr 1fr; gap:7px}
+.loot-item{display:flex; align-items:center; gap:7px; padding:9px 10px; border-radius:10px; background:var(--surface-2); border:1px solid var(--line); color:var(--muted-2); text-align:left; font-size:11.5px}
+.loot-item .li-n{flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.loot-item .li-lk{font-size:10px; opacity:.7}
+.li-dot{flex:0 0 auto; width:8px; height:8px; border-radius:99px; background:var(--surface-3)}
+.loot-item.own{color:var(--text); background:var(--surface)}
+.loot-item.own:active{transform:scale(.97)}
+.loot-item.r1.own{border-color:#5A6373}.loot-item.r1 .li-dot{background:#AEB6C6}
+.loot-item.r2.own{border-color:rgba(92,176,255,.55)}.loot-item.r2 .li-dot{background:#5CB0FF}
+.loot-item.r3.own{border-color:rgba(192,132,255,.6)}.loot-item.r3 .li-dot{background:#C084FF}
+.loot-item.r4.own{border-color:rgba(255,210,77,.7); box-shadow:0 0 10px -4px rgba(255,210,77,.8)}.loot-item.r4 .li-dot{background:linear-gradient(135deg,#FFE08A,#FF8A2B)}
+.loot-item.eq{outline:2px solid var(--energy-1); outline-offset:-1px}
+.loot-item:not(.own) .li-dot{opacity:.4}
+.cache-card{margin:12px 0 4px; padding:16px 14px; border-radius:14px; text-align:center; background:var(--surface-2); border:1.5px solid var(--line); animation:ccPop .45s var(--spring)}
+.cache-card .cc-rar{font-family:'JetBrains Mono'; font-size:9.5px; letter-spacing:2.5px; text-transform:uppercase; color:var(--muted-2); font-weight:700}
+.cache-card .cc-ico{font-size:30px; margin-top:6px}
+.cache-card .cc-name{font-family:var(--font-epic); font-weight:800; font-size:19px; margin-top:4px}
+.cache-card .cc-pool{font-size:11px; color:var(--muted); margin-top:2px}
+.cache-card.r2{border-color:rgba(92,176,255,.6)}.cache-card.r2 .cc-rar{color:#A9D4FF}
+.cache-card.r3{border-color:rgba(192,132,255,.65); box-shadow:0 0 24px -10px rgba(192,132,255,.7)}.cache-card.r3 .cc-rar{color:#D9B8FF}
+.cache-card.r4{border-color:rgba(255,210,77,.8); box-shadow:0 0 30px -8px rgba(255,210,77,.8)}.cache-card.r4 .cc-rar{color:#FFE08A}
+.cache-card.r4 .cc-name{background:linear-gradient(120deg,#FFF3DC,#FFB061,#FF4D8C); -webkit-background-clip:text; background-clip:text; color:transparent}
+@keyframes ccPop{0%{transform:scale(.7); opacity:0}100%{transform:scale(1); opacity:1}}
+.boss-quote{font-size:11.5px; color:#FFB7CC; font-style:italic; margin:1px 0 7px}
+/* organized routines */
+.rt-item{padding:0; overflow:hidden}
+.rt-head{display:flex; align-items:center; gap:4px; padding:6px 12px 6px 4px}
+.rt-star{flex:0 0 38px; height:44px; background:none; border:none; font-size:19px; color:var(--muted-2); cursor:pointer; transition:transform .15s var(--ease)}
+.rt-star.on{color:#FFD24D; text-shadow:0 0 9px rgba(255,210,77,.6)}
+.rt-star:active{transform:scale(1.25)}
+.rt-main{flex:1; min-width:0; background:none; border:none; text-align:left; color:var(--text); padding:8px 0; cursor:pointer}
+.rt-name{font-weight:800; font-size:14.5px; letter-spacing:.2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.rt-sub{font-size:11px; color:var(--muted-2); margin-top:3px}
+.rt-start{width:auto; flex:0 0 auto; padding:8px 13px}
+.rt-ch{flex:0 0 auto; color:var(--muted-2); font-size:12px; transition:transform .25s var(--ease); padding:0 4px}
+.rt-item.open .rt-ch{transform:rotate(180deg)}
+.rt-body{padding:0 14px 14px}
+.rt-tools{margin-bottom:12px}
+.rt-tools input{width:100%}
 @media(prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
 </style>
 </head>
@@ -899,7 +1086,11 @@ button:focus-visible,input:focus-visible,select:focus-visible,.toggle-row:focus-
       </div>
     </div>
 
+    <div id="spriteDen"></div>
+
     <div id="weaponCard"></div>
+
+    <div id="ascentCard"></div>
 
     <div class="stat-grid">
       <div class="stat hot"><div class="k">🔥 Streak</div><div class="v"><span id="stStreak">0</span><small id="stStreakSub"> days</small></div></div>
@@ -926,8 +1117,8 @@ button:focus-visible,input:focus-visible,select:focus-visible,.toggle-row:focus-
     </div>
     <div class="btn-row trio" style="margin-bottom:14px">
       <button class="btn btn-ghost" data-action="plate-calc">🧮 Plates</button>
-      <button class="btn btn-ghost" data-action="flex-card">📸 Flex card</button>
       <button class="btn btn-ghost" data-action="go-squad">⚔️ Squad</button>
+      <button class="btn btn-ghost" data-action="vault-open">🗃 Vault</button>
     </div>
 
     <div class="sec-head"><h3>Weekly quests</h3><span style="color:var(--muted-2);font-size:11px">Resets weekly</span></div>
@@ -954,7 +1145,8 @@ button:focus-visible,input:focus-visible,select:focus-visible,.toggle-row:focus-
 
     <div id="tab-routines" style="display:none">
       <button class="btn btn-primary" data-action="new-routine" style="margin-bottom:16px">＋ Build a custom routine</button>
-      <div id="routineList"></div>
+      <div class="rt-tools" id="rtTools" style="display:none"><input id="rtSearch" placeholder="Search your routines…"></div>
+    <div id="routineList"></div>
     </div>
   </section>
 
@@ -1068,6 +1260,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,.toggle-row:focus-
     <div id="squadSection"></div>
     <div id="seasonSection"></div>
     <div id="titleRow"></div>
+    <div id="vaultRow"></div>
     <div class="sec-label">🏅 Achievements</div>
     <div class="ach-summary">
       <div class="big"><span id="achCount">0</span><small>/<span id="achTotal">36</span></small></div>
@@ -1146,13 +1339,16 @@ const DB = {
   season: Store.get('forge.season', null),
   seasonHistory: Store.get('forge.seasonHistory', []),
   bossLog: Store.get('forge.bossLog', []),
-  weapon: Store.get('forge.weapon', null)
+  weapon: Store.get('forge.weapon', null),
+  ascent: Store.get('forge.ascent', null),
+  loot: Store.get('forge.loot', null),
+  sprite: Store.get('forge.sprite', null)
 };
 function save(){
   Store.set('forge.settings', DB.settings); Store.set('forge.stats', DB.stats);
   Store.set('forge.routines', DB.routines); Store.set('forge.log', DB.log);
   Store.set('forge.prs', DB.prs); Store.set('forge.ach', DB.achievements);
-  Store.set('forge.customEx', DB.customEx); Store.set('forge.bodyweight', DB.bodyweight); Store.set('forge.plan', DB.plan); Store.set('forge.quests', DB.quests); Store.set('forge.friends', DB.friends); Store.set('forge.season', DB.season); Store.set('forge.seasonHistory', DB.seasonHistory); Store.set('forge.bossLog', DB.bossLog); Store.set('forge.weapon', DB.weapon);
+  Store.set('forge.customEx', DB.customEx); Store.set('forge.bodyweight', DB.bodyweight); Store.set('forge.plan', DB.plan); Store.set('forge.quests', DB.quests); Store.set('forge.friends', DB.friends); Store.set('forge.season', DB.season); Store.set('forge.seasonHistory', DB.seasonHistory); Store.set('forge.bossLog', DB.bossLog); Store.set('forge.weapon', DB.weapon); Store.set('forge.ascent', DB.ascent); Store.set('forge.loot', DB.loot); Store.set('forge.sprite', DB.sprite);
   try{ Store.set('forge.activeSession', activeSession); }catch(e){}
 }
 let activeSession = Store.get('forge.activeSession', null);
@@ -1254,6 +1450,84 @@ const EX = [
   {n:'Cossack Squat', g:'Mobility', p:'mobility', pil:['mobility','balance']},
   {n:'Frog Stretch', g:'Mobility', p:'mobility', pil:['mobility']},
   {n:'Downward Dog', g:'Mobility', p:'mobility', pil:['mobility']},
+  // — v30 expansion: push —
+  {n:'Dumbbell Bench Press', g:'Chest', p:'push', pil:['strength'], c:1},
+  {n:'Incline Barbell Press', g:'Chest', p:'push', pil:['strength'], c:1},
+  {n:'Dumbbell Shoulder Press', g:'Shoulders', p:'push', pil:['strength'], c:1},
+  {n:'Machine Shoulder Press', g:'Shoulders', p:'push', pil:['strength']},
+  {n:'Dumbbell Fly', g:'Chest', p:'push', pil:['strength']},
+  {n:'Cable Crossover', g:'Chest', p:'push', pil:['strength']},
+  {n:'Front Raise', g:'Shoulders', p:'push', pil:['strength']},
+  {n:'Diamond Push-Up', g:'Triceps', p:'push', pil:['strength']},
+  {n:'Kettlebell Overhead Press', g:'Shoulders', p:'push', pil:['strength']},
+  {n:'Single-Arm Landmine Press', g:'Shoulders', p:'push', pil:['strength','balance']},
+  // — pull —
+  {n:'Chest-Supported Row', g:'Back', p:'pull', pil:['strength']},
+  {n:'Meadows Row', g:'Back', p:'pull', pil:['strength']},
+  {n:'Dumbbell Pullover', g:'Back', p:'pull', pil:['strength']},
+  {n:'Wide-Grip Pull-Up', g:'Back', p:'pull', pil:['strength']},
+  {n:'Renegade Row', g:'Back', p:'pull', pil:['strength','balance']},
+  {n:'Band Pull-Apart', g:'Rear Delts', p:'pull', pil:['strength']},
+  {n:'Cable Rear-Delt Fly', g:'Rear Delts', p:'pull', pil:['strength']},
+  {n:'EZ-Bar Curl', g:'Biceps', p:'pull', pil:['strength']},
+  {n:'Incline Dumbbell Curl', g:'Biceps', p:'pull', pil:['strength']},
+  {n:'Reverse Curl', g:'Biceps', p:'pull', pil:['strength']},
+  // — legs —
+  {n:'Trap Bar Deadlift', g:'Posterior Chain', p:'legs', pil:['strength'], c:1},
+  {n:'Zercher Squat', g:'Quads', p:'legs', pil:['strength'], c:1},
+  {n:'Kettlebell Swing', g:'Posterior Chain', p:'legs', pil:['strength']},
+  {n:'Nordic Curl', g:'Hamstrings', p:'legs', pil:['strength']},
+  {n:'Reverse Lunge', g:'Quads / Glutes', p:'legs', pil:['strength','balance']},
+  {n:'Lateral Lunge', g:'Quads / Glutes', p:'legs', pil:['strength','balance']},
+  {n:'Curtsy Lunge', g:'Glutes', p:'legs', pil:['strength','balance']},
+  {n:'Reverse Lunge with Rotation', g:'Quads / Glutes', p:'legs', pil:['strength','balance']},
+  {n:'Glute Kickback', g:'Glutes', p:'legs', pil:['strength']},
+  {n:'Hip Adduction', g:'Glutes', p:'legs', pil:['strength']},
+  {n:'Donkey Calf Raise', g:'Calves', p:'legs', pil:['strength']},
+  {n:'Wall Sit', g:'Quads', p:'legs', pil:['strength']},
+  {n:'Broad Jump', g:'Power', p:'legs', pil:['strength']},
+  // — core —
+  {n:'Russian Twist', g:'Core', p:'core', pil:['strength']},
+  {n:'Reverse Crunch', g:'Core', p:'core', pil:['strength']},
+  {n:'V-Up', g:'Core', p:'core', pil:['strength']},
+  {n:'L-Sit Hold', g:'Core', p:'core', pil:['strength','balance']},
+  {n:'Copenhagen Plank', g:'Core', p:'core', pil:['strength','balance']},
+  {n:'Plank Shoulder Tap', g:'Core', p:'core', pil:['strength','balance']},
+  {n:'Side Plank Leg Lift', g:'Core', p:'core', pil:['strength','balance']},
+  {n:'Suitcase Carry', g:'Core', p:'core', pil:['strength','balance']},
+  {n:"Farmer's Carry", g:'Traps', p:'core', pil:['strength','balance']},
+  // — balance —
+  {n:'Tree Pose', g:'Stability', p:'balance', pil:['balance']},
+  {n:'Warrior 3 Hold', g:'Stability', p:'balance', pil:['balance','mobility']},
+  {n:'Heel-to-Toe Walk', g:'Stability', p:'balance', pil:['balance']},
+  {n:'Single-Leg Toe Taps', g:'Stability', p:'balance', pil:['balance']},
+  {n:'Single-Leg Balance Reach', g:'Stability', p:'balance', pil:['balance']},
+  {n:'Single-Leg Hop & Stick', g:'Stability', p:'balance', pil:['balance','strength']},
+  {n:'Skater Hop', g:'Stability', p:'balance', pil:['balance','strength']},
+  {n:'Single-Leg Sit-to-Stand', g:'Stability', p:'balance', pil:['balance','strength']},
+  {n:'Single-Leg Step-Down', g:'Stability', p:'balance', pil:['balance','strength']},
+  {n:'Suitcase Single-Leg Stand', g:'Stability', p:'balance', pil:['balance']},
+  {n:'Stability Ball Stir-the-Pot', g:'Stability', p:'balance', pil:['balance','strength']},
+  {n:'BOSU Push-Up', g:'Stability', p:'balance', pil:['balance','strength']},
+  // — mobility —
+  {n:'Thread the Needle', g:'Mobility', p:'mobility', pil:['mobility']},
+  {n:'Wall Slides', g:'Mobility', p:'mobility', pil:['mobility']},
+  {n:'Doorway Pec Stretch', g:'Mobility', p:'mobility', pil:['mobility']},
+  {n:'Shoulder CARs', g:'Mobility', p:'mobility', pil:['mobility']},
+  {n:'Hip CARs', g:'Mobility', p:'mobility', pil:['mobility']},
+  {n:'90/90 Hip Switch', g:'Mobility', p:'mobility', pil:['mobility']},
+  {n:'Deep Squat Hold', g:'Mobility', p:'mobility', pil:['mobility','balance']},
+  {n:'Jefferson Curl', g:'Mobility', p:'mobility', pil:['mobility']},
+  {n:'Wall Ankle Rock', g:'Mobility', p:'mobility', pil:['mobility']},
+  {n:'Seated Forward Fold', g:'Mobility', p:'mobility', pil:['mobility']},
+  {n:'Butterfly Stretch', g:'Mobility', p:'mobility', pil:['mobility']},
+  {n:'Adductor Rock-Back', g:'Mobility', p:'mobility', pil:['mobility']},
+  {n:'Neck Mobility Circles', g:'Mobility', p:'mobility', pil:['mobility']},
+  {n:'Wrist Mobility Flow', g:'Mobility', p:'mobility', pil:['mobility']},
+  {n:'Standing Quad Stretch', g:'Mobility', p:'mobility', pil:['mobility']},
+  {n:'Bench T-Spine Extension', g:'Mobility', p:'mobility', pil:['mobility']},
+  {n:'Burpee', g:'Power', p:'legs', pil:['strength']}
+,
 ];
 function allEx(){ return EX.concat(DB.customEx); }
 function exInfo(name){ return allEx().find(e=>e.n===name) || {n:name, g:'Custom', p:'push', pil:['strength']}; }
@@ -1487,6 +1761,287 @@ const TEMPLATES = [
       ]}
     ]
   },
+  {
+    id:'novice-lp', name:'Novice Linear 3×5', goal:'strength', goalLabel:'Max Strength',
+    freq:'3 days / week (A/B alternate)', repFocus:'5 reps', rest:'3 min',
+    progression:'Add 2.5 kg to every lift every single session while bar speed stays crisp. Miss the same weight twice? Deload 10% and climb again. Novices adapt session-to-session — this milks that window.',
+    said:'Heavy triples-and-fives on big barbell lifts demand maximal motor-unit recruitment. Practiced three times a week, the nervous system adapts fastest of any stage in your training life.',
+    days:[
+      {name:'Session A', ex:[
+        {n:"World's Greatest Stretch", s:1, r:'5/side', rest:0},
+        {n:'Back Squat', s:3, r:'5', rest:180},
+        {n:'Barbell Bench Press', s:3, r:'5', rest:180},
+        {n:'Barbell Row', s:3, r:'5', rest:150},
+        {n:'Plank', s:2, r:'45 s', rest:45}
+      ]},
+      {name:'Session B', ex:[
+        {n:'Hip Flexor Stretch', s:1, r:'30 s/side', rest:0},
+        {n:'Back Squat', s:3, r:'5', rest:180},
+        {n:'Overhead Press', s:3, r:'5', rest:180},
+        {n:'Deadlift', s:1, r:'5', rest:180},
+        {n:'Chin-Up', s:3, r:'AMRAP', rest:120}
+      ]}
+    ]
+  },
+  {
+    id:'texas-method', name:'Texas Method Week', goal:'strength', goalLabel:'Max Strength',
+    freq:'3 days / week', repFocus:'5 reps', rest:'3–5 min',
+    progression:'Monday creates the stress (5×5 near your limit), Wednesday lets you recover, Friday you cash it in with one new 5-rep record. Add 2.5 kg to Friday every week — Monday follows at ~90% of it.',
+    said:'This is stress → recovery → adaptation stretched across a week instead of a session. Volume day drives the signal, light day clears fatigue, intensity day expresses the new strength.',
+    days:[
+      {name:'Volume', ex:[
+        {n:'Back Squat', s:5, r:'5 @ 90% of 5RM', rest:240},
+        {n:'Barbell Bench Press', s:5, r:'5', rest:240},
+        {n:'Romanian Deadlift', s:3, r:'8', rest:150},
+        {n:'Hanging Leg Raise', s:3, r:'10', rest:60}
+      ]},
+      {name:'Recovery', ex:[
+        {n:'Back Squat', s:2, r:'5 @ 80% of Mon', rest:150},
+        {n:'Overhead Press', s:3, r:'5', rest:180},
+        {n:'Chin-Up', s:3, r:'8', rest:120},
+        {n:'Good Morning', s:3, r:'10 light', rest:90},
+        {n:'Bird Dog', s:2, r:'8/side', rest:30}
+      ]},
+      {name:'Intensity', ex:[
+        {n:'Back Squat', s:1, r:'5 — new PR', rest:300},
+        {n:'Barbell Bench Press', s:1, r:'5 — new PR', rest:300},
+        {n:'Power Clean', s:5, r:'3', rest:150}
+      ]}
+    ]
+  },
+  {
+    id:'wave-4day', name:'Wave Loading — 4 Day', goal:'strength', goalLabel:'Max Strength',
+    freq:'4 days / week', repFocus:'wave: 5 → 3 → 1+', rest:'3 min',
+    progression:'Each main lift waves down in reps and up in weight across its three work sets, finishing with an all-out top set (leave 1 rep in the tank). Add 2.5 kg upper / 5 kg lower to your training numbers every 3 weeks — slow on purpose, so you never stall.',
+    said:'Submaximal percentages waved week to week accumulate volume without frying recovery. The rep-PR top set gives an autoregulated ceiling: on good days you take more, on bad days the minimum still moves you forward.',
+    days:[
+      {name:'Squat Day', ex:[
+        {n:'Back Squat', s:3, r:'5 / 3 / 1+ wave', rest:210},
+        {n:'Leg Press', s:3, r:'10', rest:120},
+        {n:'Leg Curl', s:3, r:'12', rest:90},
+        {n:'Ab Wheel Rollout', s:3, r:'8', rest:60}
+      ]},
+      {name:'Bench Day', ex:[
+        {n:'Barbell Bench Press', s:3, r:'5 / 3 / 1+ wave', rest:210},
+        {n:'Dumbbell Shoulder Press', s:3, r:'10', rest:120},
+        {n:'Chest-Supported Row', s:4, r:'10', rest:120},
+        {n:'Triceps Pushdown', s:3, r:'12', rest:75}
+      ]},
+      {name:'Deadlift Day', ex:[
+        {n:'Deadlift', s:3, r:'5 / 3 / 1+ wave', rest:240},
+        {n:'Front Squat', s:3, r:'8', rest:150},
+        {n:'Glute-Ham Raise', s:3, r:'10', rest:90},
+        {n:'Hanging Leg Raise', s:3, r:'12', rest:60}
+      ]},
+      {name:'Press Day', ex:[
+        {n:'Overhead Press', s:3, r:'5 / 3 / 1+ wave', rest:210},
+        {n:'Close-Grip Bench Press', s:3, r:'8', rest:150},
+        {n:'Pull-Up', s:4, r:'8', rest:120},
+        {n:'Face Pull', s:3, r:'15', rest:60}
+      ]}
+    ]
+  },
+  {
+    id:'tiered-t123', name:'Tiered T1 / T2 / T3', goal:'hybrid', goalLabel:'Strength + Size',
+    freq:'3 days / week', repFocus:'T1 heavy · T2 medium · T3 pump', rest:'T1 3 min · T3 60 s',
+    progression:'Three tiers, three jobs: T1 main lift (heavy 5×3), T2 secondary (3×8), T3 pump (2–3×15). Progress T1 by 2.5 kg when all reps are clean, T2 when 3×10 is beaten, T3 when 25 reps per set feels easy. Each tier fails and resets on its own clock.',
+    said:'Roughly 15 hard reps heavy, 25 medium, 50 light per session hits strength, size and work capacity in one visit — each intensity zone drives its own distinct adaptation.',
+    days:[
+      {name:'Day 1 — Squat focus', ex:[
+        {n:'Back Squat', s:5, r:'3 (T1)', rest:180},
+        {n:'Barbell Bench Press', s:3, r:'8 (T2)', rest:120},
+        {n:'Lat Pulldown', s:3, r:'15 (T3)', rest:60},
+        {n:'Pallof Press', s:2, r:'12/side', rest:45}
+      ]},
+      {name:'Day 2 — Bench focus', ex:[
+        {n:'Barbell Bench Press', s:5, r:'3 (T1)', rest:180},
+        {n:'Deadlift', s:3, r:'6 (T2)', rest:150},
+        {n:'Single-Arm Dumbbell Row', s:3, r:'15 (T3)', rest:60},
+        {n:'Lateral Raise', s:3, r:'15 (T3)', rest:45}
+      ]},
+      {name:'Day 3 — Deadlift focus', ex:[
+        {n:'Deadlift', s:5, r:'3 (T1)', rest:210},
+        {n:'Overhead Press', s:3, r:'8 (T2)', rest:120},
+        {n:'Leg Extension', s:3, r:'15 (T3)', rest:60},
+        {n:'EZ-Bar Curl', s:3, r:'15 (T3)', rest:45}
+      ]}
+    ]
+  },
+  {
+    id:'ppl-6day', name:'PPL — 6-Day High Frequency', goal:'muscle', goalLabel:'Build Muscle',
+    freq:'6 days / week (run the 3 days twice)', repFocus:'6–15 reps', rest:'90–150 s',
+    progression:'Every muscle gets hit twice a week — the frequency research consistently favors for growth. Add a rep to a set each session inside the range; when you top the range on all sets, add load and drop back.',
+    said:'Splitting volume across two weekly exposures per muscle keeps set quality high and the growth signal elevated more often — same weekly volume, better distributed.',
+    days:[
+      {name:'Push', ex:[
+        {n:'Barbell Bench Press', s:4, r:'6–8', rest:150},
+        {n:'Dumbbell Shoulder Press', s:3, r:'8–10', rest:120},
+        {n:'Incline Dumbbell Press', s:3, r:'10–12', rest:105},
+        {n:'Lateral Raise', s:3, r:'12–15', rest:60},
+        {n:'Triceps Pushdown', s:3, r:'10–12', rest:75},
+        {n:'Overhead Triceps Extension', s:2, r:'12–15', rest:60}
+      ]},
+      {name:'Pull', ex:[
+        {n:'Pull-Up', s:4, r:'6–8', rest:150},
+        {n:'Chest-Supported Row', s:3, r:'8–10', rest:120},
+        {n:'Lat Pulldown', s:3, r:'10–12', rest:105},
+        {n:'Face Pull', s:3, r:'15', rest:60},
+        {n:'EZ-Bar Curl', s:3, r:'8–10', rest:75},
+        {n:'Hammer Curl', s:2, r:'12', rest:60}
+      ]},
+      {name:'Legs', ex:[
+        {n:'Back Squat', s:4, r:'6–8', rest:180},
+        {n:'Romanian Deadlift', s:3, r:'8–10', rest:150},
+        {n:'Leg Press', s:3, r:'10–12', rest:120},
+        {n:'Leg Curl', s:3, r:'12', rest:90},
+        {n:'Calf Raise', s:4, r:'12–15', rest:60},
+        {n:'Hanging Leg Raise', s:3, r:'12', rest:60}
+      ]}
+    ]
+  },
+  {
+    id:'fullbody-x3', name:'Full-Body ×3 Hypertrophy', goal:'muscle', goalLabel:'Build Muscle',
+    freq:'3 days / week', repFocus:'6–12 reps · 1–3 RIR', rest:'2 min',
+    progression:'Every session trains everything at moderate volume, stopping 1–3 reps shy of failure — where the growth stimulus lives without the recovery bill. Double-progress: reps to the top of the range, then load.',
+    said:'Three full-body exposures spread 12–16 weekly sets per muscle across the week, so every hard set is a fresh, high-quality one. Frequency turns junk volume into effective volume.',
+    days:[
+      {name:'Day A — Squat & Press', ex:[
+        {n:'Back Squat', s:3, r:'6–8 (2 RIR)', rest:150},
+        {n:'Barbell Bench Press', s:3, r:'6–8 (2 RIR)', rest:150},
+        {n:'Seated Cable Row', s:3, r:'10 (2 RIR)', rest:120},
+        {n:'Lateral Raise', s:2, r:'15', rest:60},
+        {n:'Dead Bug', s:2, r:'10/side', rest:45}
+      ]},
+      {name:'Day B — Hinge & Pull', ex:[
+        {n:'Romanian Deadlift', s:3, r:'8 (2 RIR)', rest:150},
+        {n:'Incline Dumbbell Press', s:3, r:'10 (2 RIR)', rest:120},
+        {n:'Pull-Up', s:3, r:'6–10 (2 RIR)', rest:120},
+        {n:'Bulgarian Split Squat', s:2, r:'10/side', rest:105},
+        {n:'Cable Crunch', s:3, r:'12', rest:60}
+      ]},
+      {name:'Day C — Mixed', ex:[
+        {n:'Front Squat', s:3, r:'8 (2 RIR)', rest:150},
+        {n:'Overhead Press', s:3, r:'8 (2 RIR)', rest:150},
+        {n:'T-Bar Row', s:3, r:'10 (2 RIR)', rest:120},
+        {n:'Hip Thrust', s:3, r:'10', rest:105},
+        {n:'Barbell Curl', s:2, r:'10', rest:60},
+        {n:'Skull Crushers', s:2, r:'12', rest:60}
+      ]}
+    ]
+  },
+  {
+    id:'glute-pchain', name:'Glute & Posterior Builder', goal:'muscle', goalLabel:'Build Muscle',
+    freq:'2 days / week (slot into any split)', repFocus:'8–15 reps', rest:'90–150 s',
+    progression:'Two focused sessions built around the hinge and the thrust — the highest glute-tension patterns we have. Add load on the big moves weekly; add reps on the isolation work.',
+    said:'Hip extension under load from multiple angles (thrust, hinge, lunge, abduction) recruits the full glute complex and posterior chain — targeted volume where the growth is wanted.',
+    days:[
+      {name:'Thrust & Hinge', ex:[
+        {n:'Hip Thrust', s:4, r:'8–10', rest:150},
+        {n:'Romanian Deadlift', s:3, r:'8–10', rest:150},
+        {n:'Bulgarian Split Squat', s:3, r:'10/side', rest:105},
+        {n:'Glute Kickback', s:3, r:'12/side', rest:60},
+        {n:'Hip Abduction', s:3, r:'15', rest:60},
+        {n:'Copenhagen Plank', s:2, r:'20 s/side', rest:45}
+      ]},
+      {name:'Pull & Lunge', ex:[
+        {n:'Sumo Deadlift', s:4, r:'6–8', rest:180},
+        {n:'Reverse Lunge', s:3, r:'10/side', rest:105},
+        {n:'Glute-Ham Raise', s:3, r:'8–10', rest:120},
+        {n:'Single-Leg Glute Bridge', s:3, r:'12/side', rest:60},
+        {n:'Curtsy Lunge', s:2, r:'10/side', rest:75},
+        {n:'Single-Leg Calf Raise', s:3, r:'12/side', rest:45}
+      ]}
+    ]
+  },
+  {
+    id:'min-dose', name:'Minimum Effective Dose ×2', goal:'general', goalLabel:'General Fitness',
+    freq:'2 days / week · ~35 min', repFocus:'6–10 reps · 1–2 RIR', rest:'2–3 min',
+    progression:'The time-crunched protocol: two short sessions, four movements each, every set genuinely hard (1–2 reps in reserve). Beat last week by one rep anywhere; when the range is topped, add load.',
+    said:'Trials on minimal-dose training show a few hard sets per muscle each week retain — and in beginners build — most of the strength and size of far longer programs. Intensity of effort does the heavy lifting when volume is scarce.',
+    days:[
+      {name:'Session 1', ex:[
+        {n:'Goblet Squat', s:3, r:'8–10 (1–2 RIR)', rest:150},
+        {n:'Push-Up', s:3, r:'AMRAP −2', rest:150},
+        {n:'Single-Arm Dumbbell Row', s:3, r:'8–10/side', rest:120},
+        {n:'Suitcase Carry', s:2, r:'30 m/side', rest:90}
+      ]},
+      {name:'Session 2', ex:[
+        {n:'Trap Bar Deadlift', s:3, r:'6–8 (1–2 RIR)', rest:180},
+        {n:'Dumbbell Shoulder Press', s:3, r:'8–10', rest:150},
+        {n:'Chin-Up', s:3, r:'AMRAP −1', rest:150},
+        {n:'Plank', s:2, r:'45 s', rest:60}
+      ]}
+    ]
+  },
+  {
+    id:'hybrid-engine', name:'Hybrid Engine — Lift + Zone 2', goal:'endurance', goalLabel:'Endurance / Fat Loss',
+    freq:'3 lifts + 2 easy runs / week', repFocus:'strength kept heavy · engine kept easy', rest:'2–3 min lifting',
+    progression:'Concurrent training done right: two full-body strength days, one interval engine day, and two easy Zone-2 runs logged from the Cardio tab. Keep hard days hard and easy days truly easy — separate them by 6+ hours when possible.',
+    said:'The interference effect between lifting and cardio mostly appears when both are hard and stacked together. Heavy low-rep lifting plus low-intensity aerobic volume lets both adaptations proceed side by side.',
+    days:[
+      {name:'Strength A', ex:[
+        {n:'Back Squat', s:4, r:'5', rest:180},
+        {n:'Barbell Bench Press', s:4, r:'5', rest:180},
+        {n:'Barbell Row', s:3, r:'8', rest:120},
+        {n:"Farmer's Carry", s:3, r:'30 m', rest:90}
+      ]},
+      {name:'Engine Intervals', ex:[
+        {n:'Kettlebell Swing', s:5, r:'40 s work', rest:20},
+        {n:'Burpee', s:5, r:'30 s work', rest:30},
+        {n:'Mountain Climber', s:5, r:'40 s work', rest:20},
+        {n:'Box Jump', s:4, r:'6', rest:60},
+        {n:'Hollow Body Hold', s:3, r:'30 s', rest:45}
+      ]},
+      {name:'Strength B', ex:[
+        {n:'Trap Bar Deadlift', s:4, r:'5', rest:210},
+        {n:'Overhead Press', s:4, r:'5', rest:180},
+        {n:'Pull-Up', s:3, r:'AMRAP −1', rest:150},
+        {n:'Pallof Press', s:3, r:'10/side', rest:60}
+      ]}
+    ]
+  },
+  {
+    id:'longevity-pb', name:'Longevity — Power & Balance', goal:'balance', goalLabel:'Balance & Stability',
+    freq:'2 days / week', repFocus:'move fast · land soft · stand steady', rest:'90 s',
+    progression:'Power fades roughly twice as fast as strength with age — so every rep here is done with explosive intent at modest loads. Progress by moving crisper, holding balances longer, and shrinking your wobble, not by chasing weight.',
+    said:'Explosive intent trains rate of force development; single-leg holds and reaches train the balance system. Together they are the best-evidenced recipe for staying fast, stable and fall-proof for decades.',
+    days:[
+      {name:'Power Day', ex:[
+        {n:'Box Jump', s:4, r:'3 crisp', rest:120},
+        {n:'Goblet Squat', s:3, r:'6 explosive up', rest:120},
+        {n:'Push Press', s:3, r:'5', rest:120},
+        {n:'Step-Up', s:3, r:'6/side fast', rest:90},
+        {n:'Suitcase Carry', s:3, r:'30 m/side', rest:75},
+        {n:'Skater Hop', s:3, r:'6/side', rest:75}
+      ]},
+      {name:'Balance Day', ex:[
+        {n:'Single-Leg Sit-to-Stand', s:3, r:'5/side', rest:90},
+        {n:'Warrior 3 Hold', s:3, r:'20 s/side', rest:60},
+        {n:'Single-Leg Balance Reach', s:3, r:'5/direction', rest:60},
+        {n:'Heel-to-Toe Walk', s:3, r:'10 m', rest:45},
+        {n:'Single-Leg Step-Down', s:3, r:'8/side', rest:75},
+        {n:'Deep Squat Hold', s:2, r:'40 s', rest:60}
+      ]}
+    ]
+  },
+  {
+    id:'desk-reset', name:'Desk Reset — Daily 10', goal:'mobility', goalLabel:'Mobility & Recovery',
+    freq:'daily · ~10 min', repFocus:'slow reps · end-range control', rest:'none',
+    progression:'One short circuit for the four joints sitting punishes most: hips, thoracic spine, shoulders, ankles. Progress by owning deeper positions with less effort — same drills, more range, calmer breath.',
+    said:'Range of motion is use-it-or-lose-it: controlled daily visits to end range signal the nervous system that the position is safe and needed, and stiffness recedes.',
+    days:[
+      {name:'The Reset', ex:[
+        {n:'Cat-Cow', s:1, r:'8 slow', rest:0},
+        {n:'Thread the Needle', s:1, r:'6/side', rest:0},
+        {n:"World's Greatest Stretch", s:1, r:'5/side', rest:0},
+        {n:'Wall Slides', s:1, r:'10', rest:0},
+        {n:'Hip Flexor Stretch', s:1, r:'40 s/side', rest:0},
+        {n:'90/90 Hip Switch', s:1, r:'8 switches', rest:0},
+        {n:'Wall Ankle Rock', s:1, r:'10/side', rest:0},
+        {n:'Doorway Pec Stretch', s:1, r:'40 s', rest:0}
+      ]}
+    ]
+  }
 ];
 
 /* ---------- achievements ---------- */
@@ -1634,7 +2189,7 @@ function startEmbers(){
       p.x+=p.vx; p.y+=p.vy; p.life++;
       if(p.y<-12 || p.life>p.max){ const np=spawn(); p.x=np.x;p.y=np.y;p.r=np.r;p.vy=np.vy;p.vx=np.vx;p.life=0;p.max=np.max;p.hot=np.hot; }
       const a=Math.max(0,1-p.life/p.max)*0.75;
-      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,7); ctx.fillStyle='rgba('+(p.hot>0.62?'255,77,140':'255,150,50')+','+a.toFixed(2)+')'; ctx.fill();
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,7); const _t=emberTint(); ctx.fillStyle='rgba('+(p.hot>0.62?_t[1]:_t[0])+','+a.toFixed(2)+')'; ctx.fill();
     }
     _ember=requestAnimationFrame(frame);
   }
@@ -1800,17 +2355,54 @@ function renderHome(){
       <div style="font-size:12px;color:var(--muted)">${a.d}</div></div>
       <div class="tier ${a.tier}" style="position:static;opacity:1">${a.tier}</div></div>`).join('');
   }
-  renderRelic(); renderWeapon(); startEmbers();
+  renderRelic(); renderWeapon(); renderSpriteDen(); renderAscentCard(); applyLoot(); ascentCheck(); startEmbers();
 }
 
 /* ============================================================
    RENDER: TRAIN
    ============================================================ */
-let trainTab='templates';
+let trainTab=null;
+let rtQuery='', rtOpen={};
+function _agoTxt(ts){ if(!ts) return 'never used'; const d=Math.floor((Date.now()-ts)/86400000);
+  return d<=0?'used today':(d===1?'used yesterday':'used '+d+'d ago'); }
+function rtListHTML(){
+  const q=rtQuery.trim().toLowerCase();
+  let list=DB.routines.slice();
+  if(q) list=list.filter(r=> r.name.toLowerCase().includes(q) || r.days.some(d=> (d.name||'').toLowerCase().includes(q) || d.ex.some(e=> e.n.toLowerCase().includes(q))));
+  list.sort((a,b)=> ((b.pin?1:0)-(a.pin?1:0)) || ((b.lu||0)-(a.lu||0)));
+  if(!DB.routines.length) return `<div class="empty"><div class="e-ico">📋</div><div class="e-t">No routines yet</div><div class="e-d">Build one from scratch, or add a program from the library and tweak it to fit you.</div></div>`;
+  if(!list.length) return `<div class="empty"><div class="e-ico">🔍</div><div class="e-t">No matches</div><div class="e-d">Nothing named “${esc(rtQuery)}” — try another word or clear the search.</div></div>`;
+  return list.map(r=>{
+    const open=!!rtOpen[r.id]; const exN=r.days.reduce((a,d)=>a+d.ex.length,0);
+    return `<div class="tcard rt-item ${open?'open':''}" data-routine="${r.id}">
+    <div class="rt-head">
+      <button class="rt-star ${r.pin?'on':''}" data-action="rt-pin" data-routine="${r.id}">${r.pin?'★':'☆'}</button>
+      <button class="rt-main" data-action="rt-toggle" data-routine="${r.id}">
+        <div class="rt-name">${esc(r.name)}</div>
+        <div class="rt-sub">${r.days.length} day${r.days.length>1?'s':''} · ${exN} exercise${exN!==1?'s':''} · ${_agoTxt(r.lu)}</div>
+      </button>
+      ${r.days.length===1? `<button class="btn btn-primary btn-sm rt-start" data-action="start-day" data-routine="${r.id}" data-day="0">Start ▸</button>` : `<span class="rt-ch">▾</span>`}
+    </div>
+    <div class="rt-body" style="display:${open?'block':'none'}">
+      <div class="day-list">${r.days.map((d,di)=>`<div class="day-row" data-action="start-day" data-routine="${r.id}" data-day="${di}" style="cursor:pointer"><div class="dn"><span>${esc(d.name)}</span><span style="color:var(--energy-1);font-size:11px;font-weight:700">Start ▸</span></div><div class="de">${d.ex.map(e=>esc(e.n)).join(', ')||'No exercises'}</div></div>`).join('')}</div>
+      <div class="btn-row" style="margin-top:12px">
+        <button class="btn btn-ghost btn-sm" data-action="edit-routine" data-routine="${r.id}" style="width:100%">Edit</button>
+        <button class="btn btn-ghost btn-sm" data-action="del-routine" data-routine="${r.id}" style="width:100%;color:#FF6B8A">Delete</button>
+      </div>
+    </div></div>`; }).join('');
+}
+function renderRtList(){
+  const rl=$('#routineList'); if(!rl) return;
+  const tools=$('#rtTools'); if(tools && tools.style) tools.style.display = DB.routines.length>4?'block':'none';
+  rl.innerHTML=rtListHTML();
+}
 function renderTrain(){
   renderBoss();
+  if(trainTab===null) trainTab = DB.routines.length? 'routines':'templates';
   // templates
-  $('#tab-templates').innerHTML = TEMPLATES.map(t=>{
+  const _goals=[...new Set(TEMPLATES.map(x=>x.goal))];
+  const _tchips=`<div class="chips" style="margin-bottom:12px; flex-wrap:wrap"><button class="chip ${tplFilter==='all'?'on':''}" data-action="tpl-filter" data-g="all">All · ${TEMPLATES.length}</button>${_goals.map(g=>{ const n=TEMPLATES.filter(x=>x.goal===g).length; const lbl=TEMPLATES.find(x=>x.goal===g).goalLabel; return `<button class="chip ${tplFilter===g?'on':''}" data-action="tpl-filter" data-g="${g}">${lbl} · ${n}</button>`; }).join('')}</div>`;
+  $('#tab-templates').innerHTML = _tchips + TEMPLATES.filter(x=>tplFilter==='all'||x.goal===tplFilter).map(t=>{
     const dayCount=t.days.length;
     const exNames=t.days[0].ex.filter(e=>exInfo(e.n).p!=='mobility').slice(0,3).map(e=>e.n).join(' · ');
     return `<div class="tcard" data-tpl="${t.id}">
@@ -1826,21 +2418,7 @@ function renderTrain(){
     </div>`;
   }).join('');
 
-  // routines
-  const rl=$('#routineList');
-  if(!DB.routines.length){
-    rl.innerHTML=`<div class="empty"><div class="e-ico">📋</div><div class="e-t">No routines yet</div><div class="e-d">Build one from scratch, or add a program above and tweak it to fit you.</div></div>`;
-  } else {
-    rl.innerHTML=DB.routines.map(r=>`<div class="tcard" data-routine="${r.id}">
-      <div class="ghead"><div><h4>${esc(r.name)}</h4></div>${r.goalLabel?`<span class="goal-tag ${r.goal||'general'}">${esc(r.goalLabel)}</span>`:''}</div>
-      <div class="tmeta"><span>📅 <b>${r.days.length} day${r.days.length>1?'s':''}</b></span><span>🏋 <b>${r.days.reduce((a,d)=>a+d.ex.length,0)} exercises</b></span></div>
-      <div class="day-list">${r.days.map((d,di)=>`<div class="day-row" data-action="start-day" data-routine="${r.id}" data-day="${di}" style="cursor:pointer"><div class="dn"><span>${esc(d.name)}</span><span style="color:var(--energy-1);font-size:11px;font-weight:700">Start ▸</span></div><div class="de">${d.ex.map(e=>esc(e.n)).join(', ')||'No exercises'}</div></div>`).join('')}</div>
-      <div class="btn-row" style="margin-top:12px">
-        <button class="btn btn-ghost btn-sm" data-action="edit-routine" data-routine="${r.id}" style="width:100%">Edit</button>
-        <button class="btn btn-ghost btn-sm" data-action="del-routine" data-routine="${r.id}" style="width:100%;color:#FF6B8A">Delete</button>
-      </div>
-    </div>`).join('');
-  }
+  renderRtList();
   // keep tab visibility
   $('#tab-templates').style.display = trainTab==='templates'?'block':'none';
   $('#tab-routines').style.display = trainTab==='routines'?'block':'none';
@@ -2356,13 +2934,16 @@ function dotsScore(){
   return {pts, tot:Math.round(tot), lbl, approx:!DB.settings.sex};
 }
 /* ===================== TITLES ===================== */
-function earnedTitles(){ const t=[]; ACH.forEach(a=>{ if(DB.achievements[a.id]) t.push({id:'a:'+a.id, n:a.n, src:'award'}); }); (DB.bossLog||[]).forEach(b=>t.push({id:'b:'+b.key, n:b.title, src:'boss'})); return t; }
+function earnedTitles(){ const t=[]; ACH.forEach(a=>{ if(DB.achievements[a.id]) t.push({id:'a:'+a.id, n:a.n, src:'award'}); }); (DB.bossLog||[]).forEach(b=>t.push({id:'b:'+b.key, n:b.title, src:'boss'}));
+  if(DB.loot && DB.loot.owned) LOOT.forEach(i=>{ if(i.k==='title' && DB.loot.owned[i.id]) t.push({id:'l:'+i.id, n:i.n, src:'cache'}); });
+  if(DB.ascent && DB.ascent.done) ASCENT.forEach(c=>c.nodes.forEach(nd=>{ if(nd.title && DB.ascent.done[nd.id]) t.push({id:'asc:'+nd.id, n:nd.title, src:'ascent'}); }));
+  return t; }
 function currentTitle(){ const id=DB.settings.title; if(!id) return null; return earnedTitles().find(x=>x.id===id)||null; }
 function renderTitleRow(){ const host=$('#titleRow'); if(!host) return; const ct=currentTitle(); const n=earnedTitles().length;
   host.innerHTML=`<div class="title-row"><div><div class="tr-k">🏷 Title</div><div class="tr-v">${ct?('“'+esc(ct.n)+'”'):'<span class="tr-none">None equipped</span>'}</div></div><button class="btn btn-ghost btn-sm" style="width:auto" data-action="open-titles">${n?'Change':'Locked'}</button></div>`; }
 function openTitles(){ const list=earnedTitles(), cur=DB.settings.title;
   openSheet(`<div class="grab"></div><h3>Equip a title</h3>
-  <p class="sh-lead">Earn titles from awards and slain bosses. Your equipped title shows under your rank, on your flex card and in your squad code.</p>
+  <p class="sh-lead">Earn titles from awards and slain bosses. Your equipped title shows under your rank and travels in your squad code.</p>
   <button class="swap-row ${!cur?'on':''}" data-action="equip-title" data-id=""><span class="sw-n">No title</span></button>
   ${list.map(t=>`<button class="swap-row ${cur===t.id?'on':''}" data-action="equip-title" data-id="${t.id}"><span class="sw-n">“${esc(t.n)}”</span><span class="sw-g">${t.src}</span></button>`).join('')||'<div class="add-msg">Nothing earned yet — unlock any award to claim its name.</div>'}
   <button class="btn btn-ghost btn-sm" data-action="close-sheet">Cancel</button>`); }
@@ -2391,6 +2972,7 @@ function renderBoss(){
   host.innerHTML=`<div class="boss-card"><div class="boss-ico">${b.ico}</div><div class="boss-body">
     <div class="boss-eyebrow">Monthly boss · ${bossDaysLeft()}d to slay</div>
     <div class="boss-name">${esc(b.name)}</div>
+    <div class="boss-quote">“${esc(bossLine(b.key,'taunt'))}”</div>
     <div class="boss-rx">${b.rx.map(r=>`<span>${esc(r.line)}</span>`).join('')}</div>
     <div class="boss-sub">Complete every set in one session to claim “${esc(b.title)}” · +150 XP · your relic surges</div>
     <button class="btn btn-primary btn-sm" data-action="boss-fight" style="margin-top:11px">⚔ Fight</button>
@@ -2404,6 +2986,7 @@ function startBoss(){
   if(activeSession && activeSession.entries){ activeSession.entries.forEach((en,i)=>{ const r=b.rx[i]; if(!r) return; en.sets.forEach(st=>{ if(r.w>0) st.weight=String(r.w); st.reps=String(r.reps); }); });
     activeSession.bossKey=b.key; activeSession.bossName=b.name; activeSession.bossIco=b.ico; activeSession.bossTitle=b.title; save(); }
   go('session'); renderSession();
+  bossSpeak(b.key,'taunt');
   toast(b.ico, b.name+' awaits', 'Complete every set to win');
 }
 /* ===================== SMART SWAPS ===================== */
@@ -2450,12 +3033,13 @@ function stagePips(stage){ let s=''; for(let i=0;i<5;i++) s+='<span class="pip'+
 function weaponSVG(w, size){
   size=size||90; const id='wp'+Math.random().toString(36).slice(2,7);
   const S=w.stage, gold=S>=3, edge=S>=2, rough=S===0;
-  const hiL=rough?'#B9C1CD':'#ECF2FA', midL=rough?'#8B94A4':'#B3BFD2', loL=rough?'#5E6673':'#7C89A0';
-  const hiD=rough?'#8A93A2':'#9AA6BB', midD=rough?'#5A6270':'#66738B', loD=rough?'#3E4550':'#454F64';
+  const MT=metalTint(), FL=flameTint(), RN=runeTint();
+  const hiL=rough?'#B9C1CD':MT.b[0], midL=rough?'#8B94A4':MT.b[1], loL=rough?'#5E6673':MT.b[2];
+  const hiD=rough?'#8A93A2':MT.d[0], midD=rough?'#5A6270':MT.d[1], loD=rough?'#3E4550':MT.d[2];
   const steelLF=`url(#${id}a)`, steelDF=`url(#${id}b)`, edgeF=`url(#${id}e)`, goldFill=`url(#${id}g)`;
   const fit = gold? goldFill : steelDF;
   const G=['M-3 0L0 -4L3 0L0 4Z','M-3 -3L3 3M3 -3L-3 3','M0 -4L0 4M-3 -0.5L3 -0.5'];
-  const runeAt=(x,y,i)=>`<g class="wpn-rune" transform="translate(${x} ${y})"><circle r="4.6" fill="#FFC94D" opacity=".45" filter="url(#${id}bl)"/><path d="${G[i%3]}" fill="none" stroke="#FFE79A" stroke-width="1.5" stroke-linecap="round"><animate attributeName="opacity" values=".55;1;.55" dur="2.8s" begin="${(i*0.4).toFixed(1)}s" repeatCount="indefinite"/></path></g>`;
+  const runeAt=(x,y,i)=>`<g class="wpn-rune" transform="translate(${x} ${y})"><circle r="4.6" fill="${RN.g}" opacity=".45" filter="url(#${id}bl)"/><path d="${G[i%3]}" fill="none" stroke="${RN.s}" stroke-width="1.5" stroke-linecap="round"><animate attributeName="opacity" values=".55;1;.55" dur="2.8s" begin="${(i*0.4).toFixed(1)}s" repeatCount="indefinite"/></path></g>`;
   const grip=(x,y,wd,h)=>{ let s=`<rect x="${x}" y="${y}" width="${wd}" height="${h}" rx="3.5" fill="#43301F"/>`;
     const n=Math.max(0,Math.min(5,w.wraps));
     for(let i=0;i<n;i++){ const yy=y+4+i*((h-8)/5); s+=`<path d="M${x} ${yy}L${x+wd} ${yy+2.6}L${x+wd} ${yy+5.4}L${x} ${yy+2.8}Z" fill="#6E4E33"/>`; }
@@ -2526,7 +3110,7 @@ function weaponSVG(w, size){
     <linearGradient id="${id}b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${hiD}"/><stop offset=".5" stop-color="${midD}"/><stop offset="1" stop-color="${loD}"/></linearGradient>
     <linearGradient id="${id}e" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFB061"/><stop offset="1" stop-color="#FF4D8C"/></linearGradient>
     <linearGradient id="${id}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE08A"/><stop offset="1" stop-color="#E8A93A"/></linearGradient>
-    <radialGradient id="${id}f"><stop offset="0" stop-color="#FFD24D" stop-opacity=".85"/><stop offset=".55" stop-color="#FF8A2B" stop-opacity=".35"/><stop offset="1" stop-color="#FF4D8C" stop-opacity="0"/></radialGradient>
+    <radialGradient id="${id}f"><stop offset="0" stop-color="${FL[0]}" stop-opacity=".85"/><stop offset=".55" stop-color="${FL[1]}" stop-opacity=".35"/><stop offset="1" stop-color="${FL[2]}" stop-opacity="0"/></radialGradient>
     <linearGradient id="${id}sh" x1="0" y1="0" x2="0" y2="60" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/><stop offset=".5" stop-color="#FFFFFF" stop-opacity=".3"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/><animateTransform attributeName="gradientTransform" type="translate" values="0 -80;0 244" dur="3.4s" repeatCount="indefinite"/></linearGradient>
     <filter id="${id}bl" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="2.2"/></filter>
     ${S>=4?`<clipPath id="${id}c">${clipD.map(d=>`<path d="${d}"/>`).join('')}</clipPath>`:''}
@@ -2572,8 +3156,439 @@ function openWeapon(){
   <button class="btn btn-ghost btn-sm" data-action="close-sheet" style="margin-top:8px">Close</button>`);
 }
 
+/* ===================== BOSS VOICE LINES ===================== */
+const BLINES=[
+ {q:['You dare lift against stone itself?','Little smith… I have outlasted mountains.'], w:['Impossible… the stone… cracks…']},
+ {q:['I have devoured stronger flames than yours.','Feed me your failure, mortal.'], w:['So… the fire bites back…']},
+ {q:['None pass the forge-light. None.','Your steel is soft, challenger.'], w:['The watch… is ended…']},
+ {q:['I buried the last hundred like you.','Your grave is already dug.'], w:['At last… someone worth the soil…']},
+ {q:['A hundred hands — and every one against you.','Struggle. It amuses me.'], w:['One hand… was all you needed…']},
+ {q:['Winter comes for your streak, mortal.','I will freeze the flame from your bones.'], w:['Warmth… I had forgotten it…']},
+ {q:['Kneel before the first fire.','I ruled embers before you drew breath.'], w:['The crown… passes to you…']},
+ {q:['The storm answers to ME.','I will scatter you like ash on the wind.'], w:['Silence… how strange…']}
+];
+function bossLine(key, phase){ const i=_mhash(key)%BOSSES.length; const L=BLINES[i]||BLINES[0]; const arr=phase==='win'?L.w:L.q; return arr[_mhash(key+phase)%arr.length]; }
+function bossSpeak(key, phase){ try{ speak(bossLine(key,phase)); }catch(e){} }
+/* ===================== FORGE CACHES — the loot ledger ===================== */
+const RARN=['','Common','Rare','Epic','Mythic'];
+const LOOT_POOLS=[['ember','Ember Tints','🔥'],['metal','Weapon Metals','⚔️'],['flame','Weapon Flames','☄️'],['rune','Rune Inks','✦'],['xp','XP Bar Skins','🔋'],['acc','Sprite Trinkets','🎀'],['title','Cache Titles','🏷️']];
+const LOOT=[
+ {id:'e_az',k:'ember',n:'Azure Flame',r:2,v:['80,170,255','130,220,255']},
+ {id:'e_vr',k:'ember',n:'Verdant Fire',r:1,v:['90,220,140','160,255,190']},
+ {id:'e_vd',k:'ember',n:'Void Violet',r:3,v:['150,90,255','200,150,255']},
+ {id:'e_au',k:'ember',n:'Aurora Drift',r:3,v:['60,230,200','190,130,255']},
+ {id:'e_gd',k:'ember',n:'Gilded Cinders',r:3,v:['255,190,60','255,230,140']},
+ {id:'e_bl',k:'ember',n:'Bloodfire',r:2,v:['255,70,70','255,130,100']},
+ {id:'e_gh',k:'ember',n:'Ghostlight',r:2,v:['170,190,220','235,244,255']},
+ {id:'e_sw',k:'ember',n:'Solar White',r:4,v:['255,238,200','255,255,255']},
+ {id:'e_rs',k:'ember',n:'Rose Ember',r:1,v:['255,120,170','255,175,205']},
+ {id:'e_tl',k:'ember',n:'Ion Teal',r:1,v:['60,210,220','150,255,240']},
+ {id:'m_bz',k:'metal',n:'Bronze Cast',r:1,v:{b:['#F2D5A8','#C89A5B','#8A6432'],d:['#C9A46E','#8F6B3C','#5C4423']}},
+ {id:'m_gm',k:'metal',n:'Gunmetal',r:1,v:{b:['#D9DEE6','#8E97A6','#5A6373'],d:['#9AA2B0','#5F6875','#3A424E']}},
+ {id:'m_bs',k:'metal',n:'Bluesteel',r:1,v:{b:['#D6E4F7','#8FB0D8','#5A7BA6'],d:['#9FBBDD','#5F7FA8','#3C5470']}},
+ {id:'m_vg',k:'metal',n:'Verdigris',r:2,v:{b:['#CDEEDD','#7FC4A6','#4B8A6F'],d:['#93C9AE','#578F73','#35604C']}},
+ {id:'m_rg',k:'metal',n:'Rosegold',r:2,v:{b:['#F9DCD2','#E0A18E','#B06A55'],d:['#E7B4A3','#B37862','#7E4E3D']}},
+ {id:'m_iv',k:'metal',n:'Ivory Bone',r:2,v:{b:['#FBF6E9','#E4D6B8','#B7A683'],d:['#E9DCC0','#BBA987','#8B7B5C']}},
+ {id:'m_ob',k:'metal',n:'Obsidian',r:3,v:{b:['#7E8598','#4A4F60','#23262F'],d:['#565B6C','#333743','#191C24']}},
+ {id:'m_mt',k:'metal',n:'Meteorite',r:3,v:{b:['#C9C2D8','#8E86A6','#5C556F'],d:['#9C93B2','#665E7C','#403A50']}},
+ {id:'m_ss',k:'metal',n:'Starsteel',r:4,v:{b:['#EAF4FF','#A9C6EF','#6E8FC4'],d:['#B8D0F2','#7C9BCB','#4E6A94']}},
+ {id:'m_sf',k:'metal',n:'Sunforged',r:4,v:{b:['#FFEBB8','#F5B94E','#C67F1E'],d:['#F7CE7E','#CE9433','#8F6415']}},
+ {id:'f_az',k:'flame',n:'Azure Pyre',r:2,v:['#9CD8FF','#4DA6FF','#2A5BD8']},
+ {id:'f_em',k:'flame',n:'Emerald Pyre',r:2,v:['#B8FFDE','#3DDC97','#0F9D6E']},
+ {id:'f_vi',k:'flame',n:'Violet Pyre',r:3,v:['#E4C6FF','#A45DFF','#6A2BD8']},
+ {id:'f_wh',k:'flame',n:'White-Hot',r:4,v:['#FFFFFF','#FFE9C4','#FFB061']},
+ {id:'f_go',k:'flame',n:'Golden Pyre',r:3,v:['#FFF0B8','#FFC94D','#E8871E']},
+ {id:'f_sp',k:'flame',n:'Spectral Pyre',r:3,v:['#D6FFF6','#7CE8D8','#3E9E9C']},
+ {id:'r_ic',k:'rune',n:'Ice Runes',r:2,v:{g:'#8FD8FF',s:'#DFF4FF'}},
+ {id:'r_bd',k:'rune',n:'Blood Runes',r:2,v:{g:'#FF6B6B',s:'#FFC1C1'}},
+ {id:'r_jd',k:'rune',n:'Jade Runes',r:2,v:{g:'#4DE0A5',s:'#CFFAE5'}},
+ {id:'r_am',k:'rune',n:'Amethyst Runes',r:3,v:{g:'#B07CFF',s:'#E6D4FF'}},
+ {id:'r_vd',k:'rune',n:'Void Runes',r:4,v:{g:'#6E5BFF',s:'#CFC8FF'}},
+ {id:'x_oc',k:'xp',n:'Ocean Bar',r:1,v:'linear-gradient(90deg,#2E7BD6,#34EAD0)'},
+ {id:'x_tx',k:'xp',n:'Toxin Bar',r:1,v:'linear-gradient(90deg,#7CE83D,#1F9D55)'},
+ {id:'x_ry',k:'xp',n:'Royal Bar',r:2,v:'linear-gradient(90deg,#8B7CFF,#FF4D8C)'},
+ {id:'x_ss',k:'xp',n:'Sunset Bar',r:2,v:'linear-gradient(90deg,#FFD24D,#FF4D8C)'},
+ {id:'x_mo',k:'xp',n:'Monochrome Bar',r:1,v:'linear-gradient(90deg,#E8EDF5,#8A93A4)'},
+ {id:'x_au',k:'xp',n:'Aurora Bar',r:3,v:'linear-gradient(90deg,#34EAD0,#8B7CFF,#FF4D8C)'},
+ {id:'x_mg',k:'xp',n:'Magma Bar',r:3,v:'linear-gradient(90deg,#FF3D3D,#FF8A2B,#FFD24D)'},
+ {id:'x_pr',k:'xp',n:'Prism Bar',r:4,v:'linear-gradient(90deg,#FF4D8C,#FFD24D,#34EAD0,#5CB0FF,#B07CFF)'},
+ {id:'t_lk',k:'title',n:'the Lucky',r:2},
+ {id:'t_cc',k:'title',n:'Cache-Cracker',r:1},
+ {id:'t_gl',k:'title',n:'the Gilded',r:3},
+ {id:'t_df',k:'title',n:'of the Deep Forge',r:3},
+ {id:'t_st',k:'title',n:'Star-Touched',r:4},
+ {id:'t_hd',k:'title',n:'the Hoarder',r:2},
+ {id:'c_gg',k:'acc',n:'Coal Goggles',r:1,v:'goggles'},
+ {id:'c_ha',k:'acc',n:'Frost Halo',r:2,v:'halo'},
+ {id:'c_sc',k:'acc',n:'Molten Scarf',r:2,v:'scarf'},
+ {id:'c_cr',k:'acc',n:'Ember Crown',r:3,v:'crown'},
+ {id:'c_wf',k:'acc',n:'Wisp Friend',r:3,v:'wisp'},
+ {id:'c_di',k:'acc',n:'Star Diadem',r:4,v:'diadem'}
+];
+function ensureLoot(){ if(!DB.loot) DB.loot={owned:{},opened:0,q:[],pE:0,pM:0,equip:{ember:'',metal:'',flame:'',rune:'',xp:'',acc:''}}; if(!DB.loot.q) DB.loot.q=[]; if(!DB.loot.equip) DB.loot.equip={ember:'',metal:'',flame:'',rune:'',xp:'',acc:''}; }
+function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; var t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+function cacheGrant(force){ ensureLoot(); DB.loot.q.push(force||''); save();
+  setTimeout(()=>toast('📦','Forge Cache earned','Waiting in the Vault — '+DB.loot.q.length+' unopened'), 1500); }
+function rollTier(force){ const L=DB.loot; const r=mulberry32(1337+L.opened*2654435761)();
+  let t=r<0.03?4:r<0.13?3:r<0.40?2:1;
+  if(force==='mythic') t=4; else if(force==='epic') t=Math.max(t,3); else if(force==='rare') t=Math.max(t,2);
+  if(L.pM>=29) t=4; else if(L.pE>=9) t=Math.max(t,3);
+  return t; }
+function openCache(){ ensureLoot(); const L=DB.loot;
+  if(!L.q.length){ toast('📦','The Vault is empty','Finish a session to earn a cache'); return null; }
+  const force=L.q.shift(); const t=rollTier(force);
+  const rng=mulberry32(9001+L.opened*40503);
+  let pool=LOOT.filter(x=>x.r===t && !L.owned[x.id]);
+  for(let d=1; d<4 && !pool.length; d++) pool=LOOT.filter(x=>(x.r===t-d||x.r===t+d) && !L.owned[x.id]);
+  L.opened++; if(t>=4){ L.pM=0; L.pE=0; } else if(t===3){ L.pE=0; L.pM++; } else { L.pE++; L.pM++; }
+  if(!pool.length){ gainXP(40); save(); return {overflow:true, tier:t}; }
+  const item=pool[Math.floor(rng()*pool.length)];
+  L.owned[item.id]=todayStr(); save(); return {item, tier:item.r}; }
+function equipLoot(id){ ensureLoot(); const it=LOOT.find(x=>x.id===id); if(!it || !DB.loot.owned[id]) return null;
+  if(it.k==='title') return it;
+  DB.loot.equip[it.k]=(DB.loot.equip[it.k]===id)?'':id; save(); applyLoot(); return it; }
+function applyLoot(){ try{ ensureLoot(); const d=document.documentElement;
+  if(d && d.style && d.style.setProperty){ const x=LOOT.find(i=>i.id===DB.loot.equip.xp);
+    if(x) d.style.setProperty('--xpgrad', x.v); else d.style.removeProperty('--xpgrad'); } }catch(e){} }
+function emberTint(){ ensureLoot(); const it=LOOT.find(i=>i.id===DB.loot.equip.ember); return it? it.v : ['255,150,50','255,77,140']; }
+function metalTint(){ ensureLoot(); const it=LOOT.find(i=>i.id===DB.loot.equip.metal); return it? it.v : {b:['#ECF2FA','#B3BFD2','#7C89A0'], d:['#9AA6BB','#66738B','#454F64']}; }
+function flameTint(){ ensureLoot(); const it=LOOT.find(i=>i.id===DB.loot.equip.flame); return it? it.v : ['#FFD24D','#FF8A2B','#FF4D8C']; }
+function runeTint(){ ensureLoot(); const it=LOOT.find(i=>i.id===DB.loot.equip.rune); return it? it.v : {g:'#FFC94D', s:'#FFE79A'}; }
+function _wEvt(sess, vol){ let mob=0, bal=0; const ps=new Set();
+  (sess&&sess.entries||[]).forEach(e=>{ const i=exInfo(e.exercise)||{}; const pil=i.pil||[];
+    if(pil.includes('mobility')) mob++; if(pil.includes('balance')) bal++; pil.forEach(p=>ps.add(p)); });
+  return {type:'workout', volume:vol||0, mobN:mob, balN:bal, pils:ps.size}; }
+function cacheArtSVG(n, size){ size=size||88; const glow=n>0;
+  return `<svg viewBox="0 0 100 100" width="${size}" height="${size}" style="display:block">
+  <defs><linearGradient id="cav" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3A4358"/><stop offset="1" stop-color="#1B2130"/></linearGradient>
+  <linearGradient id="cae" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFB061"/><stop offset="1" stop-color="#FF4D8C"/></linearGradient>
+  <filter id="cab" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.4"/></filter></defs>
+  <g${glow?' class="cache-live"':''}>
+  <path d="M50 8 L84 28 L84 66 L50 88 L16 66 L16 28 Z" fill="url(#cav)" stroke="#4A5468" stroke-width="2"/>
+  <path d="M50 8 L84 28 L50 46 L16 28 Z" fill="#454F64" opacity=".9"/>
+  ${glow?`<path d="M50 20 L50 82 M28 36 L72 60 M72 36 L28 60" stroke="url(#cae)" stroke-width="2.6" filter="url(#cab)" opacity=".85"><animate attributeName="opacity" values=".5;1;.5" dur="2.2s" repeatCount="indefinite"/></path>`:''}
+  <path d="M50 20 L50 82 M28 36 L72 60 M72 36 L28 60" stroke="${glow?'url(#cae)':'#2B3242'}" stroke-width="1.4"/>
+  <circle cx="50" cy="48" r="6.5" fill="#141A26" stroke="${glow?'#FFC94D':'#39424F'}" stroke-width="2"/>
+  <path d="M50 44 L50 52 M47 49 L53 49" stroke="${glow?'#FFC94D':'#39424F'}" stroke-width="1.6" stroke-linecap="round"/>
+  </g></svg>`; }
+/* ===================== THE ASCENT — 32-node campaign ===================== */
+const ASCENT=[
+ {ch:'Foothills of Cinder', ico:'🌋', nodes:[
+  {id:'a1',n:'First Steps',d:'Complete any workout',t:'anyw',ico:'⚒️',xp:40},
+  {id:'a2',n:'Warm Blood',d:'Log any run or cardio session',t:'anyc',ico:'🏃',xp:40},
+  {id:'a3',n:'Ton of Intent',d:'Move 2,500 kg in one session',t:'vol',v:2500,ico:'🏋️',xp:60,cache:''},
+  {id:'a4',n:'Kindling',d:'Reach a 3-day streak',t:'str',v:3,ico:'🔥',xp:60},
+  {id:'a5',n:'First Mark',d:'Set your first PR',t:'pr',v:1,ico:'⚡',xp:60},
+  {id:'a6',n:'Open Range',d:'One session with 4+ mobility moves',t:'mob',v:4,ico:'🧘',xp:60,cache:''},
+  {id:'a7',n:'Rising Ember',d:'Reach Level 3',t:'lv',v:3,ico:'⬆️',xp:80},
+  {id:'a8',n:'Gatekeeper',d:'Run 3 km in one go',t:'run',v:3,ico:'🥾',xp:100,cache:'rare',title:'Foothill-Forged'}
+ ]},
+ {ch:'The Iron Switchbacks', ico:'⛓️', nodes:[
+  {id:'a9',n:'Iron Load',d:'Move 5,000 kg in one session',t:'vol',v:5000,ico:'⛓️',xp:80},
+  {id:'a10',n:'Five Alive',d:'Reach a 5-day streak',t:'str',v:5,ico:'🔥',xp:80},
+  {id:'a11',n:'Record Hunter',d:'Set 3 PRs',t:'pr',v:3,ico:'🎯',xp:80},
+  {id:'a12',n:'The Long Bend',d:'Run 5 km in one go',t:'run',v:5,ico:'🛤️',xp:90,cache:''},
+  {id:'a13',n:'Sure-Footed',d:'One session with 3+ balance moves',t:'bal',v:3,ico:'🪨',xp:80},
+  {id:'a14',n:'Climbing Rank',d:'Reach Level 6',t:'lv',v:6,ico:'⬆️',xp:90},
+  {id:'a15',n:'Tempered Ten',d:'Complete 10 lifetime workouts',t:'wko',v:10,ico:'🛠️',xp:90,cache:''},
+  {id:'a16',n:'The Warden Falls',d:'Defeat a monthly boss',t:'boss',v:1,ico:'⚔️',xp:150,cache:'epic',title:'Switchback Slayer'}
+ ]},
+ {ch:'Stormreach Ridge', ico:'⛈️', nodes:[
+  {id:'a17',n:'Storm Load',d:'Move 8,000 kg in one session',t:'vol',v:8000,ico:'🏋️',xp:100},
+  {id:'a18',n:'Proven Steel',d:'Reach DOTS 200',t:'dots',v:200,ico:'🏆',xp:110},
+  {id:'a19',n:'Outrun the Thunder',d:'Run 3 km+ at sub-6:00 /km',t:'pace',v:6,ico:'⚡',xp:110,cache:''},
+  {id:'a20',n:'Deep Lungs',d:'Reach VO₂max 38',t:'vo2',v:38,ico:'🫁',xp:110},
+  {id:'a21',n:'Sevenfold Flame',d:'Reach a 7-day streak',t:'str',v:7,ico:'🔥',xp:110},
+  {id:'a22',n:'Fifty Klicks',d:'Cover 50 km lifetime',t:'km',v:50,ico:'🗺️',xp:110,cache:''},
+  {id:'a23',n:'Stormrank',d:'Reach Level 10',t:'lv',v:10,ico:'⬆️',xp:120},
+  {id:'a24',n:'Ridge-Reacher',d:'Relic reaches tier 3',t:'relic',v:3,ico:'🗡️',xp:160,cache:'epic',title:'Ridge-Reacher'}
+ ]},
+ {ch:'The Molten Summit', ico:'🌞', nodes:[
+  {id:'a25',n:'Crushing Weight',d:'Move 12,000 kg in one session',t:'vol',v:12000,ico:'🏋️',xp:130},
+  {id:'a26',n:'Molten Steel',d:'Reach DOTS 275',t:'dots',v:275,ico:'🏆',xp:140},
+  {id:'a27',n:'The Long Ascent',d:'Run 10 km in one go',t:'run',v:10,ico:'🛤️',xp:140,cache:''},
+  {id:'a28',n:'Summit Lungs',d:'Reach VO₂max 44',t:'vo2',v:44,ico:'🫁',xp:140},
+  {id:'a29',n:'Runed Arsenal',d:'Weapon reaches forge score 160',t:'fs',v:160,ico:'⚒️',xp:150,cache:''},
+  {id:'a30',n:'Season Bronze',d:'Score 150 season points',t:'seas',v:150,ico:'🥉',xp:140},
+  {id:'a31',n:'Two-Week Blaze',d:'Reach a 14-day streak',t:'str',v:14,ico:'🔥',xp:160,cache:'epic'},
+  {id:'a32',n:'SUMMIT-BORN',d:'Reach Level 15',t:'lv',v:15,ico:'👑',xp:300,cache:'mythic',title:'Summit-Born'}
+ ]}
+];
+const ASC_T={
+ anyw:(e)=>!!(e&&e.type==='workout'),
+ anyc:(e)=>!!(e&&e.type==='cardio'),
+ vol:(e,v)=>!!(e&&e.type==='workout'&&e.volume>=v),
+ run:(e,v)=>!!(e&&e.type==='cardio'&&e.km>=v),
+ pace:(e,v)=>!!(e&&e.type==='cardio'&&e.km>=3&&e.min>0&&(e.min/e.km)<=v),
+ mob:(e,v)=>!!(e&&e.type==='workout'&&e.mobN>=v),
+ bal:(e,v)=>!!(e&&e.type==='workout'&&e.balN>=v),
+ lv:(e,v)=>levelInfo(DB.stats.xp).level>=v,
+ str:(e,v)=>(DB.stats.currentStreak||0)>=v,
+ pr:(e,v)=>(DB.stats.prsSet||0)>=v,
+ wko:(e,v)=>(DB.stats.workouts||0)>=v,
+ km:(e,v)=>(DB.stats.distanceKm||0)>=v,
+ dots:(e,v)=>{ const d=dotsScore(); return !!(d&&d.pts>=v); },
+ vo2:(e,v)=>myVo2()>=v,
+ boss:(e,v)=>(DB.stats.bossWins||0)>=v,
+ relic:(e,v)=>relicTier().idx>=v,
+ fs:(e,v)=>forgeScore()>=v,
+ seas:(e,v)=>{ ensureSeason(); return (DB.season.score||0)>=v; }
+};
+function ensureAscent(){ if(!DB.ascent) DB.ascent={node:0, done:{}}; }
+function ascFlat(){ const f=[]; ASCENT.forEach((c,ci)=>c.nodes.forEach(nd=>f.push(Object.assign({ci:ci}, nd)))); return f; }
+function ascentCheck(evt){ ensureAscent(); const flat=ascFlat(); let n=0;
+  while(DB.ascent.node<flat.length && n<8){
+    const nd=flat[DB.ascent.node]; const fn=ASC_T[nd.t]; if(!fn || !fn(evt, nd.v)) break;
+    DB.ascent.done[nd.id]=todayStr(); DB.ascent.node++; n++;
+    gainXP(nd.xp);
+    if(nd.cache!==undefined) cacheGrant(nd.cache||'');
+    (function(nm,xp,i){ setTimeout(()=>{ _burstT=0; burst('teal'); toast('⛰️','Ascent — node cleared!', nm+' · +'+xp+' XP','gold'); }, 600+i*450); })(nd.n, nd.xp, n);
+  }
+  if(n) save(); return n; }
+function ascProgress(nd){
+  const m={ lv:()=>[levelInfo(DB.stats.xp).level,nd.v], str:()=>[DB.stats.currentStreak||0,nd.v],
+    pr:()=>[DB.stats.prsSet||0,nd.v], wko:()=>[DB.stats.workouts||0,nd.v],
+    km:()=>[Math.round((DB.stats.distanceKm||0)*10)/10,nd.v],
+    dots:()=>{ const d=dotsScore(); return [d?Math.round(d.pts):0,nd.v]; },
+    vo2:()=>[myVo2()||0,nd.v], boss:()=>[DB.stats.bossWins||0,nd.v],
+    relic:()=>[relicTier().idx,nd.v], fs:()=>[forgeScore(),nd.v],
+    seas:()=>{ ensureSeason(); return [DB.season.score||0,nd.v]; } };
+  if(!m[nd.t]) return null; const r=m[nd.t]();
+  return {c:Math.min(r[0],r[1]), g:r[1]}; }
+function ascentMapSVG(){
+  ensureAscent(); const flat=ascFlat(); const N=flat.length;
+  const W=360, step=44, topPad=70, botPad=90, H=topPad+(N-1)*step+botPad;
+  const pts=[]; for(let i=0;i<N;i++){ pts.push({x:Math.round(180+Math.sin(i*0.9+0.6)*100), y:H-botPad-i*step}); }
+  const ridge=(yb,amp,seed,col,op)=>{ let s='0,'+H;
+    for(let x=0;x<=360;x+=30){ s+=' '+x+','+Math.round(yb-Math.abs(Math.sin(x*0.021+seed))*amp); }
+    s+=' 360,'+H; return `<polygon points="${s}" fill="${col}" opacity="${op}"/>`; };
+  let stars=''; for(let k=0;k<27;k++){ const sx=(k*97)%340+10, sy=((k*57)%Math.round(H*0.52))+18, sr=(0.8+((k*13)%10)/12).toFixed(2);
+    stars+=`<circle cx="${sx}" cy="${sy}" r="${sr}" fill="#DFE8FF"><animate attributeName="opacity" values=".15;.85;.15" dur="${(2.6+(k%5)*0.7).toFixed(1)}s" begin="${(k%7)*0.5}s" repeatCount="indefinite"/></circle>`; }
+  let d='M'+pts[0].x+' '+pts[0].y; for(let i=1;i<N;i++) d+=' L'+pts[i].x+' '+pts[i].y;
+  const doneN=Math.min(DB.ascent.node, N-1);
+  let d2='M'+pts[0].x+' '+pts[0].y; for(let i=1;i<=doneN;i++) d2+=' L'+pts[i].x+' '+pts[i].y;
+  let nodes='';
+  flat.forEach((nd,i)=>{ const p=pts[i]; const st=i<DB.ascent.node?'done':(i===DB.ascent.node?'cur':'lock');
+    if(st==='done'){ nodes+=`<g data-action="asc-node" data-id="${nd.id}"><circle cx="${p.x}" cy="${p.y}" r="9" fill="url(#pe)" stroke="#0C0F14" stroke-width="3"/><path d="M${p.x-3} ${p.y} L${p.x-1} ${p.y+2.5} L${p.x+3.5} ${p.y-2.5}" stroke="#1A0F0A" stroke-width="2" fill="none" stroke-linecap="round"/></g>`; }
+    else if(st==='cur'){ nodes+=`<g id="ascCur" data-action="asc-node" data-id="${nd.id}"><circle cx="${p.x}" cy="${p.y}" r="13" fill="none" stroke="#FFB061" stroke-width="2"><animate attributeName="r" values="11;15;11" dur="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" values=".9;.25;.9" dur="1.8s" repeatCount="indefinite"/></circle><circle cx="${p.x}" cy="${p.y}" r="10" fill="#141922" stroke="#FF8A2B" stroke-width="2.5"/><text x="${p.x}" y="${p.y+3.8}" text-anchor="middle" font-size="11">${nd.ico}</text></g>`; }
+    else{ nodes+=`<g data-action="asc-node" data-id="${nd.id}"><circle cx="${p.x}" cy="${p.y}" r="8" fill="#12161F" stroke="#2A3140" stroke-width="2"/><circle cx="${p.x}" cy="${p.y}" r="1.8" fill="#39414E"/></g>`; } });
+  let banners=''; ASCENT.forEach((c,ci)=>{ const p=pts[ci*8]; const y=p.y+30;
+    banners+=`<line x1="52" y1="${y-4}" x2="126" y2="${y-4}" stroke="#3A2E28" stroke-width="1"/><line x1="234" y1="${y-4}" x2="308" y2="${y-4}" stroke="#3A2E28" stroke-width="1"/><text x="180" y="${y}" text-anchor="middle" fill="#FFB47A" font-family="Cinzel, serif" font-size="11" letter-spacing="2.5" opacity=".92">${c.ico} ${c.ch.toUpperCase()}</text>`; });
+  const summit=(DB.ascent.node>=N)?`<path d="M${pts[N-1].x} ${pts[N-1].y-34} C${pts[N-1].x+9} ${pts[N-1].y-24} ${pts[N-1].x+7} ${pts[N-1].y-16} ${pts[N-1].x} ${pts[N-1].y-12} C${pts[N-1].x-7} ${pts[N-1].y-16} ${pts[N-1].x-9} ${pts[N-1].y-24} ${pts[N-1].x} ${pts[N-1].y-34} Z" fill="url(#pe)"><animateTransform attributeName="transform" type="translate" values="0 0;0 -3;0 0" dur="2s" repeatCount="indefinite"/></path>`:'';
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0B1220"/><stop offset="1" stop-color="#05070C"/></linearGradient>
+    <linearGradient id="pe" x1="0" y1="${H}" x2="0" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FF8A2B"/><stop offset="1" stop-color="#FF4D8C"/></linearGradient>
+    <radialGradient id="fg"><stop offset="0" stop-color="#FF8A2B" stop-opacity=".5"/><stop offset="1" stop-color="#FF8A2B" stop-opacity="0"/></radialGradient>
+    <filter id="pb" x="-30%" y="-5%" width="160%" height="110%"><feGaussianBlur stdDeviation="3"/></filter>
+  </defs>
+  <rect x="0" y="0" width="${W}" height="${H}" fill="url(#sky)"/>
+  ${stars}
+  ${ridge(H*0.40,120,1.3,'#10141D',.95)}${ridge(H*0.58,150,2.7,'#0D1017',1)}${ridge(H*0.78,170,4.1,'#0A0C12',1)}
+  <ellipse cx="180" cy="${H-40}" rx="175" ry="66" fill="url(#fg)"/>
+  <path d="${d}" fill="none" stroke="#39414E" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 9"/>
+  ${DB.ascent.node>0?`<path d="${d2}" fill="none" stroke="url(#pe)" stroke-width="7" stroke-linecap="round" stroke-dasharray="1 9" filter="url(#pb)" opacity=".55"/><path d="${d2}" fill="none" stroke="url(#pe)" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 9"/>`:''}
+  ${banners}${nodes}${summit}</svg>`;
+}
+function renderAscentCard(){
+  const host=$('#ascentCard'); if(!host) return; ensureAscent();
+  const flat=ascFlat(), idx=DB.ascent.node, N=flat.length;
+  const cur=flat[Math.min(idx,N-1)], ch=ASCENT[cur.ci];
+  const pct=Math.round(idx/N*100);
+  host.innerHTML=`<button class="ascent-panel" data-action="asc-open">
+    <div class="asc-plinth">${idx>=N?'👑':ch.ico}</div>
+    <div class="asc-meta"><div class="asc-eyebrow">⛰️ The Ascent</div>
+      <div class="asc-name">${idx>=N?'SUMMITED':esc(cur.n)}</div>
+      <div class="asc-sub">Node ${Math.min(idx+1,N)} / ${N} · ${esc(ch.ch)}</div>
+      <div class="sq-bar" style="margin-top:7px"><i style="width:${pct}%"></i></div></div>
+    <div class="wpn-chevron">›</div></button>`;
+}
+function openAscent(){
+  ensureAscent(); const flat=ascFlat(), idx=DB.ascent.node, N=flat.length;
+  const summited=idx>=N; const cur=summited?null:flat[idx]; const ch=ASCENT[(cur||flat[N-1]).ci];
+  let curCard='';
+  if(summited){ curCard=`<div class="asc-cur summit"><div class="ac-ico">👑</div><div class="ac-body"><div class="ac-name">The summit is yours</div><div class="ac-desc">Every node cleared. “Summit-Born” is etched beside your name — the mountain remembers.</div></div></div>`; }
+  else{
+    const p=ascProgress(cur);
+    const rew='+'+cur.xp+' XP'+(cur.cache!==undefined?(' · '+(cur.cache?cur.cache:'standard')+' cache'):'')+(cur.title?(' · title “'+cur.title+'”'):'');
+    const prog=p?`<div class="ac-prog"><div class="sq-bar"><i style="width:${Math.min(100,Math.round(p.c/p.g*100))}%"></i></div><span class="ac-pv">${p.c} / ${p.g}</span></div>`
+               :`<div class="ac-hint">Must happen while this node is active — in a single session or run.</div>`;
+    curCard=`<div class="asc-cur"><div class="ac-ico">${cur.ico}</div><div class="ac-body">
+      <div class="ac-name">${esc(cur.n)}</div><div class="ac-desc">${esc(cur.d)}</div>
+      <div class="ac-rew">${rew}</div>${prog}</div></div>`;
+  }
+  openSheet(`<div class="grab"></div><h3>The Ascent</h3>
+  <div class="asc-head"><span>${ch.ico} ${esc(ch.ch)}</span><span class="ah-n">${Math.min(idx,N)} / ${N} cleared</span></div>
+  <div class="sq-bar big"><i style="width:${Math.round(idx/N*100)}%"></i></div>
+  ${curCard}
+  <div class="asc-map">${ascentMapSVG()}</div>
+  <button class="btn btn-ghost btn-sm" data-action="close-sheet" style="margin-top:12px">Close</button>`);
+  setTimeout(()=>{ try{ const el=document.getElementById('ascCur'); if(el && el.scrollIntoView) el.scrollIntoView({block:'center', behavior:'smooth'}); }catch(e){} }, 120);
+}
+/* ===================== FORGE SPRITE — living companion ===================== */
+function ensureSprite(){ if(!DB.sprite) DB.sprite={name:''}; }
+const SPRITE_STAGES=['Spark','Wisp','Ember Imp','Flame Djinn','Solar Regent'];
+function spriteStage(){ const fs=forgeScore(); return fs>=320?4:fs>=160?3:fs>=60?2:fs>=12?1:0; }
+function spriteMood(){ const last=DB.stats.lastWorkoutDate; if(!last) return 'new';
+  const gap=_daysBetween(last, todayStr());
+  if(gap<=1) return (DB.stats.currentStreak>=7)?'radiant':'happy';
+  if(gap<=2) return 'content'; if(gap<=5) return 'sleepy'; return 'dormant'; }
+/* ===================== FORGE SPRITE v2 — layered renderer ===================== */
+const SPRITE_TH=[12,60,160,320];
+function nextStageAt(){ const fs=forgeScore(); for(const th of SPRITE_TH){ if(fs<th) return th; } return null; }
+const MOODC={radiant:'#FFD24D',happy:'#FF8A2B',content:'#34EAD0',sleepy:'#8FA8C8',dormant:'#5C6B84',new:'#5CB0FF'};
+const MOODT={radiant:'Radiant',happy:'Burning bright',content:'Content',sleepy:'Drowsy',dormant:'Dormant',new:'Newborn spark'};
+function spriteSVG(stage, mood, acc, size){
+  size=size||100; const id='sp'+Math.random().toString(36).slice(2,7);
+  const dorm=(mood==='dormant');
+  const PALS=[
+    {o:['#FFB347','#FF7A1F','#E8443A'], i:['#FFE9A8','#FFC24A','#FF8A2B']},
+    {o:['#FFC24A','#FF7A1F','#F0403C'], i:['#FFF1B8','#FFCB55','#FF8A2B']},
+    {o:['#FFC24A','#FF6A2B','#E03A55'], i:['#FFF1B8','#FFC24A','#FF7A3A']},
+    {o:['#FFD066','#FF6A3A','#C23AA8'], i:['#FFF6C8','#FFCB55','#FF7A3A']},
+    {o:['#FFF0B0','#FFB347','#8E4DE8'], i:['#FFFFFF','#FFE9A8','#FFB347']}];
+  const pal=dorm? {o:['#8CA0BC','#5C6B84','#3A4557'], i:['#C9D6E8','#8CA0BC','#5F7292']} : PALS[stage];
+  const core=dorm?'#DCE6F2':'#FFF6DC', eyeD=dorm?'#1E2530':'#241511', mc=dorm?'#8FA8C8':(MOODC[mood]||'#FF8A2B');
+  const bob={radiant:1.6,happy:2,content:2.6,sleepy:4,dormant:5.5,new:2}[mood]||2.2;
+  const tall=stage>=3, topY=tall?8:(stage>=1?14:22);
+  const bodyD= tall? 'M60 8 C62 15 66 16 69 22 C72 27 76 31 78 38 C84 52 85 62 79 77 C75 90 67 96 60 96 C53 96 45 90 41 77 C35 62 36 52 42 38 C44 31 48 27 51 22 C54 16 58 15 60 8 Z'
+    : (stage>=1? 'M60 14 C63 20 68 22 71 29 C79 42 83 58 77 75 C73 89 66 95 60 95 C54 95 47 89 43 75 C37 58 41 42 49 29 C52 22 57 20 60 14 Z'
+               : 'M60 22 C74 36 80 56 75 74 C71 88 65 94 60 94 C55 94 49 88 45 74 C40 56 46 36 60 22 Z');
+  const innerD='M60 36 C69 45 72 58 68 71 C65 82 63 87 60 87 C57 87 55 82 52 71 C48 58 51 45 60 36 Z';
+  const shadeD='M68 30 C77 44 80 60 75 76 C72 87 66 94 60 95 C67 92 72 85 74 75 C78 59 75 44 68 30 Z';
+  const rimD='M52 28 C45 42 42 58 46 74 C48 84 53 91 58 94 C51 90 47 83 44 74 C40 58 44 41 52 28 Z';
+  const s=[0.62,0.85,1,1.05,1.1][stage];
+  const tf=`translate(${(60-60*s).toFixed(1)} ${(66-66*s).toFixed(1)}) scale(${s})`;
+  const eye=(x)=>{ const t={radiant:'star',happy:'round',new:'round',content:'oval',sleepy:'sleepy',dormant:'line'}[mood]; let e='';
+    if(t==='sleepy') return `<path d="M${x-4.5} 56 Q${x} 59.8 ${x+4.5} 56" stroke="${eyeD}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`;
+    if(t==='line') return `<line x1="${x-4}" y1="56" x2="${x+4}" y2="56" stroke="${eyeD}" stroke-width="2.4" stroke-linecap="round"/>`;
+    if(t==='star') e=`<path transform="translate(${x} 56)" d="M0 -5.4 L1.5 -1.5 L5.4 0 L1.5 1.5 L0 5.4 L-1.5 1.5 L-5.4 0 L-1.5 -1.5 Z" fill="${eyeD}"/>`;
+    else if(t==='oval') e=`<ellipse cx="${x}" cy="56.4" rx="4.6" ry="3.6" fill="${eyeD}"/>`;
+    else e=`<circle cx="${x}" cy="56" r="5" fill="${eyeD}"/>`;
+    e+=`<circle cx="${x}" cy="56.2" r="2.6" fill="url(#${id}ir)"/>`;
+    e+=`<circle cx="${x}-0" cy="54.2" r="1.6" fill="#FFFFFF"><animate attributeName="opacity" values="1;.55;1" dur="2.8s" repeatCount="indefinite"/></circle>`.replace('${x}-0',(x-1.7));
+    e+=`<circle cx="${x+1.5}" cy="57.6" r=".8" fill="#FFFFFF" opacity=".7"/>`;
+    if(t==='round'||t==='oval') e+=`<ellipse cx="${x}" cy="55.4" rx="5.3" ry="5" fill="${pal.i[1]}" opacity="0"><animate attributeName="opacity" values="0;0;1;0" keyTimes="0;.9;.94;1" dur="4.5s" repeatCount="indefinite"/></ellipse>`;
+    return e; };
+  let mouth='';
+  if(stage>=2){ if(mood==='sleepy') mouth=`<circle cx="60" cy="71" r="1.8" fill="${eyeD}"/>`;
+    else if(!dorm) mouth=`<path d="M${mood==='content'?56:54} 70 Q60 ${mood==='content'?73.5:76} ${mood==='content'?64:66} 70" stroke="${eyeD}" stroke-width="2.3" fill="none" stroke-linecap="round"/>`; }
+  const blush=(mood==='happy'||mood==='radiant')? `<ellipse cx="46" cy="63.5" rx="3.4" ry="2" fill="#FF6A3A" opacity=".5" filter="url(#${id}b)"/><ellipse cx="74" cy="63.5" rx="3.4" ry="2" fill="#FF6A3A" opacity=".5" filter="url(#${id}b)"/>`:'';
+  const heart=stage>=2? `<g opacity="${dorm?'.55':'.95'}"><polygon points="60,74 65,77 65,83 60,86 55,83 55,77" fill="${dorm?'#39424F':'#7A2F1E'}"/><polygon points="60,74 65,77 60,80 55,77" fill="${dorm?'#55617A':'#C1502F'}"/><polygon points="60,80 65,77 65,83 60,86" fill="${dorm?'#46516B':'#9A3A22'}"/><polygon points="58,76.4 60.8,77.8 58.6,79" fill="${dorm?'#8CA0BC':'#FF9A5A'}"/><animate attributeName="opacity" values="${dorm?'.55;.65;.55':'.95;.65;.95'}" dur="2.4s" repeatCount="indefinite"/></g>`:'';
+  const arms=stage>=1? `<path d="M39 63 C32 58 31 49 38 46 C36.5 53 40 59 45 62 Z" fill="url(#${id}o)"/><path d="M40.5 60.5 C36 56.5 35.5 51 39.5 48.5 C38.5 53.5 41 58 44.5 60.5 Z" fill="url(#${id}i)" opacity=".9"/><path d="M81 63 C88 58 89 49 82 46 C83.5 53 80 59 75 62 Z" fill="url(#${id}o)"/><path d="M79.5 60.5 C84 56.5 84.5 51 80.5 48.5 C81.5 53.5 79 58 75.5 60.5 Z" fill="url(#${id}i)" opacity=".9"/>`:'';
+  const horns=stage>=3? `<path d="M51 22 C46 14 47 7 53 5 C50.5 12 53 17 56.5 20 Z" fill="url(#${id}o)"/><path d="M52.5 19 C50 14 50.5 10 53.5 8 C52.5 12.5 54 16 56 18.5 Z" fill="url(#${id}i)" opacity=".85"/><path d="M69 22 C74 14 73 7 67 5 C69.5 12 67 17 63.5 20 Z" fill="url(#${id}o)"/><path d="M67.5 19 C70 14 69.5 10 66.5 8 C67.5 12.5 66 16 64 18.5 Z" fill="url(#${id}i)" opacity=".85"/>`
+    : (stage>=2? `<path d="M52 25 L48.5 16.5 L56 22 Z" fill="url(#${id}o)"/><path d="M68 25 L71.5 16.5 L64 22 Z" fill="url(#${id}o)"/>`:'');
+  const lick=stage>=1? `<g><path d="M69 25 C75.5 21 77.5 14.5 73 10.5 C74.5 17 71 21.5 67 23.5 Z" fill="url(#${id}i)" opacity=".95"><animateTransform attributeName="transform" type="rotate" values="-7 68 24;7 68 24;-7 68 24" dur="1.5s" repeatCount="indefinite"/></path></g>`:'';
+  const tail=stage>=3? `<g><path d="M33 85 C26 76 28 65 37 61 C33 70 36 79 43 83 Z" fill="url(#${id}o)" opacity=".8"/><path d="M35.5 81.5 C31 75 32.5 68 38 65 C35.5 71.5 37.5 77.5 42 80.5 Z" fill="url(#${id}i)" opacity=".65"/><animateTransform attributeName="transform" type="translate" values="0 0;-2.5 -3;0 0" dur="2.4s" repeatCount="indefinite"/></g>`:'';
+  const aura=stage>=4? `<g><circle cx="60" cy="62" r="46" fill="none" stroke="${dorm?'#7C8AA4':'#FFD24D'}" stroke-width="1.6" stroke-dasharray="3 7" opacity=".8"/><animateTransform attributeName="transform" type="rotate" values="0 60 62;360 60 62" dur="14s" repeatCount="indefinite"/></g><g><circle cx="60" cy="62" r="40" fill="none" stroke="${dorm?'#5F7292':'#B07CFF'}" stroke-width="1.2" stroke-dasharray="2 9" opacity=".7"/><animateTransform attributeName="transform" type="rotate" values="360 60 62;0 60 62" dur="10s" repeatCount="indefinite"/></g><g><polygon points="60,14 62,17 60,20 58,17" fill="${core}"/><polygon points="103,64 106,66 103,68 100,66" fill="${dorm?'#8CA0BC':'#FFD24D'}"/><polygon points="17,64 20,66 17,68 14,66" fill="${dorm?'#8CA0BC':'#B07CFF'}"/><animateTransform attributeName="transform" type="rotate" values="0 60 62;360 60 62" dur="8s" repeatCount="indefinite"/></g>`:'';
+  const motes=!dorm? [0,1,2].map(i=>`<circle cx="${47+i*13}" cy="90" r="1.5" fill="${core}"><animate attributeName="cy" values="90;48" dur="${(2.2+i*0.4).toFixed(1)}s" begin="${i*0.55}s" repeatCount="indefinite"/><animate attributeName="opacity" values=".95;0" dur="${(2.2+i*0.4).toFixed(1)}s" begin="${i*0.55}s" repeatCount="indefinite"/></circle>`).join('')
+    +[0,1].map(i=>`<g><polygon points="0,-2.4 1.9,0 0,2.4 -1.9,0" fill="${pal.i[1]}" opacity=".9"><animateTransform attributeName="transform" type="rotate" values="0;180" dur="2.6s" begin="${.4+i*.9}s" repeatCount="indefinite"/></polygon><animateTransform attributeName="transform" type="translate" values="${52+i*17} 88;${50+i*21} 46" dur="2.6s" begin="${.4+i*.9}s" repeatCount="indefinite"/><animate attributeName="opacity" values=".9;0" dur="2.6s" begin="${.4+i*.9}s" repeatCount="indefinite"/></g>`).join(''):'';
+  const sparks=(mood==='radiant')? [[-26,-20],[26,-22],[-30,8],[30,6]].map((v,i)=>`<g><polygon points="0,-2.6 2,0 0,2.6 -2,0" fill="#FFD24D"><animate attributeName="opacity" values="0;1;0" dur="1.8s" begin="${i*0.45}s" repeatCount="indefinite"/></polygon><animateTransform attributeName="transform" type="translate" values="60 58;${60+v[0]} ${58+v[1]}" dur="1.8s" begin="${i*0.45}s" repeatCount="indefinite"/></g>`).join(''):'';
+  const zzz=dorm? `<g><text x="80" y="42" font-size="10" fill="#9FB2CC" font-family="Inter, sans-serif">z</text><text x="88" y="31" font-size="13" fill="#9FB2CC" font-family="Inter, sans-serif">z</text><animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="4s" repeatCount="indefinite"/><animate attributeName="opacity" values=".9;.4;.9" dur="4s" repeatCount="indefinite"/></g>`:'';
+  let extra='';
+  if(acc==='crown') extra=`<path d="M50 ${topY+10} L53 ${topY+2} L57 ${topY+8} L60 ${topY} L63 ${topY+8} L67 ${topY+2} L70 ${topY+10} Z" fill="#FFD24D" stroke="#B8860B" stroke-width=".8"/><circle cx="60" cy="${topY+5}" r="1.2" fill="#FF4D8C"/>`;
+  else if(acc==='halo') extra=`<ellipse cx="60" cy="${topY-5}" rx="13" ry="3.6" fill="none" stroke="#BFE8FF" stroke-width="2.4"><animate attributeName="opacity" values=".65;1;.65" dur="2.6s" repeatCount="indefinite"/></ellipse>`;
+  else if(acc==='goggles') extra=`<rect x="44" y="53" width="32" height="2.6" fill="#3A424E"/><circle cx="52" cy="55" r="5.2" fill="#161B24" stroke="#3A424E" stroke-width="2"/><circle cx="68" cy="55" r="5.2" fill="#161B24" stroke="#3A424E" stroke-width="2"/><circle cx="50.5" cy="53.5" r="1.4" fill="#5CB0FF" opacity=".8"/><circle cx="66.5" cy="53.5" r="1.4" fill="#5CB0FF" opacity=".8"/>`;
+  else if(acc==='scarf') extra=`<path d="M48 78 Q60 84 72 78 L72 84 Q60 90 48 84 Z" fill="#FF5A2C"/><path d="M70 82 L78 93 L72 95 L67 85 Z" fill="#E8471E"/><path d="M48 80 Q60 85.5 72 80" stroke="#FFB061" stroke-width="1" fill="none" opacity=".7"/>`;
+  else if(acc==='diadem') extra=`<path transform="translate(60 ${topY+6}) scale(.85)" d="M0 -5 L1.4 -1.4 L5 0 L1.4 1.4 L0 5 L-1.4 1.4 L-5 0 L-1.4 -1.4 Z" fill="#FFE9C4"/><circle cx="53" cy="${topY+9}" r="1.6" fill="#34EAD0"/><circle cx="67" cy="${topY+9}" r="1.6" fill="#34EAD0"/>`;
+  else if(acc==='wisp') extra=`<g><g transform="translate(94 62) scale(.45)"><path d="M0 -18 C10 -8 13 4 9 14 C6 22 3 25 0 25 C-3 25 -6 22 -9 14 C-13 4 -10 -8 0 -18 Z" fill="url(#${id}o)"/><circle cx="0" cy="8" r="3.4" fill="${core}"/></g><animateTransform attributeName="transform" type="rotate" values="0 60 62;360 60 62" dur="6s" repeatCount="indefinite"/></g>`;
+  const glow=(mood==='radiant')? `<path d="${bodyD}" fill="url(#${id}o)" opacity=".55" filter="url(#${id}g)"/>`:'';
+  const shR=[13,17,19,21,23][stage];
+  return `<svg viewBox="0 0 120 120" width="${size}" height="${size}" style="display:block;overflow:visible">
+  <defs>
+    <linearGradient id="${id}o" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${pal.o[0]}"/><stop offset=".52" stop-color="${pal.o[1]}"/><stop offset="1" stop-color="${pal.o[2]}"/></linearGradient>
+    <linearGradient id="${id}i" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${pal.i[0]}"/><stop offset=".55" stop-color="${pal.i[1]}"/><stop offset="1" stop-color="${pal.i[2]}"/></linearGradient>
+    <radialGradient id="${id}h"><stop offset="0" stop-color="${core}"/><stop offset=".6" stop-color="${core}" stop-opacity=".55"/><stop offset="1" stop-color="${core}" stop-opacity="0"/></radialGradient>
+    <radialGradient id="${id}p"><stop offset="0" stop-color="${dorm?'#5F7292':'#FF8A2B'}" stop-opacity=".5"/><stop offset="1" stop-color="${dorm?'#5F7292':'#FF8A2B'}" stop-opacity="0"/></radialGradient>
+    <radialGradient id="${id}ir"><stop offset="0" stop-color="${mc}"/><stop offset="1" stop-color="${eyeD}"/></radialGradient>
+    <filter id="${id}b" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.4"/></filter>
+    <filter id="${id}g" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3.2"/></filter>
+  </defs>
+  <ellipse cx="60" cy="103" rx="30" ry="7" fill="url(#${id}p)"><animate attributeName="opacity" values=".8;1;.8" dur="${bob}s" repeatCount="indefinite"/></ellipse>
+  <ellipse cx="60" cy="103.5" rx="${shR}" ry="3.6" fill="#000" opacity=".38"><animate attributeName="rx" values="${shR};${shR+2};${shR}" dur="${bob}s" repeatCount="indefinite"/></ellipse>
+  <g opacity="${dorm?'.88':'1'}" transform="${tf}">
+    <g>${aura}${tail}${glow}
+      <g><path d="${bodyD}" fill="url(#${id}o)"/>
+      <path d="${shadeD}" fill="#000000" opacity=".14"/>
+      <path d="${rimD}" fill="#FFFFFF" opacity=".18" filter="url(#${id}b)"/>
+      <ellipse cx="52" cy="38" rx="5" ry="8" fill="#FFFFFF" opacity=".22" filter="url(#${id}b)" transform="rotate(-18 52 38)"/>
+      <path d="${innerD}" fill="url(#${id}i)"><animate attributeName="opacity" values=".85;1;.8;1" dur="1.15s" repeatCount="indefinite"/></path>
+      <circle cx="60" cy="67" r="8.5" fill="url(#${id}h)"><animate attributeName="r" values="7.6;9;7.6" dur="1.6s" repeatCount="indefinite"/><animate attributeName="opacity" values=".9;1;.9" dur="1.6s" repeatCount="indefinite"/></circle>
+      ${lick}${heart}${arms}${horns}${eye(52)}${eye(68)}${blush}${mouth}${extra}
+      <animateTransform attributeName="transform" type="rotate" values="-1.8 60 92;1.8 60 92;-1.8 60 92" dur="${(bob*1.7).toFixed(1)}s" repeatCount="indefinite"/></g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;0 ${dorm?-1.2:-3.2};0 0" dur="${bob}s" repeatCount="indefinite"/>
+    </g>
+  </g>
+  ${motes}${sparks}${zzz}</svg>`;
+}
+function renderSpriteDen(){ const host=$('#spriteDen'); if(!host) return; ensureSprite(); ensureLoot();
+  const st=spriteStage(), md=spriteMood();
+  const acc=(LOOT.find(i=>i.id===DB.loot.equip.acc)||{}).v||'';
+  const R=['I','II','III','IV','V'][st];
+  host.innerHTML=`<button class="sprite-den" data-action="sprite-open">
+    <div class="sd-stagebox">${spriteSVG(st,md,acc,86)}</div>
+    <div class="sd-meta"><div class="sd-eyebrow">Forge Sprite · Stage ${R}</div>
+      <div class="sd-name">${esc(DB.sprite.name||SPRITE_STAGES[st])}</div>
+      <div class="sd-mood"><i style="background:${MOODC[md]}; color:${MOODC[md]}"></i>${MOODT[md]}</div></div>
+    <div class="wpn-chevron">›</div></button>`; }
+function openSprite(){
+  ensureSprite(); ensureLoot();
+  const st=spriteStage(), md=spriteMood(), fs=forgeScore(), nx=nextStageAt();
+  const acc=(LOOT.find(i=>i.id===DB.loot.equip.acc)||{}).v||'';
+  const R=['I','II','III','IV','V'][st];
+  const track=SPRITE_STAGES.map((sn,i)=>`<div class="ev-step ${i<st?'past':(i===st?'now':'')}"><span class="ev-dot"></span><span class="ev-lbl">${sn}</span></div>`).join('');
+  const accs=LOOT.filter(i=>i.k==='acc'&&DB.loot.owned[i.id]);
+  const accRow=accs.length? `<div class="chips">${accs.map(a=>`<button class="chip ${DB.loot.equip.acc===a.id?'on':''}" data-action="loot-equip" data-id="${a.id}">${esc(a.n)}</button>`).join('')}</div>`
+    : `<div class="spr-empty">Trinkets drop from Forge Caches — crack one open in the Vault.</div>`;
+  openSheet(`<div class="grab"></div>
+  <div class="spr-hero">
+    <div id="spriteBig" class="spr-art">${spriteSVG(st,md,acc,168)}</div>
+    <div class="spr-name">${esc(DB.sprite.name||SPRITE_STAGES[st])}</div>
+    <div class="spr-stage">Stage ${R} — ${SPRITE_STAGES[st]}</div>
+    <div class="spr-moodchip"><i style="background:${MOODC[md]}; color:${MOODC[md]}"></i>${MOODT[md]}</div>
+  </div>
+  <div class="spr-card">
+    <div class="spr-sec"><span>Evolution</span><span class="spr-secr">${nx? ('Next form at '+nx) : 'Final form'}</span></div>
+    <div class="ev-track">${track}</div>
+    ${nx? `<div class="spr-evbar"><div class="sq-bar"><i style="width:${Math.min(100,Math.round(fs/nx*100))}%"></i></div><span>${fs} / ${nx}</span></div>`:''}
+  </div>
+  <div class="spr-card">
+    <div class="spr-sec"><span>Temperament</span></div>
+    <div class="sl-row"><span class="sl-i">🔥</span><div><b>Train today</b> — it burns bright</div></div>
+    <div class="sl-row"><span class="sl-i">⚡</span><div><b>Hold a 7-day streak</b> — it turns radiant</div></div>
+    <div class="sl-row"><span class="sl-i">💤</span><div><b>Six idle days</b> — it falls dormant</div></div>
+  </div>
+  <div class="spr-card">
+    <div class="spr-sec"><span>Trinket</span></div>${accRow}
+  </div>
+  <div class="spr-card">
+    <div class="spr-sec"><span>True name</span></div>
+    <div class="spr-namerow"><input id="sprName" maxlength="18" placeholder="${esc(DB.sprite.name||'Give it a name')}"><button class="btn btn-ghost btn-sm" data-action="sprite-name">Etch</button></div>
+  </div>
+  <div class="btn-row" style="margin-top:14px"><button class="btn btn-primary" data-action="sprite-poke">Stoke the flame</button><button class="btn btn-ghost" data-action="close-sheet">Close</button></div>`);
+}
+/* ===================== THE VAULT ===================== */
+function renderVaultRow(){ const host=$('#vaultRow'); if(!host) return; ensureLoot();
+  const own=LOOT.filter(i=>DB.loot.owned[i.id]).length, n=DB.loot.q.length;
+  host.innerHTML=`<div class="title-row"><div><div class="tr-k">🗃 Vault</div><div class="tr-v" style="color:var(--text)">${own} / ${LOOT.length} collected</div></div><button class="btn ${n?'btn-primary':'btn-ghost'} btn-sm" style="width:auto" data-action="vault-open">${n?('Open ('+n+')'):'Browse'}</button></div>`; }
+function vaultBody(){ ensureLoot(); const L=DB.loot;
+  return LOOT_POOLS.map(P=>{ const items=LOOT.filter(i=>i.k===P[0]); const own=items.filter(i=>L.owned[i.id]).length;
+    return `<div class="exg open"><button class="exg-head" data-action="exg-toggle"><span class="xh-i">${P[2]}</span><span class="xh-t">${P[1]}</span><span class="xh-c">${own} / ${items.length}</span><span class="xh-ch">▾</span></button><div class="exg-body"><div class="loot-grid">${items.map(i=>{
+      const o=!!L.owned[i.id]; const eq=(i.k==='title')? (DB.settings.title===('l:'+i.id)) : (L.equip[i.k]===i.id);
+      return `<${o?'button':'div'} class="loot-item r${i.r}${o?' own':''}${eq?' eq':''}"${o?` data-action="loot-equip" data-id="${i.id}"`:''}><span class="li-dot"></span><span class="li-n">${esc(i.n)}</span>${o?'':'<span class="li-lk">🔒</span>'}</${o?'button':'div'}>`;
+    }).join('')}</div></div></div>`; }).join(''); }
+function openVault(){ ensureLoot(); const n=DB.loot.q.length;
+  openSheet(`<div class="grab"></div><h3>The Vault</h3>
+  <div class="vault-open"><div class="vo-art">${cacheArtSVG(n,84)}</div>
+    <div class="vo-meta"><div class="vo-t">${n? (n+' cache'+(n>1?'s':'')+' waiting') : 'No caches waiting'}</div>
+    <div class="vo-s">Every finished session forges one. PRs upgrade the roll. Bosses drop epics.</div>
+    <button id="vaultOpenBtn" class="btn btn-primary btn-sm" data-action="cache-open" style="margin-top:9px; width:auto">${n?'Crack open':'Train to earn one'}</button></div></div>
+  <div id="cacheReveal"></div>
+  <div id="vaultBody" style="margin-top:12px">${vaultBody()}</div>
+  <button class="btn btn-ghost btn-sm" data-action="close-sheet" style="margin-top:10px">Close</button>`); }
+
 function renderAwards(){
-  renderSquad(); renderSeason(); renderTitleRow();
+  renderSquad(); renderSeason(); renderTitleRow(); renderVaultRow();
   const unlocked=ACH.filter(a=>DB.achievements[a.id]).length;
   $('#achCount').textContent=unlocked; $('#achTotal').textContent=ACH.length;
   $('#achFill').style.width=(unlocked/ACH.length*100)+'%';
@@ -2673,8 +3688,11 @@ function finishSession(){
       DB.stats.bossWins=(DB.stats.bossWins||0)+1; gainXP(150); _bossWin=true;
     }
   }
+  const _ascEvt=_wEvt(activeSession, volume);
   activeSession=null; Store.set('forge.activeSession', null); save();
-  if(_bossWin){ setTimeout(()=>{ _burstT=0; burst('gold'); toast(_bossMeta.ico,'BOSS DEFEATED!', _bossMeta.name+' has fallen — title “'+_bossMeta.title+'” earned','gold'); }, 950); }
+  cacheGrant(_bossWin?'epic':(prHits.length?'rare':''));
+  ascentCheck(_ascEvt);
+  if(_bossWin){ setTimeout(()=>{ _burstT=0; burst('gold'); toast(_bossMeta.ico,'BOSS DEFEATED!', _bossMeta.name+' has fallen — title “'+_bossMeta.title+'” earned','gold'); bossSpeak(_bossMeta.key,'win'); }, 950); }
   else if(_bossMeta){ setTimeout(()=>toast(_bossMeta.ico,'The boss endures','Every set must be completed — challenge it again'), 900); }
   if(relicTier().idx>_relicBefore){ setTimeout(()=>{ burst('gold'); toast('🗡️','Relic advanced!','Your forge reached '+relicTier().tier.n); }, 750); }
   showSummary({volume, prHits, xp:60+prHits.length*40, newAch});
@@ -2700,7 +3718,8 @@ function updateStreak(){
   if(used>0) setTimeout(()=>toast('❄️','Streak saved!',used+' rest day'+(used>1?'s':'')+' covered by a freeze'),900);
   if(earned) setTimeout(()=>toast('❄️','Freeze earned','Banked a rest-day save · '+DB.stats.streakFreezes+' in reserve'),1150);
 }
-function gainXP(n){ DB.stats.xp+=n; seasonTick(n); }
+function gainXP(n){ const _b=levelInfo(DB.stats.xp); DB.stats.xp+=n; seasonTick(n); const _a=levelInfo(DB.stats.xp);
+  if(_a.level>_b.level) setTimeout(()=>levelUpFX(_a.level, _a.rank!==_b.rank?_a.rank:null), 700); }
 function checkAchievements(){
   checkQuests();
   checkSeasonQuests();
@@ -2865,6 +3884,8 @@ function logCardio(dist, goal, min, extra){
   newAch.forEach(a=>setTimeout(()=>toast(a.ico, 'Award unlocked!', a.n, 'gold'), 350));
   if(_ghost && min && min < _ghost.durationMin){ setTimeout(()=>toast('🏆','New best time!',`${(Math.round(dist*10)/10)} km in ${min} min — you beat your ghost (${_ghost.durationMin} min)!`,'gold'), 550); }
   if(relicTier().idx>_relicBefore){ setTimeout(()=>{ burst('gold'); toast('🗡️','Relic advanced!','Your forge reached '+relicTier().tier.n); }, 700); }
+  cacheGrant('');
+  ascentCheck({type:'cardio', km:dist, min:min||0});
   renderHome();
 }
 
@@ -2872,6 +3893,7 @@ function logCardio(dist, goal, min, extra){
    CARDIO: PROGRESSIVE DISTANCE PLAN
    ============================================================ */
 let cardioTab='quick', planDays=3;
+let tplFilter='all';
 
 function buildRunPlan(start, goal, days){
   const r1=x=>Math.round(x*10)/10;
@@ -3243,14 +4265,14 @@ let calYear=new Date().getFullYear(), calMonth=new Date().getMonth();
 /* ---- data backup / restore ---- */
 function backupPayload(){ return { _app:'FORGE', _v:1, exported:new Date().toISOString(),
   settings:DB.settings, stats:DB.stats, routines:DB.routines, log:DB.log, prs:DB.prs,
-  achievements:DB.achievements, customEx:DB.customEx, bodyweight:DB.bodyweight, plan:DB.plan, quests:DB.quests, friends:DB.friends, season:DB.season, seasonHistory:DB.seasonHistory, bossLog:DB.bossLog, weapon:DB.weapon }; }
+  achievements:DB.achievements, customEx:DB.customEx, bodyweight:DB.bodyweight, plan:DB.plan, quests:DB.quests, friends:DB.friends, season:DB.season, seasonHistory:DB.seasonHistory, bossLog:DB.bossLog, weapon:DB.weapon, ascent:DB.ascent, loot:DB.loot, sprite:DB.sprite }; }
 function applyBackup(d){
   if(!d || d._app!=='FORGE' || !d.stats) return false;
   DB.settings=d.settings||DB.settings;
   DB.stats=Object.assign({}, DB.stats, d.stats);
   DB.routines=d.routines||[]; DB.log=d.log||[]; DB.prs=d.prs||{};
   DB.achievements=d.achievements||{}; DB.customEx=d.customEx||[];
-  DB.bodyweight=d.bodyweight||[]; DB.plan=d.plan||null; DB.quests=d.quests||null; DB.friends=d.friends||[]; DB.season=d.season||null; DB.seasonHistory=d.seasonHistory||[]; DB.bossLog=d.bossLog||[]; DB.weapon=d.weapon||null;
+  DB.bodyweight=d.bodyweight||[]; DB.plan=d.plan||null; DB.quests=d.quests||null; DB.friends=d.friends||[]; DB.season=d.season||null; DB.seasonHistory=d.seasonHistory||[]; DB.bossLog=d.bossLog||[]; DB.weapon=d.weapon||null; DB.ascent=d.ascent||null; DB.loot=d.loot||null; DB.sprite=d.sprite||null;
   save(); return true;
 }
 function exportData(){
@@ -3393,6 +4415,17 @@ function burst(kind){
   }catch(e){}
 }
 
+function levelUpFX(lv, rank){
+  try{
+    if(typeof document==='undefined' || !document.body) return;
+    if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){ toast('⬆','Level '+lv, rank||'The forge grows hotter'); return; }
+    const d=document.createElement('div'); d.className='lvlup';
+    d.innerHTML='<div class="lvl-flash"></div><div class="lvl-ring"></div><div class="lvl-txt"><small>Level up</small><b>'+lv+'</b>'+(rank?('<em>'+rank+'</em>'):'')+'</div>';
+    document.body.appendChild(d);
+    _burstT=0; burst('pr');
+    setTimeout(()=>{ try{ d.remove(); }catch(e){} }, 2100);
+  }catch(e){}
+}
 function toast(ico, title, sub, cls=''){
   if(cls==='pr') burst('pr'); else if(cls==='gold') burst('gold');
   const el=document.createElement('div');
@@ -3416,7 +4449,7 @@ function showSummary({volume, prHits, xp, newAch}){
     <div class="summary-stat"><span>Level</span><span class="ss-v">${li.level} · ${li.rank}</span></div>
     ${prHits.length?`<div class="t-note" style="margin-top:14px"><b>New personal records:</b> ${prHits.map(esc).join(', ')} 🎉</div>`:''}
     ${newAch.length?`<div class="t-note said" style="margin-top:10px"><b>Awards unlocked:</b> ${newAch.map(a=>a.ico+' '+a.n).join(', ')}</div>`:''}
-    <div class="btn-row" style="margin-top:18px"><button class="btn btn-ghost" data-action="flex-card">📸 Flex card</button><button class="btn btn-primary" data-action="close-sheet">Done</button></div>
+    <button class="btn btn-primary" data-action="close-sheet" style="margin-top:18px">Done</button>
   `);
   prHits.forEach((p,i)=>setTimeout(()=>toast('⚡','New PR!', p, 'pr'), 200+i*250));
 }
@@ -3503,21 +4536,27 @@ function pullBuilderInputs(){
 
 /* exercise picker (for builder + live session) */
 function openExPicker(onPick){
-  const groups={};
-  allEx().forEach(e=>{ const k=({push:'Push',pull:'Pull',legs:'Legs',core:'Core',mobility:'Mobility',balance:'Balance'})[e.p]||'Other'; (groups[k]=groups[k]||[]).push(e); });
-  const order=['Push','Pull','Legs','Core','Balance','Mobility'];
+  const cats=[['push','Push','🫸'],['pull','Pull','🪝'],['legs','Legs','🦵'],['core','Core','🧿'],['balance','Balance','🪨'],['mobility','Mobility','🧘']];
+  const byCat={}; allEx().forEach(e=>{ (byCat[e.p]=byCat[e.p]||[]).push(e); });
+  const section=(key,label,ico)=>{ const list=byCat[key]||[]; if(!list.length) return '';
+    const byG={}; list.forEach(e=>{ (byG[e.g]=byG[e.g]||[]).push(e); });
+    const inner=Object.keys(byG).map(g=>`<p class="exg-sub">${esc(g)}</p>`+byG[g].map(e=>`<div class="ex-pick" data-action="pick-ex" data-name="${esc(e.n)}"><div class="epn">${esc(e.n)}</div><div class="epg">${esc(e.g)}</div></div>`).join('')).join('');
+    return `<div class="exg"><button class="exg-head" data-action="exg-toggle"><span class="xh-i">${ico}</span><span class="xh-t">${label}</span><span class="xh-c">${list.length}</span><span class="xh-ch">▾</span></button><div class="exg-body">${inner}</div></div>`; };
   openSheet(`<div class="grab"></div><h3>Add exercise</h3>
-    <div class="form-field"><input id="exSearch" placeholder="Search exercises…" autocomplete="off"></div>
-    <div class="form-field"><label>Or add your own</label><div style="display:flex;gap:8px"><input id="customExName" placeholder="Custom exercise name" style="flex:1"><button class="btn btn-ghost btn-sm" data-action="add-custom-ex" style="white-space:nowrap">Add</button></div></div>
-    <div id="exPickList">${order.filter(o=>groups[o]).map(o=>`<p class="eyebrow" style="margin:14px 0 8px">${o}</p>${groups[o].map(e=>`<div class="ex-pick" data-action="pick-ex" data-name="${esc(e.n)}" style="cursor:pointer"><div class="epn">${esc(e.n)}</div><div class="epg">${e.g}</div></div>`).join('')}`).join('')}</div>`);
+    <div class="form-field" style="margin-bottom:10px"><input id="exSearch" placeholder="Search ${allEx().length} exercises…" autocomplete="off"></div>
+    <div id="exPickList">${cats.map(c=>section(c[0],c[1],c[2])).join('')}</div>
+    <div class="form-field" style="margin-top:14px"><label>Or add your own</label><div style="display:flex;gap:8px"><input id="customExName" placeholder="Custom exercise name" style="flex:1"><button class="btn btn-ghost btn-sm" data-action="add-custom-ex" style="white-space:nowrap">Add</button></div></div>`);
   exPickCallback=onPick;
   setTimeout(()=>{ const si=$('#exSearch'); if(si){ si.addEventListener('input', filterExPick); } },50);
 }
 let exPickCallback=null;
 function filterExPick(e){
-  const q=e.target.value.toLowerCase();
-  $$('#exPickList .ex-pick').forEach(el=>{ el.style.display = el.dataset.name.toLowerCase().includes(q)?'flex':'none'; });
-  $$('#exPickList .eyebrow').forEach(h=>{ let n=h.nextElementSibling, any=false; while(n&&n.classList.contains('ex-pick')){ if(n.style.display!=='none') any=true; n=n.nextElementSibling;} h.style.display=any?'block':'none'; });
+  const q=String(e.target.value||'').trim().toLowerCase();
+  const list=$('#exPickList'); if(!list) return;
+  if(list.classList && list.classList.toggle) list.classList.toggle('searching', !!q);
+  $$('#exPickList .ex-pick').forEach(el=>{ el.style.display=(!q || el.dataset.name.toLowerCase().includes(q))?'flex':'none'; });
+  $$('#exPickList .exg-sub').forEach(h=>{ let n=h.nextElementSibling, any=false; while(n && n.classList && n.classList.contains('ex-pick')){ if(n.style.display!=='none') any=true; n=n.nextElementSibling; } h.style.display=(!q||any)?'block':'none'; });
+  $$('#exPickList .exg').forEach(g=>{ const any=Array.from(g.querySelectorAll('.ex-pick')).some(el=>el.style.display!=='none'); g.style.display=(!q||any)?'block':'none'; });
 }
 /* small sets/reps prompt after picking for builder */
 function askSetsReps(name, cb){
@@ -3533,6 +4572,9 @@ let srConfirmCb=null;
 /* ============================================================
    EVENT DELEGATION
    ============================================================ */
+document.addEventListener('input', e=>{ const el=e.target;
+  if(el && el.id==='rtSearch'){ rtQuery=el.value||''; renderRtList(); }
+});
 document.addEventListener('click', e=>{
   const t=e.target.closest('[data-action], [data-nav], [data-tpl], [data-tab], [data-dist], [data-goal], [data-routine]');
   // nav
@@ -3596,7 +4638,7 @@ document.addEventListener('click', e=>{
     }
     case 'reset-data':
       if(confirm('Reset ALL data? This erases your routines, logs, PRs and awards. Cannot be undone.')){
-        ['settings','stats','routines','log','prs','ach','customEx','bodyweight','plan','quests','activeSession','friends','season','seasonHistory','bossLog','weapon'].forEach(k=>Store.set('forge.'+k, k==='settings'?{name:'',unit:'kg',sound:true,voice:false,sex:'',birthYear:null,heightCm:null,restHR:null,title:null}:(k==='stats'?{xp:0,totalVolume:0,distanceKm:0,prsSet:0,routinesCreated:0,workouts:0,cardioSessions:0,currentStreak:0,longestStreak:0,lastWorkoutDate:null, balancedWeeks:0, lastBalancedWeek:null, streakFreezes:0, bossWins:0}:(['routines','log','customEx','bodyweight','friends','seasonHistory','bossLog'].includes(k)?[]:(['season','weapon'].includes(k)?null:{})))));
+        ['settings','stats','routines','log','prs','ach','customEx','bodyweight','plan','quests','activeSession','friends','season','seasonHistory','bossLog','weapon','ascent','loot','sprite'].forEach(k=>Store.set('forge.'+k, k==='settings'?{name:'',unit:'kg',sound:true,voice:false,sex:'',birthYear:null,heightCm:null,restHR:null,title:null}:(k==='stats'?{xp:0,totalVolume:0,distanceKm:0,prsSet:0,routinesCreated:0,workouts:0,cardioSessions:0,currentStreak:0,longestStreak:0,lastWorkoutDate:null, balancedWeeks:0, lastBalancedWeek:null, streakFreezes:0, bossWins:0}:(['routines','log','customEx','bodyweight','friends','seasonHistory','bossLog'].includes(k)?[]:(['season','weapon','ascent','loot','sprite'].includes(k)?null:{})))));
         location.reload();
       } break;
 
@@ -3620,7 +4662,8 @@ document.addEventListener('click', e=>{
     case 'del-routine':
       if(confirm('Delete this routine?')){ DB.routines=DB.routines.filter(r=>r.id!==t.dataset.routine); save(); renderTrain(); }
       break;
-    case 'start-day': {
+    case 'start-day':
+      { const _r=DB.routines.find(x=>x.id===t.dataset.routine); if(_r){ _r.lu=Date.now(); save(); } } {
       const r=DB.routines.find(x=>x.id===t.dataset.routine); const day=r.days[+t.dataset.day];
       startSession(r.name+' · '+day.name, r.goalLabel||'Strength session',
         day.ex.map(ex=>({n:ex.n, targetSets:parseInt(ex.s)||3, targetReps:ex.r, rest:(ex.rest==null?null:(+ex.rest||0))})));
@@ -3648,6 +4691,8 @@ document.addEventListener('click', e=>{
     }
 
     // exercise picker
+    case 'exg-toggle': { const g=t.closest('.exg'); if(g&&g.classList) g.classList.toggle('open'); break; }
+    case 'tpl-filter': tplFilter=t.dataset.g; renderTrain(); window.scrollTo(0,0); break;
     case 'pick-ex': { const name=t.dataset.name; const cb=exPickCallback; closeSheet(); setTimeout(()=>cb&&cb(name),60); break; }
     case 'add-custom-ex': {
       const v=$('#customExName').value.trim(); if(!v) return;
@@ -3743,9 +4788,6 @@ document.addEventListener('click', e=>{
     case 'it-toggle': itToggle(); break;
     case 'it-stop': itStop(false); break;
     case 'it-again': renderItSetup(); break;
-    case 'flex-card': openFlexCard(); break;
-    case 'flex-save': saveFlexCard(); break;
-    case 'flex-share': shareFlexCard(); break;
     case 'go-squad': go('awards'); break;
     case 'squad-share': openSquadShare(); break;
     case 'squad-copy': copySquadCode(); break;
@@ -3773,6 +4815,41 @@ document.addEventListener('click', e=>{
     case 'hr-connect-all': hrConnect(true); break;
     case 'log-where': { logWhere=t.dataset.w; $$('#logWhereChips .chip').forEach(c=>c.classList.toggle('on', c.dataset.w===logWhere)); const iw=$('#tmInclineWrap'); if(iw) iw.style.display=logWhere==='tm'?'block':'none'; break; }
     case 'log-run-submit': submitLogRun(); break;
+    case 'rt-pin': { const r=DB.routines.find(x=>x.id===t.dataset.routine); if(!r) break;
+      r.pin=!r.pin; save(); renderRtList();
+      toast(r.pin?'★':'☆', r.pin?'Pinned':'Unpinned', r.name+(r.pin?' — it now sits at the top':'')); break; }
+    case 'rt-toggle': { const id=t.dataset.routine; rtOpen[id]=!rtOpen[id]; renderRtList(); break; }
+    case 'asc-open': openAscent(); break;
+    case 'asc-node': { ensureAscent(); const nd=ascFlat().find(x=>x.id===t.dataset.id); if(!nd) break;
+      const done=DB.ascent.done[nd.id]; const curId=(ascFlat()[DB.ascent.node]||{}).id;
+      toast(nd.ico, nd.n, done?('Cleared '+done):(curId===nd.id? nd.d : 'Locked — climb further first')); break; }
+    case 'vault-open': openVault(); break;
+    case 'cache-open': { const res=openCache(); if(!res) break;
+      const rv=$('#cacheReveal');
+      if(res.overflow){ if(rv) rv.innerHTML='<div class="cache-card r2"><div class="cc-rar">Overflow</div><div class="cc-name">+40 XP</div><div class="cc-pool">Collection complete — the Forge overflows</div></div>'; }
+      else{ const it=res.item; const pool=LOOT_POOLS.find(p=>p[0]===it.k)||['','',''];
+        if(it.r>=4){ _burstT=0; burst('gold'); } else if(it.r===3){ burst('pr'); } else if(it.r===2){ burst('teal'); }
+        if(rv) rv.innerHTML=`<div class="cache-card r${it.r}"><div class="cc-rar">${RARN[it.r]}</div><div class="cc-ico">${pool[2]}</div><div class="cc-name">${esc(it.n)}</div><div class="cc-pool">${pool[1]}</div><button class="btn btn-primary btn-sm" data-action="loot-equip" data-id="${it.id}" style="margin-top:8px; width:auto">Equip</button></div>`;
+        setTimeout(()=>toast(pool[2], RARN[it.r]+' drop!', it.n, it.r>=3?'gold':''), 250); }
+      const vb=$('#vaultBody'); if(vb) vb.innerHTML=vaultBody();
+      const ob=$('#vaultOpenBtn'); if(ob) ob.textContent=DB.loot.q.length?('Crack open ('+DB.loot.q.length+')'):'Train to earn one';
+      renderVaultRow(); break; }
+    case 'loot-equip': { const id=t.dataset.id; const it=LOOT.find(x=>x.id===id); if(!it || !DB.loot.owned[id]) break;
+      if(it.k==='title'){ DB.settings.title=(DB.settings.title===('l:'+id))?null:('l:'+id); save();
+        const _ct=currentTitle(); const _ht=$('#heroTitle'); if(_ht) _ht.textContent=_ct?('“'+_ct.n+'”'):'';
+        toast('🏷️', _ct?'Title equipped':'Title removed', _ct?_ct.n:'Fighting under your own name'); renderTitleRow(); }
+      else{ equipLoot(id); const on=DB.loot.equip[it.k]===id;
+        toast((LOOT_POOLS.find(p=>p[0]===it.k)||['','📦'])[2], on?'Equipped':'Unequipped', it.n);
+        if(it.k==='metal'||it.k==='flame'||it.k==='rune') renderWeapon();
+        if(it.k==='acc') renderSpriteDen(); }
+      const vb=$('#vaultBody'); if(vb) vb.innerHTML=vaultBody(); break; }
+    case 'sprite-open': openSprite(); break;
+    case 'sprite-poke': { const w=$('#spriteBig'); if(w && w.classList){ w.classList.remove('hop'); setTimeout(()=>{ try{ w.classList.add('hop'); }catch(e){} },10); setTimeout(()=>{ try{ w.classList.remove('hop'); }catch(e){} },700); }
+      const lines=['The flame leaps eagerly','Sparks scatter from the coals','It crackles with delight','A warm pulse rolls through the forge'];
+      toast('🔥', DB.sprite.name||SPRITE_STAGES[spriteStage()], lines[Math.floor(Math.random()*lines.length)]); break; }
+    case 'sprite-name': { ensureSprite(); const v=(($('#sprName')||{}).value||'').trim().slice(0,18);
+      DB.sprite.name=v; save(); toast('🔥', v?'Named!':'Name cleared', v||'Back to its stage name'); renderSpriteDen(); break; }
+
     case 'hr-disconnect': hrDisconnect(); break;
     case 'boss-fight': startBoss(); break;
     case 'swap-ex': openSwap(+t.dataset.ei); break;
@@ -3976,57 +5053,6 @@ function itToggle(){
   paintIt();
 }
 function itStop(silent){ if(itInt){ clearInterval(itInt); itInt=null; } _stopKeepAlive(); _releaseWake(); itState=null; if(!silent) renderItSetup(); }
-
-/* ---------- shareable flex card (canvas) ---------- */
-function openFlexCard(){
-  openSheet(`<div class="grab"></div><h3>📸 Flex card</h3><p class="sh-lead">A shareable snapshot of your progress.</p>
-    <div class="flex-wrap"><canvas id="flexCanvas" width="1080" height="1350"></canvas></div>
-    <button class="btn btn-primary" data-action="flex-share" style="margin-top:14px">Share</button>
-    <button class="btn btn-ghost" data-action="flex-save" style="margin-top:10px">Save image</button>`);
-  setTimeout(drawFlexCard, 70);
-}
-function drawFlexCard(){
-  const cv=$('#flexCanvas'); if(!cv||!cv.getContext) return;
-  const ctx=cv.getContext('2d'); const W=cv.width, H=cv.height;
-  ctx.fillStyle='#0E1116'; ctx.fillRect(0,0,W,H);
-  let g=ctx.createRadialGradient(W*0.82,0,0,W*0.82,0,W); g.addColorStop(0,'rgba(255,90,44,0.22)'); g.addColorStop(1,'rgba(255,90,44,0)'); ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
-  g=ctx.createRadialGradient(0,H,0,0,H,W); g.addColorStop(0,'rgba(77,163,255,0.12)'); g.addColorStop(1,'rgba(77,163,255,0)'); ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
-  const li=levelInfo(DB.stats.xp);
-  ctx.textBaseline='alphabetic'; ctx.textAlign='left';
-  ctx.fillStyle='#FF6A3D'; ctx.font='800 72px "Saira Condensed", Arial, sans-serif'; ctx.fillText('FORGE', 70, 132);
-  ctx.fillStyle='#828B9E'; ctx.font='700 26px Inter, Arial, sans-serif'; ctx.fillText('TRAINING LOG', 74, 170);
-  if(DB.settings.name){ ctx.textAlign='right'; ctx.fillStyle='#AEB6C6'; ctx.font='600 34px Inter, Arial, sans-serif'; ctx.fillText(DB.settings.name, W-70, 132); }
-  { const _t=currentTitle(); if(_t){ ctx.textAlign='right'; ctx.fillStyle='#FFD24D'; ctx.font='700 26px Inter, Arial, sans-serif'; ctx.fillText('“'+_t.n+'”', W-70, DB.settings.name?170:132); } }
-  const cx=W/2, cy=430, R=150;
-  ctx.lineWidth=26; ctx.strokeStyle='#252C39'; ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.stroke();
-  const lg=ctx.createLinearGradient(cx-R,cy-R,cx+R,cy+R); lg.addColorStop(0,'#FF8A2B'); lg.addColorStop(1,'#FF4D8C');
-  ctx.strokeStyle=lg; ctx.lineCap='round'; ctx.beginPath(); ctx.arc(cx,cy,R,-Math.PI/2,-Math.PI/2+Math.PI*2*Math.min(0.9999,li.pct/100)); ctx.stroke();
-  ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillStyle='#F3F5F9'; ctx.font='800 150px "Saira Condensed", Arial, sans-serif'; ctx.fillText(String(li.level), cx, cy+6);
-  ctx.textBaseline='alphabetic'; ctx.fillStyle='#828B9E'; ctx.font='700 28px Inter, Arial, sans-serif'; ctx.fillText('LEVEL', cx, cy+R-2);
-  ctx.fillStyle='#FF6A3D'; ctx.font='800 58px "Saira Condensed", Arial, sans-serif'; ctx.fillText(String(li.rank).toUpperCase(), cx, cy+R+86);
-  const stats=[['Workouts',fmt(DB.stats.workouts)],['Day streak',String(DB.stats.currentStreak)],['Volume',fmt(DB.stats.totalVolume)+' '+DB.settings.unit],['PRs',fmt(DB.stats.prsSet)]];
-  const gx=[W*0.28,W*0.72], gy=[H*0.66,H*0.80];
-  stats.forEach((s,idx)=>{ const x=gx[idx%2], y=gy[Math.floor(idx/2)];
-    ctx.fillStyle='#F3F5F9'; ctx.font='800 78px "Saira Condensed", Arial, sans-serif'; ctx.fillText(s[1], x, y);
-    ctx.fillStyle='#828B9E'; ctx.font='700 26px Inter, Arial, sans-serif'; ctx.fillText(String(s[0]).toUpperCase(), x, y+40); });
-  const prs=Object.keys(DB.prs).map(n=>({n,e1rm:DB.prs[n].e1rm})).sort((a,b)=>b.e1rm-a.e1rm);
-  if(prs.length){ ctx.fillStyle='#34EAD0'; ctx.font='700 28px Inter, Arial, sans-serif';
-    ctx.fillText('TOP LIFT · '+String(prs[0].n).toUpperCase()+' · '+Math.round(prs[0].e1rm)+' '+DB.settings.unit, cx, H*0.90); }
-  ctx.fillStyle='#4A5468'; ctx.font='600 24px Inter, Arial, sans-serif'; ctx.fillText('forged with FORGE · '+todayStr(), cx, H-46);
-}
-function saveFlexCard(){
-  const cv=$('#flexCanvas'); if(!cv) return;
-  try{ const url=cv.toDataURL('image/png'); const a=document.createElement('a'); a.href=url; a.download='forge-card-'+todayStr()+'.png'; document.body.appendChild(a); a.click(); a.remove(); toast('📸','Saved','Flex card saved to your downloads'); }
-  catch(e){ toast('⚠️','Could not save','Try a screenshot instead'); }
-}
-function shareFlexCard(){
-  const cv=$('#flexCanvas'); if(!cv) return;
-  if(navigator.share && cv.toBlob){
-    cv.toBlob(b=>{ if(!b){ saveFlexCard(); return; } const file=new File([b],'forge-card.png',{type:'image/png'});
-      if(navigator.canShare && navigator.canShare({files:[file]})){ navigator.share({files:[file], title:'FORGE', text:'My FORGE progress 💪'}).catch(()=>{}); }
-      else { saveFlexCard(); } }, 'image/png');
-  } else { saveFlexCard(); }
-}
 
 function syncResumeBar(screen){
   const b=$('#resumeBar'); if(!b) return;
