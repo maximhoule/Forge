@@ -1042,6 +1042,28 @@ p.eyebrow:has(+ h2.screen-title)::after{content:'  ⟡'; opacity:.8}
 .rt-body{padding:0 14px 14px}
 .rt-tools{margin-bottom:12px}
 .rt-tools input{width:100%}
+/* prestige: ledger, monuments, auras */
+.pl-card{padding:13px 14px; border-radius:13px; background:var(--surface-2); border:1px solid var(--line-soft); margin-top:12px}
+.mn-card{padding:13px 14px; border-radius:13px; background:var(--surface-2); border:1px solid var(--line-soft); margin-bottom:16px}
+.pl-row{display:flex; align-items:center; gap:11px; padding:7px 0}
+.pl-row+.pl-row{border-top:1px solid var(--line-soft)}
+.pl-i{font-size:19px; flex:0 0 26px; text-align:center}
+.pl-b{flex:1; min-width:0}
+.pl-n{font-family:var(--font-epic); font-weight:700; font-size:13px}
+.pl-d{font-family:'JetBrains Mono'; font-size:10px; color:var(--muted-2); margin-top:2px}
+.pl-row.cur .pl-n{color:#FFB47A}
+.mn-row{display:flex; align-items:center; gap:11px; padding:7px 0}
+.mn-row+.mn-row{border-top:1px solid var(--line-soft)}
+.mn-i{font-size:17px; flex:0 0 24px; text-align:center}
+.mn-b{flex:1; min-width:0}
+.mn-n{font-size:12px; font-weight:700; margin-bottom:5px}
+.mn-v{font-family:'JetBrains Mono'; font-size:10px; color:var(--muted); flex:0 0 auto}
+.aura-chip{display:flex; align-items:center; justify-content:center; gap:7px; margin:-4px 0 14px; padding:7px 14px; border-radius:99px; font-family:var(--font-epic); font-weight:700; font-size:12px; letter-spacing:.6px; border:1px solid}
+.aura-chip .au-i{font-size:13px}
+.aura-chip .au-s{font-family:'JetBrains Mono'; font-weight:500; font-size:9.5px; color:var(--muted-2); letter-spacing:.4px}
+.aura-chip.a1{background:rgba(255,138,43,.09); border-color:rgba(255,138,43,.45); color:#FFB47A; box-shadow:0 0 16px -6px rgba(255,138,43,.7)}
+.aura-chip.a2{background:rgba(92,176,255,.09); border-color:rgba(92,176,255,.45); color:#A9D4FF; box-shadow:0 0 16px -6px rgba(92,176,255,.7)}
+.aura-chip.a3{background:rgba(255,210,77,.1); border-color:rgba(255,210,77,.55); color:#FFE08A; box-shadow:0 0 20px -6px rgba(255,210,77,.85)}
 @media(prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
 </style>
 </head>
@@ -1085,6 +1107,8 @@ p.eyebrow:has(+ h2.screen-title)::after{content:'  ⟡'; opacity:.8}
         <div class="relic-next" id="relicNext"></div>
       </div>
     </div>
+
+    <div id="lapAura"></div>
 
     <div id="spriteDen"></div>
 
@@ -1261,6 +1285,7 @@ p.eyebrow:has(+ h2.screen-title)::after{content:'  ⟡'; opacity:.8}
     <div id="seasonSection"></div>
     <div id="titleRow"></div>
     <div id="vaultRow"></div>
+    <div id="monuRow"></div>
     <div class="sec-label">🏅 Achievements</div>
     <div class="ach-summary">
       <div class="big"><span id="achCount">0</span><small>/<span id="achTotal">36</span></small></div>
@@ -1342,13 +1367,14 @@ const DB = {
   weapon: Store.get('forge.weapon', null),
   ascent: Store.get('forge.ascent', null),
   loot: Store.get('forge.loot', null),
-  sprite: Store.get('forge.sprite', null)
+  sprite: Store.get('forge.sprite', null),
+  monu: Store.get('forge.monu', null)
 };
 function save(){
   Store.set('forge.settings', DB.settings); Store.set('forge.stats', DB.stats);
   Store.set('forge.routines', DB.routines); Store.set('forge.log', DB.log);
   Store.set('forge.prs', DB.prs); Store.set('forge.ach', DB.achievements);
-  Store.set('forge.customEx', DB.customEx); Store.set('forge.bodyweight', DB.bodyweight); Store.set('forge.plan', DB.plan); Store.set('forge.quests', DB.quests); Store.set('forge.friends', DB.friends); Store.set('forge.season', DB.season); Store.set('forge.seasonHistory', DB.seasonHistory); Store.set('forge.bossLog', DB.bossLog); Store.set('forge.weapon', DB.weapon); Store.set('forge.ascent', DB.ascent); Store.set('forge.loot', DB.loot); Store.set('forge.sprite', DB.sprite);
+  Store.set('forge.customEx', DB.customEx); Store.set('forge.bodyweight', DB.bodyweight); Store.set('forge.plan', DB.plan); Store.set('forge.quests', DB.quests); Store.set('forge.friends', DB.friends); Store.set('forge.season', DB.season); Store.set('forge.seasonHistory', DB.seasonHistory); Store.set('forge.bossLog', DB.bossLog); Store.set('forge.weapon', DB.weapon); Store.set('forge.ascent', DB.ascent); Store.set('forge.loot', DB.loot); Store.set('forge.sprite', DB.sprite); Store.set('forge.monu', DB.monu);
   try{ Store.set('forge.activeSession', activeSession); }catch(e){}
 }
 let activeSession = Store.get('forge.activeSession', null);
@@ -2355,7 +2381,7 @@ function renderHome(){
       <div style="font-size:12px;color:var(--muted)">${a.d}</div></div>
       <div class="tier ${a.tier}" style="position:static;opacity:1">${a.tier}</div></div>`).join('');
   }
-  renderRelic(); renderWeapon(); renderSpriteDen(); renderAscentCard(); applyLoot(); ascentCheck(); startEmbers();
+  renderRelic(); renderWeapon(); renderSpriteDen(); renderAscentCard(); renderLapAura(); applyLoot(); ascentCheck(); monumentCheck(); startEmbers();
 }
 
 /* ============================================================
@@ -2936,7 +2962,7 @@ function dotsScore(){
 /* ===================== TITLES ===================== */
 function earnedTitles(){ const t=[]; ACH.forEach(a=>{ if(DB.achievements[a.id]) t.push({id:'a:'+a.id, n:a.n, src:'award'}); }); (DB.bossLog||[]).forEach(b=>t.push({id:'b:'+b.key, n:b.title, src:'boss'}));
   if(DB.loot && DB.loot.owned) LOOT.forEach(i=>{ if(i.k==='title' && DB.loot.owned[i.id]) t.push({id:'l:'+i.id, n:i.n, src:'cache'}); });
-  if(DB.ascent && DB.ascent.done) ASCENT.forEach(c=>c.nodes.forEach(nd=>{ if(nd.title && DB.ascent.done[nd.id]) t.push({id:'asc:'+nd.id, n:nd.title, src:'ascent'}); }));
+  if(DB.ascent && DB.ascent.done) ASCENT.forEach(c=>c.nodes.forEach(nd=>{ if(nd.title && (DB.ascent.done[nd.id] || DB.ascent.lap>1)) t.push({id:'asc:'+nd.id, n:nd.title, src:'ascent'}); }));
   return t; }
 function currentTitle(){ const id=DB.settings.title; if(!id) return null; return earnedTitles().find(x=>x.id===id)||null; }
 function renderTitleRow(){ const host=$('#titleRow'); if(!host) return; const ct=currentTitle(); const n=earnedTitles().length;
@@ -3223,7 +3249,19 @@ const LOOT=[
  {id:'c_sc',k:'acc',n:'Molten Scarf',r:2,v:'scarf'},
  {id:'c_cr',k:'acc',n:'Ember Crown',r:3,v:'crown'},
  {id:'c_wf',k:'acc',n:'Wisp Friend',r:3,v:'wisp'},
- {id:'c_di',k:'acc',n:'Star Diadem',r:4,v:'diadem'}
+ {id:'c_di',k:'acc',n:'Star Diadem',r:4,v:'diadem'},
+ {id:'e2_ph',k:'ember',n:'Phoenix Trail',r:4,t2:true,v:['255,200,120','255,255,220']},
+ {id:'e2_nv',k:'ember',n:'Nova Cinders',r:3,t2:true,v:['200,160,255','255,225,255']},
+ {id:'m2_ml',k:'metal',n:'Molten Core',r:4,t2:true,v:{b:['#FFD9A0','#FF9A3C','#D6541E'],d:['#F0B87A','#D4762A','#9C3D14']}},
+ {id:'m2_dr',k:'metal',n:'Dragonscale',r:3,t2:true,v:{b:['#C8E8C0','#5E9E62','#2C5E3A'],d:['#93BE8E','#3F7448','#1E4229']}},
+ {id:'f2_pl',k:'flame',n:'Plasma Pyre',r:4,t2:true,v:['#E0FFFF','#7CE8FF','#4D6BFF']},
+ {id:'f2_nx',k:'flame',n:'Nyx Fire',r:3,t2:true,v:['#C8B8FF','#8A5DFF','#3A2BD8']},
+ {id:'r2_sl',k:'rune',n:'Solar Runes',r:4,t2:true,v:{g:'#FFE9A8',s:'#FFFFFF'}},
+ {id:'x2_ph',k:'xp',n:'Phoenix Bar',r:4,t2:true,v:'linear-gradient(90deg,#FFF3DC,#FFD24D,#FF8A2B,#FF4D8C)'},
+ {id:'x2_vd',k:'xp',n:'Voidfire Bar',r:3,t2:true,v:'linear-gradient(90deg,#3A2BD8,#8A5DFF,#FF4D8C)'},
+ {id:'c2_ph',k:'acc',n:'Phoenix Plume',r:4,t2:true,v:'plume'},
+ {id:'t2_lw',k:'title',n:'Lapwalker',r:3,t2:true},
+ {id:'t2_tw',k:'title',n:'Twice-Forged',r:4,t2:true}
 ];
 function ensureLoot(){ if(!DB.loot) DB.loot={owned:{},opened:0,q:[],pE:0,pM:0,equip:{ember:'',metal:'',flame:'',rune:'',xp:'',acc:''}}; if(!DB.loot.q) DB.loot.q=[]; if(!DB.loot.equip) DB.loot.equip={ember:'',metal:'',flame:'',rune:'',xp:'',acc:''}; }
 function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; var t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
@@ -3238,8 +3276,8 @@ function openCache(){ ensureLoot(); const L=DB.loot;
   if(!L.q.length){ toast('📦','The Vault is empty','Finish a session to earn a cache'); return null; }
   const force=L.q.shift(); const t=rollTier(force);
   const rng=mulberry32(9001+L.opened*40503);
-  let pool=LOOT.filter(x=>x.r===t && !L.owned[x.id]);
-  for(let d=1; d<4 && !pool.length; d++) pool=LOOT.filter(x=>(x.r===t-d||x.r===t+d) && !L.owned[x.id]);
+  let pool=LOOT.filter(x=>x.r===t && !L.owned[x.id] && (!x.t2 || asc2()));
+  for(let d=1; d<4 && !pool.length; d++) pool=LOOT.filter(x=>(x.r===t-d||x.r===t+d) && !L.owned[x.id] && (!x.t2 || asc2()));
   L.opened++; if(t>=4){ L.pM=0; L.pE=0; } else if(t===3){ L.pE=0; L.pM++; } else { L.pE++; L.pM++; }
   if(!pool.length){ gainXP(40); save(); return {overflow:true, tier:t}; }
   const item=pool[Math.floor(rng()*pool.length)];
@@ -3334,25 +3372,32 @@ const ASC_T={
  fs:(e,v)=>forgeScore()>=v,
  seas:(e,v)=>{ ensureSeason(); return (DB.season.score||0)>=v; }
 };
-function ensureAscent(){ if(!DB.ascent) DB.ascent={node:0, done:{}}; }
+function ensureAscent(){ if(!DB.ascent) DB.ascent={node:0, done:{}};
+  if(!DB.ascent.lap) DB.ascent.lap=1; if(!DB.ascent.laps) DB.ascent.laps=[];
+  if(!DB.ascent.start) DB.ascent.start=todayStr(); }
 function ascFlat(){ const f=[]; ASCENT.forEach((c,ci)=>c.nodes.forEach(nd=>f.push(Object.assign({ci:ci}, nd)))); return f; }
 function ascentCheck(evt){ ensureAscent(); const flat=ascFlat(); let n=0;
   while(DB.ascent.node<flat.length && n<8){
-    const nd=flat[DB.ascent.node]; const fn=ASC_T[nd.t]; if(!fn || !fn(evt, nd.v)) break;
+    const nd=flat[DB.ascent.node]; const fn=ASC_T[nd.t]; if(!fn || !fn(evt, ascScale(nd))) break;
     DB.ascent.done[nd.id]=todayStr(); DB.ascent.node++; n++;
     gainXP(nd.xp);
-    if(nd.cache!==undefined) cacheGrant(nd.cache||'');
+    if(nd.cache!==undefined) cacheGrant((DB.ascent.lap>=2 && nd.cache)?'mythic':(nd.cache||''));
     (function(nm,xp,i){ setTimeout(()=>{ _burstT=0; burst('teal'); toast('⛰️','Ascent — node cleared!', nm+' · +'+xp+' XP','gold'); }, 600+i*450); })(nd.n, nd.xp, n);
+  }
+  if(DB.ascent.node>=flat.length && !DB.ascent.laps.some(l=>l.n===DB.ascent.lap)){
+    const st=DB.ascent.start||todayStr();
+    DB.ascent.laps.push({n:DB.ascent.lap, start:st, end:todayStr(), days:_daysBetween(st,todayStr())+1});
   }
   if(n) save(); return n; }
 function ascProgress(nd){
-  const m={ lv:()=>[levelInfo(DB.stats.xp).level,nd.v], str:()=>[DB.stats.currentStreak||0,nd.v],
-    pr:()=>[DB.stats.prsSet||0,nd.v], wko:()=>[DB.stats.workouts||0,nd.v],
-    km:()=>[Math.round((DB.stats.distanceKm||0)*10)/10,nd.v],
-    dots:()=>{ const d=dotsScore(); return [d?Math.round(d.pts):0,nd.v]; },
-    vo2:()=>[myVo2()||0,nd.v], boss:()=>[DB.stats.bossWins||0,nd.v],
-    relic:()=>[relicTier().idx,nd.v], fs:()=>[forgeScore(),nd.v],
-    seas:()=>{ ensureSeason(); return [DB.season.score||0,nd.v]; } };
+  const sv=ascScale(nd);
+  const m={ lv:()=>[levelInfo(DB.stats.xp).level,sv], str:()=>[DB.stats.currentStreak||0,sv],
+    pr:()=>[DB.stats.prsSet||0,sv], wko:()=>[DB.stats.workouts||0,sv],
+    km:()=>[Math.round((DB.stats.distanceKm||0)*10)/10,sv],
+    dots:()=>{ const d=dotsScore(); return [d?Math.round(d.pts):0,sv]; },
+    vo2:()=>[myVo2()||0,sv], boss:()=>[DB.stats.bossWins||0,sv],
+    relic:()=>[relicTier().idx,sv], fs:()=>[forgeScore(),sv],
+    seas:()=>{ ensureSeason(); return [DB.season.score||0,sv]; } };
   if(!m[nd.t]) return null; const r=m[nd.t]();
   return {c:Math.min(r[0],r[1]), g:r[1]}; }
 function ascentMapSVG(){
@@ -3399,28 +3444,43 @@ function renderAscentCard(){
     <div class="asc-plinth">${idx>=N?'👑':ch.ico}</div>
     <div class="asc-meta"><div class="asc-eyebrow">⛰️ The Ascent</div>
       <div class="asc-name">${idx>=N?'SUMMITED':esc(cur.n)}</div>
-      <div class="asc-sub">Node ${Math.min(idx+1,N)} / ${N} · ${esc(ch.ch)}</div>
+      <div class="asc-sub">Lap ${LAP_R[DB.ascent.lap-1]||DB.ascent.lap} · Node ${Math.min(idx+1,N)} / ${N} · ${esc(ch.ch)}</div>
       <div class="sq-bar" style="margin-top:7px"><i style="width:${pct}%"></i></div></div>
     <div class="wpn-chevron">›</div></button>`;
 }
 function openAscent(){
   ensureAscent(); const flat=ascFlat(), idx=DB.ascent.node, N=flat.length;
   const summited=idx>=N; const cur=summited?null:flat[idx]; const ch=ASCENT[(cur||flat[N-1]).ci];
+  const lapR=LAP_R[DB.ascent.lap-1]||DB.ascent.lap;
   let curCard='';
-  if(summited){ curCard=`<div class="asc-cur summit"><div class="ac-ico">👑</div><div class="ac-body"><div class="ac-name">The summit is yours</div><div class="ac-desc">Every node cleared. “Summit-Born” is etched beside your name — the mountain remembers.</div></div></div>`; }
-  else{
+  if(summited){
+    curCard=`<div class="asc-cur summit"><div class="ac-ico">👑</div><div class="ac-body">
+      <div class="ac-name">Lap ${lapR} — summited</div>
+      <div class="ac-desc">Every node cleared. The mountain offers a steeper path: gates grow harder, finales turn mythic, and Vault II treasures only fall to those who climb again.</div>
+      <button class="btn btn-primary btn-sm" data-action="asc-newlap" style="margin-top:11px; width:auto">Begin Lap ${LAP_R[DB.ascent.lap]||(DB.ascent.lap+1)} ▸</button>
+    </div></div>`;
+  } else {
     const p=ascProgress(cur);
-    const rew='+'+cur.xp+' XP'+(cur.cache!==undefined?(' · '+(cur.cache?cur.cache:'standard')+' cache'):'')+(cur.title?(' · title “'+cur.title+'”'):'');
+    const rew='+'+cur.xp+' XP'+(cur.cache!==undefined?(' · '+((DB.ascent.lap>=2&&cur.cache)?'mythic':(cur.cache||'standard'))+' cache'):'')+(cur.title?(' · title “'+cur.title+'”'):'');
     const prog=p?`<div class="ac-prog"><div class="sq-bar"><i style="width:${Math.min(100,Math.round(p.c/p.g*100))}%"></i></div><span class="ac-pv">${p.c} / ${p.g}</span></div>`
                :`<div class="ac-hint">Must happen while this node is active — in a single session or run.</div>`;
     curCard=`<div class="asc-cur"><div class="ac-ico">${cur.ico}</div><div class="ac-body">
-      <div class="ac-name">${esc(cur.n)}</div><div class="ac-desc">${esc(cur.d)}</div>
+      <div class="ac-name">${esc(cur.n)}</div><div class="ac-desc">${esc(ascDesc(cur))}</div>
       <div class="ac-rew">${rew}</div>${prog}</div></div>`;
   }
+  const laps=DB.ascent.laps||[];
+  let ledger='';
+  if(laps.length || DB.ascent.lap>1){
+    const rows=laps.map(l=>{ const b=LAP_BADGES[Math.min(l.n-1,LAP_BADGES.length-1)];
+      return `<div class="pl-row"><span class="pl-i">${b[0]}</span><div class="pl-b"><div class="pl-n">Lap ${LAP_R[l.n-1]||l.n} — ${b[1]}</div><div class="pl-d">${l.start} → ${l.end} · ${l.days} day${l.days!==1?'s':''}</div></div></div>`; }).join('');
+    const curRow=summited?'':`<div class="pl-row cur"><span class="pl-i">⛰️</span><div class="pl-b"><div class="pl-n">Lap ${lapR} — in progress</div><div class="pl-d">Node ${idx} / ${N} · began ${DB.ascent.start||'—'}</div></div></div>`;
+    ledger=`<div class="pl-card"><div class="spr-sec"><span>🏔️ Peak Ledger</span><span class="spr-secr">${laps.length} summit${laps.length!==1?'s':''}</span></div>${rows}${curRow}</div>`;
+  }
   openSheet(`<div class="grab"></div><h3>The Ascent</h3>
-  <div class="asc-head"><span>${ch.ico} ${esc(ch.ch)}</span><span class="ah-n">${Math.min(idx,N)} / ${N} cleared</span></div>
+  <div class="asc-head"><span>${ch.ico} ${esc(ch.ch)} · Lap ${lapR}</span><span class="ah-n">${Math.min(idx,N)} / ${N} cleared</span></div>
   <div class="sq-bar big"><i style="width:${Math.round(idx/N*100)}%"></i></div>
   ${curCard}
+  ${ledger}
   <div class="asc-map">${ascentMapSVG()}</div>
   <button class="btn btn-ghost btn-sm" data-action="close-sheet" style="margin-top:12px">Close</button>`);
   setTimeout(()=>{ try{ const el=document.getElementById('ascCur'); if(el && el.scrollIntoView) el.scrollIntoView({block:'center', behavior:'smooth'}); }catch(e){} }, 120);
@@ -3491,6 +3551,7 @@ function spriteSVG(stage, mood, acc, size){
   else if(acc==='goggles') extra=`<rect x="44" y="53" width="32" height="2.6" fill="#3A424E"/><circle cx="52" cy="55" r="5.2" fill="#161B24" stroke="#3A424E" stroke-width="2"/><circle cx="68" cy="55" r="5.2" fill="#161B24" stroke="#3A424E" stroke-width="2"/><circle cx="50.5" cy="53.5" r="1.4" fill="#5CB0FF" opacity=".8"/><circle cx="66.5" cy="53.5" r="1.4" fill="#5CB0FF" opacity=".8"/>`;
   else if(acc==='scarf') extra=`<path d="M48 78 Q60 84 72 78 L72 84 Q60 90 48 84 Z" fill="#FF5A2C"/><path d="M70 82 L78 93 L72 95 L67 85 Z" fill="#E8471E"/><path d="M48 80 Q60 85.5 72 80" stroke="#FFB061" stroke-width="1" fill="none" opacity=".7"/>`;
   else if(acc==='diadem') extra=`<path transform="translate(60 ${topY+6}) scale(.85)" d="M0 -5 L1.4 -1.4 L5 0 L1.4 1.4 L0 5 L-1.4 1.4 L-5 0 L-1.4 -1.4 Z" fill="#FFE9C4"/><circle cx="53" cy="${topY+9}" r="1.6" fill="#34EAD0"/><circle cx="67" cy="${topY+9}" r="1.6" fill="#34EAD0"/>`;
+  else if(acc==='plume') extra=`<g><path d="M64 ${topY+2} C70 ${topY-8} 78 ${topY-10} 82 ${topY-4} C76 ${topY-4} 72 ${topY} 69 ${topY+5} Z" fill="#FFD24D"/><path d="M66 ${topY+1} C71 ${topY-6} 77 ${topY-8} 80 ${topY-4} C75 ${topY-4} 72 ${topY-1} 70 ${topY+3} Z" fill="#FF8A2B"/><animateTransform attributeName="transform" type="rotate" values="-4 66 ${topY+2};4 66 ${topY+2};-4 66 ${topY+2}" dur="2.2s" repeatCount="indefinite"/></g>`;
   else if(acc==='wisp') extra=`<g><g transform="translate(94 62) scale(.45)"><path d="M0 -18 C10 -8 13 4 9 14 C6 22 3 25 0 25 C-3 25 -6 22 -9 14 C-13 4 -10 -8 0 -18 Z" fill="url(#${id}o)"/><circle cx="0" cy="8" r="3.4" fill="${core}"/></g><animateTransform attributeName="transform" type="rotate" values="0 60 62;360 60 62" dur="6s" repeatCount="indefinite"/></g>`;
   const glow=(mood==='radiant')? `<path d="${bodyD}" fill="url(#${id}o)" opacity=".55" filter="url(#${id}g)"/>`:'';
   const shR=[13,17,19,21,23][stage];
@@ -3575,7 +3636,7 @@ function vaultBody(){ ensureLoot(); const L=DB.loot;
   return LOOT_POOLS.map(P=>{ const items=LOOT.filter(i=>i.k===P[0]); const own=items.filter(i=>L.owned[i.id]).length;
     return `<div class="exg open"><button class="exg-head" data-action="exg-toggle"><span class="xh-i">${P[2]}</span><span class="xh-t">${P[1]}</span><span class="xh-c">${own} / ${items.length}</span><span class="xh-ch">▾</span></button><div class="exg-body"><div class="loot-grid">${items.map(i=>{
       const o=!!L.owned[i.id]; const eq=(i.k==='title')? (DB.settings.title===('l:'+i.id)) : (L.equip[i.k]===i.id);
-      return `<${o?'button':'div'} class="loot-item r${i.r}${o?' own':''}${eq?' eq':''}"${o?` data-action="loot-equip" data-id="${i.id}"`:''}><span class="li-dot"></span><span class="li-n">${esc(i.n)}</span>${o?'':'<span class="li-lk">🔒</span>'}</${o?'button':'div'}>`;
+      return `<${o?'button':'div'} class="loot-item r${i.r}${o?' own':''}${eq?' eq':''}"${o?` data-action="loot-equip" data-id="${i.id}"`:''}><span class="li-dot"></span><span class="li-n">${esc(i.n)}</span>${o?'':('<span class="li-lk">'+(i.t2?'Ⅱ🔒':'🔒')+'</span>')}</${o?'button':'div'}>`;
     }).join('')}</div></div></div>`; }).join(''); }
 function openVault(){ ensureLoot(); const n=DB.loot.q.length;
   openSheet(`<div class="grab"></div><h3>The Vault</h3>
@@ -3587,8 +3648,56 @@ function openVault(){ ensureLoot(); const n=DB.loot.q.length;
   <div id="vaultBody" style="margin-top:12px">${vaultBody()}</div>
   <button class="btn btn-ghost btn-sm" data-action="close-sheet" style="margin-top:10px">Close</button>`); }
 
+/* ===================== NEW LAP — prestige engine ===================== */
+function asc2(){ ensureAscent(); return DB.ascent.lap>=2; }
+const LAP_BADGES=[['🥉','Bronze Summit'],['🥈','Silver Summit'],['🥇','Gold Summit'],['🖤','Obsidian Summit'],['🌞','Solar Summit']];
+const LAP_R=['I','II','III','IV','V','VI','VII','VIII','IX','X'];
+function ascScale(nd){ const L=(DB.ascent&&DB.ascent.lap)||1; if(L<2 || nd.v===undefined) return nd.v;
+  const k=L-1;
+  const S={vol:v=>v*(1+k*0.5), run:v=>v+k*2, pace:v=>Math.max(3.5, v-k*0.5), str:v=>v+k*4, pr:v=>v+k*4,
+    wko:v=>v+k*25, km:v=>v+k*75, dots:v=>v+k*50, vo2:v=>v+k*4, lv:v=>v+k*6, boss:v=>v+k,
+    relic:v=>Math.min(v+k,5), fs:v=>v+k*140, seas:v=>v+k*150, mob:v=>v, bal:v=>v};
+  const f=S[nd.t]; return f? Math.round(f(nd.v)*10)/10 : nd.v; }
+function ascDesc(nd){ const sv=ascScale(nd); if(sv===nd.v || sv===undefined) return nd.d;
+  return nd.d+' — Lap '+LAP_R[DB.ascent.lap-1]+' demands '+(typeof sv==='number'? sv.toLocaleString():sv); }
+function newLap(){ ensureAscent();
+  DB.ascent.lap++; DB.ascent.node=0; DB.ascent.done={}; DB.ascent.start=todayStr(); save();
+  _burstT=0; burst('gold');
+  toast('🏔️','Lap '+LAP_R[DB.ascent.lap-1]+' begins','The mountain grows steeper — Vault II treasures await'); }
+/* ===================== MONUMENT DAYS ===================== */
+const MONUMENTS=[
+ {id:'w100',n:'100th Workout',ico:'⚒️',t:'wko',v:100},{id:'w250',n:'250th Workout',ico:'⚒️',t:'wko',v:250},
+ {id:'w500',n:'500th Workout',ico:'🛠️',t:'wko',v:500},{id:'w1000',n:'1,000th Workout',ico:'🏛️',t:'wko',v:1000},
+ {id:'k100',n:'100 km Travelled',ico:'🗺️',t:'km',v:100},{id:'k500',n:'500 km Travelled',ico:'🗺️',t:'km',v:500},
+ {id:'k1000',n:'1,000 km Travelled',ico:'🌍',t:'km',v:1000},{id:'k2500',n:'2,500 km Travelled',ico:'🌍',t:'km',v:2500},
+ {id:'l10',n:'Level 10',ico:'⬆️',t:'lv',v:10},{id:'l20',n:'Level 20',ico:'⬆️',t:'lv',v:20},{id:'l30',n:'Level 30',ico:'👑',t:'lv',v:30},
+ {id:'y1',n:'One-Year Forge Day',ico:'🕯️',t:'anniv',v:365},{id:'y2',n:'Two-Year Forge Day',ico:'🕯️',t:'anniv',v:730}
+];
+function ensureMonu(){ if(!DB.monu) DB.monu={done:{}}; }
+function _forgeDays(){ let ts=null; (DB.log||[]).forEach(l=>{ if(l.ts && (ts===null||l.ts<ts)) ts=l.ts; });
+  return ts? Math.floor((Date.now()-ts)/86400000) : 0; }
+function monuMeasure(m){ if(m.t==='wko') return DB.stats.workouts||0; if(m.t==='km') return DB.stats.distanceKm||0;
+  if(m.t==='lv') return levelInfo(DB.stats.xp).level; if(m.t==='anniv') return _forgeDays(); return 0; }
+function monumentCheck(){ ensureMonu(); let n=0;
+  MONUMENTS.forEach(m=>{ if(DB.monu.done[m.id]) return; if(monuMeasure(m)>=m.v){
+    DB.monu.done[m.id]=todayStr(); n++; cacheGrant('mythic');
+    (function(mm,i){ setTimeout(()=>{ _burstT=0; burst('gold'); toast(mm.ico,'MONUMENT DAY', mm.n+' — a mythic cache is forged','gold'); }, 800+i*500); })(m,n);
+  }});
+  if(n) save(); return n; }
+function renderMonuments(){ const host=$('#monuRow'); if(!host) return; ensureMonu();
+  const open=MONUMENTS.filter(m=>!DB.monu.done[m.id]).map(m=>({m, c:monuMeasure(m), p:Math.min(1, monuMeasure(m)/m.v)}));
+  open.sort((a,b)=>b.p-a.p);
+  const rows=open.slice(0,3).map(o=>{ const val=o.m.t==='km'? (Math.round(o.c*10)/10) : o.c;
+    return `<div class="mn-row"><span class="mn-i">${o.m.ico}</span><div class="mn-b"><div class="mn-n">${o.m.n}</div><div class="sq-bar"><i style="width:${Math.round(o.p*100)}%"></i></div></div><span class="mn-v">${val} / ${o.m.v}</span></div>`; }).join('');
+  const claimed=MONUMENTS.filter(m=>DB.monu.done[m.id]).length;
+  host.innerHTML=`<div class="mn-card"><div class="spr-sec"><span>🏛️ Monument Days</span><span class="spr-secr">${claimed? claimed+' raised':'mythic cache each'}</span></div>${rows||'<div class="spr-empty">Every monument stands — legend.</div>'}</div>`; }
+/* ===================== LAP AURAS ===================== */
+function renderLapAura(){ const host=$('#lapAura'); if(!host) return; ensureAscent();
+  const s=(DB.ascent.laps||[]).length; if(!s){ host.innerHTML=''; return; }
+  const tier=Math.min(s,3); const nm=['','Ember Ring','Storm Crown','Solar Halo'][tier];
+  host.innerHTML=`<div class="aura-chip a${tier}"><span class="au-i">${['','🔥','⛈️','🌞'][tier]}</span>${nm}<span class="au-s">· Summit ${LAP_R[s-1]||s}</span></div>`; }
 function renderAwards(){
-  renderSquad(); renderSeason(); renderTitleRow(); renderVaultRow();
+  renderSquad(); renderSeason(); renderTitleRow(); renderVaultRow(); renderMonuments();
   const unlocked=ACH.filter(a=>DB.achievements[a.id]).length;
   $('#achCount').textContent=unlocked; $('#achTotal').textContent=ACH.length;
   $('#achFill').style.width=(unlocked/ACH.length*100)+'%';
@@ -3692,6 +3801,7 @@ function finishSession(){
   activeSession=null; Store.set('forge.activeSession', null); save();
   cacheGrant(_bossWin?'epic':(prHits.length?'rare':''));
   ascentCheck(_ascEvt);
+  monumentCheck();
   if(_bossWin){ setTimeout(()=>{ _burstT=0; burst('gold'); toast(_bossMeta.ico,'BOSS DEFEATED!', _bossMeta.name+' has fallen — title “'+_bossMeta.title+'” earned','gold'); bossSpeak(_bossMeta.key,'win'); }, 950); }
   else if(_bossMeta){ setTimeout(()=>toast(_bossMeta.ico,'The boss endures','Every set must be completed — challenge it again'), 900); }
   if(relicTier().idx>_relicBefore){ setTimeout(()=>{ burst('gold'); toast('🗡️','Relic advanced!','Your forge reached '+relicTier().tier.n); }, 750); }
@@ -3886,6 +3996,7 @@ function logCardio(dist, goal, min, extra){
   if(relicTier().idx>_relicBefore){ setTimeout(()=>{ burst('gold'); toast('🗡️','Relic advanced!','Your forge reached '+relicTier().tier.n); }, 700); }
   cacheGrant('');
   ascentCheck({type:'cardio', km:dist, min:min||0});
+  monumentCheck();
   renderHome();
 }
 
@@ -4265,14 +4376,14 @@ let calYear=new Date().getFullYear(), calMonth=new Date().getMonth();
 /* ---- data backup / restore ---- */
 function backupPayload(){ return { _app:'FORGE', _v:1, exported:new Date().toISOString(),
   settings:DB.settings, stats:DB.stats, routines:DB.routines, log:DB.log, prs:DB.prs,
-  achievements:DB.achievements, customEx:DB.customEx, bodyweight:DB.bodyweight, plan:DB.plan, quests:DB.quests, friends:DB.friends, season:DB.season, seasonHistory:DB.seasonHistory, bossLog:DB.bossLog, weapon:DB.weapon, ascent:DB.ascent, loot:DB.loot, sprite:DB.sprite }; }
+  achievements:DB.achievements, customEx:DB.customEx, bodyweight:DB.bodyweight, plan:DB.plan, quests:DB.quests, friends:DB.friends, season:DB.season, seasonHistory:DB.seasonHistory, bossLog:DB.bossLog, weapon:DB.weapon, ascent:DB.ascent, loot:DB.loot, sprite:DB.sprite, monu:DB.monu }; }
 function applyBackup(d){
   if(!d || d._app!=='FORGE' || !d.stats) return false;
   DB.settings=d.settings||DB.settings;
   DB.stats=Object.assign({}, DB.stats, d.stats);
   DB.routines=d.routines||[]; DB.log=d.log||[]; DB.prs=d.prs||{};
   DB.achievements=d.achievements||{}; DB.customEx=d.customEx||[];
-  DB.bodyweight=d.bodyweight||[]; DB.plan=d.plan||null; DB.quests=d.quests||null; DB.friends=d.friends||[]; DB.season=d.season||null; DB.seasonHistory=d.seasonHistory||[]; DB.bossLog=d.bossLog||[]; DB.weapon=d.weapon||null; DB.ascent=d.ascent||null; DB.loot=d.loot||null; DB.sprite=d.sprite||null;
+  DB.bodyweight=d.bodyweight||[]; DB.plan=d.plan||null; DB.quests=d.quests||null; DB.friends=d.friends||[]; DB.season=d.season||null; DB.seasonHistory=d.seasonHistory||[]; DB.bossLog=d.bossLog||[]; DB.weapon=d.weapon||null; DB.ascent=d.ascent||null; DB.loot=d.loot||null; DB.sprite=d.sprite||null; DB.monu=d.monu||null;
   save(); return true;
 }
 function exportData(){
@@ -4638,7 +4749,7 @@ document.addEventListener('click', e=>{
     }
     case 'reset-data':
       if(confirm('Reset ALL data? This erases your routines, logs, PRs and awards. Cannot be undone.')){
-        ['settings','stats','routines','log','prs','ach','customEx','bodyweight','plan','quests','activeSession','friends','season','seasonHistory','bossLog','weapon','ascent','loot','sprite'].forEach(k=>Store.set('forge.'+k, k==='settings'?{name:'',unit:'kg',sound:true,voice:false,sex:'',birthYear:null,heightCm:null,restHR:null,title:null}:(k==='stats'?{xp:0,totalVolume:0,distanceKm:0,prsSet:0,routinesCreated:0,workouts:0,cardioSessions:0,currentStreak:0,longestStreak:0,lastWorkoutDate:null, balancedWeeks:0, lastBalancedWeek:null, streakFreezes:0, bossWins:0}:(['routines','log','customEx','bodyweight','friends','seasonHistory','bossLog'].includes(k)?[]:(['season','weapon','ascent','loot','sprite'].includes(k)?null:{})))));
+        ['settings','stats','routines','log','prs','ach','customEx','bodyweight','plan','quests','activeSession','friends','season','seasonHistory','bossLog','weapon','ascent','loot','sprite','monu'].forEach(k=>Store.set('forge.'+k, k==='settings'?{name:'',unit:'kg',sound:true,voice:false,sex:'',birthYear:null,heightCm:null,restHR:null,title:null}:(k==='stats'?{xp:0,totalVolume:0,distanceKm:0,prsSet:0,routinesCreated:0,workouts:0,cardioSessions:0,currentStreak:0,longestStreak:0,lastWorkoutDate:null, balancedWeeks:0, lastBalancedWeek:null, streakFreezes:0, bossWins:0}:(['routines','log','customEx','bodyweight','friends','seasonHistory','bossLog'].includes(k)?[]:(['season','weapon','ascent','loot','sprite','monu'].includes(k)?null:{})))));
         location.reload();
       } break;
 
@@ -4815,6 +4926,7 @@ document.addEventListener('click', e=>{
     case 'hr-connect-all': hrConnect(true); break;
     case 'log-where': { logWhere=t.dataset.w; $$('#logWhereChips .chip').forEach(c=>c.classList.toggle('on', c.dataset.w===logWhere)); const iw=$('#tmInclineWrap'); if(iw) iw.style.display=logWhere==='tm'?'block':'none'; break; }
     case 'log-run-submit': submitLogRun(); break;
+    case 'asc-newlap': newLap(); openAscent(); break;
     case 'rt-pin': { const r=DB.routines.find(x=>x.id===t.dataset.routine); if(!r) break;
       r.pin=!r.pin; save(); renderRtList();
       toast(r.pin?'★':'☆', r.pin?'Pinned':'Unpinned', r.name+(r.pin?' — it now sits at the top':'')); break; }
