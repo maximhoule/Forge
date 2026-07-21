@@ -1064,6 +1064,32 @@ p.eyebrow:has(+ h2.screen-title)::after{content:'  ⟡'; opacity:.8}
 .aura-chip.a1{background:rgba(255,138,43,.09); border-color:rgba(255,138,43,.45); color:#FFB47A; box-shadow:0 0 16px -6px rgba(255,138,43,.7)}
 .aura-chip.a2{background:rgba(92,176,255,.09); border-color:rgba(92,176,255,.45); color:#A9D4FF; box-shadow:0 0 16px -6px rgba(92,176,255,.7)}
 .aura-chip.a3{background:rgba(255,210,77,.1); border-color:rgba(255,210,77,.55); color:#FFE08A; box-shadow:0 0 20px -6px rgba(255,210,77,.85)}
+/* v36: forge scene, transitions, events, cues, amoled */
+.hero{z-index:0}
+.forge-scene{position:absolute; left:-6px; bottom:-12px; width:150px; height:105px; z-index:0; opacity:.5; pointer-events:none;
+  background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 120'><ellipse cx='70' cy='104' rx='55' ry='10' fill='%23FF8A2B' opacity='.16'/><path d='M30 96 L110 96 L104 82 L84 82 L84 72 L110 64 L110 52 L44 52 L44 64 L64 72 L64 82 L36 82 Z' fill='%23151A25'/><path d='M44 52 L110 52 L110 56 L44 56 Z' fill='%23212939'/><circle cx='84' cy='40' r='2.4' fill='%23FFC24A'><animate attributeName='cy' values='46;18' dur='2.4s' repeatCount='indefinite'/><animate attributeName='opacity' values='1;0' dur='2.4s' repeatCount='indefinite'/></circle><circle cx='70' cy='44' r='1.8' fill='%23FF8A2B'><animate attributeName='cy' values='48;22' dur='3s' begin='.7s' repeatCount='indefinite'/><animate attributeName='opacity' values='.9;0' dur='3s' begin='.7s' repeatCount='indefinite'/></circle><circle cx='96' cy='46' r='1.6' fill='%23FFD24D'><animate attributeName='cy' values='50;26' dur='2.7s' begin='1.3s' repeatCount='indefinite'/><animate attributeName='opacity' values='.9;0' dur='2.7s' begin='1.3s' repeatCount='indefinite'/></circle></svg>") no-repeat center bottom/contain}
+.hero > *{position:relative; z-index:1}
+.screen.active{animation:screenIn .26s var(--ease)}
+@keyframes screenIn{from{opacity:0; transform:translateY(9px)}to{opacity:1; transform:none}}
+.event-card{display:flex; gap:13px; align-items:center; padding:13px 14px; margin-bottom:14px; border-radius:var(--r-lg); border:1px solid; position:relative; overflow:hidden}
+.evc-ico{font-size:28px; flex:0 0 auto}
+.evc-b{flex:1; min-width:0}
+.evc-eyebrow{font-family:'JetBrains Mono'; font-size:9px; text-transform:uppercase; letter-spacing:1.6px; font-weight:700; opacity:.75}
+.evc-n{font-family:var(--font-epic); font-weight:800; font-size:16px; margin-top:2px}
+.evc-d{font-size:11px; color:var(--muted); margin-top:3px; line-height:1.45}
+.evc-loot{font-family:'JetBrains Mono'; font-size:9.5px; margin-top:6px; color:var(--gold)}
+.event-card.q1{background:linear-gradient(140deg, rgba(92,176,255,.14), var(--surface) 65%); border-color:rgba(92,176,255,.45)}
+.event-card.q2{background:linear-gradient(140deg, rgba(255,138,194,.13), var(--surface) 65%); border-color:rgba(255,138,194,.45)}
+.event-card.q3{background:linear-gradient(140deg, rgba(255,206,77,.14), var(--surface) 65%); border-color:rgba(255,206,77,.5)}
+.event-card.q4{background:linear-gradient(140deg, rgba(255,122,31,.13), rgba(138,93,255,.08) 50%, var(--surface) 75%); border-color:rgba(255,122,31,.5)}
+.cue-row{display:flex; gap:10px; align-items:flex-start; padding:7px 0; font-size:12.5px; line-height:1.5; color:var(--text)}
+.cue-row+.cue-row{border-top:1px solid var(--line-soft)}
+.cue-row span{flex:0 0 18px; text-align:center}
+.cue-row.good span{color:var(--teal)}
+.cue-row.bad{color:var(--muted)}
+.cue-row.bad span{color:#FFB061}
+.cue-tags{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:11px}
+body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#161B23; --line:#242C3A; --line-soft:#181E28}
 @media(prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
 </style>
 </head>
@@ -1078,6 +1104,7 @@ p.eyebrow:has(+ h2.screen-title)::after{content:'  ⟡'; opacity:.8}
     </div>
 
     <div class="hero">
+      <div class="forge-scene"></div>
       <div class="ring-wrap">
         <svg width="104" height="104" viewBox="0 0 104 104">
           <defs><linearGradient id="energyGrad" x1="0" y1="0" x2="1" y2="1">
@@ -1115,6 +1142,8 @@ p.eyebrow:has(+ h2.screen-title)::after{content:'  ⟡'; opacity:.8}
     <div id="weaponCard"></div>
 
     <div id="ascentCard"></div>
+
+    <div id="eventCard"></div>
 
     <div class="stat-grid">
       <div class="stat hot"><div class="k">🔥 Streak</div><div class="v"><span id="stStreak">0</span><small id="stStreakSub"> days</small></div></div>
@@ -2109,6 +2138,18 @@ const ACH = [
   {id:'bw_first', ico:'⚖️', n:'Self-Aware', d:'Log your body weight', tier:'bronze', goal:1, val:s=>DB.bodyweight.length},
   {id:'bw_10', ico:'📉', n:'Tracker', d:'Log body weight 10 times', tier:'silver', goal:10, val:s=>DB.bodyweight.length},
   {id:'pillars_streak', ico:'🌈', n:'Perfectly Balanced', d:'Train all 4 pillars in 4 separate weeks', tier:'gold', goal:4, val:s=>s.balancedWeeks||0},
+  {id:'cache_first', ico:'📦', n:'First Crack', d:'Open your first Forge Cache', tier:'bronze', goal:1, val:s=>(DB.loot&&DB.loot.opened)||0},
+  {id:'cache_geode', ico:'💎', n:'Geode Hunter', d:'Open 10 Forge Caches', tier:'silver', goal:10, val:s=>(DB.loot&&DB.loot.opened)||0},
+  {id:'loot_25', ico:'🗃️', n:'Collector', d:'Own 25 pieces of loot', tier:'silver', goal:25, val:s=>DB.loot?Object.keys(DB.loot.owned||{}).length:0},
+  {id:'loot_myth', ico:'🌟', n:'Touched by Myth', d:'Own a Mythic treasure', tier:'gold', goal:1, val:s=>DB.loot&&Object.keys(DB.loot.owned||{}).some(id=>{const it=LOOT.find(x=>x.id===id); return it&&it.r===4;})?1:0},
+  {id:'asc_foothills', ico:'🥾', n:'Foothills Cleared', d:'Clear 8 Ascent nodes', tier:'bronze', goal:8, val:s=>DB.ascent?(DB.ascent.lap>1?32:DB.ascent.node):0},
+  {id:'asc_half', ico:'⛰️', n:'Halfway Up', d:'Clear 16 Ascent nodes', tier:'silver', goal:16, val:s=>DB.ascent?(DB.ascent.lap>1?32:DB.ascent.node):0},
+  {id:'asc_summit', ico:'🏔️', n:'Summit-Stander', d:'Summit the Ascent', tier:'gold', goal:1, val:s=>DB.ascent?(DB.ascent.laps||[]).length:0},
+  {id:'asc_again', ico:'♾️', n:'Again, Higher', d:'Begin Lap II of the Ascent', tier:'gold', goal:1, val:s=>DB.ascent&&DB.ascent.lap>=2?1:0},
+  {id:'spr_djinn', ico:'🧞', n:'Djinn-Keeper', d:'Raise your sprite to Flame Djinn', tier:'gold', goal:3, val:s=>spriteStage()},
+  {id:'spr_named', ico:'🔥', n:'True-Named', d:'Give your Forge Sprite a name', tier:'bronze', goal:1, val:s=>DB.sprite&&DB.sprite.name?1:0},
+  {id:'boss_trio', ico:'⚔️', n:'Boss-Breaker', d:'Fell three monthly bosses', tier:'silver', goal:3, val:s=>s.bossWins||0},
+  {id:'monu_mason', ico:'🏛️', n:'Monument Mason', d:'Raise three Monuments', tier:'gold', goal:3, val:s=>DB.monu?Object.keys(DB.monu.done||{}).length:0}
 ];
 
 /* ---------- leveling ---------- */
@@ -2381,7 +2422,7 @@ function renderHome(){
       <div style="font-size:12px;color:var(--muted)">${a.d}</div></div>
       <div class="tier ${a.tier}" style="position:static;opacity:1">${a.tier}</div></div>`).join('');
   }
-  renderRelic(); renderWeapon(); renderSpriteDen(); renderAscentCard(); renderLapAura(); applyLoot(); ascentCheck(); monumentCheck(); startEmbers();
+  renderRelic(); renderWeapon(); renderSpriteDen(); renderAscentCard(); renderLapAura(); renderEventCard(); applyLoot(); applyAmoled(); ascentCheck(); monumentCheck(); startEmbers(); setTimeout(tickUp,0);
 }
 
 /* ============================================================
@@ -2978,12 +3019,16 @@ const BOSSES=[
  {n:'The Iron Colossus',ico:'🗿',t:'Colossus-Slayer'},{n:'Ashmaw the Devourer',ico:'🐉',t:'Bane of Ashmaw'},
  {n:'The Molten Sentinel',ico:'🔥',t:'Sentinel-Breaker'},{n:'Gravelord Vhast',ico:'💀',t:'End of the Gravelord'},
  {n:'The Hundred-Hand',ico:'🐙',t:'Hundred-Hand Slayer'},{n:'Frostbrand Ymir',ico:'❄️',t:'Frostbrand-Feller'},
- {n:'The Ember Tyrant',ico:'👑',t:'Tyrant-Toppler'},{n:'Stormcaller Ozrik',ico:'⚡',t:'Storm-Silencer'}];
+ {n:'The Ember Tyrant',ico:'👑',t:'Tyrant-Toppler'},{n:'Stormcaller Ozrik',ico:'⚡',t:'Storm-Silencer'},
+ {n:'The Hollow King',ico:'👻',t:'Hollow-Ender'},{n:'Marrow the Unbroken',ico:'🦴',t:'Marrow-Splitter'},
+ {n:'Vault Warden Kresh',ico:'⛓️',t:'Chainbreaker'},{n:'The Sunken Leviathan',ico:'🌊',t:'Leviathan-Lifter'},
+ {n:'The Yule Colossus',ico:'🎄',t:'Winterforged'}];
 function monthKey(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); }
 function _mhash(s){ let h=0; for(let i=0;i<s.length;i++) h=(h*31+s.charCodeAt(i))>>>0; return h; }
 function bossDaysLeft(){ const d=new Date(); return Math.max(1, Math.ceil((new Date(d.getFullYear(), d.getMonth()+1, 1)-d)/86400000)); }
+function bossIdx(k){ const m=parseInt(k.slice(5),10); if(m===12) return 12; return _mhash(k)%12; }
 function currentBoss(){
-  const k=monthKey(); const B=BOSSES[_mhash(k)%BOSSES.length];
+  const k=monthKey(); const B=BOSSES[bossIdx(k)];
   const beaten=(DB.bossLog||[]).some(x=>x.key===k);
   const lifts=['Back Squat','Barbell Bench Press','Deadlift','Overhead Press'];
   const rx=lifts.map(nm=>{ const pr=DB.prs[nm];
@@ -3191,13 +3236,18 @@ const BLINES=[
  {q:['A hundred hands — and every one against you.','Struggle. It amuses me.'], w:['One hand… was all you needed…']},
  {q:['Winter comes for your streak, mortal.','I will freeze the flame from your bones.'], w:['Warmth… I had forgotten it…']},
  {q:['Kneel before the first fire.','I ruled embers before you drew breath.'], w:['The crown… passes to you…']},
- {q:['The storm answers to ME.','I will scatter you like ash on the wind.'], w:['Silence… how strange…']}
+ {q:['The storm answers to ME.','I will scatter you like ash on the wind.'], w:['Silence… how strange…']},
+ {q:['Your strength echoes in empty halls.','I am what remains when will runs out.'], w:['Full… at last… I am full…']},
+ {q:['Break me. A thousand tried.','Bone remembers every coward.'], w:['Split… clean through… well struck…']},
+ {q:['The Vault opens for no one.','Your treasures stay buried, smith.'], w:['The chains… take them… take it all…']},
+ {q:['The deep cold crushes harder than iron.','Drown in the weight, little diver.'], w:['Rising… you are… still rising…']},
+ {q:['Ho ho… your gifts are ash, mortal.','Winter feasts on idle flames.'], w:['A gift… freely given… well earned…']}
 ];
-function bossLine(key, phase){ const i=_mhash(key)%BOSSES.length; const L=BLINES[i]||BLINES[0]; const arr=phase==='win'?L.w:L.q; return arr[_mhash(key+phase)%arr.length]; }
+function bossLine(key, phase){ const i=bossIdx(key); const L=BLINES[i]||BLINES[0]; const arr=phase==='win'?L.w:L.q; return arr[_mhash(key+phase)%arr.length]; }
 function bossSpeak(key, phase){ try{ speak(bossLine(key,phase)); }catch(e){} }
 /* ===================== FORGE CACHES — the loot ledger ===================== */
 const RARN=['','Common','Rare','Epic','Mythic'];
-const LOOT_POOLS=[['ember','Ember Tints','🔥'],['metal','Weapon Metals','⚔️'],['flame','Weapon Flames','☄️'],['rune','Rune Inks','✦'],['xp','XP Bar Skins','🔋'],['acc','Sprite Trinkets','🎀'],['title','Cache Titles','🏷️']];
+const LOOT_POOLS=[['ember','Ember Tints','🔥'],['metal','Weapon Metals','⚔️'],['flame','Weapon Flames','☄️'],['rune','Rune Inks','✦'],['xp','XP Bar Skins','🔋'],['acc','Sprite Trinkets','🎀'],['title','Cache Titles','🏷️'],['theme','UI Themes','🎨']];
 const LOOT=[
  {id:'e_az',k:'ember',n:'Azure Flame',r:2,v:['80,170,255','130,220,255']},
  {id:'e_vr',k:'ember',n:'Verdant Fire',r:1,v:['90,220,140','160,255,190']},
@@ -3261,9 +3311,21 @@ const LOOT=[
  {id:'x2_vd',k:'xp',n:'Voidfire Bar',r:3,t2:true,v:'linear-gradient(90deg,#3A2BD8,#8A5DFF,#FF4D8C)'},
  {id:'c2_ph',k:'acc',n:'Phoenix Plume',r:4,t2:true,v:'plume'},
  {id:'t2_lw',k:'title',n:'Lapwalker',r:3,t2:true},
- {id:'t2_tw',k:'title',n:'Twice-Forged',r:4,t2:true}
+ {id:'t2_tw',k:'title',n:'Twice-Forged',r:4,t2:true},
+ {id:'e3_ff',k:'ember',n:'Frostfire',r:3,ev:'q1',v:['120,190,255','200,240,255']},
+ {id:'c3_sc',k:'acc',n:'Snow Cap',r:3,ev:'q1',v:'snowcap'},
+ {id:'f3_bl',k:'flame',n:'Blossom Pyre',r:3,ev:'q2',v:['#FFD9EC','#FF8AC2','#D84D8C']},
+ {id:'r3_pt',k:'rune',n:'Petal Runes',r:3,ev:'q2',v:{g:'#FF9AC8',s:'#FFE0EF'}},
+ {id:'m3_sg',k:'metal',n:'Solargold',r:4,ev:'q3',v:{b:['#FFF3C0','#FFCE4D','#E8961E'],d:['#F5DC8E','#D8A82E','#A86A12']}},
+ {id:'x3_ss',k:'xp',n:'Solstice Bar',r:3,ev:'q3',v:'linear-gradient(90deg,#FFE9A8,#FFC24A,#FF8A2B)'},
+ {id:'e3_wl',k:'ember',n:'Wraithlight',r:3,ev:'q4',v:['170,255,170','235,255,215']},
+ {id:'c3_pk',k:'acc',n:'Pumpkin Charm',r:3,ev:'q4',v:'pumpkin'},
+ {id:'th_az',k:'theme',n:'Azure Accent',r:3,v:{a:'#4DA6FF',b:'#2A6BD8'}},
+ {id:'th_vr',k:'theme',n:'Verdant Accent',r:2,v:{a:'#3DDC97',b:'#0F9D6E'}},
+ {id:'th_vd',k:'theme',n:'Void Accent',r:4,v:{a:'#A45DFF',b:'#6A2BD8'}},
+ {id:'th_cr',k:'theme',n:'Crimson Accent',r:2,v:{a:'#FF5A5A',b:'#D82A6B'}}
 ];
-function ensureLoot(){ if(!DB.loot) DB.loot={owned:{},opened:0,q:[],pE:0,pM:0,equip:{ember:'',metal:'',flame:'',rune:'',xp:'',acc:''}}; if(!DB.loot.q) DB.loot.q=[]; if(!DB.loot.equip) DB.loot.equip={ember:'',metal:'',flame:'',rune:'',xp:'',acc:''}; }
+function ensureLoot(){ if(!DB.loot) DB.loot={owned:{},opened:0,q:[],pE:0,pM:0,equip:{ember:'',metal:'',flame:'',rune:'',xp:'',acc:''}}; if(!DB.loot.q) DB.loot.q=[]; if(!DB.loot.equip) DB.loot.equip={ember:'',metal:'',flame:'',rune:'',xp:'',acc:'',theme:''}; if(DB.loot.equip.theme===undefined) DB.loot.equip.theme=''; }
 function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; var t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
 function cacheGrant(force){ ensureLoot(); DB.loot.q.push(force||''); save();
   setTimeout(()=>toast('📦','Forge Cache earned','Waiting in the Vault — '+DB.loot.q.length+' unopened'), 1500); }
@@ -3276,8 +3338,8 @@ function openCache(){ ensureLoot(); const L=DB.loot;
   if(!L.q.length){ toast('📦','The Vault is empty','Finish a session to earn a cache'); return null; }
   const force=L.q.shift(); const t=rollTier(force);
   const rng=mulberry32(9001+L.opened*40503);
-  let pool=LOOT.filter(x=>x.r===t && !L.owned[x.id] && (!x.t2 || asc2()));
-  for(let d=1; d<4 && !pool.length; d++) pool=LOOT.filter(x=>(x.r===t-d||x.r===t+d) && !L.owned[x.id] && (!x.t2 || asc2()));
+  let pool=LOOT.filter(x=>x.r===t && !L.owned[x.id] && (!x.t2 || asc2()) && (!x.ev || (activeEvent()&&activeEvent().id===x.ev)));
+  for(let d=1; d<4 && !pool.length; d++) pool=LOOT.filter(x=>(x.r===t-d||x.r===t+d) && !L.owned[x.id] && (!x.t2 || asc2()) && (!x.ev || (activeEvent()&&activeEvent().id===x.ev)));
   L.opened++; if(t>=4){ L.pM=0; L.pE=0; } else if(t===3){ L.pE=0; L.pM++; } else { L.pE++; L.pM++; }
   if(!pool.length){ gainXP(40); save(); return {overflow:true, tier:t}; }
   const item=pool[Math.floor(rng()*pool.length)];
@@ -3287,7 +3349,10 @@ function equipLoot(id){ ensureLoot(); const it=LOOT.find(x=>x.id===id); if(!it |
   DB.loot.equip[it.k]=(DB.loot.equip[it.k]===id)?'':id; save(); applyLoot(); return it; }
 function applyLoot(){ try{ ensureLoot(); const d=document.documentElement;
   if(d && d.style && d.style.setProperty){ const x=LOOT.find(i=>i.id===DB.loot.equip.xp);
-    if(x) d.style.setProperty('--xpgrad', x.v); else d.style.removeProperty('--xpgrad'); } }catch(e){} }
+    if(x) d.style.setProperty('--xpgrad', x.v); else d.style.removeProperty('--xpgrad');
+    const th=LOOT.find(i=>i.id===DB.loot.equip.theme);
+    if(th){ d.style.setProperty('--grad-energy','linear-gradient(120deg,'+th.v.a+' 0%,'+th.v.b+' 100%)'); d.style.setProperty('--energy-1', th.v.a); d.style.setProperty('--energy-2', th.v.b); }
+    else{ d.style.removeProperty('--grad-energy'); d.style.removeProperty('--energy-1'); d.style.removeProperty('--energy-2'); } } }catch(e){} }
 function emberTint(){ ensureLoot(); const it=LOOT.find(i=>i.id===DB.loot.equip.ember); return it? it.v : ['255,150,50','255,77,140']; }
 function metalTint(){ ensureLoot(); const it=LOOT.find(i=>i.id===DB.loot.equip.metal); return it? it.v : {b:['#ECF2FA','#B3BFD2','#7C89A0'], d:['#9AA6BB','#66738B','#454F64']}; }
 function flameTint(){ ensureLoot(); const it=LOOT.find(i=>i.id===DB.loot.equip.flame); return it? it.v : ['#FFD24D','#FF8A2B','#FF4D8C']; }
@@ -3551,6 +3616,8 @@ function spriteSVG(stage, mood, acc, size){
   else if(acc==='goggles') extra=`<rect x="44" y="53" width="32" height="2.6" fill="#3A424E"/><circle cx="52" cy="55" r="5.2" fill="#161B24" stroke="#3A424E" stroke-width="2"/><circle cx="68" cy="55" r="5.2" fill="#161B24" stroke="#3A424E" stroke-width="2"/><circle cx="50.5" cy="53.5" r="1.4" fill="#5CB0FF" opacity=".8"/><circle cx="66.5" cy="53.5" r="1.4" fill="#5CB0FF" opacity=".8"/>`;
   else if(acc==='scarf') extra=`<path d="M48 78 Q60 84 72 78 L72 84 Q60 90 48 84 Z" fill="#FF5A2C"/><path d="M70 82 L78 93 L72 95 L67 85 Z" fill="#E8471E"/><path d="M48 80 Q60 85.5 72 80" stroke="#FFB061" stroke-width="1" fill="none" opacity=".7"/>`;
   else if(acc==='diadem') extra=`<path transform="translate(60 ${topY+6}) scale(.85)" d="M0 -5 L1.4 -1.4 L5 0 L1.4 1.4 L0 5 L-1.4 1.4 L-5 0 L-1.4 -1.4 Z" fill="#FFE9C4"/><circle cx="53" cy="${topY+9}" r="1.6" fill="#34EAD0"/><circle cx="67" cy="${topY+9}" r="1.6" fill="#34EAD0"/>`;
+  else if(acc==='snowcap') extra=`<g><path d="M49 ${topY+6} Q60 ${topY-7} 71 ${topY+6} L71 ${topY+9} L49 ${topY+9} Z" fill="#5CB0FF"/><rect x="48" y="${topY+8}" width="24" height="3.4" rx="1.7" fill="#DFF0FF"/><circle cx="60" cy="${topY-6}" r="2.6" fill="#FFFFFF"/></g>`;
+  else if(acc==='pumpkin') extra=`<g><g transform="translate(90 96)"><ellipse cx="0" cy="0" rx="7" ry="5.6" fill="#FF7A1F"/><ellipse cx="-3" cy="0" rx="2.6" ry="5.4" fill="#E85E10" opacity=".7"/><ellipse cx="3" cy="0" rx="2.6" ry="5.4" fill="#E85E10" opacity=".7"/><rect x="-1" y="-8.4" width="2.2" height="3.4" rx="1" fill="#4B7A3A"/></g><animateTransform attributeName="transform" type="translate" values="0 0;0 -1.6;0 0" dur="2.8s" repeatCount="indefinite"/></g>`;
   else if(acc==='plume') extra=`<g><path d="M64 ${topY+2} C70 ${topY-8} 78 ${topY-10} 82 ${topY-4} C76 ${topY-4} 72 ${topY} 69 ${topY+5} Z" fill="#FFD24D"/><path d="M66 ${topY+1} C71 ${topY-6} 77 ${topY-8} 80 ${topY-4} C75 ${topY-4} 72 ${topY-1} 70 ${topY+3} Z" fill="#FF8A2B"/><animateTransform attributeName="transform" type="rotate" values="-4 66 ${topY+2};4 66 ${topY+2};-4 66 ${topY+2}" dur="2.2s" repeatCount="indefinite"/></g>`;
   else if(acc==='wisp') extra=`<g><g transform="translate(94 62) scale(.45)"><path d="M0 -18 C10 -8 13 4 9 14 C6 22 3 25 0 25 C-3 25 -6 22 -9 14 C-13 4 -10 -8 0 -18 Z" fill="url(#${id}o)"/><circle cx="0" cy="8" r="3.4" fill="${core}"/></g><animateTransform attributeName="transform" type="rotate" values="0 60 62;360 60 62" dur="6s" repeatCount="indefinite"/></g>`;
   const glow=(mood==='radiant')? `<path d="${bodyD}" fill="url(#${id}o)" opacity=".55" filter="url(#${id}g)"/>`:'';
@@ -3696,6 +3763,219 @@ function renderLapAura(){ const host=$('#lapAura'); if(!host) return; ensureAsce
   const s=(DB.ascent.laps||[]).length; if(!s){ host.innerHTML=''; return; }
   const tier=Math.min(s,3); const nm=['','Ember Ring','Storm Crown','Solar Halo'][tier];
   host.innerHTML=`<div class="aura-chip a${tier}"><span class="au-i">${['','🔥','⛈️','🌞'][tier]}</span>${nm}<span class="au-s">· Summit ${LAP_R[s-1]||s}</span></div>`; }
+const CUES={
+"Barbell Bench Press":["Squeeze the bar and pull it apart to set your lats","Touch low chest, press up and slightly back","Flaring elbows to 90° — keep them ~45° from your torso"],
+"Incline Dumbbell Press":["Set the bench 30°, press up and slightly in","Keep shoulder blades pinned down and back","Going so heavy the dumbbells drift apart at the top"],
+"Overhead Press":["Squeeze glutes and brace before the bar moves","Press through, then push your head through the window","Leaning back and turning it into an incline press"],
+"Push-Up":["Body one straight line, hands under shoulders","Pull yourself down with control, elbows ~45°","Sagging hips — brace like a plank throughout"],
+"Dips":["Lean slightly forward, shoulders down away from ears","Descend until upper arms are parallel","Sinking into the shoulders at the bottom"],
+"Triceps Pushdown":["Pin elbows to your sides the whole set","Full lockout, squeeze for a beat","Letting elbows drift forward to use shoulders"],
+"Lateral Raise":["Lead with the elbows, pinkies slightly up","Stop at shoulder height, lower for 2 counts","Swinging the weight up with momentum"],
+"Pull-Up":["Start from a dead hang, pull chest to bar","Drive elbows down and back","Half reps — chin over, arms straight at bottom"],
+"Lat Pulldown":["Pull to upper chest with a proud chest","Elbows down and in, no lean-back yank","Pulling behind the neck or using body sway"],
+"Barbell Row":["Hinge to ~45°, bar to lower ribs","Squeeze shoulder blades at the top","Standing tall and turning it into a shrug"],
+"Seated Cable Row":["Chest tall, pull handle to belly button","Let shoulder blades glide forward on the return","Rounding the back to reach extra range"],
+"Face Pull":["Pull rope to eyebrows, thumbs pointing back","Finish in a double-biceps shape","Using a load that turns it into a row"],
+"Barbell Curl":["Elbows glued to your sides","Control 3 seconds down","Rocking hips to heave the bar up"],
+"Back Squat":["Big breath, brace, break hips and knees together","Drive the floor apart on the way up","Knees caving in — push them out over your toes"],
+"Front Squat":["Elbows high, bar rests on shoulders not wrists","Stay tall — chest up through the whole rep","Letting elbows drop and the bar roll forward"],
+"Deadlift":["Wedge in: bar over midfoot, lats tight, slack out","Push the floor away, hips and chest rise together","Jerking the bar off the floor with a soft back"],
+"Romanian Deadlift":["Push hips back, soft knees, bar close to legs","Feel the hamstring stretch, then stand tall","Bending the knees into a half squat"],
+"Leg Press":["Feet mid-platform, knees track over toes","Lower until thighs hit ~90° or deeper with control","Bouncing the sled off your chest"],
+"Walking Lunge":["Long stride, torso tall, back knee kisses floor","Push through the front heel to rise","Short choppy steps that stress the knee"],
+"Bulgarian Split Squat":["Front shin vertical, drop the back knee straight down","Slight forward lean loads the glute","Bouncing off the back foot for help"],
+"Single-Leg RDL":["Hips square, reach the free leg long behind","Flat back — hinge, don't twist","Rounding and reaching for the floor with the hands"],
+"Leg Curl":["Point toes away to bias hamstrings","Squeeze hard at full flexion","Hips lifting off the pad"],
+"Calf Raise":["Full stretch at the bottom, pause","Rise to the big toe, hold the top","Short bouncy reps in the middle range"],
+"Hip Thrust":["Chin tucked, ribs down, drive through heels","Full lockout — squeeze glutes 2 seconds","Arching the lower back instead of extending hips"],
+"Plank":["Squeeze glutes, tuck ribs, push the floor away","Breathe without losing the brace","Hips sagging or piking up"],
+"Hanging Leg Raise":["Start hollow, curl the pelvis up","Lower slowly without swinging","Kipping the legs with momentum"],
+"Cable Crunch":["Hips still — flex the spine, ribs to pelvis","Exhale hard at the bottom","Bowing at the hips like a hinge"],
+"Pallof Press":["Press out slow, resist the twist","Ribs stacked over hips","Letting the cable rotate you at the end"],
+"Single-Leg Balance":["Grip the floor with your toes","Eyes on a fixed point, hips level","Locking the knee stiff — keep it soft"],
+"Cat-Cow":["Move one vertebra at a time","Match breath to movement","Rushing through the mid-back, hinging only at the neck"],
+"Thoracic Rotation":["Rotate from the mid-back, hips still","Follow your hand with your eyes","Twisting from the lower back"],
+"Hip Flexor Stretch":["Squeeze the rear glute, tuck the pelvis","Push hips gently forward, stay tall","Arching the lower back to fake range"],
+"90/90 Hip Stretch":["Both sit bones heavy on the floor","Lean over the front shin with a flat back","Letting the back hip lift off the ground"],
+"Close-Grip Bench Press":["Hands just inside shoulder width","Elbows tucked, bar to lower chest","Grip so narrow the wrists cave"],
+"Arnold Press":["Rotate palms out as you press","Finish with biceps by your ears","Starting the rotation too late and jamming shoulders"],
+"Machine Chest Press":["Set handles at mid-chest height","Squeeze the chest, don't just lock elbows","Shoulders rolling forward off the pad"],
+"Cable Fly":["Slight elbow bend, held constant","Hug a barrel — squeeze at the midline","Turning it into a press by bending elbows"],
+"Pec Deck":["Elbows slightly below shoulders","Pause the squeeze at the middle","Slamming the stack and losing the stretch"],
+"Skull Crushers":["Lower to forehead or just behind","Elbows stay pointing at the ceiling","Elbows flaring wide to shorten the rep"],
+"Overhead Triceps Extension":["Elbows close to your head","Full stretch behind, full lockout up","Arching the back as arms lower"],
+"Landmine Press":["Press up and forward along the bar's arc","Brace the core — it's half the exercise","Shrugging the shoulder to the ear"],
+"Pike Push-Up":["Hips high, head travels toward the floor","Look between your feet","Turning it into a normal push-up as you tire"],
+"Push Press":["Small knee dip, drive the bar with the legs","Catch tall, lock out overhead","Turning the dip into a full squat"],
+"Decline Bench Press":["Bar touches lower chest","Keep leg drive through the hooks","Bouncing the bar off the sternum"],
+"Cable Lateral Raise":["Stand tall, raise out and slightly forward","Constant tension — don't rest at the bottom","Leaning away to cheat the weight up"],
+"Chin-Up":["Underhand grip, pull chest to the bar","Squeeze biceps and lats together","Chin poking over while the chest stays away"],
+"T-Bar Row":["Chest on or near the pad angle, pull to belly","Squeeze the blades, slow return","Standing upright as the set gets heavy"],
+"Single-Arm Dumbbell Row":["Pull to the hip pocket, not the shoulder","Keep hips square to the bench","Rotating the torso to heave the bell"],
+"Pendlay Row":["Bar starts dead on the floor each rep","Explode to the lower chest, torso parallel","Rising to 45° and cutting the range"],
+"Straight-Arm Pulldown":["Arms long, sweep the bar to your thighs","Feel the lats, not the triceps","Bending the elbows into a pushdown"],
+"Hammer Curl":["Neutral grip, elbows pinned","Squeeze at the top like holding a hammer","Swinging alternate reps with body english"],
+"Preacher Curl":["Armpits snug on the pad","Full stretch at the bottom — carefully","Lifting elbows off the pad at the top"],
+"Cable Curl":["Step back for constant tension","Curl high, pause, slow negative","Drifting elbows forward into a front raise"],
+"Barbell Shrug":["Straight up, hold the top 1–2 s","Let the bar stretch the traps at the bottom","Rolling the shoulders in circles"],
+"Rack Pull":["Set pins at knee height, wedge like a deadlift","Finish tall with glutes, not a back lean","Hitching the bar up the thighs"],
+"Inverted Row":["Body rigid, pull chest to the bar","Squeeze blades, pause at the top","Hips sagging as the set goes on"],
+"Reverse Pec Deck":["Arms slightly bent, sweep back wide","Squeeze rear delts, not traps","Shrugging up as you open"],
+"Concentration Curl":["Elbow braced on inner thigh","Rotate the pinky up as you curl","Shortening the bottom half of the rep"],
+"Goblet Squat":["Bell tight to chest, elbows inside knees","Sit between your heels, chest tall","Letting the weight tip you forward"],
+"Hack Squat":["Back flat on the pad, feet slightly high","Deep bend, drive evenly through the foot","Half reps under ego load"],
+"Leg Extension":["Toes up, squeeze quads at lockout","2-second lowering","Kicking the weight up and letting it drop"],
+"Sumo Deadlift":["Knees out over toes, chest tall","Push the floor apart, hips through","Letting the knees collapse inward"],
+"Good Morning":["Bar low on traps, push hips way back","Flat back to ~parallel, stand with glutes","Bending the knees into a squat"],
+"Step-Up":["Whole foot on the box, drive through the heel","Stand fully tall before stepping down","Pushing off the floor leg"],
+"Glute-Ham Raise":["Squeeze hamstrings from the very start","Body straight hips-to-head throughout","Breaking at the hips to make it easier"],
+"Seated Calf Raise":["Pause deep in the stretch","Rise high on the big toe","Bouncing out of the bottom"],
+"Box Jump":["Swing arms, land soft and quiet","Stand fully tall on the box","Jumping down — step down instead"],
+"Hip Abduction":["Tall posture, push knees out with control","Pause at the widest point","Rocking the torso side to side"],
+"Power Clean":["Sweep the bar close, explode at the hips","Fast elbows — catch on the shoulders","Reverse-curling the bar with the arms"],
+"Sissy Squat":["Rise on toes, knees travel far forward","One straight line from knees to head","Bending at the hips — keep them open"],
+"Pistol Squat":["Reach arms and free leg forward as counterweight","Control the descent all the way down","Crashing into the bottom position"],
+"Single-Leg Glute Bridge":["Drive through the heel, hips square","Squeeze the top for 2 seconds","Pushing through the toes and cramping the calf"],
+"Ab Wheel Rollout":["Start hollow — ribs down, glutes tight","Roll only as far as the brace holds","Leading with the hips and arching the back"],
+"Sit-Up":["Curl up one vertebra at a time","Exhale as you rise","Yanking the neck with your hands"],
+"Bicycle Crunch":["Slow rotation, elbow toward opposite knee","Extend the straight leg fully","Racing through tiny reps"],
+"Dead Bug":["Lower back pressed into the floor","Opposite arm and leg reach long, slow","Letting the ribs flare as limbs lower"],
+"Side Plank":["Stack shoulders, hips high and forward","Push the floor away from the ear","Hips dipping toward the ground"],
+"Mountain Climber":["Hips low, drive knees under the chest","Shoulders stacked over wrists","Bouncing hips up and down"],
+"Toes-to-Bar":["Start hollow, snap the toes to the bar","Lats on — press the bar down","Wild swinging without body control"],
+"Cable Woodchopper":["Rotate from the core, arms stay long","Pivot the back foot","Chopping with the arms while the trunk stays still"]};
+Object.assign(CUES,{
+"Hollow Body Hold":["Lower back glued to the floor","Arms and legs long, ribs pulled down","Arching as arms go overhead"],
+"Bird Dog":["Reach opposite arm and leg fully long","Hips stay level — no tilt","Lifting the leg so high the back arches"],
+"Single-Leg Calf Raise":["Full stretch, pause, rise to the big toe","Fingertips on a wall for balance only","Bending the knee to cheat the rise"],
+"Stability Ball Plank":["Forearms on ball, brace hard","Make small controlled stirring circles","Letting hips sag as the ball wobbles"],
+"BOSU Squat":["Feet centered, grip with the toes","Slow descent, chest tall","Staring down — eyes forward"],
+"Couch Stretch":["Rear knee into the wall corner, squeeze that glute","Stay tall, breathe into the stretch","Arching the lower back instead of extending the hip"],
+"Pigeon Pose":["Front shin angled, hips square to the floor","Fold forward over the shin slowly","Collapsing onto the hip of the bent leg"],
+"Shoulder Dislocates":["Wide grip, arms straight the whole circle","Go only as narrow as pain-free","Bending the elbows to force the pass"],
+"Ankle Mobility Drill":["Knee tracks over the little toe","Heel stays nailed to the floor","Letting the arch collapse inward"],
+"Cossack Squat":["Slide deep over one heel, other leg straight","Chest tall, toes of straight leg up","Bouncing at the bottom of the stretch"],
+"Frog Stretch":["Knees wide, ankles in line with knees","Rock back gently to deepen","Forcing depth until the back rounds"],
+"Downward Dog":["Push the floor away, long spine","Pedal the heels toward the ground","Rounding the back to touch heels down"],
+"Dumbbell Bench Press":["Bells over the chest, slight arc inward at top","Elbows ~45° from the torso","Clanging the bells and losing tension"],
+"Incline Barbell Press":["Bar touches just below the collarbone","Drive the upper back into the bench","Turning it flat by arching hard"],
+"Dumbbell Shoulder Press":["Press to biceps-by-ears lockout","Ribs down — don't flare","Arching the lower back under fatigue"],
+"Machine Shoulder Press":["Handles level with the ears to start","Full press, controlled return","Half reps high in the range only"],
+"Dumbbell Fly":["Soft elbows locked in a wide hug","Deep stretch, squeeze to the midline","Pressing instead of flying"],
+"Cable Crossover":["Step forward, chest proud","Cross hands slightly at the bottom","Shoulders rolling forward at the stretch"],
+"Front Raise":["Raise to eye level, thumbs slightly in","Control the lowering","Rocking the torso to swing the weight"],
+"Diamond Push-Up":["Hands form a diamond under the chest","Elbows track back, not out","Flaring the elbows wide and straining wrists"],
+"Kettlebell Overhead Press":["Crush the handle, wrist straight","Press and lock with the bicep by the ear","Letting the bell yank the wrist backward"],
+"Single-Arm Landmine Press":["Stagger stance, brace against rotation","Press along the bar's natural arc","Twisting the torso open at lockout"],
+"Chest-Supported Row":["Chest heavy on the pad start to finish","Pull elbows down and back, squeeze","Popping the chest off to heave"],
+"Meadows Row":["Wide elbow, pull to the hip","Big stretch at the bottom of each rep","Standing up out of the hinge"],
+"Dumbbell Pullover":["Hips low, arms slightly bent","Feel the lats stretch behind the head","Turning it into a triceps extension"],
+"Wide-Grip Pull-Up":["Hands ~1.5× shoulders, chest to the bar","Drive elbows to the ribs","Chin-poking short reps"],
+"Renegade Row":["Feet wide, hips locked level","Row without letting the torso tip","Rotating the whole body with each pull"],
+"Band Pull-Apart":["Arms long, pull to the chest line","Squeeze the blades a full second","Shrugging the shoulders up"],
+"Cable Rear-Delt Fly":["Sweep back and wide, arms long","Pause where the rear delt bites","Turning it into a rowing motion"],
+"EZ-Bar Curl":["Grip the angled bends, elbows pinned","Squeeze at the top, 3 s down","Leaning back to finish reps"],
+"Incline Dumbbell Curl":["Let arms hang fully behind you","Curl without the elbows drifting forward","Cutting the deep stretch short"],
+"Reverse Curl":["Knuckles up, wrists straight","Elbows pinned to the sides","Letting the wrists flop backward"],
+"Trap Bar Deadlift":["Sit hips into the handles, chest tall","Push the floor away evenly","Squatting it up with a soft mid-back"],
+"Zercher Squat":["Bar in the elbow crooks, hands clasped","Elbows inside the knees at depth","Letting the upper back round forward"],
+"Kettlebell Swing":["Hike back, snap the hips forward","Float to chest height — hips do the work","Squatting and lifting with the arms"],
+"Nordic Curl":["Squeeze hamstrings and glutes from the start","Fall as slow as possible, hips open","Breaking at the hips to survive longer"],
+"Reverse Lunge":["Step back long, drop straight down","Front heel drives you back up","Leaning forward over the front knee"],
+"Lateral Lunge":["Sit into one hip, other leg straight","Chest tall, both toes forward","Knee collapsing inward on the bent side"],
+"Curtsy Lunge":["Step behind and across, hips square","Front knee tracks over the toes","Twisting the hips open as you step"],
+"Reverse Lunge with Rotation":["Rotate over the front leg only","Arms long to lead the turn","Rotating from the lower back, not the hips"],
+"Glute Kickback":["Kick back and slightly up, squeeze","Ribs down — no arching","Swinging the leg with momentum"],
+"Hip Adduction":["Control both directions of the squeeze","Pause at full closure","Slamming the pads together"],
+"Donkey Calf Raise":["Hinge flat, stretch the calves deep","Rise high, pause the top","Rushing the stretch position"],
+"Wall Sit":["Thighs parallel, back flat on the wall","Weight through the heels","Hands braced on the knees"],
+"Broad Jump":["Load the hips, swing the arms","Land soft in a quarter squat, stick it","Landing stiff-legged with a thud"],
+"Russian Twist":["Lean back to 45°, rotate shoulder to shoulder","Move the chest, not just the hands","Whipping tiny arm swings"],
+"Reverse Crunch":["Curl the pelvis toward the ribs","Lower the legs slow and hollow","Swinging the legs and rocking"],
+"V-Up":["Snap up — hands meet the toes","Lower long without touching down","Bending knees to fake the fold"],
+"L-Sit Hold":["Push the floor away, depress shoulders","Legs locked, toes pointed","Shoulders shrugging to the ears"],
+"Copenhagen Plank":["Top leg on the bench, body one line","Squeeze the inner thigh hard","Hips sagging below the line"],
+"Plank Shoulder Tap":["Feet wide, hips frozen level","Tap slow — opposite hand to shoulder","Rocking side to side with each tap"],
+"Side Plank Leg Lift":["Hold the side plank tall first","Lift the top leg without hip drop","Letting the hips fold as the leg rises"],
+"Suitcase Carry":["One heavy side — walk perfectly upright","Ribs stacked, no lean","Leaning away from the load"],
+"Tree Pose":["Foot to calf or thigh — never the knee","Grow tall through the crown","Hip of the standing leg jutting out"],
+"Warrior 3 Hold":["Hips square to the floor","One line from fingertips to heel","Back hip opening skyward"],
+"Heel-to-Toe Walk":["Heel touches toe every step","Eyes ahead, arms out if needed","Watching your feet the whole way"],
+"Single-Leg Toe Taps":["Soft knee, tap light and slow","Hips level through every tap","Speeding up until balance is luck"],
+"Single-Leg Balance Reach":["Reach far, return with control","Standing knee soft and tracking","Twisting the hips to gain distance"],
+"Single-Leg Hop & Stick":["Small hop, land like a ninja","Stick 2 full seconds each landing","Wobbling straight into the next hop"],
+"Skater Hop":["Push sideways, land on the outside leg","Swing arms across for rhythm","Landing upright with a straight knee"],
+"Single-Leg Sit-to-Stand":["Slow 3-count descent to the seat","Stand without a rocking cheat","Dropping the last few inches"],
+"Single-Leg Step-Down":["Hips back, knee tracks over toes","Touch the heel down light as a feather","Knee diving inward on the way down"],
+"Suitcase Single-Leg Stand":["Heavy on one side, balance on one leg","Perfectly tall — fight the pull","Letting the load fold you sideways"],
+"Stability Ball Stir-the-Pot":["Small circles, hips dead still","Brace like a hard plank throughout","Big lazy circles from the hips"],
+"BOSU Push-Up":["Grip the dome edges, wrists stacked","Chest to the dome, body rigid","Elbows flaring as the dome tips"],
+"Thread the Needle":["Slide the arm far under, palm up","Rest the shoulder down, breathe","Collapsing all weight onto the neck"],
+"Wall Slides":["Forearms and wrists stay on the wall","Slide tall, ribs down","Arching the back to keep contact"],
+"Doorway Pec Stretch":["Forearm on the frame, step through gently","Chest open, shoulder down","Cranking so far the shoulder rolls forward"],
+"Shoulder CARs":["Biggest slow circle the joint can draw","Body still — only the shoulder moves","Speeding through the sticky spots"],
+"Hip CARs":["On all fours or standing, slow knee circle","Keep the spine quiet","Twisting the torso to fake range"],
+"90/90 Hip Switch":["Sweep the knees side to side, sit tall","Move slow through the middle","Hands doing the work behind you"],
+"Deep Squat Hold":["Heels down, elbows pry the knees out","Breathe and sink a little deeper","Rounding onto the toes"],
+"Jefferson Curl":["Roll down one vertebra at a time","Light weight, total control","Loading heavy and hinging at the hips"],
+"Wall Ankle Rock":["Knee to the wall, heel welded down","Rock rhythmically to end range","Lifting the heel to touch the wall"],
+"Seated Forward Fold":["Hinge from the hips, chest leads","Soft knees are fine","Yanking the toes to round further"],
+"Butterfly Stretch":["Soles together, knees fall open","Long spine as you lean in","Bouncing the knees down"],
+"Adductor Rock-Back":["One leg out wide, rock the hips back","Feel the inner thigh lengthen","Rounding the lumbar to rock further"],
+"Neck Mobility Circles":["Slow half-circles, chin to chest","Pause anywhere tight","Fast full spins of the head"],
+"Wrist Mobility Flow":["Rock through all four directions","Weight easy at first, build slowly","Forcing painful angles"],
+"Standing Quad Stretch":["Knees together, push the hip forward","Squeeze the glute of the held leg","Letting the knee wing out sideways"],
+"Bench T-Spine Extension":["Elbows on the bench, sink the chest","Hands behind the head, breathe out","Flaring the ribs and arching the lower back"],
+"Burpee":["Chest to floor, snap the hips up","Finish tall with a small jump","Worming the chest up with a saggy back"],
+"World's Greatest Stretch":["Long lunge, elbow toward the instep","Rotate open, follow the hand","Rushing the rotation with a bent front line"],
+"Farmer's Carry":["Crush grip, walk tall and quiet","Shoulders down, ribs stacked","Speed-shuffling with a side lean"],
+"Child's Pose":["Hips to heels, arms long","Melt the chest toward the floor","Holding breath instead of releasing"]});
+function exCues(n){ return CUES[n]||null; }
+function openExCues(name){
+  const c=exCues(name); const info=exInfo(name)||{};
+  const pr=DB.prs && DB.prs[name];
+  const rows=c? `<div class="cue-row good"><span>✔</span><div>${esc(c[0])}</div></div>
+  <div class="cue-row good"><span>✔</span><div>${esc(c[1])}</div></div>
+  <div class="cue-row bad"><span>⚠</span><div><b>Common mistake:</b> ${esc(c[2])}</div></div>`
+  : `<div class="spr-empty">A custom exercise — no coaching notes on file. Train it with intent.</div>`;
+  openSheet(`<div class="grab"></div><h3>${esc(name)}</h3>
+  <div class="cue-tags">${info.g?`<span class="chip on" style="pointer-events:none">${esc(info.g)}</span>`:''}${(info.pil||[]).map(p=>`<span class="chip" style="pointer-events:none">${p}</span>`).join('')}</div>
+  <div class="spr-card"><div class="spr-sec"><span>Form cues</span>${pr?`<span class="spr-secr">e1RM ${Math.round(pr.e1rm)} ${DB.settings.unit}</span>`:''}</div>${rows}</div>
+  <button class="btn btn-ghost btn-sm" data-action="close-sheet" style="margin-top:12px">Close</button>`);
+}
+/* ===================== SEASONAL EVENTS ===================== */
+const EVENTS=[
+ {id:'q1',n:'Frostfire Festival',ico:'❄️',from:[2,1],to:[2,14],d:'The forge burns blue against the deep cold. Sessions drop rare+ caches; two frost treasures walk the earth.'},
+ {id:'q2',n:'Bloom Trials',ico:'🌸',from:[5,1],to:[5,14],d:'New growth demands new strength. Sessions drop rare+ caches; petal treasures bloom in the Vault.'},
+ {id:'q3',n:'Solar Crucible',ico:'☀️',from:[8,1],to:[8,14],d:'Train under the anvil of the sun. Sessions drop rare+ caches; solar treasures shine.'},
+ {id:'q4',n:'Hallowed Embers',ico:'🎃',from:[10,24],to:[11,6],d:'The veil thins; the coals whisper. Sessions drop rare+ caches; wraith treasures wander.'}];
+function activeEvent(now){ const d=now||new Date(); const md=[d.getMonth()+1, d.getDate()];
+  const lte=(a,b)=> a[0]<b[0] || (a[0]===b[0] && a[1]<=b[1]);
+  return EVENTS.find(e=> lte(e.from,md) && lte(md,e.to)) || null; }
+function eventDaysLeft(){ const ev=activeEvent(); if(!ev) return 0; const d=new Date();
+  const end=new Date(d.getFullYear(), ev.to[0]-1, ev.to[1], 23,59);
+  if(end<d) end.setFullYear(end.getFullYear()+1);
+  return Math.max(1, Math.ceil((end-d)/86400000)); }
+function renderEventCard(){ const host=$('#eventCard'); if(!host) return; const ev=activeEvent();
+  if(!ev){ host.innerHTML=''; return; } ensureLoot();
+  const items=LOOT.filter(i=>i.ev===ev.id); const own=items.filter(i=>DB.loot.owned[i.id]).length;
+  host.innerHTML=`<div class="event-card ${ev.id}">
+    <div class="evc-ico">${ev.ico}</div>
+    <div class="evc-b"><div class="evc-eyebrow">Seasonal event · ${eventDaysLeft()} day${eventDaysLeft()!==1?'s':''} left</div>
+    <div class="evc-n">${ev.n}</div><div class="evc-d">${ev.d}</div>
+    <div class="evc-loot">Event loot ${own} / ${items.length}</div></div></div>`; }
+/* ===================== UI + VISUAL ===================== */
+function applyAmoled(){ try{ if(document.body && document.body.classList) document.body.classList.toggle('amoled', !!DB.settings.amoled); }catch(e){} }
+function tickUp(){ try{ if(typeof requestAnimationFrame!=='function' || typeof performance==='undefined') return;
+  ['stStreak','stWorkouts','stVolume','stDist'].forEach(id=>{
+    const el=document.getElementById(id); if(!el) return;
+    const txt=String(el.textContent||''); if(!/^[\d.,]+$/.test(txt)) return;
+    const target=parseFloat(txt.replace(/,/g,'')); if(!isFinite(target)||target<=0) return;
+    const dec=txt.includes('.')?1:0; const t0=performance.now(), dur=650;
+    const step=(now)=>{ const p=Math.min(1,(now-t0)/dur); const e=1-Math.pow(1-p,3); const v=target*e;
+      el.textContent=dec? v.toFixed(1) : Math.round(v).toLocaleString();
+      if(p<1) requestAnimationFrame(step); else el.textContent=txt; };
+    requestAnimationFrame(step); }); }catch(e){} }
 function renderAwards(){
   renderSquad(); renderSeason(); renderTitleRow(); renderVaultRow(); renderMonuments();
   const unlocked=ACH.filter(a=>DB.achievements[a.id]).length;
@@ -3739,7 +4019,7 @@ function renderSession(){
   $('#sessionBody').innerHTML=activeSession.entries.map((en,ei)=>{
     const info=exInfo(en.exercise);
     const lp=lastPerformance(en.exercise);
-    return `<div class="exblock"><div class="exhead"><div><div class="en">${esc(en.exercise)}</div><div class="eg">${info.g}${en.target?' · target '+esc(en.target):''}</div>${lp?`<div class="ex-last">↩ Last: ${lp.w} ${DB.settings.unit} × ${lp.r} · ${sd(lp.date)}</div>`:''}</div><div class="ex-actions"><button class="mini-link" data-action="swap-ex" data-ei="${ei}">⇄ Swap</button><button class="mini-link" data-action="rm-ex" data-ei="${ei}">Remove</button></div></div>
+    return `<div class="exblock"><div class="exhead"><div><div class="en">${esc(en.exercise)}</div><div class="eg">${info.g}${en.target?' · target '+esc(en.target):''}</div>${lp?`<div class="ex-last">↩ Last: ${lp.w} ${DB.settings.unit} × ${lp.r} · ${sd(lp.date)}</div>`:''}</div><div class="ex-actions"><button class="mini-link" data-action="ex-cues" data-ex="${esc(en.exercise)}">ⓘ Form</button><button class="mini-link" data-action="swap-ex" data-ei="${ei}">⇄ Swap</button><button class="mini-link" data-action="rm-ex" data-ei="${ei}">Remove</button></div></div>
     ${en.sets.map((st,si)=>`<div class="setrow ${st.done?'done':''}" data-ei="${ei}" data-si="${si}">
       <div class="setno">${si+1}</div>
       <div class="field"><label>${DB.settings.unit}</label><input type="number" inputmode="decimal" class="s-weight" data-ei="${ei}" data-si="${si}" value="${st.weight}" placeholder="0"></div>
@@ -3799,7 +4079,7 @@ function finishSession(){
   }
   const _ascEvt=_wEvt(activeSession, volume);
   activeSession=null; Store.set('forge.activeSession', null); save();
-  cacheGrant(_bossWin?'epic':(prHits.length?'rare':''));
+  cacheGrant(_bossWin?'epic':((prHits.length||activeEvent())?'rare':''));
   ascentCheck(_ascEvt);
   monumentCheck();
   if(_bossWin){ setTimeout(()=>{ _burstT=0; burst('gold'); toast(_bossMeta.ico,'BOSS DEFEATED!', _bossMeta.name+' has fallen — title “'+_bossMeta.title+'” earned','gold'); bossSpeak(_bossMeta.key,'win'); }, 950); }
@@ -3994,7 +4274,7 @@ function logCardio(dist, goal, min, extra){
   newAch.forEach(a=>setTimeout(()=>toast(a.ico, 'Award unlocked!', a.n, 'gold'), 350));
   if(_ghost && min && min < _ghost.durationMin){ setTimeout(()=>toast('🏆','New best time!',`${(Math.round(dist*10)/10)} km in ${min} min — you beat your ghost (${_ghost.durationMin} min)!`,'gold'), 550); }
   if(relicTier().idx>_relicBefore){ setTimeout(()=>{ burst('gold'); toast('🗡️','Relic advanced!','Your forge reached '+relicTier().tier.n); }, 700); }
-  cacheGrant('');
+  cacheGrant(activeEvent()?'rare':'');
   ascentCheck({type:'cardio', km:dist, min:min||0});
   monumentCheck();
   renderHome();
@@ -4583,6 +4863,7 @@ function openSettings(){
     <div class="form-field"><label>Rest timer alert</label>
       <button class="toggle-row" data-action="toggle-sound"><span>Beep when rest ends</span><span class="tog ${DB.settings.sound===false?'':'on'}"><span class="tog-dot"></span></span></button>
     </div>
+    <div class="form-field"><label>AMOLED pure black</label><button class="btn btn-ghost btn-sm" data-action="tog-amoled" id="amoledBtn" style="width:auto">${DB.settings.amoled?'On':'Off'}</button></div>
     <div class="form-field"><label>Voice cues</label>
       <button class="toggle-row" data-action="toggle-voice"><span>Speak run splits &amp; rest alerts</span><span class="tog ${DB.settings.voice===true?'on':''}"><span class="tog-dot"></span></span></button>
     </div>
@@ -4926,6 +5207,10 @@ document.addEventListener('click', e=>{
     case 'hr-connect-all': hrConnect(true); break;
     case 'log-where': { logWhere=t.dataset.w; $$('#logWhereChips .chip').forEach(c=>c.classList.toggle('on', c.dataset.w===logWhere)); const iw=$('#tmInclineWrap'); if(iw) iw.style.display=logWhere==='tm'?'block':'none'; break; }
     case 'log-run-submit': submitLogRun(); break;
+    case 'ex-cues': openExCues(t.dataset.ex); break;
+    case 'tog-amoled': { DB.settings.amoled=!DB.settings.amoled; save(); applyAmoled();
+      const b=$('#amoledBtn'); if(b) b.textContent=DB.settings.amoled?'On':'Off';
+      toast('⚫','AMOLED '+(DB.settings.amoled?'on':'off'), DB.settings.amoled?'Pure black engaged':'Back to slate'); break; }
     case 'asc-newlap': newLap(); openAscent(); break;
     case 'rt-pin': { const r=DB.routines.find(x=>x.id===t.dataset.routine); if(!r) break;
       r.pin=!r.pin; save(); renderRtList();
