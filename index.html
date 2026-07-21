@@ -1086,6 +1086,17 @@ p.eyebrow:has(+ h2.screen-title)::after{content:'  ⟡'; opacity:.8}
 .cue-row.bad span{color:#FFB061}
 .cue-tags{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:11px}
 body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#161B23; --line:#242C3A; --line-soft:#181E28}
+/* custom exercises */
+.cx-new{width:100%; margin-bottom:12px; border-style:dashed}
+.cx-nomatch{display:none; text-align:center; padding:18px 14px; margin-bottom:12px; border-radius:13px; background:var(--surface-2); border:1px dashed var(--line)}
+.cxn-t{font-family:var(--font-epic); font-weight:800; font-size:15px}
+.cxn-d{font-size:11.5px; color:var(--muted); margin-top:3px}
+.ex-pick{position:relative}
+.ex-pick.is-cx .epn{display:flex; align-items:center; gap:7px}
+.cx-tag{font-family:'JetBrains Mono'; font-size:8.5px; letter-spacing:1px; text-transform:uppercase; padding:2px 6px; border-radius:99px; background:rgba(255,138,43,.15); color:#FFB47A; border:1px solid rgba(255,138,43,.35)}
+.cx-del{position:absolute; right:8px; top:50%; transform:translateY(-50%); width:26px; height:26px; border-radius:99px; background:var(--surface-3); border:1px solid var(--line); color:var(--muted-2); font-size:12px; line-height:1; cursor:pointer}
+.cx-del:active{transform:translateY(-50%) scale(.9); color:#FF6B8A}
+#cxGroup{width:100%}
 @media(prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
 </style>
 </head>
@@ -1576,8 +1587,77 @@ const EX = [
   {n:'Wrist Mobility Flow', g:'Mobility', p:'mobility', pil:['mobility']},
   {n:'Standing Quad Stretch', g:'Mobility', p:'mobility', pil:['mobility']},
   {n:'Bench T-Spine Extension', g:'Mobility', p:'mobility', pil:['mobility']},
-  {n:'Burpee', g:'Power', p:'legs', pil:['strength']}
-,
+  {n:'Burpee', g:'Power', p:'legs', pil:['strength']},
+  {n:'Incline Machine Press', g:'Chest', p:'push', pil:['strength'], c:1},
+  {n:'Low-to-High Cable Fly', g:'Chest', p:'push', pil:['strength']},
+  {n:'Floor Press', g:'Chest', p:'push', pil:['strength'], c:1},
+  {n:'Svend Press', g:'Chest', p:'push', pil:['strength']},
+  {n:'Weighted Push-Up', g:'Chest', p:'push', pil:['strength']},
+  {n:'Deficit Push-Up', g:'Chest', p:'push', pil:['strength','mobility']},
+  {n:'Seal Row', g:'Back', p:'pull', pil:['strength'], c:1},
+  {n:'Kroc Row', g:'Back', p:'pull', pil:['strength']},
+  {n:'Neutral-Grip Lat Pulldown', g:'Back', p:'pull', pil:['strength']},
+  {n:'Single-Arm Cable Row', g:'Back', p:'pull', pil:['strength']},
+  {n:'Smith Machine Row', g:'Back', p:'pull', pil:['strength'], c:1},
+  {n:'Gorilla Row', g:'Back', p:'pull', pil:['strength']},
+  {n:'Cuban Rotation', g:'Shoulders', p:'pull', pil:['strength','mobility']},
+  {n:'Y-Raise', g:'Shoulders', p:'pull', pil:['strength']},
+  {n:'Bradford Press', g:'Shoulders', p:'push', pil:['strength','mobility']},
+  {n:'Z Press', g:'Shoulders', p:'push', pil:['strength','mobility'], c:1},
+  {n:'Plate Front Raise', g:'Shoulders', p:'push', pil:['strength']},
+  {n:'Bottoms-Up Kettlebell Press', g:'Shoulders', p:'push', pil:['strength','balance']},
+  {n:'Bench Dip', g:'Triceps', p:'push', pil:['strength']},
+  {n:'JM Press', g:'Triceps', p:'push', pil:['strength'], c:1},
+  {n:'Rope Overhead Extension', g:'Triceps', p:'push', pil:['strength']},
+  {n:'Single-Arm Cable Kickback', g:'Triceps', p:'push', pil:['strength']},
+  {n:'Tate Press', g:'Triceps', p:'push', pil:['strength']},
+  {n:'Spider Curl', g:'Biceps', p:'pull', pil:['strength']},
+  {n:'Zottman Curl', g:'Biceps', p:'pull', pil:['strength']},
+  {n:'Bayesian Cable Curl', g:'Biceps', p:'pull', pil:['strength']},
+  {n:'21s Curl', g:'Biceps', p:'pull', pil:['strength']},
+  {n:'Dumbbell Shrug', g:'Traps', p:'pull', pil:['strength']},
+  {n:'Snatch-Grip High Pull', g:'Traps', p:'pull', pil:['strength'], c:1},
+  {n:'Trap-3 Raise', g:'Traps', p:'pull', pil:['strength']},
+  {n:'Smith Machine Squat', g:'Quads', p:'legs', pil:['strength'], c:1},
+  {n:'Belt Squat', g:'Quads', p:'legs', pil:['strength'], c:1},
+  {n:'Static Split Squat', g:'Quads / Glutes', p:'legs', pil:['strength','balance']},
+  {n:'Heels-Elevated Goblet Squat', g:'Quads', p:'legs', pil:['strength','mobility']},
+  {n:'Reverse Nordic Curl', g:'Quads', p:'legs', pil:['strength','mobility']},
+  {n:'Cyclist Squat', g:'Quads', p:'legs', pil:['strength']},
+  {n:'Seated Leg Curl', g:'Hamstrings', p:'legs', pil:['strength']},
+  {n:'Stiff-Leg Deadlift', g:'Hamstrings', p:'legs', pil:['strength'], c:1},
+  {n:'Razor Curl', g:'Hamstrings', p:'legs', pil:['strength']},
+  {n:'Slider Leg Curl', g:'Hamstrings', p:'legs', pil:['strength']},
+  {n:'45° Back Extension', g:'Posterior Chain', p:'legs', pil:['strength']},
+  {n:'Frog Pump', g:'Glutes', p:'legs', pil:['strength']},
+  {n:'Cable Pull-Through', g:'Glutes', p:'legs', pil:['strength']},
+  {n:'B-Stance Hip Thrust', g:'Glutes', p:'legs', pil:['strength']},
+  {n:'Banded Lateral Walk', g:'Glutes', p:'legs', pil:['strength','balance']},
+  {n:'Single-Leg Hip Thrust', g:'Glutes', p:'legs', pil:['strength','balance']},
+  {n:'Leg Press Calf Raise', g:'Calves', p:'legs', pil:['strength']},
+  {n:'Tibialis Raise', g:'Calves', p:'legs', pil:['strength','mobility']},
+  {n:'Jump Rope', g:'Calves', p:'legs', pil:['strength','balance']},
+  {n:'Dragon Flag', g:'Core', p:'core', pil:['strength']},
+  {n:'Hanging Knee Raise', g:'Core', p:'core', pil:['strength']},
+  {n:'Weighted Plank', g:'Core', p:'core', pil:['strength']},
+  {n:'Suitcase Deadlift', g:'Core', p:'core', pil:['strength','balance']},
+  {n:'Turkish Get-Up', g:'Core', p:'core', pil:['strength','balance','mobility']},
+  {n:'Bear Crawl', g:'Core', p:'core', pil:['strength','balance']},
+  {n:'Medicine Ball Slam', g:'Power', p:'core', pil:['strength']},
+  {n:'Rotational Med Ball Throw', g:'Power', p:'core', pil:['strength']},
+  {n:'Hang Clean', g:'Power', p:'legs', pil:['strength'], c:1},
+  {n:'Dumbbell Snatch', g:'Power', p:'legs', pil:['strength','balance']},
+  {n:'Push Jerk', g:'Power', p:'push', pil:['strength'], c:1},
+  {n:'Tuck Jump', g:'Power', p:'legs', pil:['strength','balance']},
+  {n:'Cobra Stretch', g:'Mobility', p:'mobility', pil:['mobility']},
+  {n:'Lizard Pose', g:'Mobility', p:'mobility', pil:['mobility']},
+  {n:'Prone Swimmers', g:'Mobility', p:'mobility', pil:['mobility']},
+  {n:'Puppy Pose', g:'Mobility', p:'mobility', pil:['mobility']},
+  {n:'Scorpion Stretch', g:'Mobility', p:'mobility', pil:['mobility']},
+  {n:'BOSU Balance Hold', g:'Stability', p:'balance', pil:['balance']},
+  {n:'Half-Kneeling Chop', g:'Stability', p:'balance', pil:['balance','strength']},
+  {n:'Single-Leg Box Squat', g:'Stability', p:'balance', pil:['balance','strength']},
+  {n:'Bird Dog Row', g:'Stability', p:'balance', pil:['balance','strength']}
 ];
 function allEx(){ return EX.concat(DB.customEx); }
 function exInfo(name){ return allEx().find(e=>e.n===name) || {n:name, g:'Custom', p:'push', pil:['strength']}; }
@@ -3925,6 +4005,78 @@ Object.assign(CUES,{
 "World's Greatest Stretch":["Long lunge, elbow toward the instep","Rotate open, follow the hand","Rushing the rotation with a bent front line"],
 "Farmer's Carry":["Crush grip, walk tall and quiet","Shoulders down, ribs stacked","Speed-shuffling with a side lean"],
 "Child's Pose":["Hips to heels, arms long","Melt the chest toward the floor","Holding breath instead of releasing"]});
+Object.assign(CUES,{
+"Incline Machine Press":["Set the seat so handles sit at upper-chest height","Drive up and slightly in, squeeze the top","Letting the shoulders roll forward off the pad"],
+"Low-to-High Cable Fly":["Start low and wide, sweep up to eye level","Soft elbows held at one angle throughout","Bending the arms into a press as it gets heavy"],
+"Floor Press":["Upper arms touch the floor, pause a beat","Elbows ~45°, press straight up","Bouncing the triceps off the floor"],
+"Svend Press":["Crush the plates together hard the whole set","Press straight out, squeeze the inner chest","Letting the plates slip apart and losing tension"],
+"Weighted Push-Up":["Plate sits on the upper back, brace hard","Full depth, full lockout","Hips sagging once the load is on"],
+"Deficit Push-Up":["Hands elevated on blocks, chest sinks below","Control the deep stretch — no bouncing","Dropping fast and straining the shoulder"],
+"Seal Row":["Chest glued to the bench the whole set","Pull to the lower ribs, squeeze the blades","Lifting the chest to heave the weight"],
+"Kroc Row":["Heavy dumbbell, brace on a rack","Some body english is fine — the lat still pulls","Pure arm yanking with no lat squeeze"],
+"Neutral-Grip Lat Pulldown":["Palms facing, pull to the collarbone","Drive elbows down and back","Leaning back into a row"],
+"Single-Arm Cable Row":["Let the shoulder stretch forward at the start","Pull to the hip, squeeze, slow return","Twisting the torso to gain range"],
+"Smith Machine Row":["Hinge to 45°, bar path fixed — use it","Pull to the belly, pause","Standing upright and shrugging"],
+"Gorilla Row":["Hinge over two kettlebells, alternate pulls","Hips stay square and low","Rotating the torso with every rep"],
+"Cuban Rotation":["Elbows at shoulder height the whole time","Rotate slowly — light weight wins here","Loading heavy and shrugging through it"],
+"Y-Raise":["Raise the arms into a wide Y, thumbs up","Feel the lower traps, not the neck","Shrugging the shoulders toward the ears"],
+"Bradford Press":["Bar travels just over the head, front to back","Never lock out — constant tension","Going heavy on a mobility-demanding lift"],
+"Z Press":["Sit tall on the floor, legs straight","Brace hard — the core holds you upright","Rounding the back and leaning away"],
+"Plate Front Raise":["Hold the plate at 3 and 9 o'clock","Raise to eye level, control down","Swinging with the hips"],
+"Bottoms-Up Kettlebell Press":["Crush the handle to stabilise the bell","Wrist straight, press slow and honest","Going heavy — this is a control drill"],
+"Bench Dip":["Hands close, elbows track straight back","Descend until upper arms are parallel","Shoulders rolling forward at the bottom"],
+"JM Press":["Lower toward the chin, elbows forward","Half skull-crusher, half close-grip press","Flaring the elbows and losing the groove"],
+"Rope Overhead Extension":["Lean forward, elbows high and close","Spread the rope at lockout","Elbows drifting wide as you fatigue"],
+"Single-Arm Cable Kickback":["Pin the elbow high behind you","Straighten fully, squeeze one second","Swinging the whole arm from the shoulder"],
+"Tate Press":["Elbows out, press dumbbells from the chest","Slow eccentric — the triceps hate this","Turning it into a normal press"],
+"Spider Curl":["Chest on the incline, arms hang straight down","Curl without the elbows moving","Rocking the torso to start the rep"],
+"Zottman Curl":["Curl up palms-up, rotate at the top","Lower palms-down slowly","Rushing the reverse-grip lowering"],
+"Bayesian Cable Curl":["Cable behind you, arm stretched back","Curl with the elbow fixed","Stepping forward and killing the stretch"],
+"21s Curl":["Seven bottom-half, seven top-half, seven full","Strict form — the burn does the work","Adding body swing once it gets hard"],
+"Dumbbell Shrug":["Straight up, hold the peak 1–2 seconds","Full stretch at the bottom","Rolling the shoulders in circles"],
+"Snatch-Grip High Pull":["Wide grip, explode from the hips","Elbows high and outside","Pulling early with bent arms"],
+"Trap-3 Raise":["Thumb up, raise the arm on a diagonal","Aim for the lower-trap squeeze","Using a weight heavy enough to shrug"],
+"Smith Machine Squat":["Feet slightly forward of the bar","Sit straight down the fixed path","Feet so far out the knees over-shear"],
+"Belt Squat":["Load on the hips, torso upright","Sit deep — the spine stays unloaded","Leaning forward like a barbell squat"],
+"Static Split Squat":["Feet planted, drop the back knee straight down","Front shin near vertical","Stepping in and out between reps"],
+"Heels-Elevated Goblet Squat":["Heels on a small wedge, chest tall","Sit straight down for deep quad range","Letting the torso pitch forward anyway"],
+"Reverse Nordic Curl":["Kneel tall, lean back with hips open","Fight the descent, quads stretched long","Breaking at the hips to save yourself"],
+"Cyclist Squat":["Narrow stance, heels elevated","Knees travel far forward, chest tall","Turning it into a wide low-bar squat"],
+"Seated Leg Curl":["Torso strapped, curl deep under the pad","Pause at full flexion","Letting the hips lift for extra range"],
+"Stiff-Leg Deadlift":["Knees nearly locked, hips push back","Bar drags the legs, flat back","Rounding the back to reach the floor"],
+"Razor Curl":["Hips hinge back as the knees bend","Body in one line at the bottom","Sitting into the heels and resting"],
+"Slider Leg Curl":["Hips high, drag the heels in slowly","Squeeze at full flexion","Dropping the hips as the legs extend"],
+"45° Back Extension":["Hinge at the hip, spine neutral","Squeeze glutes to return to the line","Hyperextending the lower back at the top"],
+"Frog Pump":["Soles together, knees wide open","Drive through the outer heels, squeeze","Arching the lower back at lockout"],
+"Cable Pull-Through":["Hinge back, rope between the legs","Snap the hips forward to stand tall","Squatting and pulling with the arms"],
+"B-Stance Hip Thrust":["Back foot on the toe as a kickstand only","Front heel does 90% of the work","Splitting the load evenly between legs"],
+"Banded Lateral Walk":["Band above the knees, quarter-squat","Step wide, keep tension every step","Letting the knees cave inward"],
+"Single-Leg Hip Thrust":["Hips square and level throughout","Drive through the heel, squeeze the top","Letting the working hip drop and twist"],
+"Leg Press Calf Raise":["Toes on the platform edge, deep stretch","Rise all the way to the big toe","Bending the knees to push the sled"],
+"Tibialis Raise":["Heels down, pull the toes toward the shins","Slow lowering builds the shin","Rocking the whole body to lift the toes"],
+"Jump Rope":["Small wrist turns, low quiet hops","Stay on the balls of the feet","Big arm swings and knee-high jumping"]});
+Object.assign(CUES,{
+"Dragon Flag":["Grip behind the head, body one rigid line","Lower slow — hips never break","Piking at the hips to cheat down"],
+"Hanging Knee Raise":["Start hollow, curl the knees to the chest","Lower with control, no swing","Kipping and swinging from the shoulders"],
+"Weighted Plank":["Plate on the mid-back, ribs down","Brace and breathe — quality over minutes","Hips sagging under the extra load"],
+"Suitcase Deadlift":["One heavy side — stay perfectly square","Lift tall without leaning away","Bending sideways toward the weight"],
+"Turkish Get-Up":["Eyes on the bell the whole way up","One slow step at a time — never rush","Rushing the roll-to-elbow and losing the line"],
+"Bear Crawl":["Knees hover an inch off the floor","Opposite hand and foot move together","Hips swaying high like a dog walk"],
+"Medicine Ball Slam":["Reach tall, slam through the floor","Exhale hard on impact","Bending only at the arms"],
+"Rotational Med Ball Throw":["Pivot the back foot, rotate the hips","Throw from the core, not the shoulders","Twisting only the arms and lower back"],
+"Hang Clean":["Sweep the bar close, explode at the hips","Fast elbows to catch on the shoulders","Reverse-curling the bar with the arms"],
+"Dumbbell Snatch":["One pull from floor to overhead","Punch the arm up and lock out","Pressing it out slowly at the top"],
+"Push Jerk":["Dip straight down, drive the bar up","Re-bend the knees to catch under it","Pressing it out with the shoulders alone"],
+"Tuck Jump":["Explode up, knees toward the chest","Land soft on the balls of the feet","Landing stiff and loud"],
+"Cobra Stretch":["Elbows under shoulders, chest lifts","Push the hips into the floor","Cranking the neck back hard"],
+"Lizard Pose":["Foot outside the hand, hips sink","Breathe into the front hip","Collapsing the back knee and arching"],
+"Prone Swimmers":["Lift the arms, sweep from front to back","Keep the neck long and neutral","Letting the hands drag on the floor"],
+"Puppy Pose":["Hips over knees, chest melts down","Arms long, armpits open","Sinking the hips back into child's pose"],
+"Scorpion Stretch":["Face down, reach one heel across","Shoulders stay on the ground","Twisting so hard the shoulder lifts"],
+"BOSU Balance Hold":["Soft knee, grip with the toes","Eyes on a fixed point ahead","Locking the knee and fighting every wobble"],
+"Half-Kneeling Chop":["Tall spine, squeeze the down glute","Chop across without leaning","Bending sideways with the cable"],
+"Single-Leg Box Squat":["Sit back to a light touch on the box","Stand without rocking forward","Crashing down onto the seat"],
+"Bird Dog Row":["Plank stance, hips dead level","Row without any torso rotation","Letting the hips twist with each pull"]});
 function exCues(n){ return CUES[n]||null; }
 function openExCues(name){
   const c=exCues(name); const info=exInfo(name)||{};
@@ -4922,17 +5074,54 @@ function pullBuilderInputs(){
 }
 
 /* exercise picker (for builder + live session) */
+/* ===================== CUSTOM EXERCISES ===================== */
+let _cxCat='push', _cxPil={strength:true,balance:false,mobility:false}, _cxPend=null;
+const CX_CATS=[['push','Push','🫸'],['pull','Pull','🪝'],['legs','Legs','🦵'],['core','Core','🧿'],['balance','Balance','🪨'],['mobility','Mobility','🧘']];
+function exGroups(){ const s=new Set(); EX.forEach(e=>s.add(e.g)); return Array.from(s).sort(); }
+function cxCatRow(){ return CX_CATS.map(c=>`<button class="chip ${_cxCat===c[0]?'on':''}" data-action="cx-cat" data-v="${c[0]}">${c[2]} ${c[1]}</button>`).join(''); }
+function cxPilRow(){ return ['strength','balance','mobility'].map(p=>`<button class="chip ${_cxPil[p]?'on':''}" data-action="cx-pil" data-v="${p}">${p}</button>`).join(''); }
+function openCustomEx(prefill){
+  _cxCat='push'; _cxPil={strength:true,balance:false,mobility:false};
+  openSheet(`<div class="grab"></div><h3>Create exercise</h3>
+  <p class="sh-lead">It joins your library permanently — searchable, trackable, and counted in your heat-map.</p>
+  <div class="form-field"><label>Name</label><input id="cxName" maxlength="40" placeholder="e.g. Sled Push" value="${esc(prefill||'')}"></div>
+  <div class="spr-card"><div class="spr-sec"><span>Movement type</span></div><div class="chips" id="cxCatRow">${cxCatRow()}</div></div>
+  <div class="spr-card"><div class="spr-sec"><span>Muscle group</span><span class="spr-secr">drives the heat-map</span></div>
+    <select id="cxGroup">${exGroups().map(g=>`<option value="${esc(g)}">${esc(g)}</option>`).join('')}<option value="Custom">Other / Custom</option></select></div>
+  <div class="spr-card"><div class="spr-sec"><span>Pillars</span><span class="spr-secr">drives the pillar wheel</span></div><div class="chips" id="cxPilRow">${cxPilRow()}</div></div>
+  <div class="btn-row" style="margin-top:14px"><button class="btn btn-primary" data-action="cx-save">Create & add</button><button class="btn btn-ghost" data-action="cx-back">Cancel</button></div>`);
+  setTimeout(()=>{ try{ const el=document.getElementById('cxName'); if(el&&el.focus) el.focus(); }catch(e){} },80);
+}
+function saveCustomEx(){
+  const el=$('#cxName'); const v=((el&&el.value)||'').trim().slice(0,40);
+  if(!v){ toast('✏️','Name it first','Every exercise needs a name'); return null; }
+  if(allEx().some(e=>e.n.toLowerCase()===v.toLowerCase())){ toast('⚠️','Already exists', '“'+v+'” is already in your library'); return null; }
+  const gs=$('#cxGroup'); let g=(gs&&gs.value)||''; if(!g) g='Custom';
+  const pil=Object.keys(_cxPil).filter(k=>_cxPil[k]); if(!pil.length) pil.push('strength');
+  const ex={n:v, g:g, p:_cxCat, pil:pil, cx:1};
+  DB.customEx.push(ex); save();
+  toast('✨','Exercise created', v+' · '+g);
+  return ex;
+}
+function delCustomEx(name){
+  const i=DB.customEx.findIndex(e=>e.n===name); if(i<0) return false;
+  DB.customEx.splice(i,1); save(); toast('🗑️','Removed', name+' left your library — past logs keep it'); return true;
+}
 function openExPicker(onPick){
   const cats=[['push','Push','🫸'],['pull','Pull','🪝'],['legs','Legs','🦵'],['core','Core','🧿'],['balance','Balance','🪨'],['mobility','Mobility','🧘']];
   const byCat={}; allEx().forEach(e=>{ (byCat[e.p]=byCat[e.p]||[]).push(e); });
+  const row=e=>`<div class="ex-pick${e.cx?' is-cx':''}" data-action="pick-ex" data-name="${esc(e.n)}"><div class="epn">${esc(e.n)}${e.cx?'<span class="cx-tag">yours</span>':''}</div><div class="epg">${esc(e.g)}</div>${e.cx?`<button class="cx-del" data-action="cx-del" data-name="${esc(e.n)}">✕</button>`:''}</div>`;
   const section=(key,label,ico)=>{ const list=byCat[key]||[]; if(!list.length) return '';
     const byG={}; list.forEach(e=>{ (byG[e.g]=byG[e.g]||[]).push(e); });
-    const inner=Object.keys(byG).map(g=>`<p class="exg-sub">${esc(g)}</p>`+byG[g].map(e=>`<div class="ex-pick" data-action="pick-ex" data-name="${esc(e.n)}"><div class="epn">${esc(e.n)}</div><div class="epg">${esc(e.g)}</div></div>`).join('')).join('');
+    const inner=Object.keys(byG).map(g=>`<p class="exg-sub">${esc(g)}</p>`+byG[g].map(row).join('')).join('');
     return `<div class="exg"><button class="exg-head" data-action="exg-toggle"><span class="xh-i">${ico}</span><span class="xh-t">${label}</span><span class="xh-c">${list.length}</span><span class="xh-ch">▾</span></button><div class="exg-body">${inner}</div></div>`; };
+  const mine=DB.customEx.slice();
+  const mineSec=mine.length? `<div class="exg open"><button class="exg-head" data-action="exg-toggle"><span class="xh-i">✨</span><span class="xh-t">Your exercises</span><span class="xh-c">${mine.length}</span><span class="xh-ch">▾</span></button><div class="exg-body">${mine.map(row).join('')}</div></div>` : '';
   openSheet(`<div class="grab"></div><h3>Add exercise</h3>
     <div class="form-field" style="margin-bottom:10px"><input id="exSearch" placeholder="Search ${allEx().length} exercises…" autocomplete="off"></div>
-    <div id="exPickList">${cats.map(c=>section(c[0],c[1],c[2])).join('')}</div>
-    <div class="form-field" style="margin-top:14px"><label>Or add your own</label><div style="display:flex;gap:8px"><input id="customExName" placeholder="Custom exercise name" style="flex:1"><button class="btn btn-ghost btn-sm" data-action="add-custom-ex" style="white-space:nowrap">Add</button></div></div>`);
+    <button class="btn btn-ghost btn-sm cx-new" data-action="cx-open">✨ Create your own exercise</button>
+    <div id="exNoMatch" class="cx-nomatch" style="display:none"><div class="cxn-t">Nothing matches</div><div class="cxn-d">Not in the library? Forge it yourself.</div><button class="btn btn-primary btn-sm" data-action="cx-open" style="width:auto;margin-top:9px">✨ Create it</button></div>
+    <div id="exPickList">${mineSec}${cats.map(c=>section(c[0],c[1],c[2])).join('')}</div>`);
   exPickCallback=onPick;
   setTimeout(()=>{ const si=$('#exSearch'); if(si){ si.addEventListener('input', filterExPick); } },50);
 }
@@ -4944,6 +5133,8 @@ function filterExPick(e){
   $$('#exPickList .ex-pick').forEach(el=>{ el.style.display=(!q || el.dataset.name.toLowerCase().includes(q))?'flex':'none'; });
   $$('#exPickList .exg-sub').forEach(h=>{ let n=h.nextElementSibling, any=false; while(n && n.classList && n.classList.contains('ex-pick')){ if(n.style.display!=='none') any=true; n=n.nextElementSibling; } h.style.display=(!q||any)?'block':'none'; });
   $$('#exPickList .exg').forEach(g=>{ const any=Array.from(g.querySelectorAll('.ex-pick')).some(el=>el.style.display!=='none'); g.style.display=(!q||any)?'block':'none'; });
+  const hits=$$('#exPickList .ex-pick').filter(el=>el.style.display!=='none').length;
+  const nm=$('#exNoMatch'); if(nm && nm.style) nm.style.display=(q && !hits)?'block':'none';
 }
 /* small sets/reps prompt after picking for builder */
 function askSetsReps(name, cb){
@@ -5081,11 +5272,14 @@ document.addEventListener('click', e=>{
     case 'exg-toggle': { const g=t.closest('.exg'); if(g&&g.classList) g.classList.toggle('open'); break; }
     case 'tpl-filter': tplFilter=t.dataset.g; renderTrain(); window.scrollTo(0,0); break;
     case 'pick-ex': { const name=t.dataset.name; const cb=exPickCallback; closeSheet(); setTimeout(()=>cb&&cb(name),60); break; }
-    case 'add-custom-ex': {
-      const v=$('#customExName').value.trim(); if(!v) return;
-      if(!allEx().some(e=>e.n.toLowerCase()===v.toLowerCase())){ DB.customEx.push({n:v, g:'Custom', p:'push', pil:['strength']}); save(); }
-      const cb=exPickCallback; closeSheet(); setTimeout(()=>cb&&cb(v),60); break;
-    }
+    case 'cx-open': { const q=(($('#exSearch')||{}).value||'').trim(); openCustomEx(q); break; }
+    case 'cx-back': { const cb=exPickCallback; closeSheet(); setTimeout(()=>openExPicker(cb),80); break; }
+    case 'cx-cat': { _cxCat=t.dataset.v; const r=$('#cxCatRow'); if(r) r.innerHTML=cxCatRow(); break; }
+    case 'cx-pil': { const p=t.dataset.v; _cxPil[p]=!_cxPil[p]; const r=$('#cxPilRow'); if(r) r.innerHTML=cxPilRow(); break; }
+    case 'cx-save': { const ex=saveCustomEx(); if(!ex) break;
+      const cb=exPickCallback; closeSheet(); setTimeout(()=>cb&&cb(ex.n),60); break; }
+    case 'cx-del': { const nm=t.dataset.name; if(!delCustomEx(nm)) break;
+      const cb=exPickCallback; closeSheet(); setTimeout(()=>openExPicker(cb),80); break; }
     case 'sr-confirm': {
       const s=parseInt($('#srSets').value)||3, r=$('#srReps').value.trim()||'10';
       const rest=Math.max(0,parseInt($('#srRest').value)||0);
