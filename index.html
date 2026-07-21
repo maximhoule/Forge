@@ -1065,10 +1065,6 @@ p.eyebrow:has(+ h2.screen-title)::after{content:'  ⟡'; opacity:.8}
 .aura-chip.a2{background:rgba(92,176,255,.09); border-color:rgba(92,176,255,.45); color:#A9D4FF; box-shadow:0 0 16px -6px rgba(92,176,255,.7)}
 .aura-chip.a3{background:rgba(255,210,77,.1); border-color:rgba(255,210,77,.55); color:#FFE08A; box-shadow:0 0 20px -6px rgba(255,210,77,.85)}
 /* v36: forge scene, transitions, events, cues, amoled */
-.hero{z-index:0}
-.forge-scene{position:absolute; left:-6px; bottom:-12px; width:150px; height:105px; z-index:0; opacity:.5; pointer-events:none;
-  background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 120'><ellipse cx='70' cy='104' rx='55' ry='10' fill='%23FF8A2B' opacity='.16'/><path d='M30 96 L110 96 L104 82 L84 82 L84 72 L110 64 L110 52 L44 52 L44 64 L64 72 L64 82 L36 82 Z' fill='%23151A25'/><path d='M44 52 L110 52 L110 56 L44 56 Z' fill='%23212939'/><circle cx='84' cy='40' r='2.4' fill='%23FFC24A'><animate attributeName='cy' values='46;18' dur='2.4s' repeatCount='indefinite'/><animate attributeName='opacity' values='1;0' dur='2.4s' repeatCount='indefinite'/></circle><circle cx='70' cy='44' r='1.8' fill='%23FF8A2B'><animate attributeName='cy' values='48;22' dur='3s' begin='.7s' repeatCount='indefinite'/><animate attributeName='opacity' values='.9;0' dur='3s' begin='.7s' repeatCount='indefinite'/></circle><circle cx='96' cy='46' r='1.6' fill='%23FFD24D'><animate attributeName='cy' values='50;26' dur='2.7s' begin='1.3s' repeatCount='indefinite'/><animate attributeName='opacity' values='.9;0' dur='2.7s' begin='1.3s' repeatCount='indefinite'/></circle></svg>") no-repeat center bottom/contain}
-.hero > *{position:relative; z-index:1}
 .screen.active{animation:screenIn .26s var(--ease)}
 @keyframes screenIn{from{opacity:0; transform:translateY(9px)}to{opacity:1; transform:none}}
 .event-card{display:flex; gap:13px; align-items:center; padding:13px 14px; margin-bottom:14px; border-radius:var(--r-lg); border:1px solid; position:relative; overflow:hidden}
@@ -1104,7 +1100,6 @@ body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#1
     </div>
 
     <div class="hero">
-      <div class="forge-scene"></div>
       <div class="ring-wrap">
         <svg width="104" height="104" viewBox="0 0 104 104">
           <defs><linearGradient id="energyGrad" x1="0" y1="0" x2="1" y2="1">
