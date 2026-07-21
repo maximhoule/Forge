@@ -1088,6 +1088,8 @@ p.eyebrow:has(+ h2.screen-title)::after{content:'  ⟡'; opacity:.8}
 body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#161B23; --line:#242C3A; --line-soft:#181E28}
 /* custom exercises */
 .cx-new{width:100%; margin-bottom:12px; border-style:dashed}
+.swap-more{display:flex; gap:8px; margin:12px 0 10px}
+.swap-more .btn{flex:1; width:auto}
 .cx-nomatch{display:none; text-align:center; padding:18px 14px; margin-bottom:12px; border-radius:13px; background:var(--surface-2); border:1px dashed var(--line)}
 .cxn-t{font-family:var(--font-epic); font-weight:800; font-size:15px}
 .cxn-d{font-size:11.5px; color:var(--muted); margin-top:3px}
@@ -3144,7 +3146,11 @@ function openSwap(ei){
   alts=alts.slice(0,9);
   openSheet(`<div class="grab"></div><h3>Swap ${esc(en.exercise)}</h3>
   <p class="sh-lead">${g?('Substitutes that hit <b>'+esc(g)+'</b> — rack taken, no problem. Any logged sets stay with the swap.'):'No matching muscle group found for this exercise.'}</p>
-  ${alts.map(a=>`<button class="swap-row" data-action="swap-pick" data-ei="${ei}" data-n="${esc(a.n)}"><span class="sw-n">${esc(a.n)}</span><span class="sw-g">${esc(a.p||'')}</span></button>`).join('')||'<div class="add-msg">Nothing suitable in the library.</div>'}
+  ${alts.map(a=>`<button class="swap-row" data-action="swap-pick" data-ei="${ei}" data-n="${esc(a.n)}"><span class="sw-n">${esc(a.n)}</span><span class="sw-g">${esc(a.p||'')}</span></button>`).join('')||'<div class="add-msg">Nothing in the library shares this muscle group — browse everything or forge your own below.</div>'}
+  <div class="swap-more">
+    <button class="btn btn-ghost btn-sm" data-action="swap-browse" data-ei="${ei}">📚 Browse all ${allEx().length}</button>
+    <button class="btn btn-ghost btn-sm cx-new" data-action="swap-create" data-ei="${ei}" style="margin:0">✨ New exercise</button>
+  </div>
   <button class="btn btn-ghost btn-sm" data-action="close-sheet">Cancel</button>`);
 }
 function swapPick(ei, n){
@@ -5075,7 +5081,7 @@ function pullBuilderInputs(){
 
 /* exercise picker (for builder + live session) */
 /* ===================== CUSTOM EXERCISES ===================== */
-let _cxCat='push', _cxPil={strength:true,balance:false,mobility:false}, _cxPend=null;
+let _cxCat='push', _cxPil={strength:true,balance:false,mobility:false}, _cxReturn=null;
 const CX_CATS=[['push','Push','🫸'],['pull','Pull','🪝'],['legs','Legs','🦵'],['core','Core','🧿'],['balance','Balance','🪨'],['mobility','Mobility','🧘']];
 function exGroups(){ const s=new Set(); EX.forEach(e=>s.add(e.g)); return Array.from(s).sort(); }
 function cxCatRow(){ return CX_CATS.map(c=>`<button class="chip ${_cxCat===c[0]?'on':''}" data-action="cx-cat" data-v="${c[0]}">${c[2]} ${c[1]}</button>`).join(''); }
@@ -5272,12 +5278,14 @@ document.addEventListener('click', e=>{
     case 'exg-toggle': { const g=t.closest('.exg'); if(g&&g.classList) g.classList.toggle('open'); break; }
     case 'tpl-filter': tplFilter=t.dataset.g; renderTrain(); window.scrollTo(0,0); break;
     case 'pick-ex': { const name=t.dataset.name; const cb=exPickCallback; closeSheet(); setTimeout(()=>cb&&cb(name),60); break; }
-    case 'cx-open': { const q=(($('#exSearch')||{}).value||'').trim(); openCustomEx(q); break; }
-    case 'cx-back': { const cb=exPickCallback; closeSheet(); setTimeout(()=>openExPicker(cb),80); break; }
+    case 'swap-browse': { const ei=+t.dataset.ei; closeSheet(); setTimeout(()=>openExPicker(n=>swapPick(ei,n)),80); break; }
+    case 'swap-create': { const ei=+t.dataset.ei; exPickCallback=n=>swapPick(ei,n); _cxReturn=()=>openSwap(ei); openCustomEx(''); break; }
+    case 'cx-open': { const q=(($('#exSearch')||{}).value||'').trim(); const cb=exPickCallback; _cxReturn=()=>openExPicker(cb); openCustomEx(q); break; }
+    case 'cx-back': { const r=_cxReturn, cb=exPickCallback; _cxReturn=null; closeSheet(); setTimeout(()=>r?r():openExPicker(cb),80); break; }
     case 'cx-cat': { _cxCat=t.dataset.v; const r=$('#cxCatRow'); if(r) r.innerHTML=cxCatRow(); break; }
     case 'cx-pil': { const p=t.dataset.v; _cxPil[p]=!_cxPil[p]; const r=$('#cxPilRow'); if(r) r.innerHTML=cxPilRow(); break; }
     case 'cx-save': { const ex=saveCustomEx(); if(!ex) break;
-      const cb=exPickCallback; closeSheet(); setTimeout(()=>cb&&cb(ex.n),60); break; }
+      const cb=exPickCallback; _cxReturn=null; closeSheet(); setTimeout(()=>cb&&cb(ex.n),60); break; }
     case 'cx-del': { const nm=t.dataset.name; if(!delCustomEx(nm)) break;
       const cb=exPickCallback; closeSheet(); setTimeout(()=>openExPicker(cb),80); break; }
     case 'sr-confirm': {
