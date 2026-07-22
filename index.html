@@ -1102,6 +1102,25 @@ body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#1
 .ex-pick.is-cx{padding-right:74px}
 .cx-del:active{transform:translateY(-50%) scale(.9); color:#FF6B8A}
 #cxGroup{width:100%}
+
+/* ===================== v42 DESIGN REFRESH (additive, final layer) ===================== */
+/* Spacing rhythm — the one scale the app was missing. Available for future use; no overrides here. */
+:root{ --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px; --sp-6:32px; --r-xl:20px; }
+/* Deeper elevation separation: sheets clearly float above page cards */
+.sheet{ box-shadow:0 -1px 0 rgba(255,255,255,.05), 0 -20px 50px -18px rgba(0,0,0,.75), var(--shadow-md); }
+.sheet > h3{ animation:v42Rise .32s var(--ease-out) both; animation-delay:.04s; }
+/* Sheet-level mini-cards read as one tier up from the sheet floor */
+.spr-card, .pl-card, .mn-card, .asc-cur, .vault-open, .event-card{ box-shadow:var(--shadow-sm); }
+/* Tactile press feedback on every interactive row that lacked it — the app now answers touch everywhere */
+.rt-main, .swap-row, .ex-pick, .exg-head, .chip, .title-row, .day-row, .mn-row,
+.loot-item.own, .cue-row, .ev-step, .wpn-tile{ transition:transform .14s var(--ease), background .16s var(--ease), border-color .16s var(--ease); }
+.rt-main:active, .swap-row:active, .ex-pick:active, .exg-head:active, .chip:active,
+.title-row:active, .day-row:active, .mn-row:active, .loot-item.own:active{ transform:scale(.985); }
+/* Unified eyebrow tracking across every section label — consistency reads as polish */
+.sd-eyebrow, .asc-eyebrow, .evc-eyebrow, .spr-sec, .exg-sub{ letter-spacing:1.8px; }
+/* Chips: crisper resting state + a hair more breathing room */
+.chip{ border-radius:99px; }
+@keyframes v42Rise{ from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none} }
 @media(prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
 </style>
 </head>
