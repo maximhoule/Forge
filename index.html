@@ -1103,6 +1103,30 @@ body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#1
 .cx-del:active{transform:translateY(-50%) scale(.9); color:#FF6B8A}
 #cxGroup{width:100%}
 
+/* Collapsible section — tuck away cards you don't check every visit */
+.fold{margin-bottom:14px}
+.fold-head{display:flex; align-items:center; gap:10px; width:100%; text-align:left; padding:13px 15px; border-radius:var(--r-md);
+  background:var(--surface); border:1px solid var(--line-soft); color:var(--text); box-shadow:var(--shadow-sm); transition:transform .15s var(--ease)}
+.fold-head:active{transform:scale(.99)}
+.fh-i{font-size:16px; flex:0 0 auto}
+.fh-t{font-family:var(--font-epic); font-weight:800; font-size:14.5px; letter-spacing:.4px; flex:0 0 auto}
+.fh-sub{flex:1; min-width:0; font-size:10.5px; color:var(--muted-2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.fh-ch{flex:0 0 auto; color:var(--muted-2); font-size:12px; transition:transform .25s var(--ease)}
+.fold.closed .fh-ch{transform:rotate(-90deg)}
+.fold-body{padding-top:14px}
+.fold.closed .fold-body{display:none}
+/* Quick-start card — one-tap repeat of your last workout */
+.quick-start{display:flex; align-items:center; gap:13px; width:100%; text-align:left; padding:12px 14px; margin-bottom:14px; border-radius:var(--r-lg);
+  background:linear-gradient(135deg, rgba(255,138,43,.14), var(--surface) 62%); border:1px solid rgba(255,138,43,.4); color:var(--text);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05), var(--shadow-md); transition:transform .18s var(--ease)}
+.quick-start:active{transform:scale(.99)}
+.qs-ico{flex:0 0 auto; width:46px; height:46px; border-radius:13px; display:grid; place-items:center; font-size:23px; color:#fff;
+  background:var(--grad-energy); box-shadow:0 6px 16px -8px var(--energy-glow)}
+.qs-b{flex:1; min-width:0}
+.qs-eyebrow{font-family:'JetBrains Mono'; font-size:9px; text-transform:uppercase; letter-spacing:1.6px; color:var(--muted-2); font-weight:700}
+.qs-t{font-family:var(--font-epic); font-weight:800; font-size:16px; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.qs-s{font-size:11.5px; color:var(--muted); margin-top:2px}
+.qs-go{flex:0 0 auto; width:32px; height:32px; border-radius:99px; display:grid; place-items:center; font-size:12px; color:var(--energy-1); border:1px solid rgba(255,138,43,.4)}
 /* ===================== v42 DESIGN REFRESH (additive, final layer) ===================== */
 /* Spacing rhythm — the one scale the app was missing. Available for future use; no overrides here. */
 :root{ --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px; --sp-6:32px; --r-xl:20px; }
@@ -1165,15 +1189,7 @@ body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#1
       </div>
     </div>
 
-    <div id="lapAura"></div>
-
-    <div id="spriteDen"></div>
-
-    <div id="weaponCard"></div>
-
-    <div id="ascentCard"></div>
-
-    <div id="eventCard"></div>
+    <div id="quickStart"></div>
 
     <div class="stat-grid">
       <div class="stat hot"><div class="k">🔥 Streak</div><div class="v"><span id="stStreak">0</span><small id="stStreakSub"> days</small></div></div>
@@ -1209,6 +1225,20 @@ body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#1
 
     <div class="sec-head"><h3>Recent unlocks</h3><span class="link" data-action="go-awards">All awards →</span></div>
     <div id="recentAch"></div>
+
+    <div class="fold" id="foldForge">
+      <button class="fold-head" data-action="fold-toggle" data-fold="forge">
+        <span class="fh-i">⚔️</span><span class="fh-t">Your Forge</span>
+        <span class="fh-sub">sprite · weapon · ascent · relics</span><span class="fh-ch">▾</span>
+      </button>
+      <div class="fold-body">
+        <div id="eventCard"></div>
+        <div id="lapAura"></div>
+        <div id="spriteDen"></div>
+        <div id="weaponCard"></div>
+        <div id="ascentCard"></div>
+      </div>
+    </div>
   </section>
 
   <!-- ===== TRAIN ===== -->
@@ -1342,9 +1372,17 @@ body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#1
     <h2 class="screen-title">Squad &amp; Awards</h2>
     <div id="squadSection"></div>
     <div id="seasonSection"></div>
-    <div id="titleRow"></div>
-    <div id="vaultRow"></div>
-    <div id="monuRow"></div>
+    <div class="fold" id="foldCollection">
+      <button class="fold-head" data-action="fold-toggle" data-fold="collection">
+        <span class="fh-i">🗃️</span><span class="fh-t">Collection</span>
+        <span class="fh-sub">titles · vault · monuments</span><span class="fh-ch">▾</span>
+      </button>
+      <div class="fold-body">
+        <div id="titleRow"></div>
+        <div id="vaultRow"></div>
+        <div id="monuRow"></div>
+      </div>
+    </div>
     <div class="sec-label">🏅 Achievements</div>
     <div class="ach-summary">
       <div class="big"><span id="achCount">0</span><small>/<span id="achTotal">36</span></small></div>
@@ -1429,13 +1467,18 @@ const DB = {
   sprite: Store.get('forge.sprite', null),
   monu: Store.get('forge.monu', null)
 };
+let _saveSig={};
+const _SAVE_MAP=[['settings',()=>DB.settings],['stats',()=>DB.stats],['routines',()=>DB.routines],['log',()=>DB.log],['prs',()=>DB.prs],['ach',()=>DB.achievements],['customEx',()=>DB.customEx],['bodyweight',()=>DB.bodyweight],['plan',()=>DB.plan],['quests',()=>DB.quests],['friends',()=>DB.friends],['season',()=>DB.season],['seasonHistory',()=>DB.seasonHistory],['bossLog',()=>DB.bossLog],['weapon',()=>DB.weapon],['ascent',()=>DB.ascent],['loot',()=>DB.loot],['sprite',()=>DB.sprite],['monu',()=>DB.monu],['activeSession',()=>activeSession]];
 function save(){
-  Store.set('forge.settings', DB.settings); Store.set('forge.stats', DB.stats);
-  Store.set('forge.routines', DB.routines); Store.set('forge.log', DB.log);
-  Store.set('forge.prs', DB.prs); Store.set('forge.ach', DB.achievements);
-  Store.set('forge.customEx', DB.customEx); Store.set('forge.bodyweight', DB.bodyweight); Store.set('forge.plan', DB.plan); Store.set('forge.quests', DB.quests); Store.set('forge.friends', DB.friends); Store.set('forge.season', DB.season); Store.set('forge.seasonHistory', DB.seasonHistory); Store.set('forge.bossLog', DB.bossLog); Store.set('forge.weapon', DB.weapon); Store.set('forge.ascent', DB.ascent); Store.set('forge.loot', DB.loot); Store.set('forge.sprite', DB.sprite); Store.set('forge.monu', DB.monu);
-  try{ Store.set('forge.activeSession', activeSession); }catch(e){}
+  for(let i=0;i<_SAVE_MAP.length;i++){
+    const key=_SAVE_MAP[i][0]; let val, sig;
+    try{ val=_SAVE_MAP[i][1](); sig=JSON.stringify(val===undefined?null:val); }catch(e){ continue; }
+    if(_saveSig[key]===sig) continue;            // unchanged since last write — skip the disk hit
+    _saveSig[key]=sig;
+    try{ Store.set('forge.'+key, val); }catch(e){}
+  }
 }
+let _caughtUp=false;
 let activeSession = Store.get('forge.activeSession', null);
 
 /* ---------- exercise library ---------- */
@@ -2338,9 +2381,11 @@ function emberIntensity(){
   return Math.max(0.12, Math.min(1, i));
 }
 let _ember=null;
+let _rmCache=null;
+function _reduceMotion(){ if(_rmCache===null){ try{ _rmCache=!!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }catch(e){ _rmCache=false; } } return _rmCache; }
 function startEmbers(){
   const cv=$('#emberCanvas'); if(!cv||!cv.getContext) return;
-  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if(_reduceMotion()) return;
   if(_ember) return;
   const dpr=window.devicePixelRatio||1; const ctx=cv.getContext('2d');
   cv.width=Math.max(1,cv.clientWidth*dpr); cv.height=Math.max(1,cv.clientHeight*dpr);
@@ -2480,6 +2525,36 @@ function go(screen){
 /* ============================================================
    RENDER: HOME
    ============================================================ */
+function foldSection(key, ico, title, sub, inner){
+  const open=foldOpen(key);
+  return `<div class="fold${open?'':' closed'}" id="fold${key.charAt(0).toUpperCase()+key.slice(1)}">`
+    +`<button class="fold-head" data-action="fold-toggle" data-fold="${key}"><span class="fh-i">${ico}</span><span class="fh-t">${title}</span><span class="fh-sub">${sub}</span><span class="fh-ch">▾</span></button>`
+    +`<div class="fold-body">${inner}</div></div>`;
+}
+function foldOpen(id){ return !(DB.settings.folds && DB.settings.folds[id]===false); }
+function applyFolds(){ try{ document.querySelectorAll('.fold').forEach(f=>{ const id=(f.id||'').replace('fold',''); const key=id.charAt(0).toLowerCase()+id.slice(1);
+  const open=foldOpen(key); if(f.classList) f.classList.toggle('closed', !open); }); }catch(e){} }
+function toggleFold(id){ if(!DB.settings.folds) DB.settings.folds={}; DB.settings.folds[id]=!foldOpen(id); save(); applyFolds(); }
+function lastWorkout(){ return (DB.log||[]).find(l=>l.type==='strength' && l.entries && l.entries.length); }
+function renderQuickStart(){
+  const host=$('#quickStart'); if(!host) return;
+  if(activeSession){ host.innerHTML=''; return; }
+  const lw=lastWorkout();
+  if(!lw){ host.innerHTML=''; return; }
+  const exN=lw.entries.length;
+  const when=(()=>{ const d=Math.floor((Date.now()-lw.ts)/86400000); return d<=0?'today':(d===1?'yesterday':d+' days ago'); })();
+  host.innerHTML=`<button class="quick-start" data-action="repeat-last">
+    <div class="qs-ico">↻</div>
+    <div class="qs-b"><div class="qs-eyebrow">Quick start · last trained ${when}</div>
+      <div class="qs-t">${esc(lw.title||'Last workout')}</div>
+      <div class="qs-s">${exN} exercise${exN!==1?'s':''} — tap to run it again</div></div>
+    <div class="qs-go">▶</div></button>`;
+}
+function repeatLast(){
+  const lw=lastWorkout(); if(!lw) return;
+  startSession(lw.title||'Workout', 'Repeat session',
+    lw.entries.map(en=>({ n:en.exercise, targetSets:(en.sets&&en.sets.length)||3, targetReps:(en.sets&&en.sets[0]&&en.sets[0].reps)||'', rest:null })));
+}
 function renderHome(){
   const li=levelInfo(DB.stats.xp);
   $('#lvlNum').textContent=li.level;
@@ -2521,7 +2596,9 @@ function renderHome(){
       <div style="font-size:12px;color:var(--muted)">${a.d}</div></div>
       <div class="tier ${a.tier}" style="position:static;opacity:1">${a.tier}</div></div>`).join('');
   }
-  renderRelic(); renderWeapon(); renderSpriteDen(); renderAscentCard(); renderLapAura(); renderEventCard(); applyLoot(); applyAmoled(); ascentCheck(); monumentCheck(); startEmbers(); setTimeout(tickUp,0);
+  renderQuickStart(); renderRelic(); renderWeapon(); renderSpriteDen(); applyFolds(); renderAscentCard(); renderLapAura(); renderEventCard(); applyLoot(); applyAmoled();
+  if(!_caughtUp){ _caughtUp=true; ascentCheck(); monumentCheck(); }
+  startEmbers(); setTimeout(tickUp,0);
 }
 
 /* ============================================================
@@ -2853,25 +2930,25 @@ function renderRecords(){
   <div class="chart-card"><h3>${heading}</h3><p class="chart-sub">${sub}</p>${selectHtml}<div class="chart-box">${chartInner}</div></div>`;
 
   html+=muscleCard(); html+=strengthCard(); html+=profileCard();
-  html+=`<div class="sec-label">🏆 Personal records</div>`;
-  if(prRows.length){
-    html+=prRows.map((p,i)=>`<div class="pr-row"><div class="pr-rank">${i+1}</div><div class="pr-info"><div class="pn">${esc(p.n)}</div><div class="pd">Best: ${p.weight} ${DB.settings.unit} × ${p.reps} · ${p.date}</div></div><div class="pr-val"><div class="e1">${Math.round(p.e1rm)}</div><div class="el">est 1RM · ${DB.settings.unit}</div></div></div>`).join('');
-  } else html+=`<div class="card tight" style="color:var(--muted);font-size:13px">No records yet — finish a weighted set and your best lifts will rank here.</div>`;
+  { let _pr = prRows.length
+      ? prRows.map((p,i)=>`<div class="pr-row"><div class="pr-rank">${i+1}</div><div class="pr-info"><div class="pn">${esc(p.n)}</div><div class="pd">Best: ${p.weight} ${DB.settings.unit} × ${p.reps} · ${p.date}</div></div><div class="pr-val"><div class="e1">${Math.round(p.e1rm)}</div><div class="el">est 1RM · ${DB.settings.unit}</div></div></div>`).join('')
+      : `<div class="card tight" style="color:var(--muted);font-size:13px">No records yet — finish a weighted set and your best lifts will rank here.</div>`;
+    html+=foldSection('prs','🏆','Personal records', prRows.length?(prRows.length+' tracked'):'', _pr); }
 
-  html+=`<div class="sec-label">⚖️ Body weight</div><div class="chart-card">`;
-  if(hasBW){
-    const bs=bwSeries(); const cur=bs.values[bs.values.length-1], first=bs.values[0]; const diff=Math.round((cur-first)*10)/10;
-    html+=`<div class="bw-head"><div class="bw-cur">${cn(cur)}<small> ${DB.settings.unit}</small></div><div class="bw-delta">${diff===0?'first entry':(diff<0?'▼ ':'▲ ')+Math.abs(diff)+' '+DB.settings.unit+' since start'}</div></div><div class="chart-box">${chartSVG(bs,'#34EAD0')}</div><button class="btn btn-ghost" data-action="log-bw" style="margin-top:12px">Update body weight</button>`;
-  } else {
-    html+=`<p class="chart-sub" style="margin-bottom:14px">Track your body weight to watch it trend alongside your training.</p><button class="btn btn-cool" data-action="log-bw">＋ Log body weight</button>`;
-  }
-  html+=`</div>`;
+  { let _bw='<div class="chart-card">';
+    if(hasBW){
+      const bs=bwSeries(); const cur=bs.values[bs.values.length-1], first=bs.values[0]; const diff=Math.round((cur-first)*10)/10;
+      _bw+=`<div class="bw-head"><div class="bw-cur">${cn(cur)}<small> ${DB.settings.unit}</small></div><div class="bw-delta">${diff===0?'first entry':(diff<0?'▼ ':'▲ ')+Math.abs(diff)+' '+DB.settings.unit+' since start'}</div></div><div class="chart-box">${chartSVG(bs,'#34EAD0')}</div><button class="btn btn-ghost" data-action="log-bw" style="margin-top:12px">Update body weight</button>`;
+    } else {
+      _bw+=`<p class="chart-sub" style="margin-bottom:14px">Track your body weight to watch it trend alongside your training.</p><button class="btn btn-cool" data-action="log-bw">＋ Log body weight</button>`;
+    }
+    _bw+=`</div>`;
+    html+=foldSection('bw','⚖️','Body weight','', _bw); }
 
-  html+=calSection();
   const gn={fat:'Fat burn',endurance:'Endurance',speed:'Speed',recovery:'Recovery',gps:'GPS run',treadmill:'Treadmill',run:'Run'};
-  html+=`<div class="sec-label">🗂 History</div>`;
+  { let _hist=calSection();
   if(hasLog){
-    html+=DB.log.map(x=>{
+    _hist+=DB.log.map(x=>{
       if(x.type==='cardio'){
         const _rt=(x.path && x.path.length>1);
         const _avg=(x.distance>0 && x.durationMin>0)?fmtMin(x.durationMin/x.distance):null;
@@ -2882,7 +2959,8 @@ function renderRecords(){
       const detail=(x.entries||[]).map(e=>{ const best=(e.sets||[]).reduce((b,s)=>{ const k=(+s.weight||0); return k>b.w?{w:k,r:(+s.reps||0)}:b; },{w:0,r:0}); return `<div class="hd-row"><span>${esc(e.exercise)}</span><span class="mono">${(e.sets||[]).length} sets · best ${best.w||0}×${best.r||0}</span></div>`; }).join('');
       return `<div class="hist-row"><div class="hist-main" data-action="toggle-log"><div class="hist-ico s">🏋</div><div class="hist-body"><div class="hist-title">${esc(x.title||'Workout')}</div><div class="hist-meta">${fmt(x.volume||0)} ${DB.settings.unit} · ${setCount} sets</div></div><div class="hist-date">${sd(x.date)}</div></div><div class="hist-detail">${detail||'<div class="hd-row"><span>No completed sets logged</span></div>'}</div></div>`;
     }).join('');
-  } else html+=`<div class="card tight" style="color:var(--muted);font-size:13px">Your completed workouts and runs will be listed here.</div>`;
+  } else _hist+=`<div class="card tight" style="color:var(--muted);font-size:13px">Your completed workouts and runs will be listed here.</div>`;
+    html+=foldSection('hist','🗂','History', hasLog?(DB.log.length+' entries'):'', _hist); }
 
   host.innerHTML=html;
 }
@@ -4152,7 +4230,7 @@ function tickUp(){ try{ if(typeof requestAnimationFrame!=='function' || typeof p
       if(p<1) requestAnimationFrame(step); else el.textContent=txt; };
     requestAnimationFrame(step); }); }catch(e){} }
 function renderAwards(){
-  renderSquad(); renderSeason(); renderTitleRow(); renderVaultRow(); renderMonuments();
+  renderSquad(); renderSeason(); renderTitleRow(); renderVaultRow(); renderMonuments(); applyFolds();
   const unlocked=ACH.filter(a=>DB.achievements[a.id]).length;
   $('#achCount').textContent=unlocked; $('#achTotal').textContent=ACH.length;
   $('#achFill').style.width=(unlocked/ACH.length*100)+'%';
@@ -5453,6 +5531,8 @@ document.addEventListener('click', e=>{
     case 'hr-connect-all': hrConnect(true); break;
     case 'log-where': { logWhere=t.dataset.w; $$('#logWhereChips .chip').forEach(c=>c.classList.toggle('on', c.dataset.w===logWhere)); const iw=$('#tmInclineWrap'); if(iw) iw.style.display=logWhere==='tm'?'block':'none'; break; }
     case 'log-run-submit': submitLogRun(); break;
+    case 'repeat-last': repeatLast(); break;
+    case 'fold-toggle': toggleFold(t.dataset.fold); break;
     case 'ex-cues': openExCues(t.dataset.ex); break;
     case 'tog-amoled': { DB.settings.amoled=!DB.settings.amoled; save(); applyAmoled();
       const b=$('#amoledBtn'); if(b) b.textContent=DB.settings.amoled?'On':'Off';
