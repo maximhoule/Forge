@@ -1097,6 +1097,9 @@ body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#1
 .ex-pick.is-cx .epn{display:flex; align-items:center; gap:7px}
 .cx-tag{font-family:'JetBrains Mono'; font-size:8.5px; letter-spacing:1px; text-transform:uppercase; padding:2px 6px; border-radius:99px; background:rgba(255,138,43,.15); color:#FFB47A; border:1px solid rgba(255,138,43,.35)}
 .cx-del{position:absolute; right:8px; top:50%; transform:translateY(-50%); width:26px; height:26px; border-radius:99px; background:var(--surface-3); border:1px solid var(--line); color:var(--muted-2); font-size:12px; line-height:1; cursor:pointer}
+.cx-edit{position:absolute; right:40px; top:50%; transform:translateY(-50%); width:26px; height:26px; border-radius:99px; background:var(--surface-3); border:1px solid var(--line); color:var(--muted-2); font-size:12px; line-height:1; cursor:pointer}
+.cx-edit:active{transform:translateY(-50%) scale(.9); color:var(--energy-1)}
+.ex-pick.is-cx{padding-right:74px}
 .cx-del:active{transform:translateY(-50%) scale(.9); color:#FF6B8A}
 #cxGroup{width:100%}
 @media(prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
@@ -5081,33 +5084,58 @@ function pullBuilderInputs(){
 
 /* exercise picker (for builder + live session) */
 /* ===================== CUSTOM EXERCISES ===================== */
-let _cxCat='push', _cxPil={strength:true,balance:false,mobility:false}, _cxReturn=null;
+let _cxCat='push', _cxPil={strength:true,balance:false,mobility:false}, _cxReturn=null, _cxEdit=null;
 const CX_CATS=[['push','Push','🫸'],['pull','Pull','🪝'],['legs','Legs','🦵'],['core','Core','🧿'],['balance','Balance','🪨'],['mobility','Mobility','🧘']];
 function exGroups(){ const s=new Set(); EX.forEach(e=>s.add(e.g)); return Array.from(s).sort(); }
 function cxCatRow(){ return CX_CATS.map(c=>`<button class="chip ${_cxCat===c[0]?'on':''}" data-action="cx-cat" data-v="${c[0]}">${c[2]} ${c[1]}</button>`).join(''); }
 function cxPilRow(){ return ['strength','balance','mobility'].map(p=>`<button class="chip ${_cxPil[p]?'on':''}" data-action="cx-pil" data-v="${p}">${p}</button>`).join(''); }
-function openCustomEx(prefill){
-  _cxCat='push'; _cxPil={strength:true,balance:false,mobility:false};
-  openSheet(`<div class="grab"></div><h3>Create exercise</h3>
-  <p class="sh-lead">It joins your library permanently — searchable, trackable, and counted in your heat-map.</p>
+function openCustomEx(arg){
+  const edit = (arg && typeof arg==='object') ? arg : null;
+  _cxEdit = edit ? edit.n : null;
+  const prefill = edit ? edit.n : (arg||'');
+  _cxCat = edit ? (edit.p||'push') : 'push';
+  _cxPil = {strength:false,balance:false,mobility:false};
+  (edit ? (edit.pil||['strength']) : ['strength']).forEach(p=>{ if(p in _cxPil) _cxPil[p]=true; });
+  const grp = edit ? (edit.g||'Custom') : '';
+  const opt = g => `<option value="${esc(g)}"${grp===g?' selected':''}>${esc(g)}</option>`;
+  const known = exGroups().includes(grp);
+  openSheet(`<div class="grab"></div><h3>${edit?'Edit exercise':'Create exercise'}</h3>
+  <p class="sh-lead">${edit?'Fix any detail — changes flow through your history, heat-map and stats.':'It joins your library permanently — searchable, trackable, and counted in your heat-map.'}</p>
   <div class="form-field"><label>Name</label><input id="cxName" maxlength="40" placeholder="e.g. Sled Push" value="${esc(prefill||'')}"></div>
   <div class="spr-card"><div class="spr-sec"><span>Movement type</span></div><div class="chips" id="cxCatRow">${cxCatRow()}</div></div>
   <div class="spr-card"><div class="spr-sec"><span>Muscle group</span><span class="spr-secr">drives the heat-map</span></div>
-    <select id="cxGroup">${exGroups().map(g=>`<option value="${esc(g)}">${esc(g)}</option>`).join('')}<option value="Custom">Other / Custom</option></select></div>
+    <select id="cxGroup">${exGroups().map(opt).join('')}<option value="Custom"${(!known||grp==='Custom')&&edit?' selected':''}>Other / Custom</option></select></div>
   <div class="spr-card"><div class="spr-sec"><span>Pillars</span><span class="spr-secr">drives the pillar wheel</span></div><div class="chips" id="cxPilRow">${cxPilRow()}</div></div>
-  <div class="btn-row" style="margin-top:14px"><button class="btn btn-primary" data-action="cx-save">Create & add</button><button class="btn btn-ghost" data-action="cx-back">Cancel</button></div>`);
+  <div class="btn-row" style="margin-top:14px"><button class="btn btn-primary" data-action="cx-save">${edit?'Save changes':'Create & add'}</button><button class="btn btn-ghost" data-action="cx-back">Cancel</button></div>`);
   setTimeout(()=>{ try{ const el=document.getElementById('cxName'); if(el&&el.focus) el.focus(); }catch(e){} },80);
 }
 function saveCustomEx(){
   const el=$('#cxName'); const v=((el&&el.value)||'').trim().slice(0,40);
   if(!v){ toast('✏️','Name it first','Every exercise needs a name'); return null; }
-  if(allEx().some(e=>e.n.toLowerCase()===v.toLowerCase())){ toast('⚠️','Already exists', '“'+v+'” is already in your library'); return null; }
+  const clash=allEx().some(e=>e.n.toLowerCase()===v.toLowerCase() && e.n!==_cxEdit);
+  if(clash){ toast('⚠️','Already exists', '“'+v+'” is already in your library'); return null; }
   const gs=$('#cxGroup'); let g=(gs&&gs.value)||''; if(!g) g='Custom';
   const pil=Object.keys(_cxPil).filter(k=>_cxPil[k]); if(!pil.length) pil.push('strength');
+  if(_cxEdit){
+    const cur=DB.customEx.find(e=>e.n===_cxEdit);
+    if(!cur){ _cxEdit=null; return null; }
+    const old=cur.n;
+    cur.n=v; cur.g=g; cur.p=_cxCat; cur.pil=pil;
+    if(old!==v) renameExercise(old, v);
+    save(); _cxEdit=null;
+    toast('✏️','Exercise updated', v+' · '+g);
+    return cur;
+  }
   const ex={n:v, g:g, p:_cxCat, pil:pil, cx:1};
   DB.customEx.push(ex); save();
   toast('✨','Exercise created', v+' · '+g);
   return ex;
+}
+function renameExercise(oldN, newN){
+  (DB.log||[]).forEach(l=>{ if(l.entries) l.entries.forEach(en=>{ if(en.exercise===oldN) en.exercise=newN; }); });
+  if(DB.prs && DB.prs[oldN]){ if(!DB.prs[newN]) DB.prs[newN]=DB.prs[oldN]; delete DB.prs[oldN]; }
+  (DB.routines||[]).forEach(r=>(r.days||[]).forEach(d=>(d.ex||[]).forEach(e=>{ if(e.n===oldN) e.n=newN; })));
+  if(activeSession && activeSession.entries) activeSession.entries.forEach(en=>{ if(en.exercise===oldN) en.exercise=newN; });
 }
 function delCustomEx(name){
   const i=DB.customEx.findIndex(e=>e.n===name); if(i<0) return false;
@@ -5116,7 +5144,7 @@ function delCustomEx(name){
 function openExPicker(onPick){
   const cats=[['push','Push','🫸'],['pull','Pull','🪝'],['legs','Legs','🦵'],['core','Core','🧿'],['balance','Balance','🪨'],['mobility','Mobility','🧘']];
   const byCat={}; allEx().forEach(e=>{ (byCat[e.p]=byCat[e.p]||[]).push(e); });
-  const row=e=>`<div class="ex-pick${e.cx?' is-cx':''}" data-action="pick-ex" data-name="${esc(e.n)}"><div class="epn">${esc(e.n)}${e.cx?'<span class="cx-tag">yours</span>':''}</div><div class="epg">${esc(e.g)}</div>${e.cx?`<button class="cx-del" data-action="cx-del" data-name="${esc(e.n)}">✕</button>`:''}</div>`;
+  const row=e=>`<div class="ex-pick${e.cx?' is-cx':''}" data-action="pick-ex" data-name="${esc(e.n)}"><div class="epn">${esc(e.n)}${e.cx?'<span class="cx-tag">yours</span>':''}</div><div class="epg">${esc(e.g)}</div>${e.cx?`<button class="cx-edit" data-action="cx-edit" data-name="${esc(e.n)}">✎</button><button class="cx-del" data-action="cx-del" data-name="${esc(e.n)}">✕</button>`:''}</div>`;
   const section=(key,label,ico)=>{ const list=byCat[key]||[]; if(!list.length) return '';
     const byG={}; list.forEach(e=>{ (byG[e.g]=byG[e.g]||[]).push(e); });
     const inner=Object.keys(byG).map(g=>`<p class="exg-sub">${esc(g)}</p>`+byG[g].map(row).join('')).join('');
@@ -5281,11 +5309,13 @@ document.addEventListener('click', e=>{
     case 'swap-browse': { const ei=+t.dataset.ei; closeSheet(); setTimeout(()=>openExPicker(n=>swapPick(ei,n)),80); break; }
     case 'swap-create': { const ei=+t.dataset.ei; exPickCallback=n=>swapPick(ei,n); _cxReturn=()=>openSwap(ei); openCustomEx(''); break; }
     case 'cx-open': { const q=(($('#exSearch')||{}).value||'').trim(); const cb=exPickCallback; _cxReturn=()=>openExPicker(cb); openCustomEx(q); break; }
+    case 'cx-edit': { const ex=DB.customEx.find(e=>e.n===t.dataset.name); if(!ex) break; const cb=exPickCallback; _cxReturn=()=>openExPicker(cb); openCustomEx(ex); break; }
     case 'cx-back': { const r=_cxReturn, cb=exPickCallback; _cxReturn=null; closeSheet(); setTimeout(()=>r?r():openExPicker(cb),80); break; }
     case 'cx-cat': { _cxCat=t.dataset.v; const r=$('#cxCatRow'); if(r) r.innerHTML=cxCatRow(); break; }
     case 'cx-pil': { const p=t.dataset.v; _cxPil[p]=!_cxPil[p]; const r=$('#cxPilRow'); if(r) r.innerHTML=cxPilRow(); break; }
-    case 'cx-save': { const ex=saveCustomEx(); if(!ex) break;
-      const cb=exPickCallback; _cxReturn=null; closeSheet(); setTimeout(()=>cb&&cb(ex.n),60); break; }
+    case 'cx-save': { const wasEdit=!!_cxEdit; const ex=saveCustomEx(); if(!ex) break;
+      const cb=exPickCallback, r=_cxReturn; _cxReturn=null; closeSheet();
+      if(wasEdit){ setTimeout(()=>r?r():(cb&&openExPicker(cb)),80); } else { setTimeout(()=>cb&&cb(ex.n),60); } break; }
     case 'cx-del': { const nm=t.dataset.name; if(!delCustomEx(nm)) break;
       const cb=exPickCallback; closeSheet(); setTimeout(()=>openExPicker(cb),80); break; }
     case 'sr-confirm': {
