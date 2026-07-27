@@ -1103,6 +1103,12 @@ body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#1
 .cx-del:active{transform:translateY(-50%) scale(.9); color:#FF6B8A}
 #cxGroup{width:100%}
 
+/* Distance unit toggle */
+.unit-toggle{display:flex; align-items:center; gap:8px; margin:-6px 0 18px}
+.ut-label{font-family:'JetBrains Mono'; font-size:9.5px; text-transform:uppercase; letter-spacing:1.6px; color:var(--muted-2); font-weight:700; margin-right:2px}
+.ut-btn{padding:6px 15px; border-radius:99px; background:var(--surface-2); border:1px solid var(--line); color:var(--muted); font-weight:700; font-size:12.5px; cursor:pointer; transition:transform .14s var(--ease), background .16s var(--ease), color .16s var(--ease), border-color .16s var(--ease)}
+.ut-btn:active{transform:scale(.94)}
+.ut-btn.on{background:var(--cool-soft); border-color:var(--cool); color:var(--cool)}
 /* Collapsible section — tuck away cards you don't check every visit */
 .fold{margin-bottom:14px}
 .fold-head{display:flex; align-items:center; gap:10px; width:100%; text-align:left; padding:13px 15px; border-radius:var(--r-md);
@@ -1286,6 +1292,11 @@ body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#1
       <button class="chip cool" data-tab="gps" data-action="cardio-tab">GPS run</button>
       <button class="chip cool" data-tab="log" data-action="cardio-tab">Log run</button>
     </div>
+    <div class="unit-toggle" id="distUnitToggle">
+      <span class="ut-label">Units</span>
+      <button class="ut-btn" data-action="dist-unit" data-u="km">km</button>
+      <button class="ut-btn" data-action="dist-unit" data-u="mi">mi</button>
+    </div>
     <div id="cardio-quick">
     <p class="screen-lead">Choose a distance and a goal — your session scales to match.</p>
     <button class="btn btn-ghost" data-action="interval-timer" style="margin-bottom:14px">⏱ Interval timer — EMOM · Tabata</button>
@@ -1301,7 +1312,7 @@ body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#1
         <button class="chip cool" data-dist="custom">Custom</button>
       </div>
       <div class="form-field" id="customDistWrap" style="display:none; margin-top:14px; margin-bottom:0">
-        <label>Custom distance (km)</label>
+        <label id="customDistLabel">Custom distance (km)</label>
         <input type="number" id="customDist" inputmode="decimal" placeholder="e.g. 7.5" min="0.5" step="0.1">
       </div>
     </div>
@@ -1320,7 +1331,7 @@ body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#1
 
     <div class="card">
       <div class="form-field" style="margin-bottom:0">
-        <label>Target pace — optional (min/km, for time estimates)</label>
+        <label id="paceInputLabel">Target pace — optional (min/km, for time estimates)</label>
         <input type="number" id="paceInput" inputmode="decimal" placeholder="e.g. 6.0" min="2" step="0.1">
       </div>
     </div>
@@ -1345,7 +1356,7 @@ body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#1
       </div>
     </div>
     <div class="card">
-      <div class="form-field"><label>Distance (km)</label><input type="number" id="logDist" inputmode="decimal" placeholder="e.g. 5.0" min="0.2" step="0.1"></div>
+      <div class="form-field"><label id="logDistLabel">Distance (km)</label><input type="number" id="logDist" inputmode="decimal" placeholder="e.g. 5.0" min="0.2" step="0.1"></div>
       <div class="form-field" style="margin-bottom:0"><label>Time</label>
         <div class="row2"><input type="number" id="logMin" inputmode="numeric" placeholder="25" min="0"><span class="u">min</span><input type="number" id="logSec" inputmode="numeric" placeholder="00" min="0" max="59"><span class="u">sec</span></div>
       </div>
@@ -2951,9 +2962,9 @@ function renderRecords(){
     _hist+=DB.log.map(x=>{
       if(x.type==='cardio'){
         const _rt=(x.path && x.path.length>1);
-        const _avg=(x.distance>0 && x.durationMin>0)?fmtMin(x.durationMin/x.distance):null;
-        const _det=(_rt?`<div class="route-wrap" style="margin:6px 0 4px">${routeSVG(x.path,300,150)}</div>`:'')+((x.splits&&x.splits.length)?splitsTable(x.splits):'')+(_avg?`<div class="hd-row"><span>Avg pace</span><span class="mono">${_avg} /km</span></div>`:'')+((x.incline!=null)?`<div class="hd-row"><span>Treadmill incline</span><span class="mono">${x.incline}%${x.effKm?(' · '+x.effKm+' km eff.'):''}</span></div>`:'')+((x.hrAvg)?`<div class="hd-row"><span>Heart rate</span><span class="mono">${x.hrAvg} avg${x.hrMax?(' · '+x.hrMax+' max'):''}</span></div>`:'');
-        return `<div class="hist-row"><div class="hist-main" data-action="toggle-log"><div class="hist-ico c">🏃</div><div class="hist-body"><div class="hist-title">${(Math.round(x.distance*10)/10)} km · ${gn[x.goal]||'Run'}</div><div class="hist-meta">${x.durationMin?(x.durationMin+' min'+(_avg?' · '+_avg+'/km':'')):'Cardio session'}${_rt?' · 🗺 route':''}</div></div><div class="hist-date">${sd(x.date)}</div></div>${_det?`<div class="hist-detail">${_det}</div>`:''}</div>`;
+        const _avg=(x.distance>0 && x.durationMin>0)?paceLabel(x.durationMin/x.distance):null;
+        const _det=(_rt?`<div class="route-wrap" style="margin:6px 0 4px">${routeSVG(x.path,300,150)}</div>`:'')+((x.splits&&x.splits.length)?splitsTable(x.splits):'')+(_avg?`<div class="hd-row"><span>Avg pace</span><span class="mono">${_avg}</span></div>`:'')+((x.incline!=null)?`<div class="hd-row"><span>Treadmill incline</span><span class="mono">${x.incline}%${x.effKm?(' · '+dNum(x.effKm)+' '+dU()+' eff.'):''}</span></div>`:'')+((x.hrAvg)?`<div class="hd-row"><span>Heart rate</span><span class="mono">${x.hrAvg} avg${x.hrMax?(' · '+x.hrMax+' max'):''}</span></div>`:'');
+        return `<div class="hist-row"><div class="hist-main" data-action="toggle-log"><div class="hist-ico c">🏃</div><div class="hist-body"><div class="hist-title">${dLabel(x.distance)} · ${gn[x.goal]||'Run'}</div><div class="hist-meta">${x.durationMin?(x.durationMin+' min'+(_avg?' · '+_avg:'')):'Cardio session'}${_rt?' · 🗺 route':''}</div></div><div class="hist-date">${sd(x.date)}</div></div>${_det?`<div class="hist-detail">${_det}</div>`:''}</div>`;
       }
       const setCount=(x.entries||[]).reduce((a,e)=>a+(e.sets||[]).length,0);
       const detail=(x.entries||[]).map(e=>{ const best=(e.sets||[]).reduce((b,s)=>{ const k=(+s.weight||0); return k>b.w?{w:k,r:(+s.reps||0)}:b; },{w:0,r:0}); return `<div class="hd-row"><span>${esc(e.exercise)}</span><span class="mono">${(e.sets||[]).length} sets · best ${best.w||0}×${best.r||0}</span></div>`; }).join('');
@@ -4387,8 +4398,8 @@ function checkAchievements(){
 let cardioDist=1, cardioGoal='fat';
 function buildCardio(){
   let dist=cardioDist;
-  if(cardioDist==='custom'){ dist=parseFloat($('#customDist').value)||0; if(dist<0.5){ toast('🏃','Enter a distance','At least 0.5 km please'); return; } }
-  const pace=parseFloat($('#paceInput').value)||0; // min/km
+  if(cardioDist==='custom'){ dist=fromDisp(parseFloat($('#customDist').value)||0); if(dist<0.5){ toast('🏃','Enter a distance','At least '+dNum(0.5)+' '+dU()+' please'); return; } }
+  const pace=paceToKm(parseFloat($('#paceInput').value)||0); // entered in chosen unit → min/km
   const segs=generateCardio(dist, cardioGoal, pace);
   renderCardioPlan(dist, cardioGoal, segs, pace);
 }
@@ -4523,9 +4534,9 @@ function logCardio(dist, goal, min, extra){
   updateStreak(); gainXP(50);
   updateBalancedWeeks(); const newAch=checkAchievements(); save();
   let msg='+50 XP'; if(newAch.length) msg+=` · ${newAch.length} award${newAch.length>1?'s':''}!`;
-  toast('🏃','Run logged',`${(Math.round(dist*10)/10)} km · ${msg}`);
+  toast('🏃','Run logged',`${dLabel(dist)} · ${msg}`);
   newAch.forEach(a=>setTimeout(()=>toast(a.ico, 'Award unlocked!', a.n, 'gold'), 350));
-  if(_ghost && min && min < _ghost.durationMin){ setTimeout(()=>toast('🏆','New best time!',`${(Math.round(dist*10)/10)} km in ${min} min — you beat your ghost (${_ghost.durationMin} min)!`,'gold'), 550); }
+  if(_ghost && min && min < _ghost.durationMin){ setTimeout(()=>toast('🏆','New best time!',`${dLabel(dist)} in ${min} min — you beat your ghost (${_ghost.durationMin} min)!`,'gold'), 550); }
   if(relicTier().idx>_relicBefore){ setTimeout(()=>{ burst('gold'); toast('🗡️','Relic advanced!','Your forge reached '+relicTier().tier.n); }, 700); }
   cacheGrant(activeEvent()?'rare':'');
   ascentCheck({type:'cardio', km:dist, min:min||0});
@@ -4756,7 +4767,7 @@ function gpsView(){
     const s=_gpsDone;
     return `<div class="card gps-card">
       <div class="eyebrow" style="margin-bottom:4px">Run saved 🎉</div>
-      <div class="gps-dist">${s.km.toFixed(2)}<small>km</small></div>
+      <div class="gps-dist">${dNum(s.km,2)}<small>${dU()}</small></div>
       <div class="gps-grid"><div class="gps-cell"><div class="gl">Time</div><div class="gv">${_fmtClock(s.min*60000)}</div></div><div class="gps-cell"><div class="gl">Avg pace</div><div class="gv">${s.avg||'—'}</div></div><div class="gps-cell"><div class="gl">Saved</div><div class="gv">✓</div></div></div>
       ${s.hrAvg?`<div class="gps-note" style="margin-top:10px">❤ Avg ${s.hrAvg} bpm · max ${s.hrMax} bpm</div>`:''}
       ${(s.path && s.path.length>1)?`<div class="route-wrap" style="margin-top:16px">${routeSVG(s.path,300,160)}</div><p class="gps-note">Your route · find it again under this run in History.</p>`:'<p class="gps-note" style="margin-top:14px">Route was too short to map, but the run is saved.</p>'}
@@ -4778,7 +4789,7 @@ function gpsView(){
   return `<div class="card gps-card">
     <div class="gps-sig"><span class="gps-dot" id="gpsDot"></span><span id="gpsSig">Acquiring GPS…</span>${paused?' · <b style="color:var(--gold)">PAUSED</b>':''}</div>
     <div id="hrLive" style="margin-bottom:8px"></div>
-    <div class="gps-dist" id="gpsDist">0.00<small>km</small></div>
+    <div class="gps-dist" id="gpsDist">0.00<small>${DU}</small></div>
     <div class="gps-grid">
       <div class="gps-cell"><div class="gl">Time</div><div class="gv" id="gpsTime">0:00</div></div>
       <div class="gps-cell"><div class="gl">Pace</div><div class="gv" id="gpsPace">—</div></div>
@@ -4831,7 +4842,7 @@ function _gpsOnErr(err){
 }
 function _gpsPaint(){
   if(!_gps) return;
-  const km=_gps.distance/1000, $d=$('#gpsDist'); if($d) $d.innerHTML=km.toFixed(2)+'<small>km</small>';
+  const km=_gps.distance/1000, $d=$('#gpsDist'); if($d) $d.innerHTML=dNum(km,2)+'<small>'+dU()+'</small>';
   const ms=_gpsElapsedMs(), $t=$('#gpsTime'); if($t) $t.textContent=_fmtClock(ms);
   const $p=$('#gpsPace'); if($p){ const v=_gps.curSpeed; $p.textContent=(v && v>0.4)?fmtMin((1000/v)/60):'—'; }
   const $a=$('#gpsAvg'); if($a){ const min=ms/60000; $a.textContent=(km>0.05 && min>0)?fmtMin(min/km):'—'; }
@@ -4867,13 +4878,14 @@ function zonePace(z){ const tp=trainingPaces(); if(!tp) return null;
   const p=tp.paces.find(x=>x.k===k); return p?p.disp:null; }
 function zonePaceTag(z){ const p=zonePace(z); return p?('<span class="tag ptag">⌖ '+p+'/km</span>'):''; }
 function submitLogRun(){
-  const dist=parseFloat(($('#logDist')||{}).value)||0;
+  const distIn=parseFloat(($('#logDist')||{}).value)||0;
+  const dist=Math.round(fromDisp(distIn)*1000)/1000;   // store km internally
   const mm=parseInt(($('#logMin')||{}).value,10)||0, ss=parseInt(($('#logSec')||{}).value,10)||0;
   const min=Math.round((mm+ss/60)*10)/10;
-  if(dist<0.2){ toast('🏃','Enter a distance','At least 0.2 km'); return; }
+  if(dist<0.2){ toast('🏃','Enter a distance','At least 0.2 '+dU()); return; }
   if(min<=0){ toast('⏱','Enter a time','How long did the run take?'); return; }
   const pace=min/dist;
-  if(pace<2 || pace>20){ toast('🤔','Check those numbers','That works out to '+fmtMin(pace)+' /km'); return; }
+  if(pace<2 || pace>20){ toast('🤔','Check those numbers','That works out to '+paceLabel(pace)); return; }
   const extra={};
   const hr=parseInt(($('#logHR')||{}).value,10); if(hr>=40 && hr<=230) extra.hrAvg=hr;
   let goal='run';
@@ -4888,6 +4900,19 @@ function submitLogRun(){
   ['logDist','logMin','logSec','logHR'].forEach(id=>{ const el=$('#'+id); if(el) el.value=''; });
   var pw=$('#pacesCardWrap'); if(pw) pw.innerHTML=pacesCard();
 }
+/* ===================== DISTANCE UNITS (km internal, display km/mi) ===================== */
+const KM_PER_MI=1.609344;
+function useMiles(){ return DB.settings && DB.settings.distUnit==='mi'; }
+function dU(){ return useMiles()?'mi':'km'; }
+function toDisp(km){ return useMiles()? km/KM_PER_MI : km; }          // km -> chosen unit
+function fromDisp(v){ return useMiles()? v*KM_PER_MI : v; }           // chosen unit -> km
+function dNum(km, dp){ dp=(dp==null?1:dp); const v=toDisp(km||0); return Math.round(v*Math.pow(10,dp))/Math.pow(10,dp); }
+function dLabel(km, dp){ return dNum(km,dp)+' '+dU(); }               // "3.1 mi"
+function paceLabel(minPerKm){ if(!minPerKm||!isFinite(minPerKm)) return '—'; const p=useMiles()? minPerKm*KM_PER_MI : minPerKm; return fmtMin(p)+' /'+dU(); }
+function paceToKm(minPerDisp){ return useMiles()? minPerDisp/KM_PER_MI : minPerDisp; } // input pace -> min/km
+function setDistUnit(u){ if(!DB.settings) DB.settings={}; DB.settings.distUnit=(u==='mi'?'mi':'km'); save();
+  toast('📏','Units set', useMiles()?'Miles — everywhere in Cardio':'Kilometres — everywhere in Cardio');
+  renderCardioTabs(); if(typeof renderRecords==='function' && $('#progressBody')) renderRecords(); }
 function renderCardioTabs(){
   const tab=cardioTab;
   $('#cardio-quick').style.display=tab==='quick'?'block':'none';
@@ -4895,6 +4920,12 @@ function renderCardioTabs(){
   var gel=$('#cardio-gps'); if(gel) gel.style.display=tab==='gps'?'block':'none';
   var lel=$('#cardio-log'); if(lel) lel.style.display=tab==='log'?'block':'none';
   $$('[data-action="cardio-tab"]').forEach(c=>c.classList.toggle('on', c.dataset.tab===cardioTab));
+  $$('[data-action="dist-unit"]').forEach(b=>b.classList.toggle('on', b.dataset.u===dU()));
+  $$('#distChips [data-dist]').forEach(c=>{ const d=c.dataset.dist; if(d==='custom'||d==='21.1') return; if(c.textContent.indexOf('km')<0 && c.textContent.indexOf('mi')<0) return; c.textContent=dNum(parseFloat(d),d==='1'?1:0)+' '+dU(); });
+  var _ldl=$('#logDistLabel'); if(_ldl) _ldl.textContent='Distance ('+dU()+')';
+  var _pil=$('#paceInputLabel'); if(_pil) _pil.textContent='Target pace — optional (min/'+dU()+', for time estimates)';
+  var _cdl=$('#customDistLabel'); if(_cdl) _cdl.textContent='Custom distance ('+dU()+')';
+  var _gdl=$('#gpsDist'); /* live-updated elsewhere */
   var pw=$('#pacesCardWrap'); if(pw) pw.innerHTML=pacesCard();
   if(tab==='plan') renderRunPlan();
   if(tab==='gps' && gel){ gel.innerHTML=gpsView(); _hrPaint(); if(_gps && _gps.active) _gpsPaint(); }
@@ -5532,6 +5563,7 @@ document.addEventListener('click', e=>{
     case 'log-where': { logWhere=t.dataset.w; $$('#logWhereChips .chip').forEach(c=>c.classList.toggle('on', c.dataset.w===logWhere)); const iw=$('#tmInclineWrap'); if(iw) iw.style.display=logWhere==='tm'?'block':'none'; break; }
     case 'log-run-submit': submitLogRun(); break;
     case 'repeat-last': repeatLast(); break;
+    case 'dist-unit': setDistUnit(t.dataset.u); break;
     case 'fold-toggle': toggleFold(t.dataset.fold); break;
     case 'ex-cues': openExCues(t.dataset.ex); break;
     case 'tog-amoled': { DB.settings.amoled=!DB.settings.amoled; save(); applyAmoled();
