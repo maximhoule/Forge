@@ -1103,6 +1103,17 @@ body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#1
 .cx-del:active{transform:translateY(-50%) scale(.9); color:#FF6B8A}
 #cxGroup{width:100%}
 
+/* Tappable vitals + version badge + VO2 hero */
+.vital.tappable{cursor:pointer; transition:transform .15s var(--ease), border-color .16s var(--ease)}
+.vital.tappable:active{transform:scale(.99)}
+.vital-edit{margin-top:8px; font-family:'JetBrains Mono'; font-size:10px; letter-spacing:1.1px; text-transform:uppercase; color:var(--cool); font-weight:700}
+.ver-badge{display:inline-block; padding:6px 13px; border-radius:99px; background:var(--surface-2); border:1px solid var(--line); font-family:'JetBrains Mono'; font-size:11.5px; color:var(--muted); letter-spacing:.6px}
+.vo2-hero{text-align:center; padding:16px 12px 18px; margin:2px 0 12px; border-radius:16px; border:1px solid var(--line-soft);
+  background:radial-gradient(62% 78% at 50% 40%, rgba(92,176,255,.14), transparent 74%), var(--surface-2)}
+.vo2-num{font-family:var(--font-epic); font-weight:800; font-size:40px; line-height:1; letter-spacing:.5px}
+.vo2-num small{display:block; font-family:'JetBrains Mono'; font-size:10px; font-weight:500; letter-spacing:1.6px; color:var(--muted-2); margin-top:6px; text-transform:uppercase}
+.vo2-src{font-family:'Cinzel', serif; font-size:10.5px; letter-spacing:2.4px; text-transform:uppercase; color:#8FC4FF; font-weight:700; margin-top:9px}
+.vo2-cat{display:inline-block; margin-top:9px; padding:5px 13px; border-radius:99px; background:var(--cool-soft); border:1px solid rgba(92,176,255,.4); font-size:11.5px; font-weight:700; color:#A9D4FF}
 /* Distance unit toggle */
 .unit-toggle{display:flex; align-items:center; gap:8px; margin:-6px 0 18px}
 .ut-label{font-family:'JetBrains Mono'; font-size:9.5px; text-transform:uppercase; letter-spacing:1.6px; color:var(--muted-2); font-weight:700; margin-right:2px}
@@ -2863,17 +2874,96 @@ function hrZones(){ const mx=maxHR(); if(!mx) return null; const rest=(DB.settin
   const defs=[['Z1 Recovery',0.5,0.6],['Z2 Aerobic',0.6,0.7],['Z3 Tempo',0.7,0.8],['Z4 Threshold',0.8,0.9],['Z5 Max',0.9,1.0]];
   return {mx, rest, zones:defs.map(d=>({name:d[0], lo:calc(d[1]), hi:calc(d[2])}))}; }
 
+/* ===================== VO2MAX — dedicated entry + analysis ===================== */
+const APP_V='v49';
+function vo2Parts(){
+  const s=DB.settings, age=currentAge();
+  const bv=bestVo2(), vr=vo2FromRestHR();
+  let est=null, src='';
+  if(bv){ est=Math.round(bv.vo2*10)/10; src='your best '+(bv.run.indoor?'treadmill run':'run')+' — '+dLabel(bv.run.distance)+' in '+bv.run.durationMin+' min'+(bv.run.indoor?', incline-adjusted':''); }
+  else if(vr){ est=Math.round(vr*10)/10; src='your resting heart rate'; }
+  const man=manualVo2();
+  const eff=(man!==null)?man:est;
+  return {man, est, eff, src, cat: eff?vo2Category(eff, age, s.sex):null, age, sex:s.sex};
+}
+function openVo2(){
+  const p=vo2Parts();
+  const delta=(p.man!==null && p.est!==null)? Math.round((p.man-p.est)*10)/10 : null;
+  const head=p.eff
+    ? `<div class="vo2-hero"><div class="vo2-num">${p.eff.toFixed(1)}<small>ml/kg/min</small></div>
+       <div class="vo2-src">${p.man!==null?'your own entry':'estimated by FORGE'}</div>
+       ${p.cat?`<div class="vo2-cat">${esc(p.cat.label)}${p.age&&p.sex?' for your age and sex':''}</div>`:''}</div>`
+    : `<div class="vo2-hero"><div class="vo2-num" style="font-size:26px">Not set</div>
+       <div class="vo2-src">enter yours below, or log a hard run of 1.5 ${dU()}+</div></div>`;
+  let analysis='';
+  if(p.est!==null){
+    analysis+=`<div class="spr-card"><div class="spr-sec"><span>FORGE's own estimate</span><span class="spr-secr">${p.est.toFixed(1)}</span></div>
+      <div class="sl-row"><span class="sl-i">📈</span><div>Read from ${esc(p.src)}</div></div>`;
+    if(delta!==null){
+      analysis+=`<div class="sl-row"><span class="sl-i">${delta===0?'🎯':(delta>0?'⬆️':'⬇️')}</span><div>${delta===0?'Your entry matches the estimate exactly.':`Your entry is <b>${Math.abs(delta)} ${delta>0?'above':'below'}</b> what FORGE reads from your training.`}</div></div>`;
+    }
+    analysis+=`</div>`;
+  } else {
+    analysis+=`<div class="spr-card"><div class="spr-sec"><span>FORGE's own estimate</span></div>
+      <div class="spr-empty">No estimate yet — log a run of at least 1.5 ${dU()} (or add your resting heart rate) and FORGE will calculate one to cross-check against your entry.</div></div>`;
+  }
+  const zones=hrZones();
+  if(zones && zones.mx){
+    analysis+=`<div class="spr-card"><div class="spr-sec"><span>What it drives</span></div>
+      <div class="sl-row"><span class="sl-i">⛰️</span><div>Ascent VO₂ gates</div></div>
+      <div class="sl-row"><span class="sl-i">⚔️</span><div>Squad comparisons</div></div>
+      <div class="sl-row"><span class="sl-i">🏃</span><div>Your training pace targets</div></div></div>`;
+  }
+  openSheet(`<div class="grab"></div><h3>VO₂max</h3>
+  ${head}
+  <div class="spr-card"><div class="spr-sec"><span>Enter it yourself</span><span class="spr-secr">watch or lab test</span></div>
+    <div class="spr-namerow"><input id="vo2In" type="number" inputmode="decimal" step="0.1" min="20" max="95" value="${p.man!==null?p.man:''}" placeholder="${p.est!==null?('e.g. '+p.est.toFixed(1)):'e.g. 48.5'}"><button class="btn btn-primary btn-sm" data-action="vo2-save">Save</button></div>
+    <p class="hint" style="text-align:left;margin:8px 0 0">Your number takes priority everywhere in FORGE. The estimate stays visible so you can always compare the two.</p>
+    ${p.man!==null?`<button class="btn btn-ghost btn-sm" data-action="vo2-clear" style="margin-top:10px">Use FORGE's estimate instead</button>`:''}
+  </div>
+  ${analysis}
+  <button class="btn btn-ghost btn-sm" data-action="close-sheet" style="margin-top:12px">Close</button>`);
+  setTimeout(()=>{ try{ const el=document.getElementById('vo2In'); if(el&&el.focus) el.focus(); }catch(e){} },80);
+}
+function saveVo2(){
+  const el=$('#vo2In'); const raw=((el&&el.value)||'').trim();
+  if(raw===''){ DB.settings.vo2Manual=null; save(); toast('🫁','Back to the estimate','FORGE will read your VO₂max from your runs'); }
+  else{
+    const v=parseFloat(raw);
+    if(!isFinite(v) || v<20 || v>95){ toast('🤔','Check that number','VO₂max is usually between 20 and 95'); return; }
+    DB.settings.vo2Manual=Math.round(v*10)/10; save();
+    toast('🫁','VO₂max saved', DB.settings.vo2Manual+' ml/kg/min — now used everywhere');
+  }
+  closeSheet();
+  var rec=$('#screen-records'); if(rec) renderRecords();
+  setTimeout(()=>{ try{ openVo2(); }catch(e){} }, 260);
+}
+function clearVo2(){ DB.settings.vo2Manual=null; save();
+  toast('🫁','Using the estimate','FORGE reads your VO₂max from your training again');
+  closeSheet(); var rec=$('#screen-records'); if(rec) renderRecords();
+  setTimeout(()=>{ try{ openVo2(); }catch(e){} }, 260); }
 function profileCard(){
   const s=DB.settings; const age=currentAge(); const haveProfile=!!(s.sex||age||s.heightCm);
   const bestV=bestVo2(); const vRest=vo2FromRestHR();
   let vo2=null, vsrc='';
   if(bestV){ vo2=bestV.vo2; vsrc='from your best '+(bestV.run.indoor?'treadmill run':'run')+' · '+cn(Math.round(bestV.run.distance*10)/10)+' km in '+bestV.run.durationMin+' min'+(bestV.run.indoor?' · incline-adjusted':''); }
   else if(vRest){ vo2=vRest; vsrc='estimated from resting heart rate'; }
-  const cat=vo2? vo2Category(vo2, age, s.sex) : null;
+  const vMan=manualVo2(); const vEst=vo2; const vEff=(vMan!==null)?vMan:vEst;
+  const cat=vEff? vo2Category(vEff, age, s.sex) : null;
   const bmi=bmiInfo(); const hz=hrZones();
   let blocks='';
-  if(vo2){ blocks+=`<div class="vital"><div class="vital-top"><div class="vital-k">VO₂max · estimate</div><div class="vital-v">${vo2.toFixed(1)}<small> ml/kg/min</small></div></div><div class="vital-sub">${cat?`<span class="vital-tag">${cat.label}${age&&s.sex?' for your age/sex':''}</span> · `:''}${vsrc}</div></div>`; }
-  else { blocks+=`<div class="vital"><div class="vital-k">VO₂max · estimate</div><div class="vital-sub" style="margin-top:4px">Log a hard run of 1.5 km or more — or add your resting heart rate below — and FORGE will estimate it.</div></div>`; }
+  if(vEff){
+    let srcLine=vsrc;
+    if(vMan!==null){
+      srcLine='your own entry';
+      if(vEst){ const d=Math.round((vMan-vEst)*10)/10;
+        srcLine+=` · FORGE reads ${vEst.toFixed(1)} from ${vsrc.replace(/^from your best /,'your best ').replace(/^estimated from /,'')}`;
+        srcLine+=(d===0)?' — dead on' : ` — you're ${Math.abs(d)} ${d>0?'above':'below'} that`;
+      } else { srcLine+=' · log a hard run of 1.5 km+ and FORGE will cross-check it'; }
+    }
+    blocks+=`<div class="vital tappable" data-action="open-vo2"><div class="vital-top"><div class="vital-k">VO₂max · ${vMan!==null?'your entry':'estimate'}</div><div class="vital-v">${vEff.toFixed(1)}<small> ml/kg/min</small></div></div><div class="vital-sub">${cat?`<span class="vital-tag">${cat.label}${age&&s.sex?' for your age/sex':''}</span> · `:''}${srcLine}</div><div class="vital-edit">${vMan!==null?'✎ Edit your entry':'✎ Enter it manually'}</div></div>`;
+  }
+  else { blocks+=`<div class="vital tappable" data-action="open-vo2"><div class="vital-k">VO₂max</div><div class="vital-sub" style="margin-top:4px">Measured it with a watch or lab test? Enter it yourself — or log a hard run of 1.5 ${dU()}+ and FORGE will estimate one.</div><div class="vital-edit">✎ Enter it manually</div></div>`; }
   { const dd=dotsScore(); if(dd){ blocks+=`<div class="vital"><div class="vital-top"><div class="vital-k">DOTS · powerlifting score</div><div class="vital-v">${dd.pts}</div></div><div class="vital-sub"><span class="vital-tag">${dd.lbl}</span> · big-3 total ${fmt(dd.tot)} kg${dd.approx?' · set sex in profile for exact scoring':''}</div></div>`; } }
   if(bmi){ blocks+=`<div class="vital"><div class="vital-top"><div class="vital-k">BMI</div><div class="vital-v">${bmi.bmi.toFixed(1)}</div></div><div class="vital-sub"><span class="vital-tag">${bmi.label}</span> · BMI ignores muscle, so trained lifters often read high.</div></div>`; }
   if(hz){ const zr=hz.zones.map(z=>`<div class="hz-row"><span class="hz-n">${z.name}</span><span class="hz-v">${z.lo}–${z.hi}</span></div>`).join('');
@@ -2898,6 +2988,8 @@ function openProfile(){
     <div class="form-field"><label>Age</label><input id="pAge" type="number" inputmode="numeric" min="10" max="100" value="${age||''}" placeholder="30"></div>
     ${heightField}
     <div class="form-field"><label>Resting heart rate · bpm, optional</label><input id="pRest" type="number" inputmode="numeric" min="30" max="120" value="${s.restHR||''}" placeholder="60"></div>
+    <div class="form-field"><label>VO₂max · optional, from a watch or lab test</label><input id="pVo2" type="number" inputmode="decimal" step="0.1" min="20" max="95" value="${s.vo2Manual||''}" placeholder="${estVo2()?('FORGE estimates '+estVo2().toFixed(1)):'e.g. 48.5'}">
+      <p class="hint" style="text-align:left;margin:6px 0 0">Your number takes priority across FORGE — Ascent gates, squad compares, everything. Leave it blank to go back to the run-based estimate; the estimate stays visible either way so you can compare.</p></div>
     <button class="btn btn-primary" data-action="save-profile" style="margin-top:8px">Save profile</button>
     <button class="btn btn-ghost btn-sm" data-action="close-sheet">Cancel</button>`);
 }
@@ -3001,7 +3093,9 @@ function _b64d(s){ try{ return decodeURIComponent(escape(atob(s))); }catch(e){ r
 function timeAgo(ts){ if(!ts) return 'unknown'; const s=(Date.now()-ts)/1000; if(s<3600) return Math.max(1,Math.round(s/60))+' min ago'; if(s<86400) return Math.round(s/3600)+'h ago'; return Math.round(s/86400)+'d ago'; }
 function isStale(ts){ return !!ts && (Date.now()-ts) > 7*86400000; }
 function myTopLifts(n){ return Object.keys(DB.prs||{}).map(k=>({n:k, e:Math.round(DB.prs[k].e1rm||0)})).filter(x=>x.e>0).sort((a,b)=>b.e-a.e).slice(0, n||6); }
-function myVo2(){ const b=bestVo2(); if(b) return Math.round(b.vo2*10)/10; const r=vo2FromRestHR(); return r?Math.round(r*10)/10:0; }
+function estVo2(){ const b=bestVo2(); if(b) return Math.round(b.vo2*10)/10; const r=vo2FromRestHR(); return r?Math.round(r*10)/10:0; }
+function manualVo2(){ const m=DB.settings&&DB.settings.vo2Manual; return (m>0)?Math.round(m*10)/10:null; }
+function myVo2(){ const m=manualVo2(); return (m!==null)?m:estVo2(); }
 function myBestPace(){ let best=null; (DB.log||[]).forEach(l=>{ if(l.type==='cardio' && l.distance>=1 && l.durationMin>0){ const p=l.durationMin/l.distance; if(best===null||p<best) best=p; } }); return best?Math.round(best*100)/100:0; }
 function myLongestRun(){ let m=0; (DB.log||[]).forEach(l=>{ if(l.type==='cardio' && (l.distance||0)>m) m=l.distance; }); return Math.round(m*10)/10; }
 function myStats(){
@@ -5303,6 +5397,7 @@ function openSettings(){
     <div class="form-field"><label>Rest timer alert</label>
       <button class="toggle-row" data-action="toggle-sound"><span>Beep when rest ends</span><span class="tog ${DB.settings.sound===false?'':'on'}"><span class="tog-dot"></span></span></button>
     </div>
+    <div class="form-field"><label>App version</label><div class="ver-badge">FORGE ${APP_V}</div></div>
     <div class="form-field"><label>AMOLED pure black</label><button class="btn btn-ghost btn-sm" data-action="tog-amoled" id="amoledBtn" style="width:auto">${DB.settings.amoled?'On':'Off'}</button></div>
     <div class="form-field"><label>Voice cues</label>
       <button class="toggle-row" data-action="toggle-voice"><span>Speak run splits &amp; rest alerts</span><span class="tog ${DB.settings.voice===true?'on':''}"><span class="tog-dot"></span></span></button>
@@ -5530,11 +5625,13 @@ document.addEventListener('click', e=>{
       if($('#pHeight')){ const hv=$('#pHeight').value, h=parseFloat(hv); DB.settings.heightCm=(h>=100&&h<=250)?Math.round(h):(hv===''?null:DB.settings.heightCm); }
       else if($('#pFt')){ const fv=($('#pFt')||{}).value, ft=parseFloat(fv), inch=parseFloat(($('#pIn')||{}).value)||0; if(ft>=3&&ft<=8) DB.settings.heightCm=Math.round((ft*12+inch)*2.54); else if(fv==='') DB.settings.heightCm=null; }
       const rv=($('#pRest')||{}).value, r=parseInt(rv,10); DB.settings.restHR=(r>=30&&r<=120)?r:(rv===''?null:DB.settings.restHR);
+      const vv=($('#pVo2')||{}).value, vN=parseFloat(vv);
+      if(vv==='') DB.settings.vo2Manual=null; else if(vN>=20 && vN<=95) DB.settings.vo2Manual=Math.round(vN*10)/10;
       save(); closeSheet(); var rec=$('#screen-records'); if(rec&&rec.classList.contains('active')) renderRecords(); renderHome(); toast('👤','Profile saved','Standards & zones updated'); break;
     }
     case 'reset-data':
       if(confirm('Reset ALL data? This erases your routines, logs, PRs and awards. Cannot be undone.')){
-        ['settings','stats','routines','log','prs','ach','customEx','bodyweight','plan','quests','activeSession','friends','season','seasonHistory','bossLog','weapon','ascent','loot','sprite','monu'].forEach(k=>Store.set('forge.'+k, k==='settings'?{name:'',unit:'kg',sound:true,voice:false,sex:'',birthYear:null,heightCm:null,restHR:null,title:null}:(k==='stats'?{xp:0,totalVolume:0,distanceKm:0,prsSet:0,routinesCreated:0,workouts:0,cardioSessions:0,currentStreak:0,longestStreak:0,lastWorkoutDate:null, balancedWeeks:0, lastBalancedWeek:null, streakFreezes:0, bossWins:0}:(['routines','log','customEx','bodyweight','friends','seasonHistory','bossLog'].includes(k)?[]:(['season','weapon','ascent','loot','sprite','monu'].includes(k)?null:{})))));
+        ['settings','stats','routines','log','prs','ach','customEx','bodyweight','plan','quests','activeSession','friends','season','seasonHistory','bossLog','weapon','ascent','loot','sprite','monu'].forEach(k=>Store.set('forge.'+k, k==='settings'?{name:'',unit:'kg',sound:true,voice:false,sex:'',birthYear:null,heightCm:null,restHR:null,vo2Manual:null,title:null}:(k==='stats'?{xp:0,totalVolume:0,distanceKm:0,prsSet:0,routinesCreated:0,workouts:0,cardioSessions:0,currentStreak:0,longestStreak:0,lastWorkoutDate:null, balancedWeeks:0, lastBalancedWeek:null, streakFreezes:0, bossWins:0}:(['routines','log','customEx','bodyweight','friends','seasonHistory','bossLog'].includes(k)?[]:(['season','weapon','ascent','loot','sprite','monu'].includes(k)?null:{})))));
         location.reload();
       } break;
 
@@ -5720,6 +5817,9 @@ document.addEventListener('click', e=>{
     case 'log-run-submit': submitLogRun(); break;
     case 'repeat-last': repeatLast(); break;
     case 'dist-unit': setDistUnit(t.dataset.u); break;
+    case 'open-vo2': openVo2(); break;
+    case 'vo2-save': saveVo2(); break;
+    case 'vo2-clear': clearVo2(); break;
     case 'fold-toggle': toggleFold(t.dataset.fold); break;
     case 'ex-cues': openExCues(t.dataset.ex); break;
     case 'tog-amoled': { DB.settings.amoled=!DB.settings.amoled; save(); applyAmoled();
