@@ -1103,6 +1103,10 @@ body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#1
 .cx-del:active{transform:translateY(-50%) scale(.9); color:#FF6B8A}
 #cxGroup{width:100%}
 
+/* Season daily cap meter */
+.ssn-cap{position:relative; margin:9px 0 11px; height:20px; border-radius:99px; background:var(--surface-3); overflow:hidden; border:1px solid var(--line-soft)}
+.ssn-cap i{position:absolute; left:0; top:0; bottom:0; background:var(--grad-energy); opacity:.34; transition:width .6s var(--ease)}
+.ssn-cap span{position:relative; z-index:1; display:block; text-align:center; line-height:19px; font-family:'JetBrains Mono'; font-size:9.5px; letter-spacing:1.2px; color:var(--muted); text-transform:uppercase}
 /* Tappable vitals + version badge + VO2 hero */
 .vital.tappable{cursor:pointer; transition:transform .15s var(--ease), border-color .16s var(--ease)}
 .vital.tappable:active{transform:scale(.99)}
@@ -2875,7 +2879,7 @@ function hrZones(){ const mx=maxHR(); if(!mx) return null; const rest=(DB.settin
   return {mx, rest, zones:defs.map(d=>({name:d[0], lo:calc(d[1]), hi:calc(d[2])}))}; }
 
 /* ===================== VO2MAX — dedicated entry + analysis ===================== */
-const APP_V='v50';
+const APP_V='v51';
 function vo2Parts(){
   const s=DB.settings, age=currentAge();
   const bv=bestVo2(), vr=vo2FromRestHR();
@@ -3225,7 +3229,7 @@ document.addEventListener('input', e=>{ if(e.target && e.target.id==='squadName'
 
 /* ===================== SEASONS — quarterly ladders ===================== */
 const SEASON_NAMES=[['Season of Embers','🔥'],['Season of Iron','⚙️'],['Season of Storms','⚡'],['Season of Ash','🌑'],['Season of Dawn','🌅'],['Season of Frost','❄️'],['Season of the Colossus','🗿'],['Season of Cinders','♨️']];
-const SEASON_TIERS=[{n:'Unranked',ico:'·',at:0},{n:'Bronze',ico:'🥉',at:600},{n:'Silver',ico:'🥈',at:1800},{n:'Gold',ico:'🥇',at:3600},{n:'Mythic',ico:'💎',at:6000},{n:'Ascendant',ico:'✦',at:9000}];
+const SEASON_TIERS=[{n:'Unranked',ico:'·',at:0},{n:'Bronze',ico:'🥉',at:900},{n:'Silver',ico:'🥈',at:2500},{n:'Gold',ico:'🥇',at:4500},{n:'Mythic',ico:'💎',at:7000},{n:'Ascendant',ico:'✦',at:9800}];
 function seasonKey(d){ d=d||new Date(); return d.getFullYear()+'-Q'+(Math.floor(d.getMonth()/3)+1); }
 function seasonMeta(key){ const p=key.split('-Q'), y=+p[0], q=+p[1]; const s=SEASON_NAMES[(y*4+(q-1))%SEASON_NAMES.length]; return {name:s[0], ico:s[1], end:new Date(y, q*3, 1)}; }
 function seasonDaysLeft(){ return Math.max(0, Math.ceil((seasonMeta(seasonKey()).end - new Date())/86400000)); }
@@ -3242,7 +3246,14 @@ function ensureSeason(){
   DB.season={key:k, score:0, base:{vol:DB.stats.totalVolume||0, km:DB.stats.distanceKm||0, pr:DB.stats.prsSet||0, w:(DB.stats.workouts||0)+(DB.stats.cardioSessions||0)}, done:{}};
   save();
 }
-function seasonTick(n){ ensureSeason(); DB.season.score+=n; }
+const SEASON_DAILY_CAP=130;
+function seasonDay(){ ensureSeason(); const d=todayStr();
+  if(!DB.season.day || DB.season.day.d!==d) DB.season.day={d:d, n:0};
+  return DB.season.day; }
+function seasonTick(n){ ensureSeason(); const day=seasonDay();
+  const room=Math.max(0, SEASON_DAILY_CAP - day.n);
+  const add=Math.max(0, Math.min(n, room));
+  if(add>0){ day.n+=add; DB.season.score+=add; } }
 function seasonQuests(){ ensureSeason(); const b=DB.season.base; return [
   {id:'sw', label:'Complete 60 sessions', goal:60, val:()=>((DB.stats.workouts||0)+(DB.stats.cardioSessions||0))-b.w},
   {id:'sk', label:'Cover '+dNum(120,0)+' '+dU(), goal:120, val:()=>Math.round(((DB.stats.distanceKm||0)-b.km)*10)/10},
@@ -3263,9 +3274,10 @@ function renderSeason(){
   host.innerHTML=`<div class="sec-label">${m.ico} ${esc(m.name)} <span class="ssn-days">· ${seasonDaysLeft()}d left</span></div>
   <div class="card ssn-card">
     <div class="ssn-top"><div class="ssn-score">${fmt(sc)}<small> pts</small></div><div class="ssn-tier">${t.ico} ${t.n}${nx?' · '+fmt(nx.at-sc)+' to '+nx.n:' · top tier'}</div></div>
+    <div class="ssn-cap"><span>Today ${seasonDay().n} / ${SEASON_DAILY_CAP}</span><i style="width:${Math.round(seasonDay().n/SEASON_DAILY_CAP*100)}%"></i></div>
     <div class="sq-bar big"><i style="width:${pct}%"></i></div>
     ${qrows}
-    <p class="hint" style="margin-top:11px;text-align:left">Season points mirror the XP you earn this quarter — the ladder resets every 3 months; your lifetime forge never does.${bosses?'<br>⚔ Bosses felled: '+bosses:''}${hist?'<br>Past seasons: '+hist:''}</p>
+    <p class="hint" style="margin-top:11px;text-align:left">You can bank at most ${SEASON_DAILY_CAP} season points a day, so the ladder rewards showing up across the whole quarter rather than a few huge weeks. Reaching Mythic takes at least 54 active days. Resets every 3 months; your lifetime forge never does.${bosses?'<br>⚔ Bosses felled: '+bosses:''}${hist?'<br>Past seasons: '+hist:''}</p>
   </div>`;
 }
 /* ===================== DOTS SCORE ===================== */
