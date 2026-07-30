@@ -2875,7 +2875,7 @@ function hrZones(){ const mx=maxHR(); if(!mx) return null; const rest=(DB.settin
   return {mx, rest, zones:defs.map(d=>({name:d[0], lo:calc(d[1]), hi:calc(d[2])}))}; }
 
 /* ===================== VO2MAX — dedicated entry + analysis ===================== */
-const APP_V='v49';
+const APP_V='v50';
 function vo2Parts(){
   const s=DB.settings, age=currentAge();
   const bv=bestVo2(), vr=vo2FromRestHR();
@@ -3225,7 +3225,7 @@ document.addEventListener('input', e=>{ if(e.target && e.target.id==='squadName'
 
 /* ===================== SEASONS — quarterly ladders ===================== */
 const SEASON_NAMES=[['Season of Embers','🔥'],['Season of Iron','⚙️'],['Season of Storms','⚡'],['Season of Ash','🌑'],['Season of Dawn','🌅'],['Season of Frost','❄️'],['Season of the Colossus','🗿'],['Season of Cinders','♨️']];
-const SEASON_TIERS=[{n:'Unranked',ico:'·',at:0},{n:'Bronze',ico:'🥉',at:150},{n:'Silver',ico:'🥈',at:400},{n:'Gold',ico:'🥇',at:800},{n:'Mythic',ico:'💎',at:1500}];
+const SEASON_TIERS=[{n:'Unranked',ico:'·',at:0},{n:'Bronze',ico:'🥉',at:600},{n:'Silver',ico:'🥈',at:1800},{n:'Gold',ico:'🥇',at:3600},{n:'Mythic',ico:'💎',at:6000},{n:'Ascendant',ico:'✦',at:9000}];
 function seasonKey(d){ d=d||new Date(); return d.getFullYear()+'-Q'+(Math.floor(d.getMonth()/3)+1); }
 function seasonMeta(key){ const p=key.split('-Q'), y=+p[0], q=+p[1]; const s=SEASON_NAMES[(y*4+(q-1))%SEASON_NAMES.length]; return {name:s[0], ico:s[1], end:new Date(y, q*3, 1)}; }
 function seasonDaysLeft(){ return Math.max(0, Math.ceil((seasonMeta(seasonKey()).end - new Date())/86400000)); }
@@ -3244,20 +3244,20 @@ function ensureSeason(){
 }
 function seasonTick(n){ ensureSeason(); DB.season.score+=n; }
 function seasonQuests(){ ensureSeason(); const b=DB.season.base; return [
-  {id:'sw', label:'Complete 24 sessions', goal:24, val:()=>((DB.stats.workouts||0)+(DB.stats.cardioSessions||0))-b.w},
-  {id:'sk', label:'Cover 30 km', goal:30, val:()=>Math.round(((DB.stats.distanceKm||0)-b.km)*10)/10},
-  {id:'sp', label:'Strike 6 PRs', goal:6, val:()=>(DB.stats.prsSet||0)-b.pr}
+  {id:'sw', label:'Complete 60 sessions', goal:60, val:()=>((DB.stats.workouts||0)+(DB.stats.cardioSessions||0))-b.w},
+  {id:'sk', label:'Cover '+dNum(120,0)+' '+dU(), goal:120, val:()=>Math.round(((DB.stats.distanceKm||0)-b.km)*10)/10},
+  {id:'sp', label:'Strike 12 PRs', goal:12, val:()=>(DB.stats.prsSet||0)-b.pr}
 ]; }
 function checkSeasonQuests(){ ensureSeason(); seasonQuests().forEach(q=>{
-  if(!DB.season.done[q.id] && q.val()>=q.goal){ DB.season.done[q.id]=true; DB.season.score+=120;
-    setTimeout(()=>toast(seasonMeta(DB.season.key).ico,'Season quest complete!', q.label+' · +120 season pts','gold'), 650); }
+  if(!DB.season.done[q.id] && q.val()>=q.goal){ DB.season.done[q.id]=true; DB.season.score+=400;
+    setTimeout(()=>toast(seasonMeta(DB.season.key).ico,'Season quest complete!', q.label+' · +400 season pts','gold'), 650); }
 }); }
 function renderSeason(){
   const host=$('#seasonSection'); if(!host) return; ensureSeason();
   const m=seasonMeta(DB.season.key), sc=DB.season.score||0, t=seasonTier(sc);
   const nx=SEASON_TIERS.find(x=>x.at>sc); const pct=nx?Math.min(100,Math.round(sc/nx.at*100)):100;
   const qrows=seasonQuests().map(q=>{ const done=!!DB.season.done[q.id]; const v=Math.max(0,q.val()); const p=done?100:Math.min(100,Math.round(v/q.goal*100));
-    return `<div class="sq-row ${done?'done':''}"><span class="sq-l">${done?'✓ ':''}${q.label}</span><div class="sq-bar"><i style="width:${p}%"></i></div><span class="sq-v">${done?'+120':(Math.min(v,q.goal)+'/'+q.goal)}</span></div>`; }).join('');
+    return `<div class="sq-row ${done?'done':''}"><span class="sq-l">${done?'✓ ':''}${q.label}</span><div class="sq-bar"><i style="width:${p}%"></i></div><span class="sq-v">${done?'+400':(Math.min(v,q.goal)+'/'+q.goal)}</span></div>`; }).join('');
   const hist=(DB.seasonHistory||[]).slice(0,4).map(h=>`<span class="sh-medal" title="${esc(h.name)} · ${fmt(h.score)} pts">${h.ico}<small>${esc(h.key)}</small></span>`).join(' ');
   const bosses=(DB.bossLog||[]).slice(0,8).map(b=>`<span title="${esc(b.name)}">${b.ico}</span>`).join(' ');
   host.innerHTML=`<div class="sec-label">${m.ico} ${esc(m.name)} <span class="ssn-days">· ${seasonDaysLeft()}d left</span></div>
