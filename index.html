@@ -1154,6 +1154,7 @@ body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#1
 .chip{ border-radius:99px; }
 @keyframes v42Rise{ from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none} }
 /* ===================== v55 — session focus, insight cards ===================== */
+.rest-for{font-size:11px; color:var(--muted); margin:8px 2px 0; min-height:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 .exblock .setrow{grid-template-columns:34px 1fr 1fr 54px}
 .setrow .check{width:48px; height:48px; border-radius:12px; font-size:19px}
 .setrow.done{opacity:.72}
@@ -1468,6 +1469,7 @@ body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#1
         <button class="btn btn-ghost btn-sm" data-action="rest+15">+15s</button>
         <button class="btn btn-primary btn-sm" data-action="rest-toggle" id="restToggleBtn" style="flex:1">Start rest</button>
       </div>
+      <div class="rest-for" id="restFor"></div>
       <div class="rest-presets">
         <button class="rp" data-action="rest-preset" data-sec="60">1:00</button>
         <button class="rp" data-action="rest-preset" data-sec="90">1:30</button>
@@ -3113,7 +3115,7 @@ function hrZones(){ const mx=maxHR(); if(!mx) return null; const rest=(DB.settin
   return {mx, rest, zones:defs.map(d=>({name:d[0], lo:calc(d[1]), hi:calc(d[2])}))}; }
 
 /* ===================== VO2MAX — dedicated entry + analysis ===================== */
-const APP_V='v55';
+const APP_V='v56';
 function vo2Parts(){
   const s=DB.settings, age=currentAge();
   const bv=bestVo2(), vr=vo2FromRestHR();
@@ -4847,7 +4849,17 @@ function startSession(title, eyebrow, exList){
 }
 /* ===================== SMART REST — matched to each exercise, set and rep count ===================== */
 const _ISO_RE=/(banded|raise|curl|extension|\bfly\b|flye|crossover|kickback|pushdown|pec deck|shrug|abduction|adduction|pullover|face pull|pull-apart|rear-delt|calf|svend|tate press|21s|cuban)/i;
-let _restEi=null, _restBase=0;
+let _restEi=null, _restBase=0, restPaused=false;
+function curRestTarget(){ if(!activeSession) return null; const E=activeSession.entries||[];
+  const ei=E.findIndex(e=>(e.sets||[]).some(s=>!s.done)); if(ei<0) return null;
+  return {ei, si:E[ei].sets.findIndex(s=>!s.done), en:E[ei]}; }
+function primeRest(){ if(restRunning || restPaused || !activeSession) return;
+  const c=curRestTarget(); restSeconds=c? restFor(c.en, c.si) : 0; restTotal=restSeconds; paintRest(); }
+function paintRestFor(){ const el=$('#restFor'); if(!el) return; let txt='';
+  if(restRunning || restPaused){ const en=(_restEi!=null && activeSession)? activeSession.entries[_restEi] : null;
+    txt= en? en.exercise+' · '+restSource(en)+(restPaused?' · paused':'') : 'Custom rest'; }
+  else if(activeSession){ const c=curRestTarget(); if(c){ const r=restFor(c.en, c.si); txt='Up next: '+c.en.exercise+' · '+fmtRest(r)+' '+restSource(c.en); } }
+  el.textContent=txt; }
 function restClass(name){
   const i=exInfo(name)||{}, n=String(name||'');
   if(i.p==='mobility') return 'mobility';
@@ -4961,7 +4973,7 @@ function renderSession(){
     </div>`;
   }).join('');
   $('#sessionBar').style.display='block';
-  _fitSessionPad();
+  _fitSessionPad(); primeRest();
   const _ss=$('#saveStatus'); if(_ss){ _ss.textContent='Saved ✓'; _ss.className='save-status saved'; }
 }
 function syncSetInput(ei,si,field,val){
@@ -6157,7 +6169,7 @@ document.addEventListener('click', e=>{
     case 'test-alert': testRestAlert(); break;
     case 'rest-15': restAdjust(-15); break;
     case 'rest+15': restAdjust(15); break;
-    case 'rest-preset': startRest(+t.dataset.sec); break;
+    case 'rest-preset': _restEi=null; startRest(+t.dataset.sec); break;
 
     // cardio
     // progress / body weight
@@ -6296,7 +6308,7 @@ document.addEventListener('input', e=>{ if(e.target.id==='plateTarget' || e.targ
 /* backup file import */
 document.addEventListener('change', e=>{ if(e.target.id==='importFile' && e.target.files && e.target.files[0]){ const f=e.target.files[0]; if(confirm('Restore from this backup? It will replace your current data on this device.')) importData(f); e.target.value=''; } });
 /* fire rest alert on return if it elapsed while backgrounded; keep audio alive */
-document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState==='visible' && restRunning){ const rem=Math.max(0,Math.round((restEndAt-Date.now())/1000)); restSeconds=rem; if(rem<=0){ restRunning=false; clearInterval(restInt); restInt=null; paintRest(); _restAlert(); } else { paintRest(); if(_kaAudio&&_kaAudio.paused){ try{ _kaAudio.play().catch(()=>{}); }catch(e){} } } } });
+document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState==='visible' && restRunning){ const rem=Math.max(0,Math.round((restEndAt-Date.now())/1000)); restSeconds=rem; if(rem<=0){ restRunning=false; clearInterval(restInt); restInt=null; paintRest(); _restAlert(); setTimeout(primeRest, 2500); } else { paintRest(); if(_kaAudio&&_kaAudio.paused){ try{ _kaAudio.play().catch(()=>{}); }catch(e){} } } } });
 /* keep focused inputs above the on-screen keyboard */
 document.addEventListener('focusin', e=>{ const t=e.target; if(t && t.matches && t.matches('input,select,textarea') && (t.closest('.sheet')||t.closest('#screen-train'))){ setTimeout(()=>{ try{ t.scrollIntoView({block:'center', behavior:'smooth'}); }catch(_){} }, 300); } });
 /* auto-save: flush everything when the app is hidden or closed */
@@ -6344,7 +6356,7 @@ function _startKeepAlive(){
 function _stopKeepAlive(){ try{ _kaAudio&&_kaAudio.pause(); }catch(e){} if('mediaSession' in navigator){ try{ navigator.mediaSession.playbackState='none'; }catch(e){} } }
 async function _acquireWake(){ try{ if('wakeLock' in navigator){ _wakeLock=await navigator.wakeLock.request('screen'); } }catch(e){} }
 function _releaseWake(){ try{ _wakeLock&&_wakeLock.release&&_wakeLock.release(); }catch(e){} _wakeLock=null; }
-function stopRest(){ restRunning=false; if(restInt){ clearInterval(restInt); restInt=null; } restSeconds=0; restTotal=0; restFired=false; _stopKeepAlive(); _releaseWake(); paintRest(); }
+function stopRest(){ restPaused=false; restRunning=false; if(restInt){ clearInterval(restInt); restInt=null; } restSeconds=0; restTotal=0; restFired=false; _stopKeepAlive(); _releaseWake(); paintRest(); }
 function highlightNextSet(){ try{ var p=document.querySelectorAll('#sessionBody .setrow.next'); for(var i=0;i<p.length;i++) p[i].classList.remove('next'); var rows=document.querySelectorAll('#sessionBody .setrow:not(.done)'); if(rows[0]){ rows[0].classList.add('next'); rows[0].scrollIntoView({block:'center',behavior:'smooth'}); } }catch(e){} }
 function _playAlertSound(){ if(DB.settings.sound===false) return; try{ _ensureAudio(); _alertAudio.currentTime=0; const p=_alertAudio.play(); if(p&&p.catch) p.catch(()=>{}); }catch(e){} }
 function _restAlert(){
@@ -6364,19 +6376,30 @@ function _beginRest(){
   restInt=setInterval(()=>{
     const rem=Math.max(0, Math.round((restEndAt-Date.now())/1000));
     restSeconds=rem;
-    if(rem<=0){ restRunning=false; clearInterval(restInt); restInt=null; paintRest(); _restAlert(); return; }
+    if(rem<=0){ restRunning=false; clearInterval(restInt); restInt=null; paintRest(); _restAlert(); setTimeout(primeRest, 2500); return; }
     paintRest();
   },250);
 }
-function startRest(secs){ restSeconds=secs||90; _beginRest(); }
+function startRest(secs){ restPaused=false; restSeconds=secs||90; _beginRest(); }
 function toggleRest(){
-  if(restRunning){ restRunning=false; clearInterval(restInt); restInt=null; restSeconds=Math.max(0,Math.round((restEndAt-Date.now())/1000)); _stopKeepAlive(); _releaseWake(); paintRest(); }
-  else { if(restSeconds<=0) restSeconds=90; _beginRest(); }
+  if(restRunning){ restRunning=false; clearInterval(restInt); restInt=null; restSeconds=Math.max(0,Math.round((restEndAt-Date.now())/1000)); restPaused=restSeconds>0; _stopKeepAlive(); _releaseWake(); paintRest(); return; }
+  if(restPaused && restSeconds>0){ restPaused=false; _beginRest(); return; }
+  restPaused=false;
+  const c=curRestTarget(); const s=c? restFor(c.en, c.si) : 90;
+  if(s<=0){ toast('⏱','No rest needed', c? c.en.exercise+' flows straight into the next set' : ''); return; }
+  if(c){ _restEi=c.ei; _restBase=s; } else { _restEi=null; }
+  restSeconds=s; _beginRest();
 }
 function restAdjust(d){
-  if(_restEi!=null && activeSession && activeSession.entries[_restEi]){
-    _restBase=Math.max(0,_restBase+d); activeSession.entries[_restEi].restOv=_restBase;
-    Store.set('forge.activeSession', activeSession); refreshRestBadge(_restEi);
+  if(restRunning || restPaused){
+    if(_restEi!=null && activeSession && activeSession.entries[_restEi]){
+      _restBase=Math.max(0,_restBase+d); activeSession.entries[_restEi].restOv=_restBase;
+      Store.set('forge.activeSession', activeSession); refreshRestBadge(_restEi);
+    }
+  } else if(activeSession){
+    const c=curRestTarget();
+    if(c){ c.en.restOv=Math.max(0, restFor(c.en, c.si)+d); Store.set('forge.activeSession', activeSession); refreshRestBadge(c.ei);
+      restSeconds=c.en.restOv; restTotal=restSeconds; paintRest(); return; }
   }
   if(restRunning){ restEndAt+=d*1000; const r=Math.max(0,Math.round((restEndAt-Date.now())/1000)); restSeconds=r; if(r<=0){ restRunning=false; clearInterval(restInt); restInt=null; paintRest(); _restAlert(); return; } }
   else { restSeconds=Math.max(0,restSeconds+d); }
@@ -6387,7 +6410,8 @@ function _fitSessionPad(){ try{ const b=$('#sessionBar'), s=$('#screen-session')
 function paintRest(){
   const m=Math.floor(restSeconds/60), s=restSeconds%60;
   const el=$('#restTimer'); if(el){ el.textContent=m+':'+String(s).padStart(2,'0'); el.classList.toggle('run', restRunning); }
-  const b=$('#restToggleBtn'); if(b) b.textContent = restRunning?'Pause':(restSeconds>0?'Resume':'Start rest');
+  const b=$('#restToggleBtn'); if(b) b.textContent = restRunning?'Pause':(restPaused?'Resume':'Start rest');
+  paintRestFor();
   const ring=$('#restRing'); if(ring){ const C=119.38; const frac=(restRunning && restTotal>0)?(restSeconds/restTotal):1; ring.style.strokeDashoffset=(C*frac).toFixed(1); }
 }
 
