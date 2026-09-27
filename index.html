@@ -1198,6 +1198,195 @@ body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#1
 .bm-t{font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 .bm-row .up{color:var(--teal); font-weight:700}
 .bm-row .dn{color:#FF6B8A; font-weight:700}
+/* ===================== v57 — program · recap · heat · boss · contracts · data · import ===================== */
+.today-card{position:relative; padding:14px 15px 12px; margin-bottom:14px; border-radius:var(--r-lg); border:1px solid rgba(255,138,43,.42); overflow:hidden;
+  background:radial-gradient(120% 140% at 0% 0%, rgba(255,138,43,.16), transparent 55%), var(--surface); box-shadow:inset 0 1px 0 rgba(255,255,255,.05), var(--shadow-md)}
+.today-card.rest,.today-card.done{border-color:var(--line); background:var(--surface)}
+.td-top{display:flex; justify-content:space-between; align-items:center; gap:10px}
+.td-eyebrow{font-size:9.5px; letter-spacing:1.8px; text-transform:uppercase; color:#FFB47A; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.today-card.rest .td-eyebrow,.today-card.done .td-eyebrow{color:var(--muted-2)}
+.td-link{background:none; border:none; color:var(--cool); font-size:11px; font-weight:700; padding:2px 0; cursor:pointer; flex:0 0 auto}
+.td-day{font-family:var(--font-epic); font-weight:800; font-size:19px; margin-top:5px; line-height:1.2}
+.td-sub{font-size:12px; color:var(--muted); margin-top:3px; line-height:1.4}
+.td-actions{display:flex; gap:8px; margin-top:12px}
+.td-actions .btn{width:auto}
+.td-actions .btn-primary{flex:1}
+.td-dots{display:flex; gap:5px; margin-top:12px}
+.td-dots i{flex:1; height:4px; border-radius:99px; background:var(--surface-3)}
+.td-dots i.opt{opacity:.5}
+.td-dots i.on{background:var(--grad-energy); box-shadow:0 0 8px rgba(255,110,60,.6)}
+.wd-row{display:grid; grid-template-columns:repeat(7,1fr); gap:6px}
+.wd{padding:9px 0; border-radius:10px; background:var(--surface-3); border:1px solid var(--line); color:var(--muted); font-size:11.5px; font-weight:700; cursor:pointer}
+.wd.on{background:rgba(255,138,43,.16); border-color:rgba(255,138,43,.6); color:#FFB47A}
+.pg-day{display:flex; align-items:center; gap:10px; width:100%; padding:9px 10px; margin-top:6px; border-radius:10px; background:var(--surface-3); border:1px solid var(--line); color:var(--text); text-align:left; font-size:12.5px; cursor:pointer}
+.pg-day b{flex:0 0 22px; height:22px; border-radius:99px; display:grid; place-items:center; background:var(--surface-2); font-size:11px}
+.pg-day.on{border-color:rgba(255,138,43,.6); background:rgba(255,138,43,.1)}
+.pg-day.on b{background:var(--grad-energy); color:#1A0F0A}
+.rt-prog{width:100%; margin-top:12px; border-style:dashed}
+.rc-hero{text-align:center; padding:6px 0 14px}
+.rc-eyebrow{font-family:'Cinzel',serif; font-size:10.5px; letter-spacing:4px; text-transform:uppercase; color:#FFB47A; font-weight:700; animation:rcFade .5s var(--ease) both}
+.rc-title{font-family:var(--font-epic); font-weight:800; font-size:21px; margin-top:6px; line-height:1.25; animation:rcRise .5s .06s var(--ease) both}
+.rc-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-top:14px}
+.rc-stats div{padding:9px 4px; border-radius:12px; background:var(--surface-2); border:1px solid var(--line-soft); animation:rcRise .45s .12s var(--ease) both}
+.rc-stats b{display:block; font-family:var(--font-epic); font-size:17px}
+.rc-stats span{display:block; font-size:8.5px; letter-spacing:1px; text-transform:uppercase; color:var(--muted-2); margin-top:2px}
+.rc-xp{padding:12px 13px; border-radius:13px; background:var(--surface-2); border:1px solid var(--line-soft); animation:rcRise .45s .16s var(--ease) both}
+.rc-xp-top{display:flex; justify-content:space-between; font-size:12px; font-weight:600; margin-bottom:8px}
+.rc-gain{color:var(--gold); font-weight:800}
+.rc-lvup{color:var(--gold); letter-spacing:1px; text-shadow:0 0 12px rgba(255,210,77,.7); animation:rcGlow 1.2s ease-in-out infinite alternate}
+.rc-bar{height:10px; border-radius:99px; background:var(--surface-3); overflow:hidden}
+.rc-bar i{display:block; height:100%; border-radius:99px; background:var(--xpgrad, var(--grad-energy)); transition:width 1.4s cubic-bezier(.2,.8,.2,1); box-shadow:0 0 12px rgba(255,110,60,.55)}
+.rc-cards{display:grid; gap:8px; margin-top:12px}
+.rc-card{display:flex; align-items:center; gap:12px; padding:11px 13px; border-radius:13px; background:var(--surface-2); border:1px solid var(--line-soft); animation:rcPop .5s var(--spring) both}
+.rc-i{font-size:21px; flex:0 0 28px; text-align:center}
+.rc-cb{min-width:0}
+.rc-t{font-size:13px; font-weight:700}
+.rc-s{font-size:11px; color:var(--muted); margin-top:2px; line-height:1.4}
+.rc-card.pr{border-color:rgba(255,77,140,.45); background:linear-gradient(120deg, rgba(255,77,140,.10), var(--surface-2) 60%)}
+.rc-card.heat{border-color:rgba(255,138,43,.45); background:linear-gradient(120deg, rgba(255,138,43,.12), var(--surface-2) 60%)}
+.rc-card.cache,.rc-card.monu{border-color:rgba(192,132,255,.45); background:linear-gradient(120deg, rgba(192,132,255,.10), var(--surface-2) 60%)}
+.rc-card.boss,.rc-card.evo{border-color:rgba(255,210,77,.5); background:linear-gradient(120deg, rgba(255,210,77,.10), var(--surface-2) 60%)}
+.rc-card.contract,.rc-card.asc{border-color:rgba(52,234,208,.4); background:linear-gradient(120deg, rgba(52,234,208,.08), var(--surface-2) 60%)}
+.rc-next{display:flex; align-items:center; gap:8px; margin-top:12px; padding:10px 13px; border-radius:12px; border:1px dashed var(--line); font-size:12.5px; color:var(--muted)}
+.rc-next .ic{color:var(--cool)}
+@keyframes rcRise{from{opacity:0; transform:translateY(10px)}to{opacity:1; transform:none}}
+@keyframes rcFade{from{opacity:0}to{opacity:1}}
+@keyframes rcPop{0%{opacity:0; transform:translateY(12px) scale(.94)}100%{opacity:1; transform:none}}
+@keyframes rcGlow{from{text-shadow:0 0 6px rgba(255,210,77,.4)}to{text-shadow:0 0 16px rgba(255,210,77,.95)}}
+.heat-bar{display:flex; align-items:center; gap:11px; padding:10px 13px; margin-bottom:12px; border-radius:var(--r-md); background:var(--surface); border:1px solid var(--line-soft)}
+.hb-flame{flex:0 0 auto; width:34px; height:34px; border-radius:11px; display:grid; place-items:center; background:var(--surface-3); color:var(--muted-2); transition:color .3s, background .3s, transform .3s}
+.hb-flame .ic{width:20px; height:20px}
+.hb-b{flex:1; min-width:0}
+.hb-top{display:flex; justify-content:space-between; gap:8px; font-size:11.5px; color:var(--muted); margin-bottom:6px}
+.hb-top b{color:var(--text); font-size:13px}
+.hb-seg{display:grid; grid-template-columns:repeat(15,1fr); gap:2px}
+.hb-seg i{height:6px; border-radius:2px; background:var(--surface-3)}
+.hb-seg i.on{background:linear-gradient(180deg,#FFD24D,#FF8A2B)}
+.heat-bar.lv1 .hb-flame{color:#FFB061; background:rgba(255,138,43,.14)}
+.heat-bar.lv2 .hb-flame,.heat-bar.lv3 .hb-flame{color:#FF8A2B; background:rgba(255,110,60,.2); box-shadow:0 0 14px -2px rgba(255,110,60,.6)}
+.heat-bar.lv4 .hb-flame{color:#FFE9A8; background:linear-gradient(160deg,#FF8A2B,#FF4D8C); box-shadow:0 0 18px rgba(255,90,60,.8)}
+.heat-bar.lv2 .hb-seg i.on,.heat-bar.lv3 .hb-seg i.on{background:linear-gradient(180deg,#FF8A2B,#FF4D8C)}
+.heat-bar.lv4{border-color:rgba(255,90,60,.5)}
+.heat-bar.lv4 .hb-seg i.on{background:linear-gradient(180deg,#FFF3C0,#FF8A2B)}
+.heat-bar.pop .hb-flame{animation:hbPop .6s var(--spring)}
+@keyframes hbPop{0%{transform:scale(1)}40%{transform:scale(1.28) rotate(-6deg)}100%{transform:scale(1)}}
+.boss-fight{display:flex; align-items:center; gap:12px; padding:12px 13px; margin-bottom:10px; border-radius:var(--r-md); border:1px solid rgba(255,77,90,.45);
+  background:radial-gradient(90% 140% at 0% 50%, rgba(255,60,60,.16), transparent 60%), var(--surface)}
+.bf-ico{font-size:32px; flex:0 0 auto; filter:drop-shadow(0 4px 10px rgba(255,60,60,.5))}
+.bf-b{flex:1; min-width:0}
+.bf-top{display:flex; justify-content:space-between; align-items:baseline}
+.bf-n{font-family:var(--font-epic); font-weight:800; font-size:14px; color:#FFD3C4}
+.bf-hp{font-weight:800; font-size:12px; color:#FF6B6B}
+.bf-bar{height:9px; margin-top:6px; border-radius:99px; background:rgba(255,255,255,.06); overflow:hidden; border:1px solid rgba(255,90,90,.25)}
+.bf-bar i{display:block; height:100%; background:linear-gradient(90deg,#B81E3A,#FF4D4D); transition:width .6s var(--ease)}
+.bf-line{font-size:11px; font-style:italic; color:#FFB7AE; margin-top:6px}
+.boss-fight.hit{animation:bfHit .5s ease}
+.boss-fight.hit .bf-ico{animation:bfFlash .5s ease}
+.boss-fight.dead{border-color:rgba(255,210,77,.55)}
+.boss-fight.dead .bf-ico{filter:grayscale(.6) drop-shadow(0 0 10px rgba(255,210,77,.6))}
+@keyframes bfHit{0%,100%{transform:none}25%{transform:translateX(-5px)}50%{transform:translateX(4px)}75%{transform:translateX(-2px)}}
+@keyframes bfFlash{0%,100%{filter:drop-shadow(0 4px 10px rgba(255,60,60,.5))}30%{filter:brightness(2.2) drop-shadow(0 0 16px #fff)}}
+.contract{display:flex; gap:12px; align-items:center; padding:12px 14px; margin-bottom:14px; border-radius:var(--r-md); border:1px solid rgba(201,154,107,.4);
+  background:linear-gradient(135deg, rgba(201,154,107,.1), var(--surface) 60%)}
+.ct-seal{flex:0 0 38px; height:38px; border-radius:99px; display:grid; place-items:center; font-size:18px; background:rgba(201,154,107,.16); border:1px solid rgba(201,154,107,.5)}
+.contract.done{opacity:.8; border-color:rgba(52,234,208,.4)}
+.contract.done .ct-seal{background:rgba(52,234,208,.14); border-color:rgba(52,234,208,.5); color:var(--teal); font-weight:800}
+.ct-b{min-width:0}
+.ct-eyebrow{font-family:'Cinzel',serif; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:#C99A6B; font-weight:700}
+.ct-t{font-size:13.5px; font-weight:700; margin-top:3px}
+.ct-s{font-size:10.5px; color:var(--muted); margin-top:3px; line-height:1.4}
+.backup-nudge{display:flex; align-items:center; gap:12px; padding:12px 14px; margin-bottom:14px; border-radius:var(--r-md); border:1px solid rgba(92,176,255,.4); background:linear-gradient(135deg, rgba(92,176,255,.1), var(--surface) 60%)}
+.bn-i{font-size:22px; flex:0 0 auto}
+.bn-b{flex:1; min-width:0}
+.bn-t{font-size:13px; font-weight:700}
+.bn-s{font-size:10.5px; color:var(--muted); margin-top:2px; line-height:1.4}
+.bn-a{display:flex; flex-direction:column; gap:4px; align-items:stretch; flex:0 0 auto}
+.bn-a .btn{width:auto}
+.bn-later{background:none; border:none; color:var(--muted-2); font-size:10.5px; cursor:pointer}
+.storage-status{display:flex; flex-direction:column; gap:3px; padding:10px 12px; margin-bottom:10px; border-radius:10px; font-size:11.5px; border:1px solid var(--line)}
+.storage-status.ok{border-color:rgba(52,234,208,.4); color:var(--teal)}
+.storage-status.warn{border-color:rgba(255,176,97,.45); color:#FFB061}
+.storage-status span+span{color:var(--muted); font-size:10.5px}
+.import-card{display:flex; align-items:center; gap:12px; width:100%; padding:13px 14px; margin-bottom:14px; border-radius:var(--r-md); border:1px dashed rgba(92,176,255,.5); background:rgba(92,176,255,.06); color:var(--text); text-align:left; cursor:pointer}
+.import-card .ic{width:22px; height:22px; color:var(--cool)}
+.import-card b{display:block; font-size:13px}
+.import-card span{display:block; font-size:10.5px; color:var(--muted); margin-top:2px}
+.vo-art.crack{animation:geodeCrack .5s ease}
+@keyframes geodeCrack{0%,100%{transform:none}20%{transform:rotate(-7deg) scale(1.05)}40%{transform:rotate(6deg) scale(1.08)}60%{transform:rotate(-4deg) scale(1.1); filter:brightness(1.6)}80%{transform:scale(.96)}}
+.cache-card{position:relative; overflow:hidden; isolation:isolate}
+.cache-card.r3::before,.cache-card.r4::before{content:''; position:absolute; inset:-60%; z-index:-1; animation:ccRays 7s linear infinite; opacity:.5}
+.cache-card.r3::before{background:conic-gradient(from 0deg, transparent 0 20deg, rgba(192,132,255,.35) 25deg, transparent 32deg 80deg, rgba(192,132,255,.3) 88deg, transparent 96deg 150deg, rgba(192,132,255,.35) 158deg, transparent 166deg 220deg, rgba(192,132,255,.3) 228deg, transparent 236deg 290deg, rgba(192,132,255,.35) 298deg, transparent 306deg)}
+.cache-card.r4::before{background:conic-gradient(from 0deg, transparent 0 16deg, rgba(255,210,77,.45) 22deg, transparent 28deg 60deg, rgba(255,120,80,.35) 66deg, transparent 72deg 110deg, rgba(255,210,77,.45) 116deg, transparent 122deg 160deg, rgba(255,120,80,.35) 166deg, transparent 172deg 210deg, rgba(255,210,77,.45) 216deg, transparent 222deg 260deg, rgba(255,120,80,.35) 266deg, transparent 272deg 310deg, rgba(255,210,77,.45) 316deg, transparent 322deg)}
+.cache-card::after{content:''; position:absolute; top:0; bottom:0; width:40%; left:-60%; background:linear-gradient(100deg, transparent, rgba(255,255,255,.18), transparent); animation:ccShine 2.6s .5s ease-in-out infinite; pointer-events:none}
+@keyframes ccRays{to{transform:rotate(360deg)}}
+@keyframes ccShine{0%{left:-60%}55%,100%{left:130%}}
+/* ===================== v58 — loot visuals · atmosphere ===================== */
+@property --ang{syntax:'<angle>'; inherits:false; initial-value:0deg}
+body::before{content:''; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:radial-gradient(120% 55% at 50% -12%, rgba(255,110,50,.11), transparent 62%),
+             radial-gradient(90% 45% at 110% 105%, rgba(110,90,255,.07), transparent 60%),
+             radial-gradient(70% 40% at -10% 70%, rgba(52,234,208,.035), transparent 60%)}
+body.amoled::before{opacity:.55}
+.screen-title::after{content:''; display:block; width:34px; height:3px; margin-top:7px; border-radius:99px; background:var(--grad-energy); box-shadow:0 0 10px rgba(255,110,60,.5)}
+.vault-meter{padding:12px 13px; margin:2px 0 12px; border-radius:13px; background:var(--surface-2); border:1px solid var(--line-soft)}
+.vm-top{display:flex; justify-content:space-between; align-items:baseline; font-size:10px; letter-spacing:1.6px; text-transform:uppercase; color:var(--muted-2); font-weight:700}
+.vm-top b{font-family:var(--font-epic); font-size:16px; color:var(--text); letter-spacing:.5px}
+.vm-bar{display:flex; height:8px; margin-top:8px; border-radius:99px; background:var(--surface-3); overflow:hidden}
+.vm-bar i{height:100%}
+.vm-leg{display:flex; gap:12px; flex-wrap:wrap; margin-top:8px; font-size:10.5px; color:var(--muted)}
+.vm-leg i{display:inline-block; width:7px; height:7px; border-radius:99px; margin-right:5px; vertical-align:1px}
+.vm-bar i.r1,.vm-leg .r1 i{background:#8A93A4}
+.vm-bar i.r2,.vm-leg .r2 i{background:#5CB0FF}
+.vm-bar i.r3,.vm-leg .r3 i{background:#C084FF}
+.vm-bar i.r4,.vm-leg .r4 i{background:linear-gradient(90deg,#FFD24D,#FF8A2B)}
+.loot-grid{grid-template-columns:1fr 1fr; gap:8px}
+.loot-item{position:relative; display:flex; align-items:center; gap:10px; padding:8px 10px 8px 8px; min-height:58px; border-radius:12px; background:var(--surface-2); border:1px solid var(--line); color:var(--text); overflow:hidden; isolation:isolate; font-size:12px}
+.loot-item.eq{outline:none; box-shadow:0 0 0 2px var(--energy-1), 0 0 14px -4px var(--energy-glow)}
+.li-prev{flex:0 0 40px; height:40px; border-radius:10px; display:grid; place-items:center; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.06); overflow:hidden}
+.li-body{flex:1; min-width:0; display:flex; flex-direction:column; gap:2px}
+.loot-item .li-n{font-size:12px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.li-r{font-size:9px; letter-spacing:1.1px; text-transform:uppercase; color:var(--muted-2); font-weight:700}
+.loot-item .li-lk{position:absolute; top:6px; right:7px; font-size:9px; opacity:.7}
+.loot-item.locked{border-style:dashed}
+.loot-item.locked .li-prev{filter:grayscale(1) brightness(.55); opacity:.6}
+.loot-item.locked .li-n{color:var(--muted-2)}
+.loot-item.locked .lp,.loot-item.locked .lp *{animation:none !important}
+.loot-item.own.r1{border-color:#4A5262}
+.loot-item.own.r2{border-color:rgba(92,176,255,.55); background:linear-gradient(135deg, rgba(92,176,255,.10), var(--surface-2) 60%)}
+.loot-item.own.r3{border-color:rgba(192,132,255,.6); background:linear-gradient(135deg, rgba(192,132,255,.13), var(--surface-2) 60%); box-shadow:0 0 14px -6px rgba(192,132,255,.7)}
+.loot-item.own.r4{border:1px solid transparent; box-shadow:0 0 16px -6px rgba(255,210,77,.8); animation:lootSpin 5s linear infinite;
+  background:linear-gradient(135deg, #2A2418, var(--surface-2) 60%) padding-box, conic-gradient(from var(--ang), #FFD24D, #FF8A2B, #FF4D8C, #B07CFF, #34EAD0, #FFD24D) border-box}
+.loot-item.own.r2 .li-r{color:#8FC4FF}
+.loot-item.own.r3 .li-r{color:#D9B8FF}
+.loot-item.own.r4 .li-r{color:#FFE08A}
+.loot-item.eq .li-r{color:var(--energy-1)}
+@keyframes lootSpin{to{--ang:360deg}}
+.lp{display:grid; place-items:center; width:100%; height:100%; position:relative}
+.lp-ember i{position:absolute; border-radius:99px; background:radial-gradient(circle, var(--b), var(--a) 45%, transparent 72%); animation:lpFloat 2.6s ease-in-out infinite}
+.lp-ember i:nth-child(1){width:16px; height:16px; left:11px; bottom:6px}
+.lp-ember i:nth-child(2){width:10px; height:10px; left:5px; bottom:13px; animation-delay:.5s}
+.lp-ember i:nth-child(3){width:8px; height:8px; left:25px; bottom:15px; animation-delay:1s}
+.lp-ember i:nth-child(4){width:5px; height:5px; left:17px; bottom:25px; animation-delay:1.5s}
+.lp-metal{background:linear-gradient(135deg, var(--m1) 0%, var(--m2) 42%, var(--m3) 58%, var(--m4) 100%); clip-path:polygon(16% 24%, 84% 24%, 97% 78%, 3% 78%)}
+.lp-metal i{position:absolute; top:0; bottom:0; width:35%; left:-50%; background:linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent); animation:lpSheen 3.2s ease-in-out infinite}
+.lp-flame svg{width:30px; height:30px; filter:drop-shadow(0 0 6px rgba(255,140,60,.5)); transform-origin:50% 90%; animation:lpFlick 1.5s ease-in-out infinite}
+.lp-rune svg{width:26px; height:26px; fill:none; stroke:var(--g); stroke-width:2.4; stroke-linecap:round; filter:drop-shadow(0 0 5px var(--g)); animation:lpPulse 2.2s ease-in-out infinite}
+.lp-xp{padding:0 5px}
+.lp-xp i{display:block; width:100%; height:9px; border-radius:99px; background-size:200% 100%; animation:lpSlide 3s linear infinite; box-shadow:0 0 10px rgba(255,255,255,.12)}
+.lp-acc svg{width:46px; height:46px; margin-top:8px}
+.lp-theme i{width:26px; height:26px; border-radius:99px; background:conic-gradient(var(--a), var(--b), var(--a)); box-shadow:0 0 12px var(--a); animation:lpPulse 2.4s ease-in-out infinite}
+.lp-title svg{width:26px; height:26px; fill:rgba(255,210,77,.15); stroke:#FFD24D; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round}
+@keyframes lpFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes lpSheen{0%{left:-50%}60%,100%{left:120%}}
+@keyframes lpFlick{0%,100%{transform:scale(1,1)}40%{transform:scale(.96,1.06)}70%{transform:scale(1.03,.97)}}
+@keyframes lpPulse{0%,100%{opacity:.8}50%{opacity:1}}
+@keyframes lpSlide{to{background-position:200% 0}}
+.cache-card .cc-prev{width:78px; height:78px; margin:10px auto 4px; border-radius:18px; display:grid; place-items:center; background:rgba(0,0,0,.32); border:1px solid rgba(255,255,255,.1); overflow:hidden}
+.cc-prev .lp-flame svg,.cc-prev .lp-rune svg,.cc-prev .lp-title svg{width:46px; height:46px}
+.cc-prev .lp-theme i{width:44px; height:44px}
+.cc-prev .lp-acc svg{width:72px; height:72px; margin-top:12px}
+.cc-prev .lp-xp i{height:14px}
+.cc-prev .lp-ember{transform:scale(1.8)}
 @media(prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
 </style>
 </head>
@@ -1245,6 +1434,8 @@ body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#1
     </div>
 
     <div id="quickStart"></div>
+    <div id="backupNudge"></div>
+    <div id="contractCard"></div>
 
     <div class="stat-grid">
       <div class="stat hot"><div class="k">🔥 Streak</div><div class="v"><span id="stStreak">0</span><small id="stStreakSub"> days</small></div></div>
@@ -1388,6 +1579,8 @@ body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#1
     <div id="cardio-gps" style="display:none"></div>
     <div id="cardio-log" style="display:none">
     <p class="screen-lead">Ran on a treadmill or without GPS? Log it here — it counts fully and feeds your VO₂max.</p>
+    <button class="import-card" data-action="import-run"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5V4M7.5 8.5 12 4l4.5 4.5"/><path d="M4.5 14.5v4A1.5 1.5 0 0 0 6 20h12a1.5 1.5 0 0 0 1.5-1.5v-4"/></svg><div><b>Import from your watch</b><span>GPX · TCX · FIT — exports from OHealth, Strava, Garmin and others</span></div></button>
+    <input type="file" id="runFile" style="display:none">
     <div class="card">
       <p class="eyebrow" style="margin-bottom:10px">Where</p>
       <div class="chips" id="logWhereChips">
@@ -2785,6 +2978,226 @@ function go(screen){
 /* ===================== ICON SET — one stroked family, replaces platform-dependent emoji in UI chrome ===================== */
 const ICONS={"home": "<path d=\"M3.5 11 12 4l8.5 7\"/><path d=\"M5.5 9.5V20h13V9.5\"/><path d=\"M10 20v-5.5h4V20\"/>", "train": "<path d=\"M6.5 7v10M17.5 7v10M3.5 9.5v5M20.5 9.5v5M6.5 12h11\"/>", "cardio": "<path d=\"M3 12.5h4l2.2-5.5 4.3 11 2.3-5.5H21\"/>", "progress": "<path d=\"M4 4v16h16\"/><path d=\"m7.5 14.5 3.5-3.5 3 3 5-6\"/>", "awards": "<circle cx=\"12\" cy=\"9\" r=\"5\"/><path d=\"M8.7 13 7.3 21l4.7-2.6 4.7 2.6-1.4-8\"/>", "mobility": "<circle cx=\"12\" cy=\"4.6\" r=\"1.9\"/><path d=\"M4.5 9.5 12 11l7.5-1.5\"/><path d=\"M12 11v4l-3.5 5.5M12 15l3.5 5.5\"/>", "plates": "<rect x=\"5\" y=\"3\" width=\"14\" height=\"18\" rx=\"2.5\"/><path d=\"M8.5 7h7M8.5 11h1M11.5 11h1M14.5 11h1M8.5 14.5h1M11.5 14.5h1M14.5 14.5h1M8.5 18h1M11.5 18h1M14.5 18h1\"/>", "vault": "<path d=\"M12 3.5 19.5 7.7v8.6L12 20.5l-7.5-4.2V7.7z\"/><path d=\"M4.5 7.7 12 12l7.5-4.3M12 12v8.5\"/>", "forge": "<path d=\"M3.5 9.5h13l4-2.5v4l-4 1.5h-6l-1 3h5.5V19h-10v-3.5H7l1-3H3.5z\"/>", "collection": "<rect x=\"4\" y=\"4\" width=\"7\" height=\"7\" rx=\"1.6\"/><rect x=\"13\" y=\"4\" width=\"7\" height=\"7\" rx=\"1.6\"/><rect x=\"4\" y=\"13\" width=\"7\" height=\"7\" rx=\"1.6\"/><rect x=\"13\" y=\"13\" width=\"7\" height=\"7\" rx=\"1.6\"/>", "trophy": "<path d=\"M8 4h8v5.5a4 4 0 0 1-8 0z\"/><path d=\"M8 6H5.2a3 3 0 0 0 3.2 4.2M16 6h2.8a3 3 0 0 1-3.2 4.2M12 13.5V17M9 20.5h6M10 17h4v3.5h-4z\"/>", "medal": "<circle cx=\"12\" cy=\"14.5\" r=\"5.5\"/><path d=\"M9 9.8 6.5 3.5h4L12 7M15 9.8l2.5-6.3h-4L12 7\"/><path d=\"m12 12 .9 1.8 2 .3-1.4 1.4.3 2-1.8-1-1.8 1 .3-2-1.4-1.4 2-.3z\"/>", "scale": "<rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"3.5\"/><path d=\"M8.2 10.2a5.2 5.2 0 0 1 7.6 0L12 13z\"/>", "history": "<circle cx=\"12\" cy=\"12\" r=\"8.2\"/><path d=\"M12 7.8V12l3 2\"/>", "target": "<circle cx=\"12\" cy=\"12\" r=\"8.2\"/><circle cx=\"12\" cy=\"12\" r=\"4.6\"/><circle cx=\"12\" cy=\"12\" r=\"1.1\"/>", "flag": "<path d=\"M5.5 21V3.5M5.5 4h12l-2.5 4 2.5 4h-12\"/>"};
 function ico(n){ return '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">'+(ICONS[n]||'')+'</svg>'; }
+/* ===================== ACTIVE PROGRAM — today's session ===================== */
+const WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+let _pgDraft=null;
+function progRoutine(){ const p=DB.settings.prog; if(!p) return null; const r=(DB.routines||[]).find(x=>x.id===p.rid); return (r && r.days && r.days.length)? r : null; }
+function defaultWeekdays(n){ return ({1:[1],2:[2,5],3:[1,3,5],4:[1,2,4,5],5:[1,2,3,4,5],6:[1,2,3,4,5,6],7:[0,1,2,3,4,5,6]})[Math.min(7,Math.max(1,n))].slice(); }
+function coreDays(r){ return r.days.filter(d=>!/optional/i.test(d.name)).length || r.days.length; }
+function progToday(){ const r=progRoutine(); if(!r) return null; const p=DB.settings.prog, L=r.days.length;
+  const next=(((p.next||0)%L)+L)%L, today=new Date().getDay(), wd=p.wd||[];
+  let nd=null; for(let k=1;k<=7;k++){ const w=(today+k)%7; if(wd.indexOf(w)>=0){ nd=k===1?'tomorrow':WD[w]; break; } }
+  return {r, p, next, day:r.days[next], sched:wd.indexOf(today)>=0, doneToday:p.last===todayStr(), nextDayLbl:nd}; }
+function todayCardHTML(T){
+  const exs=T.day.ex||[], st=T.doneToday?'done':(T.sched?'today':'rest');
+  const eb=st==='today'?'Today':(st==='done'?'Done for today':'Rest day');
+  const sub=st==='today'? exs.length+' exercises · '+exs.slice(0,3).map(e=>e.n).join(', ')+(exs.length>3?'…':'')
+    : 'Up next'+(T.nextDayLbl?' '+T.nextDayLbl:'')+' · '+exs.length+' exercises';
+  return `<div class="today-card ${st}"><div class="td-top"><span class="td-eyebrow">${eb} · ${esc(T.r.name)}</span><button class="td-link" data-action="prog-open">Schedule</button></div>
+    <div class="td-day">${esc(T.day.name)}</div><div class="td-sub">${esc(sub)}</div>
+    <div class="td-actions"><button class="btn ${st==='today'?'btn-primary':'btn-ghost'} btn-sm" data-action="prog-start">${st==='today'?'Start session ▸':'Train anyway'}</button><button class="btn btn-ghost btn-sm" data-action="prog-skip">Skip day</button></div>
+    <div class="td-dots">${T.r.days.map((d,i)=>`<i class="${i===T.next?'on':''}${/optional/i.test(d.name)?' opt':''}"></i>`).join('')}</div></div>`; }
+function startProgDay(){ const T=progToday(); if(!T) return;
+  if(activeSession && !confirm('You have a workout in progress. Start this session instead? Your current one will be discarded.')) return;
+  T.r.lu=Date.now();
+  startSession(T.r.name+' · '+T.day.name, T.r.goalLabel||'Strength session',
+    T.day.ex.map(ex=>({n:ex.n, targetSets:parseInt(ex.s)||3, targetReps:ex.r, rest:(ex.rest==null?null:(+ex.rest||0))})));
+  if(activeSession){ activeSession.prog={rid:T.r.id, day:T.next}; Store.set('forge.activeSession', activeSession); }
+  save(); }
+function progAdvance(pg){ const P=DB.settings.prog, r=progRoutine(); if(!pg || !P || !r || P.rid!==pg.rid) return;
+  P.next=(pg.day+1)%r.days.length; P.last=todayStr(); P.count=(P.count||0)+1; save(); }
+function progSkip(){ const T=progToday(); if(!T) return; T.p.next=(T.next+1)%T.r.days.length; save(); renderQuickStart();
+  toast('⏭','Skipped', 'Next up: '+T.r.days[T.p.next].name); }
+function openProgSheet(rid){ const cur=DB.settings.prog, rts=DB.routines||[];
+  const r=rts.find(x=>x.id===(rid||(cur&&cur.rid))) || rts[0];
+  if(!r){ toast('📋','No routines yet','Add a program from the library first'); return; }
+  const same=cur && cur.rid===r.id;
+  _pgDraft={rid:r.id, wd: same&&cur.wd? cur.wd.slice() : defaultWeekdays(coreDays(r)), next: same? (cur.next||0) : 0};
+  paintProgSheet(); }
+function paintProgSheet(){ const r=(DB.routines||[]).find(x=>x.id===_pgDraft.rid); if(!r) return;
+  const active=DB.settings.prog && DB.settings.prog.rid===r.id;
+  openSheet(`<div class="grab"></div><h3>Your program</h3>
+  <p class="sh-lead">Pick the routine you're running and the days you train. Home shows today's session and moves through the days in order.</p>
+  <div class="spr-card"><div class="spr-sec"><span>Routine</span></div><div class="chips">${DB.routines.map(x=>`<button class="chip ${x.id===r.id?'on':''}" data-action="pg-rt" data-id="${x.id}">${esc(x.name)}</button>`).join('')}</div></div>
+  <div class="spr-card"><div class="spr-sec"><span>Training days</span><span class="spr-secr">${_pgDraft.wd.length} a week</span></div><div class="wd-row">${[1,2,3,4,5,6,0].map(w=>`<button class="wd ${_pgDraft.wd.indexOf(w)>=0?'on':''}" data-action="pg-wd" data-w="${w}">${WD[w]}</button>`).join('')}</div></div>
+  <div class="spr-card"><div class="spr-sec"><span>Next session</span></div>${r.days.map((d,i)=>`<button class="pg-day ${i===_pgDraft.next?'on':''}" data-action="pg-next" data-i="${i}"><b>${i+1}</b><span>${esc(d.name)}</span></button>`).join('')}</div>
+  <div class="btn-row" style="margin-top:14px"><button class="btn btn-primary" data-action="pg-save">${active?'Save':'Run this program'}</button>${DB.settings.prog?`<button class="btn btn-ghost" data-action="pg-stop">Stop program</button>`:`<button class="btn btn-ghost" data-action="close-sheet">Not now</button>`}</div>`); }
+function progSave(){ if(!_pgDraft || !_pgDraft.wd.length){ toast('📅','Pick at least one day','Choose the days you train'); return; }
+  const prev=DB.settings.prog, same=prev && prev.rid===_pgDraft.rid;
+  DB.settings.prog={rid:_pgDraft.rid, wd:_pgDraft.wd.slice().sort(), next:_pgDraft.next, count: same? (prev.count||0) : 0, last: same? prev.last : null, since: same? prev.since : todayStr()};
+  save(); closeSheet(); renderHome(); const r=progRoutine();
+  toast('📅','Program set', r.name+' · '+DB.settings.prog.wd.map(w=>WD[w]).join(' · ')); }
+/* ===================== SESSION RECAP ===================== */
+var _recapBase=null, _quietUntil=0, _contractJust=null;
+function recapSnap(){ ensureLoot(); ensureAscent(); ensureSeason(); ensureMonu(); const s=activeSession||{};
+  return {xp:DB.stats.xp||0, prs:JSON.parse(JSON.stringify(DB.prs||{})), q:(DB.loot.q||[]).length, node:DB.ascent.node, lap:DB.ascent.lap,
+    ss:DB.season.score||0, tier:seasonTier(DB.season.score||0).n, ach:Object.keys(DB.achievements||{}), monu:Object.keys(DB.monu.done||{}),
+    boss:DB.stats.bossWins||0, wst:weaponStage(), spr:spriteStage(), relic:relicTier().idx, title:s.title||'Workout', ts:s.ts||Date.now(),
+    prog:s.prog||null, bossKey:s.bossKey||null, heat:s.heat?{n:s.heat.n, peak:s.heat.peak, bonus:s.heat.bonus}:null,
+    sets:(s.entries||[]).reduce((a,e)=>a+(e.sets||[]).filter(x=>x.done).length,0),
+    allDone:(s.entries||[]).length>0 && (s.entries||[]).every(e=>(e.sets||[]).length>0 && e.sets.every(x=>x.done))}; }
+function _ymd(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function _yday(){ const d=new Date(); d.setDate(d.getDate()-1); return _ymd(d); }
+function showSummary({volume, prHits, xp, newAch}){
+  const B=_recapBase||recapSnap(); _recapBase=null;
+  const li0=levelInfo(B.xp), li=levelInfo(DB.stats.xp), gained=Math.max(0,DB.stats.xp-B.xp), lvUp=li.level>li0.level;
+  const mins=Math.max(1,Math.round((Date.now()-B.ts)/60000)), u=DB.settings.unit, cards=[];
+  (prHits||[]).forEach(n=>{ const a=B.prs[n]&&B.prs[n].e1rm, b=DB.prs[n]&&DB.prs[n].e1rm;
+    cards.push({c:'pr',i:'⚡',t:'New PR · '+n,s:b?('e1RM '+Math.round(b)+' '+u+(a?' · +'+Math.round(b-a):'')):''}); });
+  if(B.heat && B.heat.bonus) cards.push({c:'heat',i:'🔥',t:'Heat '+B.heat.peak+' at its peak',s:'+'+B.heat.bonus+' XP for training on tempo'});
+  if(DB.stats.bossWins>B.boss) cards.push({c:'boss',i:'⚔️',t:'Boss defeated',s:'Its title is yours to wear'});
+  else if(B.bossKey) cards.push({c:'boss',i:'🛡️',t:'The boss endures',s:'Complete every set to land the killing blow'});
+  const dq=(DB.loot.q||[]).length-B.q;
+  if(dq>0){ const tq=DB.loot.q.slice(-dq), best=tq.indexOf('mythic')>=0?'Mythic':tq.indexOf('epic')>=0?'Epic':tq.indexOf('rare')>=0?'Rare':'';
+    cards.push({c:'cache',i:'📦',t:(dq>1?dq+' Forge Caches':'Forge Cache')+' earned',s:best?best+' or better inside':'Crack it open in the Vault'}); }
+  if(_contractJust){ cards.push({c:'contract',i:'📜',t:'Daily contract fulfilled',s:_contractJust.t+' · streak '+_contractJust.streak}); _contractJust=null; }
+  if(DB.ascent.node>B.node || DB.ascent.lap>B.lap){ const names=ascFlat().slice(B.node, DB.ascent.node).map(n=>n.n);
+    cards.push({c:'asc',i:'⛰️',t:'Ascent · '+(names.length>1?names.length+' nodes cleared':'node cleared'),s:names.join(', ')}); }
+  const sd2=(DB.season.score||0)-B.ss, t2=seasonTier(DB.season.score||0).n;
+  if(sd2>0) cards.push({c:'season',i:'🌩️',t:'+'+sd2+' season points',s:t2!==B.tier? B.tier+' → '+t2 : 'Today '+seasonDay().n+' / '+SEASON_DAILY_CAP});
+  Object.keys(DB.achievements||{}).filter(k=>B.ach.indexOf(k)<0).map(k=>ACH.find(a=>a.id===k)).filter(Boolean).forEach(a=>cards.push({c:'ach',i:a.ico,t:'Award · '+a.n,s:a.d}));
+  Object.keys(DB.monu.done||{}).filter(k=>B.monu.indexOf(k)<0).map(k=>MONUMENTS.find(m=>m.id===k)).filter(Boolean).forEach(m=>cards.push({c:'monu',i:m.ico,t:'Monument · '+m.n,s:'A mythic cache was forged'}));
+  if(weaponStage()>B.wst) cards.push({c:'evo',i:'🗡️',t:'Weapon evolved',s:'Forged by stronger lifts'});
+  if(spriteStage()>B.spr) cards.push({c:'evo',i:'✨',t:'Sprite evolved',s:SPRITE_STAGES[spriteStage()]});
+  if(relicTier().idx>B.relic) cards.push({c:'evo',i:'💠',t:'Relic advanced',s:relicTier().tier.n});
+  const T=progToday(), nxt=T? 'Next: '+T.day.name+(T.nextDayLbl?' · '+T.nextDayLbl:'') : '';
+  if((prHits&&prHits.length) || lvUp || dq>0) setTimeout(()=>{ _burstT=0; burst(lvUp?'gold':'pr'); }, 350);
+  openSheet(`<div class="grab"></div>
+  <div class="rc-hero"><div class="rc-eyebrow">Session forged</div><div class="rc-title">${esc(B.title)}</div>
+    <div class="rc-stats"><div><b>${mins}</b><span>min</span></div><div><b>${B.sets}</b><span>sets</span></div><div><b>${fmt(volume)}</b><span>${u} moved</span></div><div><b>${DB.stats.currentStreak}</b><span>day streak</span></div></div></div>
+  <div class="rc-xp"><div class="rc-xp-top"><span>${lvUp?`<b class="rc-lvup">LEVEL ${li.level}</b>`:'Level '+li.level} · ${esc(li.rank)}</span><span class="rc-gain">+${gained} XP</span></div>
+    <div class="rc-bar"><i id="rcBar" style="width:${lvUp?0:Math.round(li0.pct)}%"></i></div></div>
+  ${cards.length?`<div class="rc-cards">${cards.map((c,i)=>`<div class="rc-card ${c.c}" style="animation-delay:${(.2+i*.09).toFixed(2)}s"><span class="rc-i">${c.i}</span><div class="rc-cb"><div class="rc-t">${esc(c.t)}</div>${c.s?`<div class="rc-s">${esc(c.s)}</div>`:''}</div></div>`).join('')}</div>`:''}
+  ${nxt?`<div class="rc-next">${ico('flag')}<span>${esc(nxt)}</span></div>`:''}
+  <div class="btn-row" style="margin-top:14px">${dq>0?`<button class="btn btn-primary" data-action="vault-open">Open cache${dq>1?'s':''}</button>`:''}<button class="btn ${dq>0?'btn-ghost':'btn-primary'}" data-action="close-sheet">Done</button></div>`);
+  setTimeout(()=>{ try{ const b=document.getElementById('rcBar'); if(b) b.style.width=Math.round(li.pct)+'%'; }catch(e){} }, 140);
+}
+/* ===================== HEAT — sets on tempo build a streak ===================== */
+ICONS.flame='<path d="M12 21.2c-4 0-6.7-2.8-6.7-6.4 0-3.7 2.9-5.4 3.8-8.9 1.8 1.4 2.4 3.2 2.2 4.7 1.4-.8 2.3-2.5 2.4-4.8 2.8 2.1 4.9 5.3 4.9 9 0 3.6-2.6 6.4-6.6 6.4z"/><path d="M12 21.2c-1.7 0-2.9-1.2-2.9-2.8 0-1.7 1.4-2.6 2.1-4.3 1.9 1.3 3.6 2.6 3.6 4.3 0 1.6-1.2 2.8-2.8 2.8z"/>';
+const HEAT_TIERS=[[15,'Inferno'],[10,'Blazing'],[6,'Burning'],[3,'Kindled'],[0,'Warming up']];
+function heatTick(ei, si){ if(!activeSession) return;
+  const h=activeSession.heat||(activeSession.heat={n:0,peak:0,bonus:0,last:0,lastRest:0,k:{}}); const key=ei+'-'+si;
+  if(h.k[key]) return; h.k[key]=1;
+  const now=Date.now(), onTempo=!h.last || (now-h.last)<=((h.lastRest||0)+75)*1000;
+  h.n=onTempo? h.n+1 : 1; h.peak=Math.max(h.peak,h.n); if(h.n>=3) h.bonus=Math.min(80, h.bonus+2);
+  h.last=now; h.lastRest=restFor(activeSession.entries[ei], si)||0; h.pop=now;
+  if(activeSession.bossKey) activeSession._hit=now; }
+function sessionTopHTML(){ if(!activeSession) return ''; let out=''; const E=activeSession.entries||[];
+  if(activeSession.bossKey){ const tot=E.reduce((a,e)=>a+e.sets.length,0), dn=E.reduce((a,e)=>a+e.sets.filter(s=>s.done).length,0);
+    const hp=tot?Math.round((1-dn/tot)*100):100, hit=activeSession._hit && Date.now()-activeSession._hit<900;
+    const line= hp<=0? 'It staggers — finish the session to claim the kill.' : (hp<=50? '“'+bossLine(activeSession.bossKey,'taunt')+'”' : 'Every completed set is a blow.');
+    out+=`<div class="boss-fight${hit?' hit':''}${hp<=0?' dead':''}"><div class="bf-ico">${activeSession.bossIco||'⚔️'}</div><div class="bf-b"><div class="bf-top"><span class="bf-n">${esc(activeSession.bossName||'Boss')}</span><span class="bf-hp">${hp}%</span></div><div class="bf-bar"><i style="width:${hp}%"></i></div><div class="bf-line">${esc(line)}</div></div></div>`; }
+  const h=activeSession.heat||{n:0,bonus:0}, lbl=HEAT_TIERS.find(x=>h.n>=x[0])[1], pop=h.pop && Date.now()-h.pop<900;
+  out+=`<div class="heat-bar lv${Math.min(4,Math.floor(h.n/4))}${pop?' pop':''}"><div class="hb-flame">${ico('flame')}</div><div class="hb-b"><div class="hb-top"><span>Heat <b>${h.n}</b> · ${lbl}</span><span>${h.bonus?'+'+h.bonus+' XP':'finish sets on tempo'}</span></div><div class="hb-seg">${Array.from({length:15},(_,i)=>`<i class="${i<Math.min(15,h.n)?'on':''}"></i>`).join('')}</div></div></div>`;
+  return out; }
+/* ===================== DAILY CONTRACT ===================== */
+const CONTRACTS=[
+ {id:'vol', t:k=>'Move '+fmt(k.v)+' '+DB.settings.unit+' in one session', v:[4000,6000,8000], lb:true, test:(e,v)=>e.type==='workout'&&e.volume>=v},
+ {id:'sets',t:k=>'Complete '+k.v+' sets in one session', v:[12,16,20], test:(e,v)=>e.type==='workout'&&e.sets>=v},
+ {id:'pr',  t:()=>'Set a personal record', v:[1], test:e=>e.type==='workout'&&e.prs>=1},
+ {id:'heat',t:k=>'Reach Heat '+k.v+' in a session', v:[8,12], test:(e,v)=>e.type==='workout'&&e.heat>=v},
+ {id:'run', t:k=>'Run '+dLabel(k.v,0)+' or more', v:[3,5], test:(e,v)=>e.type==='cardio'&&e.km>=v},
+ {id:'mob', t:()=>'Include 3+ mobility moves in a session', v:[3], test:(e,v)=>e.type==='workout'&&e.mobN>=v},
+ {id:'full',t:()=>'Finish every set you planned', v:[1], test:e=>e.type==='workout'&&e.allDone},
+ {id:'prog',t:()=>"Complete today's program session", v:[1], test:e=>e.type==='workout'&&!!e.prog}];
+function todayContract(){ const d=todayStr(), pool=CONTRACTS.filter(c=>c.id!=='prog'||progRoutine()), c=pool[_mhash('ct'+d)%pool.length];
+  let v=c.v[_mhash('cv'+d)%c.v.length]; if(c.lb && DB.settings.unit==='lb') v=Math.round(v*2.2046/500)*500; return {c, v, id:c.id+'@'+d}; }
+function contractState(){ if(!DB.settings.ct) DB.settings.ct={done:{},streak:0,last:null}; return DB.settings.ct; }
+function contractStreak(){ const S=contractState(); return (S.last===todayStr()||S.last===_yday())? (S.streak||0) : 0; }
+function contractCheck(evt){ const k=todayContract(), S=contractState(); if(S.done[k.id] || !k.c.test(evt,k.v)) return null;
+  S.done={}; S.done[k.id]=1; S.streak=(S.last===_yday())? (S.streak||0)+1 : 1; S.last=todayStr();
+  cacheGrant(S.streak>=7?'epic':(S.streak>=3?'rare':'')); gainXP(50); save();
+  _contractJust={t:k.c.t(k), streak:S.streak}; return _contractJust; }
+function renderContract(){ const host=$('#contractCard'); if(!host) return; const k=todayContract(), S=contractState(), done=!!S.done[k.id], st=contractStreak();
+  host.innerHTML=`<div class="contract${done?' done':''}"><div class="ct-seal">${done?'✓':'📜'}</div><div class="ct-b"><div class="ct-eyebrow">Daily contract${st?' · '+st+'-day streak':''}</div><div class="ct-t">${esc(k.c.t(k))}</div><div class="ct-s">${done?'Fulfilled — a new contract arrives tomorrow':'Reward: Forge Cache + 50 XP · 3-day streak upgrades it to rare, 7 to epic'}</div></div></div>`; }
+/* ===================== DATA PROTECTION ===================== */
+let _persistAsked=false;
+function requestPersist(){ if(_persistAsked) return; _persistAsked=true;
+  try{ const S=navigator.storage; if(!S || !S.persist) return;
+    (S.persisted? S.persisted() : Promise.resolve(false)).then(p=>p? p : S.persist())
+      .then(g=>{ if(DB.settings.persisted!==!!g){ DB.settings.persisted=!!g; save(); } }).catch(()=>{});
+  }catch(e){} }
+function backupAgeDays(){ const t=DB.settings.lastBackup; return t? Math.floor((Date.now()-t)/864e5) : null; }
+function renderBackupNudge(){ const host=$('#backupNudge'); if(!host) return;
+  const n=(DB.log||[]).length, age=backupAgeDays();
+  const due=n>=3 && (age===null || age>=7) && (Date.now()-(DB.settings.backupSnooze||0))>3*864e5;
+  if(!due){ host.innerHTML=''; return; }
+  host.innerHTML=`<div class="backup-nudge"><div class="bn-i">🛡️</div><div class="bn-b"><div class="bn-t">Back up your forge</div><div class="bn-s">${n} sessions · ${age===null?'never backed up':'last backup '+age+' days ago'}${DB.settings.persisted?'':' · browser storage can be cleared'}</div></div><div class="bn-a"><button class="btn btn-primary btn-sm" data-action="export-data">Export</button><button class="bn-later" data-action="backup-later">Later</button></div></div>`; }
+function storageStatusHTML(){ const age=backupAgeDays();
+  return `<div class="storage-status ${DB.settings.persisted?'ok':'warn'}"><span>${DB.settings.persisted?'🛡️ Storage protected from clearing':'⚠️ Storage not protected — back up regularly'}</span><span>${age===null?'No backup yet':'Last backup: '+(age===0?'today':age+'d ago')}</span></div>`; }
+/* ===================== RUN IMPORT — GPX · TCX · FIT ===================== */
+var _imp=null;
+function _km(a,b){ const R=6371, r=Math.PI/180, dLa=(b[0]-a[0])*r, dLo=(b[1]-a[1])*r;
+  const x=Math.sin(dLa/2)**2+Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin(dLo/2)**2; return 2*R*Math.asin(Math.min(1,Math.sqrt(x))); }
+function _tag(s,name){ const m=s.match(new RegExp('<(?:\\w+:)?'+name+'\\b[^>]*>([^<]*)</(?:\\w+:)?'+name+'>')); return m? m[1].trim() : null; }
+function parseGPX(txt){ const pts=[], re=/<trkpt\b([^>]*)>([\s\S]*?)<\/trkpt>/g; let m;
+  while((m=re.exec(txt))){ const la=/lat="([-\d.]+)"/.exec(m[1]), lo=/lon="([-\d.]+)"/.exec(m[1]); if(!la||!lo) continue;
+    const t=_tag(m[2],'time'), hr=_tag(m[2],'hr'); pts.push({lat:+la[1], lon:+lo[1], t:t?Date.parse(t):null, hr:hr?+hr:null}); }
+  return {pts, tot:{}, sport:(_tag(txt,'type')||'').toLowerCase(), src:'GPX'}; }
+function parseTCX(txt){ const pts=[], re=/<Trackpoint\b[^>]*>([\s\S]*?)<\/Trackpoint>/g; let m;
+  while((m=re.exec(txt))){ const b=m[1], la=_tag(b,'LatitudeDegrees'), lo=_tag(b,'LongitudeDegrees'), t=_tag(b,'Time'), d=_tag(b,'DistanceMeters'), hm=/<HeartRateBpm\b[^>]*>[\s\S]*?<Value>(\d+)<\/Value>/.exec(b);
+    pts.push({lat:la!=null?+la:null, lon:lo!=null?+lo:null, t:t?Date.parse(t):null, hr:hm?+hm[1]:null, d:d!=null?+d:null}); }
+  let time=0, dist=0; const lre=/<Lap\b[^>]*>([\s\S]*?)<\/Lap>/g;
+  while((m=lre.exec(txt))){ const lb=m[1].replace(/<Track>[\s\S]*?<\/Track>/g,''); time+=+(_tag(lb,'TotalTimeSeconds')||0); dist+=+(_tag(lb,'DistanceMeters')||0); }
+  const sp=/<Activity\b[^>]*Sport="([^"]+)"/.exec(txt);
+  return {pts, tot:{timeS:time||null, distM:dist||null}, sport:(sp?sp[1]:'').toLowerCase(), src:'TCX'}; }
+function parseFIT(buf){ const dv=new DataView(buf);
+  if(buf.byteLength<14 || String.fromCharCode(dv.getUint8(8),dv.getUint8(9),dv.getUint8(10),dv.getUint8(11))!=='.FIT') throw new Error('Not a FIT file');
+  const hs=dv.getUint8(0), end=Math.min(buf.byteLength, hs+dv.getUint32(4,true)), defs={}, pts=[], tot={}; let p=hs, last=0, sport='';
+  const rd=(fd,le)=>{ const o=p, bt=fd.bt&0x1F, s=fd.size; let v=null;
+    if(s===1){ v=bt===1?dv.getInt8(o):dv.getUint8(o); if(v===(bt===1?0x7F:0xFF)) v=null; }
+    else if(s===2){ v=bt===3?dv.getInt16(o,le):dv.getUint16(o,le); if(v===(bt===3?0x7FFF:0xFFFF)) v=null; }
+    else if(s===4){ if(bt===8) v=dv.getFloat32(o,le); else { v=bt===5?dv.getInt32(o,le):dv.getUint32(o,le); if(v===(bt===5?0x7FFFFFFF:0xFFFFFFFF)) v=null; } }
+    return v; };
+  const readMsg=def=>{ const v={}; def.f.forEach(fd=>{ v[fd.num]=rd(fd,def.le); p+=fd.size; }); p+=def.dsz; return v; };
+  const handle=(g,v)=>{ if(v[253]!=null) last=v[253];
+    if(g===20){ const S=180/2147483648; pts.push({lat:v[0]!=null?v[0]*S:null, lon:v[1]!=null?v[1]*S:null, t:((v[253]!=null?v[253]:last)+631065600)*1000, hr:v[3], d:v[5]!=null?v[5]/100:null}); }
+    else if(g===18){ if(v[8]!=null) tot.timeS=v[8]/1000; else if(v[7]!=null) tot.timeS=v[7]/1000; if(v[9]!=null) tot.distM=v[9]/100;
+      if(v[16]!=null) tot.hrAvg=v[16]; if(v[17]!=null) tot.hrMax=v[17]; if(v[5]!=null) sport=['generic','running','cycling','transition','fitness_equipment','swimming'][v[5]]||String(v[5]); } };
+  while(p<end){ const h=dv.getUint8(p++);
+    if(h&0x80){ const def=defs[(h>>5)&3]; if(!def) throw new Error('Unreadable FIT record'); const off=h&0x1F;
+      let ts=(last&0xFFFFFFE0)+off; if(off<(last&0x1F)) ts+=0x20; last=ts; const v=readMsg(def); if(v[253]==null) v[253]=ts; handle(def.g,v); continue; }
+    const lt=h&0x0F;
+    if(h&0x40){ p++; const le=dv.getUint8(p++)===0, g=dv.getUint16(p,le); p+=2; const n=dv.getUint8(p++), f=[];
+      for(let i=0;i<n;i++){ f.push({num:dv.getUint8(p), size:dv.getUint8(p+1), bt:dv.getUint8(p+2)}); p+=3; }
+      let dsz=0; if(h&0x20){ const dn=dv.getUint8(p++); for(let i=0;i<dn;i++){ dsz+=dv.getUint8(p+1); p+=3; } }
+      defs[lt]={g,le,f,dsz}; }
+    else { const def=defs[lt]; if(!def) throw new Error('Unreadable FIT record'); handle(def.g, readMsg(def)); } }
+  return {pts, tot, sport, src:'FIT'}; }
+function summariseTrack(r){ const P=r.pts||[], geo=P.filter(x=>x.lat!=null&&x.lon!=null&&isFinite(x.lat)&&isFinite(x.lon)&&!(x.lat===0&&x.lon===0));
+  let km=0; for(let i=1;i<geo.length;i++) km+=_km([geo[i-1].lat,geo[i-1].lon],[geo[i].lat,geo[i].lon]);
+  let dMax=0; P.forEach(x=>{ if(x.d>dMax) dMax=x.d; });
+  const ts=P.map(x=>x.t).filter(x=>x!=null&&isFinite(x)); let t0=Infinity, t1=-Infinity; ts.forEach(t=>{ if(t<t0) t0=t; if(t>t1) t1=t; });
+  const start=ts.length? t0 : Date.now(), durMin=r.tot.timeS? r.tot.timeS/60 : (ts.length>1? (t1-t0)/60000 : 0);
+  const hrs=P.map(x=>x.hr).filter(x=>x>30&&x<240); let hMax=0; hrs.forEach(x=>{ if(x>hMax) hMax=x; });
+  const step=Math.max(1,Math.ceil(geo.length/400)), path=geo.filter((_,i)=>i%step===0||i===geo.length-1).map(x=>[+x.lat.toFixed(6), +x.lon.toFixed(6)]);
+  const dist=r.tot.distM? r.tot.distM/1000 : (dMax>0? dMax/1000 : km);
+  return {km:Math.round(dist*100)/100, min:Math.round(durMin*10)/10, start, path, src:r.src, sport:r.sport||'',
+    hrAvg:r.tot.hrAvg||(hrs.length?Math.round(hrs.reduce((a,b)=>a+b,0)/hrs.length):null), hrMax:r.tot.hrMax||(hMax||null), key:r.src+'-'+Math.round(start/60000)}; }
+function handleRunFile(file){ if(!file) return; const ext=(file.name||'').toLowerCase().split('.').pop();
+  const fail=m=>toast('⚠️','Could not import', m||'That file could not be read');
+  const done=r=>{ const s=summariseTrack(r); if(!(s.km>0.05) || !(s.min>0)) return fail('No distance or time found in that file'); _imp=s; openImportSheet(); };
+  if(['gpx','tcx','fit'].indexOf(ext)<0) return fail('Choose a .gpx, .tcx or .fit file');
+  const rd=new FileReader(); rd.onerror=()=>fail();
+  rd.onload=()=>{ try{ done(ext==='fit'? parseFIT(rd.result) : ext==='gpx'? parseGPX(rd.result) : parseTCX(rd.result)); }catch(e){ fail(e.message); } };
+  if(ext==='fit') rd.readAsArrayBuffer(file); else rd.readAsText(file); }
+function openImportSheet(){ const s=_imp; if(!s) return; const dup=(DB.log||[]).some(x=>x.importKey===s.key), w=new Date(s.start);
+  const other=s.sport && !/run|generic|walk|treadmill/.test(s.sport);
+  openSheet(`<div class="grab"></div><h3>Import run</h3>
+  <p class="sh-lead">${s.src} file · ${w.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})}, ${w.toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'})}</p>
+  <div class="tr-stats"><div><b>${dNum(s.km,2)}</b><span>${dU()}</span></div><div><b>${fmtMin(s.min)}</b><span>time</span></div><div><b>${s.km>0?paceLabel(s.min/s.km).split(' ')[0]:'—'}</b><span>pace /${dU()}</span></div></div>
+  ${s.hrAvg?`<div class="hd-row"><span>Heart rate</span><span class="mono">avg ${s.hrAvg} · max ${s.hrMax} bpm</span></div>`:''}
+  ${s.path.length>1?`<div class="chart-box" style="margin-top:10px">${routeSVG(s.path)}</div>`:''}
+  ${other?`<p class="hint" style="text-align:left">This file is marked as ${esc(s.sport)} — it will still be logged as cardio.</p>`:''}
+  ${dup?`<p class="hint" style="text-align:left;color:#FFB061">This run was already imported.</p>`:''}
+  <div class="btn-row" style="margin-top:14px"><button class="btn btn-primary" data-action="import-run-save"${dup?' disabled':''}>${dup?'Already imported':'Save run'}</button><button class="btn btn-ghost" data-action="close-sheet">Cancel</button></div>`); }
+function saveImportedRun(){ const s=_imp; if(!s || (DB.log||[]).some(x=>x.importKey===s.key)) return;
+  const extra={ts:s.start, date:_ymd(new Date(s.start)), importKey:s.key, imported:s.src};
+  if(s.path.length>1) extra.path=s.path; if(s.hrAvg) extra.hrAvg=s.hrAvg; if(s.hrMax) extra.hrMax=s.hrMax;
+  _quietUntil=Date.now()+400; logCardio(s.km, 'run', s.min, extra); _quietUntil=0;
+  DB.log.sort((a,b)=>(b.ts||0)-(a.ts||0)); save(); _imp=null; closeSheet(); renderCardioTabs();
+  toast('⬆️','Run imported', dLabel(s.km)+' · '+fmtMin(s.min)+(s.hrAvg?' · avg '+s.hrAvg+' bpm':'')); }
+document.addEventListener('change', e=>{ const el=e.target; if(el && el.id==='runFile'){ handleRunFile(el.files && el.files[0]); el.value=''; } });
 function foldSection(key, ico, title, sub, inner){
   const open=foldOpen(key);
   return `<div class="fold${open?'':' closed'}" id="fold${key.charAt(0).toUpperCase()+key.slice(1)}">`
@@ -2799,6 +3212,7 @@ function lastWorkout(){ return (DB.log||[]).find(l=>l.type==='strength' && l.ent
 function renderQuickStart(){
   const host=$('#quickStart'); if(!host) return;
   if(activeSession){ host.innerHTML=''; return; }
+  const T=progToday(); if(T){ host.innerHTML=todayCardHTML(T); return; }
   const lw=lastWorkout();
   if(!lw){ host.innerHTML=''; return; }
   const exN=lw.entries.length;
@@ -2857,7 +3271,7 @@ function renderHome(){
       <div style="font-size:12px;color:var(--muted)">${a.d}</div></div>
       <div class="tier ${a.tier}" style="position:static;opacity:1">${a.tier}</div></div>`).join('');
   }
-  renderQuickStart(); renderRelic(); renderWeapon(); renderSpriteDen(); applyFolds(); renderAscentCard(); renderLapAura(); renderEventCard(); applyLoot(); applyAmoled();
+  requestPersist(); renderQuickStart(); renderBackupNudge(); renderContract(); renderRelic(); renderWeapon(); renderSpriteDen(); applyFolds(); renderAscentCard(); renderLapAura(); renderEventCard(); applyLoot(); applyAmoled();
   if(!_caughtUp){ _caughtUp=true; ascentCheck(); monumentCheck(); }
   startEmbers(); setTimeout(tickUp,0);
 }
@@ -2889,6 +3303,7 @@ function rtListHTML(){
     </div>
     <div class="rt-body" style="display:${open?'block':'none'}">
       <div class="day-list">${r.days.map((d,di)=>`<div class="day-row" data-action="start-day" data-routine="${r.id}" data-day="${di}" style="cursor:pointer"><div class="dn"><span>${esc(d.name)}</span><span style="color:var(--energy-1);font-size:11px;font-weight:700">Start ▸</span></div><div class="de">${d.ex.map(e=>esc(e.n)).join(', ')||'No exercises'}</div></div>`).join('')}</div>
+      <button class="btn btn-ghost btn-sm rt-prog" data-action="prog-open" data-id="${r.id}">${(DB.settings.prog&&DB.settings.prog.rid===r.id)?'📅 Your active program · edit schedule':'📅 Run as my program'}</button>
       <div class="btn-row" style="margin-top:12px">
         <button class="btn btn-ghost btn-sm" data-action="edit-routine" data-routine="${r.id}" style="width:100%">Edit</button>
         <button class="btn btn-ghost btn-sm" data-action="del-routine" data-routine="${r.id}" style="width:100%;color:#FF6B8A">Delete</button>
@@ -3115,7 +3530,7 @@ function hrZones(){ const mx=maxHR(); if(!mx) return null; const rest=(DB.settin
   return {mx, rest, zones:defs.map(d=>({name:d[0], lo:calc(d[1]), hi:calc(d[2])}))}; }
 
 /* ===================== VO2MAX — dedicated entry + analysis ===================== */
-const APP_V='v56';
+const APP_V='v58';
 function vo2Parts(){
   const s=DB.settings, age=currentAge();
   const bv=bestVo2(), vr=vo2FromRestHR();
@@ -4462,11 +4877,25 @@ function openSprite(){
 function renderVaultRow(){ const host=$('#vaultRow'); if(!host) return; ensureLoot();
   const own=LOOT.filter(i=>DB.loot.owned[i.id]).length, n=DB.loot.q.length;
   host.innerHTML=`<div class="title-row"><div><div class="tr-k">🗃 Vault</div><div class="tr-v" style="color:var(--text)">${own} / ${LOOT.length} collected</div></div><button class="btn ${n?'btn-primary':'btn-ghost'} btn-sm" style="width:auto" data-action="vault-open">${n?('Open ('+n+')'):'Browse'}</button></div>`; }
+/* ===================== LOOT VISUALS — every item previews what it does ===================== */
+function lootSwatch(it){ const v=it.v;
+  if(it.k==='ember') return `<span class="lp lp-ember" style="--a:rgb(${v[0]});--b:rgb(${v[1]})"><i></i><i></i><i></i><i></i></span>`;
+  if(it.k==='metal') return `<span class="lp lp-metal" style="--m1:${v.b[0]};--m2:${v.b[1]};--m3:${v.b[2]};--m4:${v.d[2]}"><i></i></span>`;
+  if(it.k==='flame') return `<span class="lp lp-flame"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="lf${it.id}" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="${v[2]}"/><stop offset=".55" stop-color="${v[1]}"/><stop offset="1" stop-color="${v[0]}"/></linearGradient></defs><path d="M12 22c-4.4 0-7.2-3-7.2-6.9 0-4 3.1-5.9 4.1-9.7 2 1.5 2.7 3.5 2.5 5.2 1.5-.9 2.6-2.8 2.7-5.3 3.1 2.3 5.1 5.9 5.1 9.8 0 3.9-2.8 6.9-7.2 6.9z" fill="url(#lf${it.id})"/><path d="M12 22c-1.9 0-3.2-1.3-3.2-3.1 0-1.9 1.6-2.9 2.3-4.8 2.1 1.4 4 2.9 4 4.8 0 1.8-1.3 3.1-3.1 3.1z" fill="${v[0]}" opacity=".85"/></svg></span>`;
+  if(it.k==='rune') return `<span class="lp lp-rune" style="--g:${v.g}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3.5v17M9 5.5l6.5 3.6M9 11.5l6.5 3.6"/></svg></span>`;
+  if(it.k==='xp') return `<span class="lp lp-xp"><i style="background-image:${v}"></i></span>`;
+  if(it.k==='acc') return `<span class="lp lp-acc">${spriteSVG(2,'happy',v,46)}</span>`;
+  if(it.k==='theme') return `<span class="lp lp-theme" style="--a:${v.a};--b:${v.b}"><i></i></span>`;
+  return `<span class="lp lp-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v10.5l-7 4-7-4z"/><path d="M9 9.5h6M9 12.5h4"/></svg></span>`; }
+function vaultMeterHTML(){ const L=DB.loot, own=LOOT.filter(i=>L.owned[i.id]), byR=[1,2,3,4].map(r=>own.filter(i=>i.r===r).length);
+  return `<div class="vault-meter"><div class="vm-top"><span>Collection</span><b>${own.length} / ${LOOT.length}</b></div>
+    <div class="vm-bar">${[4,3,2,1].map(r=>`<i class="r${r}" style="width:${(byR[r-1]/LOOT.length*100).toFixed(2)}%"></i>`).join('')}</div>
+    <div class="vm-leg">${[1,2,3,4].map(r=>`<span class="r${r}"><i></i>${RARN[r]} ${byR[r-1]}</span>`).join('')}</div></div>`; }
 function vaultBody(){ ensureLoot(); const L=DB.loot;
-  return LOOT_POOLS.map(P=>{ const items=LOOT.filter(i=>i.k===P[0]); const own=items.filter(i=>L.owned[i.id]).length;
+  return vaultMeterHTML()+LOOT_POOLS.map(P=>{ const items=LOOT.filter(i=>i.k===P[0]); const own=items.filter(i=>L.owned[i.id]).length;
     return `<div class="exg open"><button class="exg-head" data-action="exg-toggle"><span class="xh-i">${P[2]}</span><span class="xh-t">${P[1]}</span><span class="xh-c">${own} / ${items.length}</span><span class="xh-ch">▾</span></button><div class="exg-body"><div class="loot-grid">${items.map(i=>{
       const o=!!L.owned[i.id]; const eq=(i.k==='title')? (DB.settings.title===('l:'+i.id)) : (L.equip[i.k]===i.id);
-      return `<${o?'button':'div'} class="loot-item r${i.r}${o?' own':''}${eq?' eq':''}"${o?` data-action="loot-equip" data-id="${i.id}"`:''}><span class="li-dot"></span><span class="li-n">${esc(i.n)}</span>${o?'':('<span class="li-lk">'+(i.t2?'Ⅱ🔒':'🔒')+'</span>')}</${o?'button':'div'}>`;
+      return `<${o?'button':'div'} class="loot-item r${i.r}${o?' own':' locked'}${eq?' eq':''}"${o?` data-action="loot-equip" data-id="${i.id}"`:''}><span class="li-prev">${lootSwatch(i)}</span><span class="li-body"><span class="li-n">${esc(i.n)}</span><span class="li-r">${eq?'Equipped':(o?RARN[i.r]:(i.t2?'Lap II · locked':(i.ev?'Event · locked':RARN[i.r]+' · locked')))}</span></span>${o?'':'<span class="li-lk">🔒</span>'}</${o?'button':'div'}>`;
     }).join('')}</div></div></div>`; }).join(''); }
 function openVault(){ ensureLoot(); const n=DB.loot.q.length;
   openSheet(`<div class="grab"></div><h3>The Vault</h3>
@@ -4959,7 +5388,7 @@ function renderSession(){
   $('#sessTitle').textContent=activeSession.title;
   $('#sessEyebrow').textContent=activeSession.eyebrow||'Active session';
   const curEi=activeSession.entries.findIndex(e=>(e.sets||[]).some(s=>!s.done));
-  $('#sessionBody').innerHTML=activeSession.entries.map((en,ei)=>{
+  $('#sessionBody').innerHTML=sessionTopHTML()+activeSession.entries.map((en,ei)=>{
     const info=exInfo(en.exercise);
     const ls=lastSets(en.exercise), sug=suggestNext(en), nx=(en.sets||[]).findIndex(s=>!s.done), complete=nx<0 && (en.sets||[]).length>0, collapsed=complete && !en.open;
     return `<div class="exblock${complete?' complete':''}${ei===curEi?' current':''}"><div class="exhead"><div><div class="en">${esc(en.exercise)}</div><div class="eg">${info.g}${en.target?' · target '+esc(en.target):''} ${restBadge(en, ei)}</div>${ls?`<div class="ex-last">↩ Last ${fmtSets(ls.sets)} · ${sd(ls.date)}</div>`:''}${(sug && !complete)?`<div class="ex-next${sug.up?' up':''}">→ Try ${sug.w} ${DB.settings.unit} × ${sug.r}<span>${esc(sug.why)}</span></div>`:''}</div><div class="ex-actions"><button class="mini-link" data-action="ex-cues" data-ex="${esc(en.exercise)}">ⓘ Form</button><button class="mini-link" data-action="swap-ex" data-ei="${ei}">⇄ Swap</button><button class="mini-link" data-action="rm-ex" data-ei="${ei}">Remove</button></div></div>
@@ -4985,6 +5414,7 @@ function syncSetInput(ei,si,field,val){
 function finishSession(){
   if(!activeSession) return;
   stopRest();
+  _recapBase=recapSnap(); _quietUntil=Date.now()+6000;
   const _relicBefore=relicTier().idx;
   let volume=0, prHits=[];
   activeSession.entries.forEach(en=>{
@@ -5028,6 +5458,10 @@ function finishSession(){
   if(_bossWin){ setTimeout(()=>{ _burstT=0; burst('gold'); toast(_bossMeta.ico,'BOSS DEFEATED!', _bossMeta.name+' has fallen — title “'+_bossMeta.title+'” earned','gold'); bossSpeak(_bossMeta.key,'win'); }, 950); }
   else if(_bossMeta){ setTimeout(()=>toast(_bossMeta.ico,'The boss endures','Every set must be completed — challenge it again'), 900); }
   if(relicTier().idx>_relicBefore){ setTimeout(()=>{ burst('gold'); toast('🗡️','Relic advanced!','Your forge reached '+relicTier().tier.n); }, 750); }
+  if(_recapBase && _recapBase.heat && _recapBase.heat.bonus) gainXP(_recapBase.heat.bonus);
+  progAdvance(_recapBase && _recapBase.prog);
+  contractCheck({type:'workout', volume, sets:_recapBase?_recapBase.sets:0, prs:prHits.length, heat:(_recapBase&&_recapBase.heat)?_recapBase.heat.peak:0, mobN:_ascEvt.mobN, allDone:!!(_recapBase&&_recapBase.allDone), prog:_recapBase&&_recapBase.prog});
+  save();
   showSummary({volume, prHits, xp:60+prHits.length*40, newAch});
 }
 function _daysBetween(a,b){ return Math.round((new Date(b+'T00:00:00')-new Date(a+'T00:00:00'))/86400000); }
@@ -5220,6 +5654,7 @@ function logCardio(dist, goal, min, extra){
   cacheGrant(activeEvent()?'rare':'');
   ascentCheck({type:'cardio', km:dist, min:min||0});
   monumentCheck();
+  contractCheck({type:'cardio', km:dist});
   renderHome();
 }
 
@@ -5635,6 +6070,7 @@ function exportData(){
     const url=URL.createObjectURL(blob);
     const a=document.createElement('a'); a.href=url; a.download='forge-backup-'+todayStr()+'.json';
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1500);
+    DB.settings.lastBackup=Date.now(); DB.settings.backupSnooze=0; save(); renderBackupNudge();
     toast('💾','Backup exported','Saved to your downloads — keep it safe');
   }catch(e){ toast('⚠️','Export failed','Could not create the backup file'); }
 }
@@ -5773,31 +6209,13 @@ function levelUpFX(lv, rank){
   }catch(e){}
 }
 function toast(ico, title, sub, cls=''){
+  if(_quietUntil>Date.now()) return;
   if(cls==='pr') burst('pr'); else if(cls==='gold') burst('gold');
   const el=document.createElement('div');
   el.className='toast '+cls;
   el.innerHTML=`<div class="t-ico">${ico}</div><div class="t-body"><div class="t-title">${esc(title)}</div><div class="t-sub">${esc(sub)}</div></div>`;
   $('#toasts').appendChild(el);
   setTimeout(()=>{ el.style.transition='.4s'; el.style.opacity='0'; el.style.transform='translateY(-120%)'; setTimeout(()=>el.remove(),400); }, 3200);
-}
-function showSummary({volume, prHits, xp, newAch}){
-  if((prHits&&prHits.length)||(newAch&&newAch.length)) burst(prHits&&prHits.length?'pr':'gold');
-  const li=levelInfo(DB.stats.xp);
-  openSheet(`
-    <div class="grab"></div>
-    <div style="text-align:center;margin-bottom:6px"><div style="font-size:46px">${prHits.length?'⚡':'✅'}</div></div>
-    <h3 style="text-align:center">Workout complete</h3>
-    <p class="sh-lead" style="text-align:center">Nice work. Here's what you banked.</p>
-    <div class="summary-stat"><span>Total volume</span><span class="ss-v hot">${fmt(volume)} ${DB.settings.unit}</span></div>
-    <div class="summary-stat"><span>XP earned</span><span class="ss-v">+${xp}${newAch.length?` (+${newAch.reduce((a,x)=>a+(TIER_XP[x.tier]||0),0)} bonus)`:''}</span></div>
-    <div class="summary-stat"><span>New PRs</span><span class="ss-v">${prHits.length}</span></div>
-    <div class="summary-stat"><span>Current streak</span><span class="ss-v">${DB.stats.currentStreak} 🔥</span></div>
-    <div class="summary-stat"><span>Level</span><span class="ss-v">${li.level} · ${li.rank}</span></div>
-    ${prHits.length?`<div class="t-note" style="margin-top:14px"><b>New personal records:</b> ${prHits.map(esc).join(', ')} 🎉</div>`:''}
-    ${newAch.length?`<div class="t-note said" style="margin-top:10px"><b>Awards unlocked:</b> ${newAch.map(a=>a.ico+' '+a.n).join(', ')}</div>`:''}
-    <button class="btn btn-primary" data-action="close-sheet" style="margin-top:18px">Done</button>
-  `);
-  prHits.forEach((p,i)=>setTimeout(()=>toast('⚡','New PR!', p, 'pr'), 200+i*250));
 }
 
 /* ============================================================
@@ -5831,6 +6249,7 @@ function openSettings(){
     <button class="btn btn-ghost" data-action="show-principles" style="margin-bottom:10px">📖 The training principles</button>
     <div class="divider"></div>
     <p class="eyebrow" style="margin-bottom:10px">Your data — back it up</p>
+    ${storageStatusHTML()}
     <button class="btn btn-ghost" data-action="export-data" style="margin-bottom:10px">💾 Export backup file</button>
     <button class="btn btn-ghost" data-action="import-data" style="margin-bottom:10px">📥 Restore from backup</button>
     <input type="file" id="importFile" accept="application/json,.json" style="display:none">
@@ -6063,10 +6482,10 @@ document.addEventListener('click', e=>{
     case 'use-tpl': {
       const tpl=TEMPLATES.find(x=>x.id===t.dataset.tpl);
       const copy={id:uid(), name:tpl.name, goal:tpl.goal, goalLabel:tpl.goalLabel,
-        days:tpl.days.map(d=>({name:d.name, ex:d.ex.map(e=>({n:e.n, s:e.s, r:e.r}))}))};
+        days:tpl.days.map(d=>({name:d.name, ex:d.ex.map(e=>({n:e.n, s:e.s, r:e.r, rest:(e.rest==null?null:e.rest)}))}))};
       DB.routines.push(copy); DB.stats.routinesCreated++; checkAchievements(); save();
       trainTab='routines'; renderTrain(); toast('📋','Added to your routines', tpl.name+' — tap a day to start');
-      break;
+      openProgSheet(copy.id); break;
     }
 
     // routine interactions
@@ -6080,6 +6499,7 @@ document.addEventListener('click', e=>{
       const r=DB.routines.find(x=>x.id===t.dataset.routine); const day=r.days[+t.dataset.day];
       startSession(r.name+' · '+day.name, r.goalLabel||'Strength session',
         day.ex.map(ex=>({n:ex.n, targetSets:parseInt(ex.s)||3, targetReps:ex.r, rest:(ex.rest==null?null:(+ex.rest||0))})));
+      if(activeSession && DB.settings.prog && DB.settings.prog.rid===r.id){ activeSession.prog={rid:r.id, day:+t.dataset.day}; Store.set('forge.activeSession', activeSession); }
       break;
     }
 
@@ -6138,6 +6558,7 @@ document.addEventListener('click', e=>{
       Store.set('forge.activeSession', activeSession); noteSave();
       row.classList.toggle('done', st.done); t.classList.toggle('on', st.done); row.classList.remove('next');
       if(st.done){ const en=activeSession.entries[ei]; const rs=restFor(en, si); if(rs>0){ _restEi=ei; _restBase=rs; startRest(rs); } else { _restEi=null; } }
+      if(st.done) heatTick(ei, si);
       Store.set('forge.activeSession', activeSession); renderSession();
       if(!_wasComplete && _en.sets.every(s=>s.done)){ setTimeout(()=>{ try{ const c=document.querySelector('.exblock.current'); if(c && c.scrollIntoView) c.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){} }, 80); }
       break;
@@ -6241,6 +6662,17 @@ document.addEventListener('click', e=>{
     case 'log-where': { logWhere=t.dataset.w; $$('#logWhereChips .chip').forEach(c=>c.classList.toggle('on', c.dataset.w===logWhere)); const iw=$('#tmInclineWrap'); if(iw) iw.style.display=logWhere==='tm'?'block':'none'; break; }
     case 'log-run-submit': submitLogRun(); break;
     case 'repeat-last': repeatLast(); break;
+    case 'prog-open': openProgSheet(t.dataset.id); break;
+    case 'prog-start': startProgDay(); break;
+    case 'prog-skip': progSkip(); break;
+    case 'pg-rt': { const r=DB.routines.find(x=>x.id===t.dataset.id); if(r){ const cur=DB.settings.prog, same=cur&&cur.rid===r.id; _pgDraft={rid:r.id, wd:(same&&cur.wd)?cur.wd.slice():defaultWeekdays(coreDays(r)), next:same?(cur.next||0):0}; paintProgSheet(); } break; }
+    case 'pg-wd': { const w=+t.dataset.w, i=_pgDraft.wd.indexOf(w); if(i>=0) _pgDraft.wd.splice(i,1); else _pgDraft.wd.push(w); paintProgSheet(); break; }
+    case 'pg-next': _pgDraft.next=+t.dataset.i; paintProgSheet(); break;
+    case 'pg-save': progSave(); break;
+    case 'pg-stop': DB.settings.prog=null; save(); closeSheet(); renderHome(); toast('📅','Program stopped','Quick Start goes back to repeating your last session'); break;
+    case 'backup-later': DB.settings.backupSnooze=Date.now(); save(); renderBackupNudge(); break;
+    case 'import-run': { const inp=$('#runFile'); if(inp) inp.click(); break; }
+    case 'import-run-save': saveImportedRun(); break;
     case 'ex-trend': openTrend(t.dataset.ex); break;
     case 'ex-expand': { const en=activeSession && activeSession.entries[+t.dataset.ei]; if(en){ en.open=!en.open; Store.set('forge.activeSession', activeSession); renderSession(); } break; }
     case 'dist-unit': setDistUnit(t.dataset.u); break;
@@ -6262,12 +6694,13 @@ document.addEventListener('click', e=>{
       const done=DB.ascent.done[nd.id]; const curId=(ascFlat()[DB.ascent.node]||{}).id;
       toast(nd.ico, nd.n, done?('Cleared '+done):(curId===nd.id? nd.d : 'Locked — climb further first')); break; }
     case 'vault-open': openVault(); break;
-    case 'cache-open': { const res=openCache(); if(!res) break;
+    case 'cache-open': { const _va=$('.vo-art'); if(_va && _va.classList){ _va.classList.remove('crack'); void _va.offsetWidth; _va.classList.add('crack'); }
+      const res=openCache(); if(!res) break;
       const rv=$('#cacheReveal');
       if(res.overflow){ if(rv) rv.innerHTML='<div class="cache-card r2"><div class="cc-rar">Overflow</div><div class="cc-name">+40 XP</div><div class="cc-pool">Collection complete — the Forge overflows</div></div>'; }
       else{ const it=res.item; const pool=LOOT_POOLS.find(p=>p[0]===it.k)||['','',''];
         if(it.r>=4){ _burstT=0; burst('gold'); } else if(it.r===3){ burst('pr'); } else if(it.r===2){ burst('teal'); }
-        if(rv) rv.innerHTML=`<div class="cache-card r${it.r}"><div class="cc-rar">${RARN[it.r]}</div><div class="cc-ico">${pool[2]}</div><div class="cc-name">${esc(it.n)}</div><div class="cc-pool">${pool[1]}</div><button class="btn btn-primary btn-sm" data-action="loot-equip" data-id="${it.id}" style="margin-top:8px; width:auto">Equip</button></div>`;
+        if(rv) rv.innerHTML=`<div class="cache-card r${it.r}"><div class="cc-rar">${RARN[it.r]}</div><div class="cc-prev">${lootSwatch(it)}</div><div class="cc-name">${esc(it.n)}</div><div class="cc-pool">${pool[1]}</div><button class="btn btn-primary btn-sm" data-action="loot-equip" data-id="${it.id}" style="margin-top:8px; width:auto">Equip</button></div>`;
         setTimeout(()=>toast(pool[2], RARN[it.r]+' drop!', it.n, it.r>=3?'gold':''), 250); }
       const vb=$('#vaultBody'); if(vb) vb.innerHTML=vaultBody();
       const ob=$('#vaultOpenBtn'); if(ob) ob.textContent=DB.loot.q.length?('Crack open ('+DB.loot.q.length+')'):'Train to earn one';
