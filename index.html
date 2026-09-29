@@ -3240,7 +3240,8 @@ function paintProgSheet(){ const r=(DB.routines||[]).find(x=>x.id===_pgDraft.rid
   <div class="spr-card"><div class="spr-sec"><span>Training days</span><span class="spr-secr">${_pgDraft.wd.length} a week</span></div><div class="wd-row">${[1,2,3,4,5,6,0].map(w=>`<button class="wd ${_pgDraft.wd.indexOf(w)>=0?'on':''}" data-action="pg-wd" data-w="${w}">${WD[w]}</button>`).join('')}</div></div>
   <div class="spr-card"><div class="spr-sec"><span>Next session</span></div>${r.days.map((d,i)=>`<button class="pg-day ${i===_pgDraft.next?'on':''}" data-action="pg-next" data-i="${i}"><b>${i+1}</b><span>${esc(d.name)}</span></button>`).join('')}</div>
   <div class="btn-row" style="margin-top:14px"><button class="btn btn-primary" data-action="pg-save">${active?'Save':'Run this program'}</button>${DB.settings.prog?`<button class="btn btn-ghost" data-action="pg-stop">Stop program</button>`:`<button class="btn btn-ghost" data-action="close-sheet">Not now</button>`}</div>`); }
-function progSave(){ if(!_pgDraft || !_pgDraft.wd.length){ toast('📅','Pick at least one day','Choose the days you train'); return; }
+function progSave(){ if(_pgDraft && !(DB.routines||[]).some(x=>x.id===_pgDraft.rid)){ toast('📅','Routine not found','Pick another routine'); return; }
+  if(!_pgDraft || !_pgDraft.wd.length){ toast('📅','Pick at least one day','Choose the days you train'); return; }
   const prev=DB.settings.prog, same=prev && prev.rid===_pgDraft.rid;
   DB.settings.prog={rid:_pgDraft.rid, wd:_pgDraft.wd.slice().sort(), next:_pgDraft.next, count: same? (prev.count||0) : 0, last: same? prev.last : null, since: same? prev.since : todayStr()};
   save(); closeSheet(); renderHome(); const r=progRoutine();
@@ -3511,6 +3512,18 @@ function fxRipple(e){ if(!fxOn()) return; const b=e.target && e.target.closest &
   s.className='fx-ripple'; s.style.cssText='width:'+d+'px;height:'+d+'px;left:'+(e.clientX-q.left-d/2)+'px;top:'+(e.clientY-q.top-d/2)+'px'; b.appendChild(s); setTimeout(()=>{ try{ s.remove(); }catch(_){} },650); }
 function fxAmbient(){ try{ document.body.classList.toggle('fx-off', DB.settings.fx===false); document.body.classList.toggle('ui2', DB.settings.ui2!==false); }catch(e){} }
 document.addEventListener('pointerdown', fxRipple, {passive:true});
+/* ===================== DATA SANITISER — repairs damaged or old-format saves ===================== */
+let _san=false;
+function sanitizeDB(){ try{
+  if(DB.prs && typeof DB.prs==='object'){ Object.keys(DB.prs).forEach(k=>{ const p=DB.prs[k]; if(!p || typeof p!=='object' || !(+p.e1rm>0)) delete DB.prs[k]; }); } else DB.prs={};
+  DB.bodyweight=(Array.isArray(DB.bodyweight)?DB.bodyweight:[]).filter(b=>b && b.date && +b.weight>0);
+  DB.routines=(Array.isArray(DB.routines)?DB.routines:[]).filter(r=>r && r.id).map(r=>{
+    r.days=(Array.isArray(r.days)?r.days:[]).filter(d=>d).map(d=>{ d.ex=Array.isArray(d.ex)?d.ex.filter(e=>e && e.n):[]; d.name=d.name||'Day'; return d; });
+    if(!r.days.length) r.days=[{name:'Day 1',ex:[]}]; r.name=r.name||'Routine'; return r; });
+  DB.log=(Array.isArray(DB.log)?DB.log:[]).filter(l=>l && typeof l==='object').map(l=>{
+    if(l.type!=='cardio'){ l.entries=(Array.isArray(l.entries)?l.entries:[]).filter(e=>e && e.exercise).map(e=>{ e.sets=Array.isArray(e.sets)?e.sets.filter(s=>s && typeof s==='object'):[]; return e; }); }
+    return l; });
+}catch(e){} }
 /* ===================== DATA PROTECTION ===================== */
 let _persistAsked=false;
 function requestPersist(){ if(_persistAsked) return; _persistAsked=true;
@@ -3672,7 +3685,7 @@ function renderHome(){
       <div style="font-size:12px;color:var(--muted)">${a.d}</div></div>
       <span class="ra-tier ${a.tier}">${a.tier}</span></div>`).join('');
   }
-  requestPersist(); fxAmbient(); sprRegent(); renderTalentCard(); renderQuickStart(); renderBackupNudge(); renderContract(); renderRelic(); renderWeapon(); renderSpriteDen(); applyFolds(); renderAscentCard(); renderLapAura(); renderEventCard(); applyLoot(); applyAmoled();
+  if(!_san){ _san=true; sanitizeDB(); } requestPersist(); fxAmbient(); sprRegent(); renderTalentCard(); renderQuickStart(); renderBackupNudge(); renderContract(); renderRelic(); renderWeapon(); renderSpriteDen(); applyFolds(); renderAscentCard(); renderLapAura(); renderEventCard(); applyLoot(); applyAmoled();
   if(!_caughtUp){ _caughtUp=true; ascentCheck(); monumentCheck(); }
   startEmbers(); setTimeout(tickUp,0);
 }
@@ -3949,7 +3962,7 @@ function hrZones(){ const mx=maxHR(); if(!mx) return null; const rest=(DB.settin
   return {mx, rest, zones:defs.map(d=>({name:d[0], lo:calc(d[1]), hi:calc(d[2])}))}; }
 
 /* ===================== VO2MAX — dedicated entry + analysis ===================== */
-const APP_V='v71';
+const APP_V='v72';
 function vo2Parts(){
   const s=DB.settings, age=currentAge();
   const bv=bestVo2(), vr=vo2FromRestHR();
@@ -6472,7 +6485,7 @@ function gpsView(){
   return `<div class="card gps-card">
     <div class="gps-sig"><span class="gps-dot" id="gpsDot"></span><span id="gpsSig">Acquiring GPS…</span>${paused?' · <b style="color:var(--gold)">PAUSED</b>':''}</div>
     <div id="hrLive" style="margin-bottom:8px"></div>
-    <div class="gps-dist" id="gpsDist">0.00<small>${DU}</small></div>
+    <div class="gps-dist" id="gpsDist">0.00<small>${dU()}</small></div>
     <div class="gps-grid">
       <div class="gps-cell"><div class="gl">Time</div><div class="gv" id="gpsTime">0:00</div></div>
       <div class="gps-cell"><div class="gl">Pace</div><div class="gv" id="gpsPace">—</div></div>
@@ -6626,6 +6639,7 @@ function backupPayload(){ return { _app:'FORGE', _v:1, exported:new Date().toISO
   achievements:DB.achievements, customEx:DB.customEx, bodyweight:DB.bodyweight, plan:DB.plan, quests:DB.quests, friends:DB.friends, season:DB.season, seasonHistory:DB.seasonHistory, bossLog:DB.bossLog, weapon:DB.weapon, ascent:DB.ascent, loot:DB.loot, sprite:DB.sprite, monu:DB.monu }; }
 function applyBackup(d){
   if(!d || d._app!=='FORGE' || !d.stats) return false;
+  _san=false;
   DB.settings=d.settings||DB.settings;
   DB.stats=Object.assign({}, DB.stats, d.stats);
   DB.routines=d.routines||[]; DB.log=d.log||[]; DB.prs=d.prs||{};
@@ -6843,6 +6857,7 @@ let builderDraft=null;
 function openRoutineBuilder(existingId){
   if(existingId){
     const r=DB.routines.find(x=>x.id===existingId);
+    if(!r){ toast('📋','Routine not found','It may have been deleted'); return; }
     builderDraft=JSON.parse(JSON.stringify(r));
   } else {
     builderDraft={id:uid(), name:'', goal:'general', goalLabel:'General Fitness', days:[{name:'Day 1', ex:[]}], _new:true};
@@ -7069,7 +7084,7 @@ document.addEventListener('click', e=>{
       break;
     case 'start-day':
       { const _r=DB.routines.find(x=>x.id===t.dataset.routine); if(_r){ _r.lu=Date.now(); save(); } } {
-      const r=DB.routines.find(x=>x.id===t.dataset.routine); const day=r.days[+t.dataset.day];
+      const r=DB.routines.find(x=>x.id===t.dataset.routine); if(!r || !r.days || !r.days[+t.dataset.day]) break; const day=r.days[+t.dataset.day];
       startSession(r.name+' · '+day.name, r.goalLabel||'Strength session',
         day.ex.map(ex=>({n:ex.n, targetSets:parseInt(ex.s)||3, targetReps:ex.r, rest:(ex.rest==null?null:(+ex.rest||0))})));
       if(activeSession && DB.settings.prog && DB.settings.prog.rid===r.id){ activeSession.prog={rid:r.id, day:+t.dataset.day}; Store.set('forge.activeSession', activeSession); }
@@ -7077,15 +7092,17 @@ document.addEventListener('click', e=>{
     }
 
     // builder
-    case 'br-add-day': pullBuilderInputs(); builderDraft.days.push({name:'Day '+(builderDraft.days.length+1), ex:[]}); renderBuilder(); break;
-    case 'br-rm-day': pullBuilderInputs(); builderDraft.days.splice(+t.dataset.di,1); renderBuilder(); break;
-    case 'br-rm-ex': pullBuilderInputs(); builderDraft.days[+t.dataset.di].ex.splice(+t.dataset.ei,1); renderBuilder(); break;
+    case 'br-add-day': if(!builderDraft) break; pullBuilderInputs(); builderDraft.days.push({name:'Day '+(builderDraft.days.length+1), ex:[]}); renderBuilder(); break;
+    case 'br-rm-day': if(!builderDraft) break; pullBuilderInputs(); builderDraft.days.splice(+t.dataset.di,1); renderBuilder(); break;
+    case 'br-rm-ex': if(!builderDraft || !builderDraft.days[+t.dataset.di]) break; pullBuilderInputs(); builderDraft.days[+t.dataset.di].ex.splice(+t.dataset.ei,1); renderBuilder(); break;
     case 'br-add-ex': {
+      if(!builderDraft || !builderDraft.days[+t.dataset.di]) break;
       pullBuilderInputs(); const di=+t.dataset.di;
       openExPicker(name=>{ askSetsReps(name, (s,r,rest)=>{ builderDraft.days[di].ex.push({n:name, s, r, rest}); renderBuilder(); }); });
       break;
     }
     case 'br-save': {
+      if(!builderDraft) break;
       pullBuilderInputs();
       if(!builderDraft.name.trim()){ toast('📐','Name needed','Give your routine a name'); return; }
       const isNew=builderDraft._new; delete builderDraft._new;
@@ -7120,6 +7137,7 @@ document.addEventListener('click', e=>{
 
     // live session
     case 'toggle-set': {
+      if(!activeSession || !activeSession.entries[+t.dataset.ei] || !activeSession.entries[+t.dataset.ei].sets[+t.dataset.si]) break;
       const ei=+t.dataset.ei, si=+t.dataset.si, st=activeSession.entries[ei].sets[si];
       // auto-fill weight/reps from the row inputs before marking done
       const row=t.closest('.setrow');
@@ -7138,8 +7156,9 @@ document.addEventListener('click', e=>{
       if(!_wasComplete && _en.sets.every(s=>s.done)){ setTimeout(()=>{ try{ const c=document.querySelector('.exblock.current'); if(c && c.scrollIntoView) c.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){} }, 80); }
       break;
     }
-    case 'add-set': { activeSession.entries[+t.dataset.ei].sets.push({weight:'',reps:'',done:false}); Store.set('forge.activeSession',activeSession); renderSession(); break; }
+    case 'add-set': { if(!activeSession || !activeSession.entries[+t.dataset.ei]) break; activeSession.entries[+t.dataset.ei].sets.push({weight:'',reps:'',done:false}); Store.set('forge.activeSession',activeSession); renderSession(); break; }
     case 'rm-ex': {
+      if(!activeSession) break;
       activeSession.entries.splice(+t.dataset.ei,1);
       if(!activeSession.entries.length){ /* keep session, allow add */ }
       Store.set('forge.activeSession',activeSession); renderSession(); break;
@@ -7249,8 +7268,8 @@ document.addEventListener('click', e=>{
     case 'prog-start': startProgDay(); break;
     case 'prog-skip': progSkip(); break;
     case 'pg-rt': { const r=DB.routines.find(x=>x.id===t.dataset.id); if(r){ const cur=DB.settings.prog, same=cur&&cur.rid===r.id; _pgDraft={rid:r.id, wd:(same&&cur.wd)?cur.wd.slice():defaultWeekdays(coreDays(r)), next:same?(cur.next||0):0}; paintProgSheet(); } break; }
-    case 'pg-wd': { const w=+t.dataset.w, i=_pgDraft.wd.indexOf(w); if(i>=0) _pgDraft.wd.splice(i,1); else _pgDraft.wd.push(w); paintProgSheet(); break; }
-    case 'pg-next': _pgDraft.next=+t.dataset.i; paintProgSheet(); break;
+    case 'pg-wd': { if(!_pgDraft) break; const w=+t.dataset.w, i=_pgDraft.wd.indexOf(w); if(i>=0) _pgDraft.wd.splice(i,1); else _pgDraft.wd.push(w); paintProgSheet(); break; }
+    case 'pg-next': if(!_pgDraft) break; _pgDraft.next=+t.dataset.i; paintProgSheet(); break;
     case 'pg-save': progSave(); break;
     case 'pg-stop': DB.settings.prog=null; save(); closeSheet(); renderHome(); toast('📅','Program stopped','Quick Start goes back to repeating your last session'); break;
     case 'backup-later': DB.settings.backupSnooze=Date.now(); save(); renderBackupNudge(); break;
@@ -7288,7 +7307,7 @@ document.addEventListener('click', e=>{
       const vb=$('#vaultBody'); if(vb) vb.innerHTML=vaultBody();
       const ob=$('#vaultOpenBtn'); if(ob) ob.textContent=DB.loot.q.length?('Crack open ('+DB.loot.q.length+')'):'Train to earn one';
       renderVaultRow(); break; }
-    case 'loot-equip': { const id=t.dataset.id; const it=LOOT.find(x=>x.id===id); if(!it || !DB.loot.owned[id]) break;
+    case 'loot-equip': { ensureLoot(); const id=t.dataset.id; const it=LOOT.find(x=>x.id===id); if(!it || !DB.loot.owned[id]) break;
       if(it.k==='title'){ DB.settings.title=(DB.settings.title===('l:'+id))?null:('l:'+id); save();
         const _ct=currentTitle(); const _ht=$('#heroTitle'); if(_ht) _ht.textContent=_ct?('“'+_ct.n+'”'):'';
         toast('🏷️', _ct?'Title equipped':'Title removed', _ct?_ct.n:'Fighting under your own name'); renderTitleRow(); }
@@ -7298,7 +7317,7 @@ document.addEventListener('click', e=>{
         if(it.k==='acc'){ renderSpriteDen(); refreshSpriteSheet(); } }
       const vb=$('#vaultBody'); if(vb) vb.innerHTML=vaultBody(); break; }
     case 'sprite-open': openSprite(); break;
-    case 'sprite-poke': { const w=$('#spriteBig'); if(w && w.classList){ w.classList.remove('hop'); setTimeout(()=>{ try{ w.classList.add('hop'); }catch(e){} },10); setTimeout(()=>{ try{ w.classList.remove('hop'); }catch(e){} },700); }
+    case 'sprite-poke': { ensureSprite(); const w=$('#spriteBig'); if(w && w.classList){ w.classList.remove('hop'); setTimeout(()=>{ try{ w.classList.add('hop'); }catch(e){} },10); setTimeout(()=>{ try{ w.classList.remove('hop'); }catch(e){} },700); }
       const lines=['The flame leaps eagerly','Sparks scatter from the coals','It crackles with delight','A warm pulse rolls through the forge'];
       toast('🔥', DB.sprite.name||SPRITE_STAGES[spriteStage()], lines[Math.floor(Math.random()*lines.length)]); break; }
     case 'sprite-name': { ensureSprite(); const v=(($('#sprName')||{}).value||'').trim().slice(0,18);
@@ -7441,6 +7460,7 @@ const IT_PRESETS={ tabata:{label:'Tabata', rounds:8, work:20, rest:10}, emom:{la
 let itMode='tabata', itState=null, itInt=null;
 function openIntervalTimer(){ itStop(true); renderItSetup(); }
 function renderItSetup(){
+  if(!IT_PRESETS[itMode]) itMode=Object.keys(IT_PRESETS)[0];
   const p=IT_PRESETS[itMode];
   openSheet(`<div class="grab"></div><h3>⏱ Interval timer</h3><p class="sh-lead">EMOM, Tabata, or your own work/rest. It beeps on every switch and keeps running with the screen off.</p>
     <div class="chips" style="margin-bottom:16px">${Object.keys(IT_PRESETS).map(k=>`<button class="chip ${itMode===k?'on':''}" data-action="it-mode" data-mode="${k}">${IT_PRESETS[k].label}</button>`).join('')}</div>
