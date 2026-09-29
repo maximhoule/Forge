@@ -18,7 +18,7 @@
 <style>
 /* ===== Tokens ===== */
 :root{--surface:#1A1F28; --surface-2:#252C39; --surface-3:#2F3744; --text:#F3F5F9; --muted:#AEB6C6; --muted-2:#828B9E; --energy-1:#FF8A2B; --energy-2:#FF4D8C; --energy-glow:rgba(255,90,44,.35); --gold:#FFD24D; --gold-soft:rgba(255,200,61,.14); --cool:#5CB0FF; --cool-soft:rgba(77,163,255,.14); --teal:#34EAD0; --grad-energy:linear-gradient(120deg,#FF8A2B 0%,#FF4D8C 100%); --grad-energy-rev:linear-gradient(300deg,#FF8A2B 0%,#FF4D8C 100%); --r-xs:8px; --shadow:0 10px 30px -12px rgba(0,0,0,.6); --maxw:480px}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{
   background:var(--bg); color:var(--text);
@@ -435,7 +435,7 @@ body{font-variant-numeric:tabular-nums}
 .cal-title{font-family:'Saira Condensed'; font-weight:700; font-size:18px}
 .cal-nav{width:34px; height:34px; border-radius:9px; border:1px solid var(--line); background:var(--surface-2); color:var(--text); font-size:18px; cursor:pointer; display:grid; place-items:center}
 .cal-nav:active{background:var(--surface-3)}
-.cal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:5px}
+.cal-grid{display:grid; gap:5px}
 .cal-dow{text-align:center; font-size:10px; font-weight:700; color:var(--muted-2); padding-bottom:3px}
 .cal-cell{aspect-ratio:1; border-radius:7px; display:grid; place-items:center; font-family:'Inter',sans-serif; font-size:11px; color:var(--muted)}
 .cal-cell.empty{background:transparent}
@@ -469,7 +469,6 @@ body{font-variant-numeric:tabular-nums}
 .rr-bg{stroke:var(--surface-3)}
 .rr-fg{stroke:var(--energy-1); stroke-linecap:round; stroke-dasharray:119.38; stroke-dashoffset:119.38; transition:stroke-dashoffset .25s linear}
 .rest-dial .timer{font-size:13px; min-width:0; text-align:center}
-.setrow.next{box-shadow:0 0 0 2px var(--energy-1)!important; animation:nextpulse 1.1s ease 2}
 @keyframes nextpulse{0%,100%{box-shadow:0 0 0 2px var(--energy-1)}50%{box-shadow:0 0 0 5px var(--energy-glow)}}
 .sheet-footer{position:sticky; bottom:0; margin:8px -18px calc(-24px - env(safe-area-inset-bottom)); padding:13px 18px calc(13px + env(safe-area-inset-bottom)); background:var(--surface); border-top:1px solid var(--line-soft); z-index:3}
 
@@ -726,7 +725,6 @@ button:focus-visible,input:focus-visible,select:focus-visible,.toggle-row:focus-
 .btn-cool:active{box-shadow:0 3px 10px -7px rgba(46,123,214,.55)}
 /* Steady numerals; warm text selection; floating empty-state icons */
 .stat .v,.gv,.gps-dist,.lvl-num,.pr-val .e1,.lb-val{font-variant-numeric:tabular-nums}
-::selection{background:rgba(var(--e1rgb),.35); color:#fff}
 .se-ico{display:inline-block; animation:float 3.6s ease-in-out infinite}
 @keyframes float{50%{transform:translateY(-4px)}}
 
@@ -786,7 +784,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,.toggle-row:focus-
 @keyframes forgeGlow{50%{opacity:.95}}
 .wpn-meta{flex:1; min-width:0}
 .wpn-eyebrow{font-family:'Inter',sans-serif; font-size:9.5px; text-transform:uppercase; letter-spacing:1.4px; color:var(--muted-2); font-weight:700}
-.wpn-name{margin:2px 0 6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.wpn-name{margin:2px 0 6px; text-overflow:ellipsis}
 .pips{display:inline-flex; gap:5px; align-items:center}
 .pip{width:7px; height:7px; border-radius:99px; background:var(--surface-3); border:1px solid var(--line)}
 .pip.on{background:var(--grad-energy); border-color:transparent; box-shadow:0 0 6px rgba(var(--e1rgb),.5)}
@@ -842,15 +840,14 @@ button:focus-visible,input:focus-visible,select:focus-visible,.toggle-row:focus-
   filter:drop-shadow(0 0 12px rgba(var(--e1rgb),.35))}
 .brand .sub{letter-spacing:2.2px; text-transform:uppercase; font-size:9px}
 .screen-title{font-family:var(--font-epic); font-weight:800; text-transform:uppercase; letter-spacing:1px; font-size:21px}
-.screen-title::after{content:''; display:block; width:74px; height:3px; margin-top:9px; background:var(--grad-energy);
-  clip-path:polygon(0 50%, 7px 0, calc(100% - 7px) 0, 100% 50%, calc(100% - 7px) 100%, 7px 100%); box-shadow:0 0 10px rgba(var(--e1rgb),.6)}
+.screen-title::after{clip-path:polygon(0 50%, 7px 0, calc(100% - 7px) 0, 100% 50%, calc(100% - 7px) 100%, 7px 100%)}
 p.eyebrow:has(+ h2.screen-title){color:var(--energy-soft); letter-spacing:3px}
 p.eyebrow:has(+ h2.screen-title)::before{content:'⟡  '; opacity:.8}
 p.eyebrow:has(+ h2.screen-title)::after{content:'  ⟡'; opacity:.8}
 .rank{font-family:var(--font-epic); font-weight:700; font-size:18px; letter-spacing:1px; text-transform:uppercase}
 .sheet h3{font-family:var(--font-epic); font-weight:700; font-size:19px; letter-spacing:.5px}
 .boss-name{font-family:var(--font-epic); font-weight:800; font-size:18px; letter-spacing:.6px; text-transform:uppercase}
-.wpn-name{font-family:var(--font-epic); font-weight:700; font-size:15px; letter-spacing:.3px}
+.wpn-name{font-family:var(--font-epic); font-weight:700; letter-spacing:.3px}
 /* Chamfered game chrome */
 .btn-primary,.btn-cool{clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
   box-shadow:none; position:relative; filter:drop-shadow(0 7px 16px rgba(var(--e2rgb),.30))}
@@ -982,10 +979,9 @@ p.eyebrow:has(+ h2.screen-title)::after{content:'  ⟡'; opacity:.8}
 .vo-s{font-size:11px; color:var(--muted); margin-top:3px; line-height:1.45}
 .cache-live{animation:cacheFloat 2.6s ease-in-out infinite}
 @keyframes cacheFloat{50%{transform:translateY(-4px)}}
-.loot-grid{display:grid; grid-template-columns:1fr 1fr; gap:7px}
-.loot-item{display:flex; align-items:center; gap:7px; padding:9px 10px; border-radius:10px; background:var(--surface-2); border:1px solid var(--line); color:var(--muted-2); text-align:left; font-size:11.5px}
-.loot-item .li-n{flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-.loot-item .li-lk{font-size:10px; opacity:.7}
+.loot-grid{display:grid}
+.loot-item{text-align:left}
+.loot-item .li-n{flex:1; min-width:0}
 .li-dot{flex:0 0 auto; width:8px; height:8px; border-radius:99px; background:var(--surface-3)}
 .loot-item.own{color:var(--text); background:var(--surface)}
 .loot-item.own:active{transform:scale(.97)}
@@ -993,7 +989,7 @@ p.eyebrow:has(+ h2.screen-title)::after{content:'  ⟡'; opacity:.8}
 .loot-item.r2.own{border-color:rgba(92,176,255,.55)}.loot-item.r2 .li-dot{background:#5CB0FF}
 .loot-item.r3.own{border-color:rgba(192,132,255,.6)}.loot-item.r3 .li-dot{background:#C084FF}
 .loot-item.r4.own{border-color:rgba(255,210,77,.7); box-shadow:0 0 10px -4px rgba(255,210,77,.8)}.loot-item.r4 .li-dot{background:linear-gradient(135deg,#FFE08A,var(--energy-1))}
-.loot-item.eq{outline:2px solid var(--energy-1); outline-offset:-1px}
+.loot-item.eq{outline-offset:-1px}
 .loot-item:not(.own) .li-dot{opacity:.4}
 .cache-card{margin:12px 0 4px; padding:16px 14px; border-radius:14px; text-align:center; background:var(--surface-2); border:1.5px solid var(--line); animation:ccPop .45s var(--spring)}
 .cache-card .cc-rar{font-family:'Inter',sans-serif; font-size:9.5px; letter-spacing:2.5px; text-transform:uppercase; color:var(--muted-2); font-weight:700}
@@ -1154,11 +1150,10 @@ body.amoled{--bg:#000000; --surface:#101318; --surface-2:#0A0C10; --surface-3:#1
 .chip{ border-radius:99px; }
 @keyframes v42Rise{ from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none} }
 /* ===================== v55 — session focus, insight cards ===================== */
-.rest-for{font-size:11px; color:var(--muted); margin:8px 2px 0; min-height:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.rest-for{font-size:11px; color:var(--muted); min-height:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 .exblock .setrow{grid-template-columns:34px 1fr 1fr 54px}
 .setrow .check{width:48px; height:48px; border-radius:12px; font-size:19px}
 .setrow.done{opacity:.72}
-.setrow input::placeholder{color:var(--muted-2); opacity:.8}
 .exblock.current{border-color:rgba(var(--e1rgb),.55); box-shadow:0 0 0 1px rgba(var(--e1rgb),.22), var(--shadow-md)}
 .exblock.complete{opacity:.84}
 .exblock.complete .en::before{content:'✓ '; color:var(--teal)}
@@ -1489,6 +1484,123 @@ div:has(> .chip[data-action="tpl-filter"])::-webkit-scrollbar,div:has(> .chip[da
 .perk.on b{color:var(--gold)}
 .perk span{font-size:11px; color:var(--muted)}
 .ct-rr{flex:0 0 auto; align-self:center; padding:6px 10px; border-radius:99px; border:1px solid rgba(201,154,107,.5); background:rgba(201,154,107,.12); color:#E6C49A; font-size:11px; font-weight:800}
+/* ===================== v67 — epic effects ===================== */
+.fx-cv{position:fixed; inset:0; width:100vw; height:100vh; z-index:400; pointer-events:none}
+.fx-flash{position:fixed; inset:0; z-index:399; pointer-events:none; animation:fxFlash .52s ease-out both}
+@keyframes fxFlash{from{opacity:1}to{opacity:0}}
+.fx-edge{position:fixed; inset:0; z-index:398; pointer-events:none; box-shadow:inset 0 0 60px 14px rgba(var(--e1rgb),.55), inset 0 0 150px 34px rgba(var(--e2rgb),.22); animation:fxEdge .95s ease-out both}
+@keyframes fxEdge{0%{opacity:0}25%{opacity:1}100%{opacity:0}}
+.heat-bar.flare{animation:hbGlow .85s ease-out}
+.heat-bar.flare .hb-flame{animation:hbFlare .75s var(--spring)}
+@keyframes hbGlow{30%{box-shadow:0 0 30px 4px rgba(var(--e1rgb),.55)}100%{box-shadow:0 0 0 0 rgba(var(--e1rgb),0)}}
+@keyframes hbFlare{35%{transform:scale(1.6) rotate(-8deg); filter:brightness(1.9)}100%{transform:none}}
+.cine{position:fixed; inset:0; z-index:390; display:grid; place-items:center; animation:cnIn .3s ease both; cursor:pointer; overflow:hidden}
+.cine.out{animation:cnOut .38s ease both}
+@keyframes cnIn{from{opacity:0}to{opacity:1}}
+@keyframes cnOut{to{opacity:0; transform:scale(1.04)}}
+.cn-bg{position:absolute; inset:0; background:radial-gradient(circle at 50% 40%, rgba(var(--e1rgb),.30), rgba(6,7,11,.93) 58%)}
+.cine-slain .cn-bg{background:radial-gradient(circle at 50% 40%, rgba(255,70,70,.32), rgba(6,7,11,.95) 58%)}
+.cn-rays{position:absolute; left:50%; top:40%; width:170vmax; height:170vmax; margin:-85vmax 0 0 -85vmax; background:repeating-conic-gradient(from 0deg, rgba(255,230,160,.10) 0deg 4deg, transparent 4deg 20deg); -webkit-mask-image:radial-gradient(circle, #000 0, transparent 55%); mask-image:radial-gradient(circle, #000 0, transparent 55%); animation:cnSpin 16s linear infinite}
+@keyframes cnSpin{to{transform:rotate(360deg)}}
+.cn-core{position:relative; text-align:center; transform:translateY(-8vh); padding:0 20px}
+.cn-num{font-family:'Saira Condensed',sans-serif; font-weight:800; font-size:128px; line-height:1; background:linear-gradient(180deg,#FFF6D8,var(--energy-1) 62%,var(--energy-2)); -webkit-background-clip:text; background-clip:text; color:transparent; filter:drop-shadow(0 0 30px rgba(var(--e1rgb),.7)); animation:cnSlam .7s .15s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes cnSlam{0%{opacity:0; transform:scale(2.6)}60%{opacity:1; transform:scale(.92)}100%{transform:scale(1)}}
+.cn-title{font-family:'Cinzel',serif; font-weight:800; font-size:22px; letter-spacing:8px; text-transform:uppercase; color:#FFE9B8; margin-top:10px; text-shadow:0 0 18px rgba(255,210,120,.6); animation:cnRise .6s .45s ease both}
+.cine-slain .cn-title{color:#FFB3A8; font-size:36px; letter-spacing:12px}
+.cine-evolve .cn-title{animation-delay:.8s}
+@keyframes cnStamp{0%{opacity:0; transform:scale(2.4) rotate(-6deg)}100%{opacity:1; transform:scale(1) rotate(-3deg)}}
+.cn-sub{font-size:13px; color:#C9CFDA; margin-top:8px; animation:cnRise .6s .7s ease both}
+@keyframes cnRise{from{opacity:0; transform:translateY(12px)}to{opacity:1; transform:none}}
+.cn-emo{font-size:110px; line-height:1; animation:cnShatter .95s ease both}
+@keyframes cnShatter{0%{transform:scale(.6); opacity:0}25%{transform:scale(1.1); opacity:1}35%,55%{transform:translateX(-7px) rotate(-3deg)}45%,65%{transform:translateX(7px) rotate(3deg)}80%{transform:scale(1.25); filter:brightness(3); opacity:1}100%{transform:scale(.2); opacity:0}}
+.cn-art{width:170px; height:170px; margin:0 auto; animation:cnEvolve 1.15s ease both}
+.cn-art > *{width:100% !important; height:100% !important}
+@keyframes cnEvolve{0%{opacity:0; transform:scale(.3); filter:brightness(6) blur(6px)}45%{opacity:1; filter:brightness(3.5) blur(2px)}100%{transform:scale(1); filter:brightness(1) drop-shadow(0 0 26px rgba(var(--e1rgb),.75))}}
+.cn-tap{position:absolute; bottom:9vh; left:0; right:0; text-align:center; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,.4); animation:cnRise .6s 1.2s ease both}
+/* ===================== v68 — more epic ===================== */
+.screen.fx-shake{animation:fxShk .38s cubic-bezier(.36,.07,.19,.97)}
+.screen.fx-shake2,.cine.shock{animation:fxShk2 .58s cubic-bezier(.36,.07,.19,.97)}
+@keyframes fxShk{10%,90%{transform:translate(-1px,0)}20%,80%{transform:translate(2px,1px)}30%,50%,70%{transform:translate(-3px,-1px)}40%,60%{transform:translate(3px,1px)}}
+@keyframes fxShk2{10%,90%{transform:translate(-2px,1px)}20%,80%{transform:translate(5px,-2px)}30%,50%,70%{transform:translate(-8px,2px) rotate(-.5deg)}40%,60%{transform:translate(8px,-2px) rotate(.5deg)}}
+.fx-slash{position:fixed; left:-30%; right:-30%; height:5px; z-index:401; pointer-events:none; background:linear-gradient(90deg,transparent,var(--sc,#fff) 42%,#fff 50%,var(--sc,#fff) 58%,transparent); box-shadow:0 0 22px 5px var(--sc,#fff); animation:fxSlash .48s cubic-bezier(.2,.8,.2,1) both}
+@keyframes fxSlash{0%{transform:rotate(-18deg) scaleX(0); opacity:1}55%{transform:rotate(-18deg) scaleX(1); opacity:1}100%{transform:rotate(-18deg) scaleX(1) translateY(-8px); opacity:0}}
+.fx-banner{position:fixed; left:0; right:0; top:36%; z-index:402; pointer-events:none; text-align:center; font-family:'Cinzel',serif; font-weight:900; font-size:40px; letter-spacing:10px; color:#FFE9A8; text-shadow:-3px 0 rgba(255,60,90,.75), 3px 0 rgba(60,200,255,.75), 0 0 28px rgba(255,210,77,.9); animation:fxBan 1.2s cubic-bezier(.2,.8,.2,1) both}
+@keyframes fxBan{0%{opacity:0; transform:translateX(-70%) skewX(-22deg)}22%{opacity:1; transform:translateX(0) skewX(-8deg)}32%{transform:scale(1.1)}72%{opacity:1; transform:scale(1)}100%{opacity:0; transform:translateX(50%) skewX(-22deg)}}
+.cn-bar{position:absolute; left:0; right:0; height:11vh; background:#000; z-index:3; animation:cnBar .5s cubic-bezier(.2,.8,.2,1) both}
+.cn-bar.t{top:0; transform-origin:top}
+.cn-bar.b{bottom:0; transform-origin:bottom}
+@keyframes cnBar{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.cn-flash{position:absolute; inset:0; background:#fff; opacity:0; z-index:2; pointer-events:none}
+.cine.shock .cn-flash{animation:fxFlash .65s ease-out both}
+.cine.shock .cn-core{animation:cnPunch .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes cnPunch{0%{transform:translateY(-8vh) scale(1.22)}100%{transform:translateY(-8vh) scale(1)}}
+.cn-title span{display:inline-block; opacity:0; animation:cnLetter .55s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes cnLetter{0%{opacity:0; transform:translateY(24px) scale(1.7); text-shadow:-9px 0 rgba(255,60,90,.9), 9px 0 rgba(60,200,255,.9)}100%{opacity:1; transform:none; text-shadow:-1px 0 rgba(255,60,90,.5), 1px 0 rgba(60,200,255,.5), 0 0 18px rgba(255,210,120,.6)}}
+.cine .cn-title{animation:none}
+.cine-slain .cn-title{animation:cnStamp .5s .8s cubic-bezier(.2,1.6,.4,1) both}
+.cn-pillar{position:absolute; left:50%; top:-10vh; width:130px; margin-left:-65px; height:56vh; background:linear-gradient(180deg, rgba(255,255,255,0), rgba(255,245,210,.55) 60%, rgba(255,255,255,.95)); filter:blur(7px); transform-origin:top; animation:cnPillar 1.3s ease-out both; z-index:1}
+@keyframes cnPillar{0%{transform:scaleY(0); opacity:0}40%{transform:scaleY(1); opacity:1}100%{opacity:0}}
+/* ===================== v69 — more motion ===================== */
+.screen.fx-enter > *{animation:fxCardIn .5s cubic-bezier(.2,.8,.2,1) both}
+.screen.fx-enter > *:nth-child(2){animation-delay:0.045s}
+.screen.fx-enter > *:nth-child(3){animation-delay:0.090s}
+.screen.fx-enter > *:nth-child(4){animation-delay:0.135s}
+.screen.fx-enter > *:nth-child(5){animation-delay:0.180s}
+.screen.fx-enter > *:nth-child(6){animation-delay:0.225s}
+.screen.fx-enter > *:nth-child(7){animation-delay:0.270s}
+.screen.fx-enter > *:nth-child(8){animation-delay:0.315s}
+.screen.fx-enter > *:nth-child(9){animation-delay:0.360s}
+.screen.fx-enter > *:nth-child(10){animation-delay:0.405s}
+.screen.fx-enter > *:nth-child(11){animation-delay:0.450s}
+.screen.fx-enter > *:nth-child(12){animation-delay:0.495s}
+@keyframes fxCardIn{from{opacity:0; transform:translateY(16px) scale(.985)}to{opacity:1; transform:none}}
+.nav-item.fx-pop .ni-ico{animation:fxNavPop .5s var(--spring)}
+@keyframes fxNavPop{0%{transform:scale(1)}40%{transform:scale(1.35) translateY(-3px)}100%{transform:scale(1)}}
+.btn{position:relative; overflow:hidden}
+.fx-ripple{position:absolute; border-radius:50%; pointer-events:none; background:radial-gradient(circle, rgba(255,255,255,.35), rgba(255,255,255,0) 65%); transform:scale(0); animation:fxRip .65s ease-out forwards}
+@keyframes fxRip{to{transform:scale(1); opacity:0}}
+.setrow .check.just{animation:fxChk .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes fxChk{0%{transform:scale(.6) rotate(-12deg)}60%{transform:scale(1.18) rotate(4deg)}100%{transform:none}}
+#restTimer.fx-beat{animation:fxBeat .45s ease-out}
+@keyframes fxBeat{0%{transform:scale(1)}30%{transform:scale(1.3); text-shadow:0 0 16px rgba(var(--e1rgb),.9)}100%{transform:scale(1)}}
+#ringFill{animation:fxBreath 3.2s ease-in-out infinite}
+@keyframes fxBreath{0%,100%{filter:drop-shadow(0 0 3px rgba(var(--e1rgb),.35))}50%{filter:drop-shadow(0 0 10px rgba(var(--e1rgb),.85))}}
+#xpFill{position:relative; overflow:hidden}
+#xpFill::after{content:''; position:absolute; top:0; bottom:0; width:40%; left:-50%; background:linear-gradient(100deg, transparent, rgba(255,255,255,.45), transparent); animation:fxSweep 3.6s ease-in-out infinite}
+@keyframes fxSweep{0%{left:-50%}55%,100%{left:120%}}
+.flick{display:inline-block; transform-origin:50% 90%; animation:fxFlick 1.4s ease-in-out infinite}
+@keyframes fxFlick{0%,100%{transform:scale(1) rotate(-2deg)}30%{transform:scale(1.08,1.14) rotate(3deg)}60%{transform:scale(.96,1.04) rotate(-3deg)}}
+.fx-off #ringFill,.fx-off #xpFill::after,.fx-off .flick,.fx-off .screen.fx-enter > *{animation:none}
+/* ===================== v70 — polish pass ===================== */
+*{-webkit-tap-highlight-color:transparent}
+::selection{background:rgba(var(--e1rgb),.38); color:#fff}
+:where(input:not([type=file]):not([type=checkbox]):not([type=radio]):not([type=range]), select, textarea){width:100%; padding:11px 13px; border-radius:var(--r-sm); border:1px solid var(--line); background:var(--surface-2); color:var(--text); font:inherit; font-size:14px; outline:none; -webkit-appearance:none; appearance:none; transition:border-color .15s, box-shadow .15s}
+:where(input, select, textarea)::placeholder{color:var(--muted-2)}
+:where(input:not([type=file]):not([type=checkbox]), select, textarea):focus{border-color:rgba(var(--e1rgb),.6); box-shadow:0 0 0 3px rgba(var(--e1rgb),.15)}
+:where(h1,h2,h3,.rc-title,.td-day,.boss-name,.cn-sub){text-wrap:balance}
+:where(p,.sh-lead,.hint,.tn-d,.rc-s,.ct-s){text-wrap:pretty}
+:where([data-action]:not(.btn):not(.check):not(input):not(select)){transition:transform .12s ease}
+:where([data-action]:not(.btn):not(.check):not(input):not(select)):active{transform:scale(.985)}
+img{max-width:100%}
+/* ===================== v71 — Refined UI (body.ui2; switch off in Settings) ===================== */
+body.ui2{--muted:#A9B2C2; --muted-2:#838C9D}
+body.ui2 :is(.card,.stat,.fold,.quick-start,.backup-nudge,.hero-card){border-radius:18px; box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 26px -16px rgba(0,0,0,.75)}
+body.ui2 :is(.today-card,.contract,.tal-card,.boss-card,.exblock,.spr-card,.heat-bar){border-radius:18px}
+body.ui2 :is(.sec-label,.sec-head h3){font-family:'Saira Condensed',sans-serif; font-weight:700; font-size:20px; letter-spacing:.3px; text-transform:none; color:var(--text); display:flex; align-items:center; gap:8px}
+body.ui2 .sec-label .ic,body.ui2 .fh-i .ic{width:18px; height:18px; color:var(--energy-1)}
+body.ui2 .fh-t{font-family:'Saira Condensed',sans-serif; font-weight:700; font-size:19px; letter-spacing:.3px; text-transform:none; font-variant:normal}
+body.ui2 .eyebrow{color:var(--energy-soft)}
+body.ui2 .btn{min-height:44px; border-radius:14px; font-weight:700; letter-spacing:.2px}
+body.ui2 .btn-sm{min-height:36px; border-radius:12px}
+body.ui2 .btn-primary{box-shadow:inset 0 1px 0 rgba(255,255,255,.22), 0 10px 22px -10px rgba(var(--e1rgb),.65)}
+body.ui2 .btn-ghost{background:rgba(255,255,255,.04); border-color:rgba(255,255,255,.1)}
+body.ui2 .chip{min-height:36px; display:inline-flex; align-items:center; font-size:13px; font-weight:600}
+body.ui2 .nav{background:rgba(12,14,19,.78); backdrop-filter:blur(20px) saturate(1.4); -webkit-backdrop-filter:blur(20px) saturate(1.4); border-top-color:rgba(255,255,255,.06)}
+body.ui2 .nav-item.on .ni-ico{background:rgba(var(--e1rgb),.15); border-radius:12px; padding:3px 13px}
+body.ui2 .sheet{border-radius:24px 24px 0 0; border-color:rgba(255,255,255,.08); box-shadow:0 -18px 50px -20px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.06)}
+body.ui2 .overlay{backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px)}
+body.ui2 .toast{background:rgba(22,26,34,.86); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-color:rgba(255,255,255,.08); border-radius:16px}
+body.ui2 .sec-head{margin-top:22px}
 @media(prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
 </style>
 </head>
@@ -1540,7 +1652,7 @@ div:has(> .chip[data-action="tpl-filter"])::-webkit-scrollbar,div:has(> .chip[da
     <div id="contractCard"></div>
 
     <div class="stat-grid">
-      <div class="stat hot"><div class="k">🔥 Streak</div><div class="v"><span id="stStreak">0</span><small id="stStreakSub"> days</small></div></div>
+      <div class="stat hot"><div class="k"><span class="flick">🔥</span> Streak</div><div class="v"><span id="stStreak">0</span><small id="stStreakSub"> days</small></div></div>
       <div class="stat"><div class="k">🏋 Workouts</div><div class="v" id="stWorkouts">0</div></div>
       <div class="stat gold"><div class="k">📈 Volume</div><div class="v"><span id="stVolume">0</span><small id="stVolUnit"> kg</small></div></div>
       <div class="stat cool"><div class="k">🏃 Distance</div><div class="v"><span id="stDist">0</span><small> km</small></div></div>
@@ -3064,6 +3176,7 @@ function go(screen){
   $('#screen-'+screen).classList.add('active');
   $$('.nav-item').forEach(n=>n.classList.toggle('on', n.dataset.nav===screen));
   window.scrollTo(0,0);
+  fxEnter(screen);
   if(screen==='home') renderHome();
   if(screen==='train') renderTrain();
   if(screen==='cardio') renderCardioTabs();
@@ -3081,6 +3194,7 @@ function go(screen){
    ============================================================ */
 /* ===================== ICON SET — one stroked family, replaces platform-dependent emoji in UI chrome ===================== */
 const ICONS={"home": "<path d=\"M3.5 11 12 4l8.5 7\"/><path d=\"M5.5 9.5V20h13V9.5\"/><path d=\"M10 20v-5.5h4V20\"/>", "train": "<path d=\"M6.5 7v10M17.5 7v10M3.5 9.5v5M20.5 9.5v5M6.5 12h11\"/>", "cardio": "<path d=\"M3 12.5h4l2.2-5.5 4.3 11 2.3-5.5H21\"/>", "progress": "<path d=\"M4 4v16h16\"/><path d=\"m7.5 14.5 3.5-3.5 3 3 5-6\"/>", "awards": "<circle cx=\"12\" cy=\"9\" r=\"5\"/><path d=\"M8.7 13 7.3 21l4.7-2.6 4.7 2.6-1.4-8\"/>", "mobility": "<circle cx=\"12\" cy=\"4.6\" r=\"1.9\"/><path d=\"M4.5 9.5 12 11l7.5-1.5\"/><path d=\"M12 11v4l-3.5 5.5M12 15l3.5 5.5\"/>", "plates": "<rect x=\"5\" y=\"3\" width=\"14\" height=\"18\" rx=\"2.5\"/><path d=\"M8.5 7h7M8.5 11h1M11.5 11h1M14.5 11h1M8.5 14.5h1M11.5 14.5h1M14.5 14.5h1M8.5 18h1M11.5 18h1M14.5 18h1\"/>", "vault": "<path d=\"M12 3.5 19.5 7.7v8.6L12 20.5l-7.5-4.2V7.7z\"/><path d=\"M4.5 7.7 12 12l7.5-4.3M12 12v8.5\"/>", "forge": "<path d=\"M3.5 9.5h13l4-2.5v4l-4 1.5h-6l-1 3h5.5V19h-10v-3.5H7l1-3H3.5z\"/>", "collection": "<rect x=\"4\" y=\"4\" width=\"7\" height=\"7\" rx=\"1.6\"/><rect x=\"13\" y=\"4\" width=\"7\" height=\"7\" rx=\"1.6\"/><rect x=\"4\" y=\"13\" width=\"7\" height=\"7\" rx=\"1.6\"/><rect x=\"13\" y=\"13\" width=\"7\" height=\"7\" rx=\"1.6\"/>", "trophy": "<path d=\"M8 4h8v5.5a4 4 0 0 1-8 0z\"/><path d=\"M8 6H5.2a3 3 0 0 0 3.2 4.2M16 6h2.8a3 3 0 0 1-3.2 4.2M12 13.5V17M9 20.5h6M10 17h4v3.5h-4z\"/>", "medal": "<circle cx=\"12\" cy=\"14.5\" r=\"5.5\"/><path d=\"M9 9.8 6.5 3.5h4L12 7M15 9.8l2.5-6.3h-4L12 7\"/><path d=\"m12 12 .9 1.8 2 .3-1.4 1.4.3 2-1.8-1-1.8 1 .3-2-1.4-1.4 2-.3z\"/>", "scale": "<rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"3.5\"/><path d=\"M8.2 10.2a5.2 5.2 0 0 1 7.6 0L12 13z\"/>", "history": "<circle cx=\"12\" cy=\"12\" r=\"8.2\"/><path d=\"M12 7.8V12l3 2\"/>", "target": "<circle cx=\"12\" cy=\"12\" r=\"8.2\"/><circle cx=\"12\" cy=\"12\" r=\"4.6\"/><circle cx=\"12\" cy=\"12\" r=\"1.1\"/>", "flag": "<path d=\"M5.5 21V3.5M5.5 4h12l-2.5 4 2.5 4h-12\"/>"};
+ICONS.heart="<path d=\"M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7C19.5 15.9 12 20.5 12 20.5z\"/>"; ICONS.calendar="<rect x=\"4\" y=\"5.5\" width=\"16\" height=\"14.5\" rx=\"2.5\"/><path d=\"M4 10h16M8.5 3.5v4M15.5 3.5v4\"/>"; ICONS.squad="<circle cx=\"9\" cy=\"8.5\" r=\"3\"/><circle cx=\"16.5\" cy=\"9.5\" r=\"2.4\"/><path d=\"M3.5 19.5c.6-3.3 2.9-5 5.5-5s4.9 1.7 5.5 5M14.5 14.7c.6-.2 1.3-.3 2-.3 2.2 0 3.9 1.4 4.3 4.6\"/>";
 function ico(n){ return '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">'+(ICONS[n]||'')+'</svg>'; }
 /* ===================== ACTIVE PROGRAM — today's session ===================== */
 const WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -3176,6 +3290,12 @@ function showSummary({volume, prHits, xp, newAch}){
   ${nxt?`<div class="rc-next">${ico('flag')}<span>${esc(nxt)}</span></div>`:''}
   <div class="btn-row" style="margin-top:14px">${dq>0?`<button class="btn btn-primary" data-action="vault-open">Open cache${dq>1?'s':''}</button>`:''}<button class="btn ${dq>0?'btn-ghost':'btn-primary'}" data-action="close-sheet">Done</button></div>`);
   setTimeout(()=>{ try{ const b=document.getElementById('rcBar'); if(b) b.style.width=Math.round(li.pct)+'%'; }catch(e){} }, 140);
+  fxCount('.rc-stats b');
+  if(DB.stats.bossWins>B.boss){ const bi=bossIdx(monthKey()); fxCine('slain',{ico:BOSSES[bi].ico, sub:BOSSES[bi].n+' falls — “'+BOSSES[bi].t+'” is yours'}); }
+  if(spriteStage()>B.spr) fxCine('evolve',{art:spriteSVG(spriteStage(),'radiant',((DB.loot&&DB.loot.equip&&LOOT.find(i=>i.id===DB.loot.equip.acc))||{}).v||'',170), sub:'Your sprite became '+SPRITE_STAGES[spriteStage()]});
+  if(weaponStage()>B.wst) fxCine('evolve',{art:weaponSVG(weaponStats(),90), sub:'Your weapon was forged anew'});
+  if(prHits && prHits.length) fxCine('banner',{t:'NEW PR',c:'#FFB3D1'});
+  if(Object.keys(DB.achievements||{}).some(k=>B.ach.indexOf(k)<0)) fxCine('banner',{t:'AWARD UNLOCKED',c:'#D9B8FF'});
 }
 /* ===================== HEAT — sets on tempo build a streak ===================== */
 ICONS.flame='<path d="M12 21.2c-4 0-6.7-2.8-6.7-6.4 0-3.7 2.9-5.4 3.8-8.9 1.8 1.4 2.4 3.2 2.2 4.7 1.4-.8 2.3-2.5 2.4-4.8 2.8 2.1 4.9 5.3 4.9 9 0 3.6-2.6 6.4-6.6 6.4z"/><path d="M12 21.2c-1.7 0-2.9-1.2-2.9-2.8 0-1.7 1.4-2.6 2.1-4.3 1.9 1.3 3.6 2.6 3.6 4.3 0 1.6-1.2 2.8-2.8 2.8z"/>';
@@ -3282,11 +3402,115 @@ function bossHit(en, c){ const B=activeSession; if(!B || !B.bossKey) return;
   const before=B.bossHP; B.bossHP=Math.max(0,before-d);
   if(before>50 && B.bossHP<=50 && B.bossHP>0 && !B.shieldUsed){ B.bossShield=true; B.shieldUsed=1; }
   B._hit={d:Math.round(d), c, weak, broke, ts:Date.now()}; }
-function onSetDone(ei, si, st){ if(!activeSession) return; const en=activeSession.entries[ei];
+function onSetDone(ei, si, st){ if(!activeSession) return; const en=activeSession.entries[ei]; activeSession._lt=ei+'-'+si; activeSession._ltT=Date.now();
   heatTick(ei, si);
   const c=critCheck(en, si, st), CR=activeSession.crit||(activeSession.crit={n:0,leg:0,k:{}}), key=ei+'-'+si;
   if(c && !CR.k[key]){ CR.k[key]=c; if(c===2) CR.leg++; else CR.n++; st.crit=c; try{ _burstT=0; burst(c===2?'gold':'pr'); }catch(e){} }
   bossHit(en, CR.k[key]||0); }
+/* ===================== EPIC FX — streaks · shards · bolts · shake · cinematics ===================== */
+const FX={cv:null,ctx:null,parts:[],add:[],raf:0,q:[],busy:false,emb:0,embC:null};
+function fxOn(){ try{ return typeof document!=='undefined' && !!document.body && typeof window.requestAnimationFrame==='function' && DB.settings.fx!==false && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }catch(e){ return false; } }
+function fxRGB(v,d){ try{ return 'rgb('+(getComputedStyle(document.documentElement).getPropertyValue(v).trim()||d)+')'; }catch(e){ return 'rgb('+d+')'; } }
+function fxCanvas(){ if(FX.cv && FX.cv.isConnected) return FX.ctx; const cv=document.createElement('canvas'); cv.className='fx-cv'; document.body.appendChild(cv); FX.cv=cv; FX.ctx=cv.getContext('2d'); fxResize(); window.addEventListener('resize',fxResize); return FX.ctx; }
+function fxResize(){ if(!FX.cv) return; const d=Math.min(2,window.devicePixelRatio||1); FX.cv.width=innerWidth*d; FX.cv.height=innerHeight*d; FX.ctx.setTransform(d,0,0,d,0,0); }
+function fxPush(p){ if(!fxOn()) return; fxCanvas(); FX.add.push(p); fxLoop(); }
+function fxBurst(x,y,o){ if(!fxOn()) return; o=o||{}; const n=o.n||14, cols=o.cols||[fxRGB('--e1rgb','255,138,43')], sp=o.sp||4;
+  for(let i=0;i<n;i++){ const a=Math.random()*Math.PI*2, v=sp*(.35+Math.random());
+    fxPush({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-(o.up==null?1.2:o.up),g:o.g==null?.12:o.g,life:1,dec:.012+Math.random()*.02,r:(o.r||2.2)*(.6+Math.random()*.8),c:cols[i%cols.length]}); }
+  for(let i=0;i<Math.ceil(n/7);i++) fxPush({glow:1,x,y,vx:(Math.random()-.5)*sp*.6,vy:(Math.random()-.5)*sp*.6,g:0,life:1,dec:.03,r:(o.r||2.2)*7,c:cols[i%cols.length]}); }
+function fxShards(x,y,n,cols){ for(let i=0;i<n;i++){ const a=Math.random()*Math.PI*2, v=3+Math.random()*7; fxPush({shard:1,x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-2,g:.22,life:1,dec:.012,r:5+Math.random()*9,rot:Math.random()*6,vr:(Math.random()-.5)*.4,c:cols[i%cols.length]}); } }
+function fxImplode(x,y,n,cols,R,dur){ for(let i=0;i<n;i++){ const a=Math.random()*Math.PI*2, r=R*(.6+Math.random()*.5); fxPush({imp:1,sx:x+Math.cos(a)*r,sy:y+Math.sin(a)*r,x,y,tx:x,ty:y,t:-Math.random()*.25,dur:dur||36,life:1,r:1.6+Math.random()*1.6,c:cols[i%cols.length]}); } }
+function fxBolt(x0,y0,x1,y1,col){ let pts=[[x0,y0],[x1,y1]];
+  for(let k=0;k<5;k++){ const nx=[]; for(let i=0;i<pts.length-1;i++){ const a=pts[i], b=pts[i+1], d=Math.hypot(b[0]-a[0],b[1]-a[1]); nx.push(a,[(a[0]+b[0])/2+(Math.random()-.5)*d*.35,(a[1]+b[1])/2+(Math.random()-.5)*d*.12]); } nx.push(pts[pts.length-1]); pts=nx; }
+  fxPush({bolt:1,pts,life:1,dec:.06,c:col}); }
+function fxTrail(x0,y0,x1,y1,col){ const cx=(x0+x1)/2+(Math.random()-.5)*90, cy=Math.min(y0,y1)-70; for(let k=0;k<6;k++) fxPush({trail:1,x:x0,y:y0,tx:x1,ty:y1,cx,cy,t:-k*.045,r:3.4-k*.45,c:col,life:1}); }
+function fxRing(x,y,col,max){ fxPush({ring:1,x,y,rad:4,max:max||90,life:1,c:col}); }
+function fxEmbers(ms,cols){ if(!fxOn()) return; FX.emb=Date.now()+ms; FX.embC=cols||[fxRGB('--e1rgb','255,138,43'),'rgb(255,210,120)']; fxCanvas(); fxLoop(); }
+function fxLoop(){ if(FX.raf) return;
+  const step=()=>{ const c=FX.ctx, W=innerWidth, H=innerHeight;
+    if(Date.now()<FX.emb) for(let k=0;k<3;k++) FX.add.push({emb:1,x:Math.random()*W,y:H+10,vx:0,vy:-(1.2+Math.random()*2.4),ph:Math.random()*6,life:1,dec:.006+Math.random()*.006,r:1.2+Math.random()*2,c:FX.embC[k%FX.embC.length]});
+    if(FX.add.length){ FX.parts=FX.parts.concat(FX.add); FX.add=[]; }
+    c.clearRect(0,0,W,H); c.globalCompositeOperation='lighter'; c.lineCap='round';
+    FX.parts=FX.parts.filter(p=>{
+      if(p.ring){ p.rad+=(p.max-p.rad)*.12; p.life-=.032; c.globalAlpha=Math.max(0,p.life); c.strokeStyle=p.c; c.lineWidth=4*p.life+.5; c.beginPath(); c.arc(p.x,p.y,p.rad,0,7); c.stroke(); return p.life>0; }
+      if(p.bolt){ p.life-=p.dec; const a=p.life>.55?1:(Math.random()<.5?p.life:0); c.globalAlpha=a*.35; c.strokeStyle=p.c; c.lineWidth=9; c.beginPath(); p.pts.forEach((q,i)=>i?c.lineTo(q[0],q[1]):c.moveTo(q[0],q[1])); c.stroke(); c.globalAlpha=a; c.strokeStyle='#fff'; c.lineWidth=2.2; c.stroke(); return p.life>0; }
+      if(p.trail){ p.t+=.045; if(p.t<0) return true; const t=Math.min(1,p.t), u=1-t, x=u*u*p.x+2*u*t*p.cx+t*t*p.tx, y=u*u*p.y+2*u*t*p.cy+t*t*p.ty;
+        c.globalAlpha=.95; c.fillStyle=p.c; c.beginPath(); c.arc(x,y,p.r,0,7); c.fill(); if(t>=1){ if(p.r>3) fxBurst(p.tx,p.ty,{n:7,sp:1.9,cols:[p.c],r:1.6,up:.4}); return false; } return true; }
+      if(p.imp){ p.t+=1/p.dur; if(p.t<0) return true; const t=Math.min(1,p.t), e=t*t*t, x=p.sx+(p.tx-p.sx)*e, y=p.sy+(p.ty-p.sy)*e, e0=Math.max(0,t-.08), px=p.sx+(p.tx-p.sx)*e0*e0*e0, py=p.sy+(p.ty-p.sy)*e0*e0*e0;
+        c.globalAlpha=.9; c.strokeStyle=p.c; c.lineWidth=p.r; c.beginPath(); c.moveTo(px,py); c.lineTo(x,y); c.stroke(); return t<1; }
+      if(p.emb){ p.ph+=.05; p.x+=Math.sin(p.ph)*.6; p.y+=p.vy; p.life-=p.dec; c.globalAlpha=Math.max(0,p.life)*.9; c.fillStyle=p.c; c.beginPath(); c.arc(p.x,p.y,p.r,0,7); c.fill(); return p.life>0 && p.y>-20; }
+      p.x+=p.vx; p.y+=p.vy; p.vy+=p.g; p.vx*=.985; p.life-=p.dec; const al=Math.max(0,p.life);
+      if(p.glow){ c.globalAlpha=al*.22; c.fillStyle=p.c; c.beginPath(); c.arc(p.x,p.y,p.r*(1.3-al*.3),0,7); c.fill(); return p.life>0; }
+      if(p.shard){ p.rot+=p.vr; c.globalAlpha=al; c.fillStyle=p.c; c.beginPath(); for(let k=0;k<3;k++){ const a=p.rot+k*2.1, rr=p.r*(k?1:.55); k?c.lineTo(p.x+Math.cos(a)*rr,p.y+Math.sin(a)*rr):c.moveTo(p.x+Math.cos(a)*rr,p.y+Math.sin(a)*rr); } c.closePath(); c.fill(); return p.life>0 && p.y<H+40; }
+      c.globalAlpha=al; c.strokeStyle=p.c; c.lineWidth=p.r*(al*.8+.25); c.beginPath(); c.moveTo(p.x-p.vx*2.4,p.y-p.vy*2.4); c.lineTo(p.x,p.y); c.stroke(); return p.life>0 && p.y<H+30; });
+    c.globalAlpha=1; c.globalCompositeOperation='source-over';
+    if(FX.parts.length || FX.add.length || Date.now()<FX.emb) FX.raf=requestAnimationFrame(step); else { FX.raf=0; c.clearRect(0,0,W,H); } };
+  FX.raf=requestAnimationFrame(step); }
+function fxOverlay(cls,ms){ const o=document.createElement('div'); o.className=cls; document.body.appendChild(o); setTimeout(()=>{ try{ o.remove(); }catch(e){} },ms); return o; }
+function fxFlash(bg){ if(!fxOn()) return; fxOverlay('fx-flash',520).style.background=bg; }
+function fxEdge(){ if(!fxOn()) return; fxOverlay('fx-edge',950); }
+function fxSlash(col){ if(!fxOn()) return; const o=fxOverlay('fx-slash',480); o.style.setProperty('--sc',col); o.style.top=(30+Math.random()*30)+'%'; }
+function fxBanner(txt,col){ if(!fxOn()) return; const o=fxOverlay('fx-banner',1200); o.textContent=txt; if(col) o.style.color=col; }
+function fxShake(hard){ if(!fxOn()) return; const s=document.querySelector('.screen.active'); if(!s) return; s.classList.remove('fx-shake','fx-shake2'); void s.offsetWidth; s.classList.add(hard?'fx-shake2':'fx-shake'); }
+function fxBuzz(p){ try{ navigator.vibrate && navigator.vibrate(p); }catch(e){} }
+function fxSetDone(btn, st, h0){ if(!fxOn() || !btn || !btn.getBoundingClientRect) return;
+  const r=btn.getBoundingClientRect(), x=r.left+r.width/2, y=r.top+r.height/2, acc=fxRGB('--e1rgb','255,138,43'), pk=fxRGB('--e2rgb','255,77,140'), gold='rgb(255,210,77)';
+  if(st.crit===2){ fxImplode(x,y,40,[gold,'rgb(255,243,192)'],160,16); fxBuzz([30,40,110]);
+    setTimeout(()=>{ fxBurst(x,y,{n:70,sp:8,cols:[gold,'rgb(255,243,192)',acc],r:2.8}); fxRing(x,y,gold,160); fxRing(x,y,'rgb(255,243,192)',90); fxFlash('rgba(255,210,77,.28)'); fxSlash(gold); fxBanner('LEGENDARY','#FFE9A8'); fxShake(true); }, 260); }
+  else if(st.crit){ fxBurst(x,y,{n:34,sp:5.6,cols:[pk,acc,'rgb(255,225,240)'],r:2.4}); fxRing(x,y,pk,80); fxSlash(pk); fxShake(false); fxBuzz(40); }
+  else fxBurst(x,y,{n:14,sp:3.4,cols:[acc,'rgb(255,210,150)'],r:1.9});
+  requestAnimationFrame(()=>{
+    const f=document.querySelector('.hb-flame'); if(f){ const q=f.getBoundingClientRect(); fxTrail(x,y,q.left+q.width/2,q.top+q.height/2,acc); }
+    const h1=activeSession && activeSession.heat? activeSession.heat.n : 0;
+    if([3,6,10,15].some(v=>h0<v && h1>=v)){ const hb=document.querySelector('.heat-bar'); if(hb){ hb.classList.remove('flare'); void hb.offsetWidth; hb.classList.add('flare'); } fxEdge();
+      if(h0<15 && h1>=15){ fxEmbers(2600); fxBanner('INFERNO','#FFB347'); fxShake(true); fxBuzz([50,40,50,40,120]); } }
+    const Hh=activeSession && activeSession._hit; if(activeSession && activeSession.bossKey && Hh && Date.now()-Hh.ts<500){ const b=document.querySelector('.boss-fight'); if(b){ const q=b.getBoundingClientRect(), bx=q.left+q.width*.18, by=q.top+q.height/2;
+      fxBurst(bx,by,{n:Hh.c?38:16,sp:Hh.c?6:3.8,cols:['rgb(255,90,90)','rgb(255,185,120)'],r:2.2}); if(Hh.c||Hh.broke) fxBolt(bx+(Math.random()-.5)*60,-10,bx,by,'rgb(170,210,255)'); if(Hh.broke){ fxShards(bx,by,18,['rgb(143,216,255)','rgb(220,240,255)']); fxShake(true); } } } }); }
+function fxCine(kind,d){ if(!fxOn()) return false; FX.q.push([kind,d||{}]); if(!FX.busy) fxNext(); return true; }
+function fxNext(){ const it=FX.q.shift(); if(!it){ FX.busy=false; return; } FX.busy=true; const kind=it[0], d=it[1];
+  if(kind==='banner'){ fxBanner(d.t,d.c); setTimeout(fxNext,1250); return; }
+  const title=kind==='level'?'Level up':(kind==='slain'?'Slain':'Evolved'), letters=[...title].map((ch,i)=>`<span style="animation-delay:${(.72+i*.055).toFixed(3)}s">${ch===' '?'&nbsp;':ch}</span>`).join('');
+  const hero= kind==='level'? `<div class="cn-num">${d.from!=null?d.from:d.lv}</div>` : kind==='slain'? `<div class="cn-emo">${d.ico||'⚔️'}</div>` : `<div class="cn-art">${d.art||''}</div>`;
+  const o=document.createElement('div'); o.className='cine cine-'+kind;
+  o.innerHTML=`<div class="cn-bg"></div><div class="cn-rays"></div>${kind==='evolve'?'<div class="cn-pillar"></div>':''}<div class="cn-core">${hero}<div class="cn-title">${letters}</div>${d.sub?`<div class="cn-sub">${esc(d.sub)}</div>`:''}</div><div class="cn-flash"></div><div class="cn-bar t"></div><div class="cn-bar b"></div><div class="cn-tap">tap to continue</div>`;
+  document.body.appendChild(o);
+  const W=innerWidth, H=innerHeight, cx=W/2, cy=H*.4, gold='rgb(255,210,77)', acc=fxRGB('--e1rgb','255,138,43'), red='rgb(255,90,90)', M=Math.min(W,H), hit=kind==='slain'?760:640;
+  const cols=kind==='slain'?[red,'rgb(255,185,120)',gold]:[gold,acc,'rgb(255,243,192)'];
+  fxImplode(cx,cy,kind==='slain'?50:80,cols,M*.6,34);
+  if(kind==='slain') [140,360,560].forEach((t,i)=>setTimeout(()=>{ fxBolt(cx+(i-1)*M*.25,-10,cx+(Math.random()-.5)*30,cy,'rgb(170,210,255)'); fxFlash('rgba(190,220,255,.18)'); fxBuzz(25); },t));
+  setTimeout(()=>{ o.classList.add('shock'); fxRing(cx,cy,kind==='slain'?red:gold,M*.7); fxRing(cx,cy,acc,M*.5); fxRing(cx,cy,'rgb(255,255,255)',M*.3);
+    fxBurst(cx,cy,{n:110,sp:10,cols,r:3,g:.07}); if(kind==='slain') fxShards(cx,cy,26,['rgb(150,140,130)','rgb(110,100,95)',red]); fxEmbers(2000,cols); fxBuzz(kind==='slain'?[60,50,180]:[40,40,120]); }, hit);
+  if(kind==='level' && d.from!=null && d.from!==d.lv){ const el=o.querySelector('.cn-num'); setTimeout(()=>{ let k=0; const iv=setInterval(()=>{ k++; el.textContent=Math.round(d.from+(d.lv-d.from)*Math.min(1,k/7)); if(k>=7) clearInterval(iv); },50); }, hit-200); }
+  let done=false; const end=()=>{ if(done) return; done=true; o.classList.add('out'); setTimeout(()=>{ try{ o.remove(); }catch(e){} fxNext(); },380); };
+  o.addEventListener('click',end); setTimeout(end, kind==='slain'?3300:2900); }
+function fxCount(sel){ if(!fxOn()) return; try{ document.querySelectorAll(sel).forEach(el=>{ const raw=el.textContent, v=parseFloat(raw.replace(/,/g,'')); if(!isFinite(v)||v<=0) return;
+  const t0=performance.now(), D=900, f=now=>{ const k=Math.min(1,(now-t0)/D); el.textContent=k<1? fmt(Math.round(v*(1-Math.pow(1-k,3)))) : raw; if(k<1) requestAnimationFrame(f); }; requestAnimationFrame(f); }); }catch(e){} }
+function fxCache(){ if(!fxOn()) return; const c=document.querySelector('.cache-card'); if(!c) return; const q=c.getBoundingClientRect(), r=+((c.className.match(/\br(\d)\b/)||[])[1]||1), x=q.left+q.width/2, y=q.top+q.height*.35;
+  const C=[['rgb(200,205,215)','rgb(150,158,172)'],['rgb(143,196,255)','rgb(92,176,255)'],['rgb(217,184,255)','rgb(176,124,255)'],['rgb(255,210,77)','rgb(255,138,43)','rgb(255,243,192)']][Math.min(3,r-1)];
+  fxBurst(x,y,{n:[16,28,48,90][Math.min(3,r-1)],sp:3+r*1.3,cols:C,r:2.5}); if(r>=3){ fxRing(x,y,C[0],r>=4?180:100); fxShake(r>=4); }
+  if(r>=4){ fxFlash('rgba(255,210,77,.3)'); fxEmbers(1800,C); fxBanner('MYTHIC','#FFE9A8'); fxBuzz([30,40,140]); } }
+function fxPreview(){ ensureLoot(); if(!fxOn()){ toast('✨','Effects are off', DB.settings.fx===false? 'Turn Epic effects on to preview' : 'Your phone has reduced motion turned on'); return; }
+  const W=innerWidth, H=innerHeight, acc=fxRGB('--e1rgb','255,138,43'), pk=fxRGB('--e2rgb','255,77,140'), gold='rgb(255,210,77)';
+  const B=(x,c,s)=>({getBoundingClientRect:()=>({left:x-24,top:H*.7-24,width:48,height:48})});
+  fxSetDone(B(W*.25),{crit:0},0);
+  setTimeout(()=>fxSetDone(B(W*.5),{crit:1},0), 700);
+  setTimeout(()=>fxSetDone(B(W*.75),{crit:2},0), 1500);
+  setTimeout(()=>{ fxEdge(); fxEmbers(2400); fxBanner('INFERNO','#FFB347'); fxShake(true); }, 3000);
+  setTimeout(()=>{ const lv=levelInfo(DB.stats.xp||0); fxCine('level',{lv:lv.level,from:lv.level-1,sub:lv.rank});
+    const bi=bossIdx(monthKey()); fxCine('slain',{ico:BOSSES[bi].ico, sub:BOSSES[bi].n});
+    fxCine('evolve',{art:spriteSVG(spriteStage(),'radiant',((DB.loot&&DB.loot.equip&&LOOT.find(i=>i.id===DB.loot.equip.acc))||{}).v||'',170), sub:SPRITE_STAGES[spriteStage()]}); fxCine('banner',{t:'NEW PR',c:'#FFB3D1'}); fxCine('banner',{t:'AWARD UNLOCKED',c:'#D9B8FF'}); fxCine('banner',{t:"LET'S FORGE"}); }, 4700); }
+/* ===================== MORE MOTION — screens · nav · buttons · rest · session ===================== */
+function fxEnter(screen){ if(!fxOn() || screen==='session') return; const s=document.getElementById('screen-'+screen); if(!s) return;
+  s.classList.remove('fx-enter'); void s.offsetWidth; s.classList.add('fx-enter'); clearTimeout(s._fxT); s._fxT=setTimeout(()=>s.classList.remove('fx-enter'),950);
+  const n=document.querySelector('.nav-item.on'); if(n){ n.classList.remove('fx-pop'); void n.offsetWidth; n.classList.add('fx-pop'); const q=n.getBoundingClientRect(); fxBurst(q.left+q.width/2,q.top+q.height*.35,{n:10,sp:2.6,r:1.6,up:1.6}); } }
+function fxSessionStart(){ if(!fxOn()) return; fxBanner("LET'S FORGE"); fxEmbers(1300); fxBuzz(30); }
+function fxRestPulse(){ if(!fxOn()) return; const el=document.getElementById('restTimer'); if(!el) return; el.classList.remove('fx-beat'); void el.offsetWidth; el.classList.add('fx-beat'); fxBuzz(12); }
+function fxRestEnd(){ if(!fxOn()) return; const el=document.getElementById('restTimer'); if(el){ const q=el.getBoundingClientRect(), x=q.left+q.width/2, y=q.top+q.height/2; fxBurst(x,y,{n:34,sp:5,r:2.3}); fxRing(x,y,fxRGB('--e1rgb','255,138,43'),90); } fxBanner('GO!'); }
+function fxRipple(e){ if(!fxOn()) return; const b=e.target && e.target.closest && e.target.closest('.btn'); if(!b) return;
+  const q=b.getBoundingClientRect(), s=document.createElement('span'), d=Math.max(q.width,q.height)*2.2;
+  s.className='fx-ripple'; s.style.cssText='width:'+d+'px;height:'+d+'px;left:'+(e.clientX-q.left-d/2)+'px;top:'+(e.clientY-q.top-d/2)+'px'; b.appendChild(s); setTimeout(()=>{ try{ s.remove(); }catch(_){} },650); }
+function fxAmbient(){ try{ document.body.classList.toggle('fx-off', DB.settings.fx===false); document.body.classList.toggle('ui2', DB.settings.ui2!==false); }catch(e){} }
+document.addEventListener('pointerdown', fxRipple, {passive:true});
 /* ===================== DATA PROTECTION ===================== */
 let _persistAsked=false;
 function requestPersist(){ if(_persistAsked) return; _persistAsked=true;
@@ -3448,7 +3672,7 @@ function renderHome(){
       <div style="font-size:12px;color:var(--muted)">${a.d}</div></div>
       <span class="ra-tier ${a.tier}">${a.tier}</span></div>`).join('');
   }
-  requestPersist(); sprRegent(); renderTalentCard(); renderQuickStart(); renderBackupNudge(); renderContract(); renderRelic(); renderWeapon(); renderSpriteDen(); applyFolds(); renderAscentCard(); renderLapAura(); renderEventCard(); applyLoot(); applyAmoled();
+  requestPersist(); fxAmbient(); sprRegent(); renderTalentCard(); renderQuickStart(); renderBackupNudge(); renderContract(); renderRelic(); renderWeapon(); renderSpriteDen(); applyFolds(); renderAscentCard(); renderLapAura(); renderEventCard(); applyLoot(); applyAmoled();
   if(!_caughtUp){ _caughtUp=true; ascentCheck(); monumentCheck(); }
   startEmbers(); setTimeout(tickUp,0);
 }
@@ -3623,12 +3847,12 @@ function muscleCard(){
   const reg=weeklyMuscleSets(); const total=Object.values(reg).reduce((a,b)=>a+b,0);
   const names={chest:'Chest',shoulders:'Shoulders',arms:'Arms',abs:'Core',back:'Back',traps:'Traps',quads:'Quads',glutes:'Glutes',hams:'Hamstrings',calves:'Calves'};
   if(!total){
-    return `<div class="sec-label">🔥 Muscle heat-map</div><div class="chart-card"><p class="chart-sub" style="margin:0 0 14px">Train this week and your most-worked muscles light up here — the heat of effort, mapped to your body.</p><div style="opacity:.45">${bodyHeatSVG(reg)}</div></div>`;
+    return `<div class="sec-label"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.2c-4 0-6.7-2.8-6.7-6.4 0-3.7 2.9-5.4 3.8-8.9 1.8 1.4 2.4 3.2 2.2 4.7 1.4-.8 2.3-2.5 2.4-4.8 2.8 2.1 4.9 5.3 4.9 9 0 3.6-2.6 6.4-6.6 6.4z"/><path d="M12 21.2c-1.7 0-2.9-1.2-2.9-2.8 0-1.7 1.4-2.6 2.1-4.3 1.9 1.3 3.6 2.6 3.6 4.3 0 1.6-1.2 2.8-2.8 2.8z"/></svg> Muscle heat-map</div><div class="chart-card"><p class="chart-sub" style="margin:0 0 14px">Train this week and your most-worked muscles light up here — the heat of effort, mapped to your body.</p><div style="opacity:.45">${bodyHeatSVG(reg)}</div></div>`;
   }
   const sorted=Object.keys(reg).filter(k=>reg[k]>0).sort((a,b)=>reg[b]-reg[a]);
   const cold=Object.keys(reg).filter(k=>reg[k]===0).map(k=>names[k]);
   const chips=sorted.map(k=>`<span class="mh-chip">${names[k]} <b>${reg[k]}</b></span>`).join('');
-  return `<div class="sec-label">🔥 Muscle heat-map</div><div class="chart-card">
+  return `<div class="sec-label"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.2c-4 0-6.7-2.8-6.7-6.4 0-3.7 2.9-5.4 3.8-8.9 1.8 1.4 2.4 3.2 2.2 4.7 1.4-.8 2.3-2.5 2.4-4.8 2.8 2.1 4.9 5.3 4.9 9 0 3.6-2.6 6.4-6.6 6.4z"/><path d="M12 21.2c-1.7 0-2.9-1.2-2.9-2.8 0-1.7 1.4-2.6 2.1-4.3 1.9 1.3 3.6 2.6 3.6 4.3 0 1.6-1.2 2.8-2.8 2.8z"/></svg> Muscle heat-map</div><div class="chart-card">
     <p class="chart-sub" style="margin:0 0 4px">Working sets per muscle · last 7 days</p>
     <div class="chart-box">${bodyHeatSVG(reg)}</div>
     <div class="mh-chips">${chips}</div>
@@ -3679,13 +3903,13 @@ function radarSVG(axes){
 function strengthCard(){
   const r=strengthScores();
   if(r.needBW){
-    return `<div class="sec-label">📊 Strength score</div><div class="chart-card"><p class="chart-sub" style="margin:0 0 14px">Log your body weight to see how your lifts stack up against strength standards.</p><button class="btn btn-cool" data-action="log-bw">＋ Log body weight to unlock</button></div>`;
+    return `<div class="sec-label"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v16h16"/><path d="m7.5 14.5 3.5-3.5 3 3 5-6"/></svg> Strength score</div><div class="chart-card"><p class="chart-sub" style="margin:0 0 14px">Log your body weight to see how your lifts stack up against strength standards.</p><button class="btn btn-cool" data-action="log-bw">＋ Log body weight to unlock</button></div>`;
   }
   const list=r.axes.map(a=>{
     const lvlName=a.has?STD_LEVELS[a.lvl]:'—'; const ratioTxt=a.has?a.ratio.toFixed(2)+'× BW':'no data';
     return `<div class="ss-row"><div class="ss-n">${esc(a.name)}</div><div class="ss-bw">${ratioTxt}</div><div class="ss-lvl ${a.has?('l'+a.lvl):''}">${lvlName}</div></div>`;
   }).join('');
-  return `<div class="sec-label">📊 Strength score</div><div class="chart-card">
+  return `<div class="sec-label"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v16h16"/><path d="m7.5 14.5 3.5-3.5 3 3 5-6"/></svg> Strength score</div><div class="chart-card">
     <div class="ss-top"><div class="ss-rank">${r.overallLabel}</div><div class="chart-sub" style="margin:0;text-align:right">Overall level<br>vs body weight</div></div>
     ${r.have?`<div class="chart-box" style="margin-top:2px">${radarSVG(r.axes)}</div>`:`<p class="chart-sub">Log a Squat, Bench, Deadlift or Overhead Press to plot your profile.</p>`}
     <div class="ss-list">${list}</div>
@@ -3725,7 +3949,7 @@ function hrZones(){ const mx=maxHR(); if(!mx) return null; const rest=(DB.settin
   return {mx, rest, zones:defs.map(d=>({name:d[0], lo:calc(d[1]), hi:calc(d[2])}))}; }
 
 /* ===================== VO2MAX — dedicated entry + analysis ===================== */
-const APP_V='v65';
+const APP_V='v71';
 function vo2Parts(){
   const s=DB.settings, age=currentAge();
   const bv=bestVo2(), vr=vo2FromRestHR();
@@ -3819,7 +4043,7 @@ function profileCard(){
   if(hz){ const zr=hz.zones.map(z=>`<div class="hz-row"><span class="hz-n">${z.name}</span><span class="hz-v">${z.lo}–${z.hi}</span></div>`).join('');
     blocks+=`<div class="vital"><div class="vital-top"><div class="vital-k">Heart-rate zones</div><div class="vital-v">${hz.mx}<small> max bpm</small></div></div><div class="hz-list">${zr}</div><div class="vital-sub">${hz.rest?('Karvonen method · resting '+hz.rest+' bpm'):'bpm · add resting HR for personalized zones'}</div></div>`; }
   const cta=haveProfile?'Edit body &amp; profile':'＋ Add your details for accurate analysis';
-  return `<div class="sec-label">🫀 Fitness profile</div><div class="chart-card">
+  return `<div class="sec-label"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7C19.5 15.9 12 20.5 12 20.5z"/></svg> Fitness profile</div><div class="chart-card">
     ${haveProfile?'':`<p class="chart-sub" style="margin:0 0 12px">Add your sex, age and height to sharpen your strength standards, plus estimate VO₂max and heart-rate zones.</p>`}
     ${blocks}
     <button class="btn ${haveProfile?'btn-ghost':'btn-cool'}" data-action="open-profile" style="margin-top:10px">${cta}</button>
@@ -4051,7 +4275,7 @@ function renderSquad(){
         <div class="lb-val">${metric.fmt(e.stats)}</div></div>`;
     }).join('');
   }
-  host.innerHTML=`<div class="sec-label" style="margin-top:2px">⚔️ Squad${friends.length?' · '+(friends.length+1)+' athletes':''}</div>
+  host.innerHTML=`<div class="sec-label" style="margin-top:2px"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8.5" r="3"/><circle cx="16.5" cy="9.5" r="2.4"/><path d="M3.5 19.5c.6-3.3 2.9-5 5.5-5s4.9 1.7 5.5 5M14.5 14.7c.6-.2 1.3-.3 2-.3 2.2 0 3.9 1.4 4.3 4.6"/></svg> Squad${friends.length?' · '+(friends.length+1)+' athletes':''}</div>
     <div class="btn-row" style="margin-bottom:12px"><button class="btn btn-primary btn-sm" data-action="squad-share">Share my code</button><button class="btn btn-ghost btn-sm" data-action="squad-add">Add a friend</button></div>
     ${board}`;
 }
@@ -5603,6 +5827,7 @@ function renderAwards(){
    SESSION (live tracking)
    ============================================================ */
 function startSession(title, eyebrow, exList){
+  setTimeout(fxSessionStart, 420);
   // exList: [{n, targetSets, targetReps}]
   activeSession={
     title, eyebrow, ts:Date.now(),
@@ -5737,7 +5962,7 @@ function renderSession(){
       <div class="setno">${si+1}</div>
       <div class="field"><label>${DB.settings.unit}</label><input type="number" inputmode="decimal" class="s-weight" data-ei="${ei}" data-si="${si}" value="${st.weight}" placeholder="${g&&g.w!==''?g.w:'—'}"></div>
       <div class="field"><label>Reps</label><input type="number" inputmode="numeric" class="s-reps" data-ei="${ei}" data-si="${si}" value="${st.reps}" placeholder="${g&&g.r!==''?g.r:'—'}"></div>
-      <button class="check ${st.done?'on':''}" data-action="toggle-set" data-ei="${ei}" data-si="${si}">✓</button>
+      <button class="check ${st.done?'on':''}${(activeSession._lt===ei+'-'+si && Date.now()-(activeSession._ltT||0)<900)?' just':''}" data-action="toggle-set" data-ei="${ei}" data-si="${si}">✓</button>
     </div>`; }).join('')}
     ${collapsed?'':`<div class="ex-actions"><button class="mini-link" data-action="add-set" data-ei="${ei}">＋ Add set</button>${complete?`<button class="mini-link" data-action="ex-expand" data-ei="${ei}">Collapse</button>`:''}</div>`}
     </div>`;
@@ -5918,7 +6143,7 @@ let _race=null;
 function fmtMin(m){ const s=Math.max(0,Math.round(m*60)); return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
 function openGhostRace(dist, pace){
   const g=ghostFor(dist); if(!g){ toast('👻','No ghost yet','Log a run at this distance first to race it'); return; }
-  openSheet(`<div class="grab"></div><h3>👻 Race your ghost</h3><p class="sh-lead">${(Math.round(dist*10)/10)} km · you vs your best (${g.durationMin} min)</p>
+  openSheet(`<div class="grab"></div><h3><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12.5h4l2.2-5.5 4.3 11 2.3-5.5H21"/></svg> Race your ghost</h3><p class="sh-lead">${(Math.round(dist*10)/10)} km · you vs your best (${g.durationMin} min)</p>
     <div class="race-track"><div class="lane"><span class="runner" id="rcYou">🏃</span></div><div class="lane"><span class="runner" id="rcGhost">👻</span></div><div class="finish"></div></div>
     <div class="race-clock" id="rcClock">0:00</div><div class="race-result" id="rcResult"></div>
     <button class="btn btn-ghost" data-action="ghost-replay" data-dist="${dist}" data-pace="${pace}" style="margin-top:12px">↻ Replay</button>
@@ -6113,9 +6338,9 @@ function trainingPaces(){
 }
 function pacesCard(){
   const tp=trainingPaces();
-  if(!tp) return `<div class="sec-label">🎯 Training paces</div><div class="card tight"><p class="chart-sub" style="margin:0 0 12px">Personalized easy / tempo / interval paces show up here once FORGE can estimate your VO₂max — log a hard run of 1.5 km+, or add your age &amp; resting heart rate in your profile.</p><button class="btn btn-ghost btn-sm" data-action="open-profile">👤 Set up profile</button></div>`;
+  if(!tp) return `<div class="sec-label"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1.1"/></svg> Training paces</div><div class="card tight"><p class="chart-sub" style="margin:0 0 12px">Personalized easy / tempo / interval paces show up here once FORGE can estimate your VO₂max — log a hard run of 1.5 km+, or add your age &amp; resting heart rate in your profile.</p><button class="btn btn-ghost btn-sm" data-action="open-profile">👤 Set up profile</button></div>`;
   const rows=tp.paces.map(p=>`<button class="pace-row" data-action="use-pace" data-pace="${p.dec}" data-k="${p.k}" data-disp="${p.disp}"><span class="pace-dot" style="background:${p.col}"></span><span class="pace-k">${p.k}<span class="pace-note">${p.note}</span></span><span class="pace-v">${p.disp}<small>/km</small></span></button>`).join('');
-  return `<div class="sec-label">🎯 Training paces</div><div class="card">
+  return `<div class="sec-label"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1.1"/></svg> Training paces</div><div class="card">
     <div class="pace-head"><div class="eyebrow" style="margin:0">Target paces · ${tp.src}</div><div class="pace-vo2">VO₂ ${tp.vo2.toFixed(0)}</div></div>
     ${rows}
     <p class="hint" style="margin-top:10px">Tap a pace to drop it into the box below. Estimated via the Daniels VDOT model — keep easy days truly easy.</p>
@@ -6501,7 +6726,7 @@ function calSection(){
     cells+=`<div class="cal-cell lv${lvl} ${key===todayK?'today':''}">${d}</div>`; }
   const dows=['S','M','T','W','T','F','S'].map(x=>`<div class="cal-dow">${x}</div>`).join('');
   const trained=Object.keys(counts).filter(k=>k.indexOf(`${calYear}-${pad(calMonth+1)}`)===0).length;
-  return `<div class="sec-label">📅 Training calendar</div><div class="chart-card">
+  return `<div class="sec-label"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14.5" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></svg> Training calendar</div><div class="chart-card">
     <div class="cal-head"><button class="cal-nav" data-action="cal-prev" aria-label="Previous month">‹</button><div class="cal-title">${MS[calMonth]} ${calYear}</div><button class="cal-nav" data-action="cal-next" aria-label="Next month">›</button></div>
     <div class="cal-grid">${dows}${cells}</div>
     <div class="cal-foot"><span>${trained} active day${trained===1?'':'s'} this month</span><div class="cal-legend">less<span class="cal-cell lv0 mini"></span><span class="cal-cell lv1 mini"></span><span class="cal-cell lv2 mini"></span><span class="cal-cell lv3 mini"></span>more</div></div>
@@ -6545,6 +6770,7 @@ function levelUpFX(lv, rank){
   try{
     if(typeof document==='undefined' || !document.body) return;
     if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){ toast('⬆','Level '+lv, rank||'The forge grows hotter'); return; }
+    if(fxCine('level',{lv, from:lv-1, sub:rank||''})) return;
     const d=document.createElement('div'); d.className='lvlup';
     d.innerHTML='<div class="lvl-flash"></div><div class="lvl-ring"></div><div class="lvl-txt"><small>Level up</small><b>'+lv+'</b>'+(rank?('<em>'+rank+'</em>'):'')+'</div>';
     document.body.appendChild(d);
@@ -6579,9 +6805,12 @@ function openSettings(){
     </div>
     <div class="form-field"><label>Rest timer alert</label>
       <button class="toggle-row" data-action="toggle-sound"><span>Beep when rest ends</span><span class="tog ${DB.settings.sound===false?'':'on'}"><span class="tog-dot"></span></span></button>
+      <button class="toggle-row" data-action="toggle-bgrest"><span>Keep rest timer alive in the background<small style="display:block;font-size:10.5px;color:var(--muted-2);font-weight:500;margin-top:2px">Plays a silent track, which makes Android lower your music</small></span><span class="tog ${DB.settings.bgRest?'on':''}"><span class="tog-dot"></span></span></button>
     </div>
     <div class="form-field"><label>App version</label><div class="ver-badge">FORGE ${APP_V}</div></div>
     <div class="form-field"><label>AMOLED pure black</label><button class="btn btn-ghost btn-sm" data-action="tog-amoled" id="amoledBtn" style="width:auto">${DB.settings.amoled?'On':'Off'}</button></div>
+    <div class="form-field"><label>Refined UI</label><button class="btn btn-ghost btn-sm" data-action="tog-ui2" style="width:auto">${DB.settings.ui2===false?'Off · classic look':'On'}</button></div>
+    <div class="form-field"><label>Epic effects</label><div style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" data-action="tog-fx" style="width:auto">${DB.settings.fx===false?'Off':'On'}</button><button class="btn btn-ghost btn-sm" data-action="fx-preview" style="width:auto">▶ Preview effects</button></div></div>
     <div class="form-field"><label>Voice cues</label>
       <button class="toggle-row" data-action="toggle-voice"><span>Speak run splits &amp; rest alerts</span><span class="tog ${DB.settings.voice===true?'on':''}"><span class="tog-dot"></span></span></button>
     </div>
@@ -6707,7 +6936,7 @@ function delCustomEx(name){
 function openExPicker(onPick){
   const cats=[['push','Push','🫸'],['pull','Pull','🪝'],['legs','Legs','🦵'],['core','Core','🧿'],['balance','Balance','🪨'],['mobility','Mobility','🧘']];
   const byCat={}; allEx().forEach(e=>{ (byCat[e.p]=byCat[e.p]||[]).push(e); });
-  const row=e=>`<div class="ex-pick${e.cx?' is-cx':''}" data-action="pick-ex" data-name="${esc(e.n)}"><div class="epn">${esc(e.n)}${e.cx?'<span class="cx-tag">yours</span>':''}</div><div class="epg">${esc(e.g)}</div>${e.cx?`<button class="cx-edit" data-action="cx-edit" data-name="${esc(e.n)}">✎</button><button class="cx-del" data-action="cx-del" data-name="${esc(e.n)}">✕</button>`:''}</div>`;
+  const row=e=>`<div class="ex-pick${e.cx?' is-cx':''}" data-action="pick-ex" data-name="${esc(e.n)}"><div class="epn">${esc(e.n)}${e.cx?'<span class="cx-tag">yours</span>':''}</div><div class="epg">${esc(e.g)}</div>${e.cx?`<button class="cx-edit" data-action="cx-edit" data-name="${esc(e.n)}" aria-label="Edit exercise">✎</button><button class="cx-del" data-action="cx-del" data-name="${esc(e.n)}" aria-label="Delete exercise">✕</button>`:''}</div>`;
   const section=(key,label,ico)=>{ const list=byCat[key]||[]; if(!list.length) return '';
     const byG={}; list.forEach(e=>{ (byG[e.g]=byG[e.g]||[]).push(e); });
     const inner=Object.keys(byG).map(g=>`<p class="exg-sub">${esc(g)}</p>`+byG[g].map(row).join('')).join('');
@@ -6778,7 +7007,7 @@ document.addEventListener('click', e=>{
     
     case 'mobility-quick': {
       const tpl=TEMPLATES.find(x=>x.id==='mobility-flow');
-      openSheet(`<div class="grab"></div><h3>🧘 Mobility flow</h3><p class="sh-lead">A few minutes of mobility keeps your joints healthy and fills your Mobility pillar. Pick a flow to start now.</p>`
+      openSheet(`<div class="grab"></div><h3><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.6" r="1.9"/><path d="M4.5 9.5 12 11l7.5-1.5"/><path d="M12 11v4l-3.5 5.5M12 15l3.5 5.5"/></svg> Mobility flow</h3><p class="sh-lead">A few minutes of mobility keeps your joints healthy and fills your Mobility pillar. Pick a flow to start now.</p>`
         + tpl.days.map((d,di)=>`<button class="btn btn-ghost flow-pick" data-action="start-tpl-day" data-tpl="mobility-flow" data-day="${di}"><span class="fp-n">${d.name}</span><span class="fp-d">${d.ex.length} moves · ${d.ex.slice(0,3).map(e=>e.n).join(', ')}…</span></button>`).join('')
         + `<button class="btn btn-ghost btn-sm" data-action="close-sheet" style="margin-top:4px">Cancel</button>`);
       break;
@@ -6902,7 +7131,9 @@ document.addEventListener('click', e=>{
       Store.set('forge.activeSession', activeSession); noteSave();
       row.classList.toggle('done', st.done); t.classList.toggle('on', st.done); row.classList.remove('next');
       if(st.done){ const en=activeSession.entries[ei]; const rs=restFor(en, si); if(rs>0){ _restEi=ei; _restBase=rs; startRest(rs); } else { _restEi=null; } }
+      const _h0=activeSession.heat? activeSession.heat.n : 0;
       if(st.done) onSetDone(ei, si, st);
+      if(st.done) fxSetDone(t, st, _h0);
       Store.set('forge.activeSession', activeSession); renderSession();
       if(!_wasComplete && _en.sets.every(s=>s.done)){ setTimeout(()=>{ try{ const c=document.querySelector('.exblock.current'); if(c && c.scrollIntoView) c.scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){} }, 80); }
       break;
@@ -6926,6 +7157,7 @@ document.addEventListener('click', e=>{
     // rest timer
     case 'rest-toggle': toggleRest(); break;
     case 'toggle-sound': DB.settings.sound=(DB.settings.sound===false); save(); openSettings(); break;
+    case 'toggle-bgrest': DB.settings.bgRest=!DB.settings.bgRest; save(); if(!DB.settings.bgRest) _stopKeepAlive(); else if(restRunning) _startKeepAlive(); openSettings(); break;
     case 'toggle-voice':
       if(DB.settings.voice!==true){ if(typeof window==='undefined' || !window.speechSynthesis){ toast('🔇','Not supported','This browser can’t speak'); break; } DB.settings.voice=true; save(); speak('Voice cues on. I’ll call your splits.'); }
       else { DB.settings.voice=false; save(); }
@@ -7006,6 +7238,9 @@ document.addEventListener('click', e=>{
     case 'log-where': { logWhere=t.dataset.w; $$('#logWhereChips .chip').forEach(c=>c.classList.toggle('on', c.dataset.w===logWhere)); const iw=$('#tmInclineWrap'); if(iw) iw.style.display=logWhere==='tm'?'block':'none'; break; }
     case 'log-run-submit': submitLogRun(); break;
     case 'repeat-last': repeatLast(); break;
+    case 'tog-ui2': DB.settings.ui2=(DB.settings.ui2===false); save(); fxAmbient(); openSettings(); break;
+    case 'tog-fx': DB.settings.fx=(DB.settings.fx===false); save(); fxAmbient(); openSettings(); break;
+    case 'fx-preview': closeSheet(); setTimeout(fxPreview, 280); break;
     case 'tal-open': openTalents(); break;
     case 'tal-up': if(talUp(t.dataset.id)){ openTalents(); renderTalentCard(); } break;
     case 'tal-respec': if(talState().rs!==weekKey() && confirm('Reset every talent and get your points back? Your free respec returns next week.')){ talRespec(); openTalents(); renderTalentCard(); } break;
@@ -7042,7 +7277,7 @@ document.addEventListener('click', e=>{
       const done=DB.ascent.done[nd.id]; const curId=(ascFlat()[DB.ascent.node]||{}).id;
       toast(nd.ico, nd.n, done?('Cleared '+done):(curId===nd.id? nd.d : 'Locked — climb further first')); break; }
     case 'vault-open': openVault(); break;
-    case 'cache-open': { const _va=$('.vo-art'); if(_va && _va.classList){ _va.classList.remove('crack'); void _va.offsetWidth; _va.classList.add('crack'); }
+    case 'cache-open': { setTimeout(fxCache, 480); const _va=$('.vo-art'); if(_va && _va.classList){ _va.classList.remove('crack'); void _va.offsetWidth; _va.classList.add('crack'); }
       const res=openCache(); if(!res) break;
       const rv=$('#cacheReveal');
       if(res.overflow){ if(rv) rv.innerHTML='<div class="cache-card r2"><div class="cc-rar">Overflow</div><div class="cc-name">+40 XP</div><div class="cc-pool">Collection complete — the Forge overflows</div></div>'; }
@@ -7130,6 +7365,7 @@ function _ensureAudio(){
   if(!_kaAudio){ _kaAudio=new Audio(SILENCE_SND); _kaAudio.loop=true; _kaAudio.volume=0.05; }
 }
 function _startKeepAlive(){
+  if(!DB.settings.bgRest) return;
   _ensureAudio();
   try{ _kaAudio.currentTime=0; const p=_kaAudio.play(); if(p&&p.catch) p.catch(()=>{}); }catch(e){}
   if('mediaSession' in navigator){ try{ navigator.mediaSession.metadata=new MediaMetadata({title:'Rest timer running',artist:'FORGE'}); navigator.mediaSession.playbackState='playing'; }catch(e){} }
@@ -7147,7 +7383,7 @@ function _restAlert(){
   try{ if('Notification' in window && Notification.permission==='granted'){ new Notification('Rest over 💪',{body:'Time for your next set.',tag:'forge-rest',renotify:true,silent:DB.settings.sound===false}); } }catch(e){}
   speak('Rest over. Next set.');
   toast('⏱','Rest over','Time for your next set');
-  _stopKeepAlive(); _releaseWake(); highlightNextSet();
+  _stopKeepAlive(); _releaseWake(); highlightNextSet(); fxRestEnd();
 }
 function _maybeAskNotify(){ try{ if('Notification' in window && Notification.permission==='default'){ Notification.requestPermission().catch(()=>{}); } }catch(e){} }
 function _beginRest(){
@@ -7156,6 +7392,7 @@ function _beginRest(){
   clearInterval(restInt); paintRest();
   restInt=setInterval(()=>{
     const rem=Math.max(0, Math.round((restEndAt-Date.now())/1000));
+    if(rem!==restSeconds && rem>0 && rem<=3) fxRestPulse();
     restSeconds=rem;
     if(rem<=0){ restRunning=false; clearInterval(restInt); restInt=null; paintRest(); _restAlert(); setTimeout(primeRest, 2500); return; }
     paintRest();
