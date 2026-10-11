@@ -1601,6 +1601,7 @@ body.ui2 .sheet{border-radius:24px 24px 0 0; border-color:rgba(255,255,255,.08);
 body.ui2 .overlay{backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px)}
 body.ui2 .toast{background:rgba(22,26,34,.86); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-color:rgba(255,255,255,.08); border-radius:16px}
 body.ui2 .sec-head{margin-top:22px}
+.asc-goal{font-size:11.5px; color:var(--energy-soft,#FFB47A); margin-top:3px; font-weight:600}
 @media(prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
 </style>
 </head>
@@ -3962,7 +3963,7 @@ function hrZones(){ const mx=maxHR(); if(!mx) return null; const rest=(DB.settin
   return {mx, rest, zones:defs.map(d=>({name:d[0], lo:calc(d[1]), hi:calc(d[2])}))}; }
 
 /* ===================== VO2MAX — dedicated entry + analysis ===================== */
-const APP_V='v72';
+const APP_V='v73';
 function vo2Parts(){
   const s=DB.settings, age=currentAge();
   const bv=bestVo2(), vr=vo2FromRestHR();
@@ -4841,7 +4842,7 @@ const ASCENT=[
 const ASC_T={
  anyw:(e)=>!!(e&&e.type==='workout'),
  anyc:(e)=>!!(e&&e.type==='cardio'),
- vol:(e,v)=>!!(e&&e.type==='workout'&&e.volume>=v),
+ vol:(e,v)=>!!(e&&e.type==='workout'&&(e.volume/(DB.settings.unit==='lb'?2.2046:1))>=v),
  run:(e,v)=>!!(e&&e.type==='cardio'&&e.km>=v),
  pace:(e,v)=>!!(e&&e.type==='cardio'&&e.km>=3&&e.min>0&&(e.min/e.km)<=v),
  mob:(e,v)=>!!(e&&e.type==='workout'&&e.mobN>=v),
@@ -4931,7 +4932,7 @@ function renderAscentCard(){
     <div class="asc-plinth">${idx>=N?'👑':ch.ico}</div>
     <div class="asc-meta"><div class="asc-eyebrow">⛰️ The Ascent</div>
       <div class="asc-name">${idx>=N?'SUMMITED':esc(cur.n)}</div>
-      <div class="asc-sub">Lap ${LAP_R[DB.ascent.lap-1]||DB.ascent.lap} · Node ${Math.min(idx+1,N)} / ${N} · ${esc(ch.ch)}</div>
+      <div class="asc-sub">Lap ${LAP_R[DB.ascent.lap-1]||DB.ascent.lap} · Node ${Math.min(idx+1,N)} / ${N} · ${esc(ch.ch)}</div>${idx<N?`<div class="asc-goal">${esc(ascDesc(cur))}</div>`:''}
       <div class="sq-bar" style="margin-top:7px"><i style="width:${pct}%"></i></div></div>
     <div class="wpn-chevron">›</div></button>`;
 }
@@ -5494,8 +5495,13 @@ function ascScale(nd){ const L=(DB.ascent&&DB.ascent.lap)||1; if(L<2 || nd.v===u
     wko:v=>v+k*25, km:v=>v+k*75, dots:v=>v+k*50, vo2:v=>v+k*4, lv:v=>v+k*6, boss:v=>v+k,
     relic:v=>Math.min(v+k,5), fs:v=>v+k*140, wstr:v=>v+k*120, seas:v=>v+k*150, mob:v=>v, bal:v=>v};
   const f=S[nd.t]; return f? Math.round(f(nd.v)*10)/10 : nd.v; }
-function ascDesc(nd){ const sv=ascScale(nd); if(sv===nd.v || sv===undefined) return nd.d;
-  return nd.d+' — Lap '+LAP_R[DB.ascent.lap-1]+' demands '+(typeof sv==='number'? sv.toLocaleString():sv); }
+function ascDesc(nd){ const v=ascScale(nd); if(v===undefined) return nd.d; const lb=DB.settings.unit==='lb';
+  const T={vol:()=>'Move '+fmt(lb? Math.round(v*2.2046/50)*50 : v)+' '+(lb?'lb':'kg')+' in one session', str:()=>'Reach a '+v+'-day streak',
+    pr:()=>v===1?'Set your first PR':'Set '+v+' PRs', lv:()=>'Reach Level '+v, run:()=>'Run '+dLabel(v,1)+' in one go',
+    wko:()=>'Complete '+v+' lifetime workouts', boss:()=>v===1?'Defeat a monthly boss':'Defeat '+v+' monthly bosses', dots:()=>'Reach DOTS '+v,
+    pace:()=>'Run '+dLabel(3,1)+'+ at sub-'+paceLabel(v), vo2:()=>'Reach VO₂max '+v, km:()=>'Cover '+dLabel(v,0)+' lifetime',
+    relic:()=>'Relic reaches tier '+v, wstr:()=>'Weapon strength reaches '+v, seas:()=>'Score '+v+' season points'};
+  return T[nd.t]? T[nd.t]() : nd.d; }
 function newLap(){ ensureAscent();
   DB.ascent.lap++; DB.ascent.node=0; DB.ascent.done={}; DB.ascent.start=todayStr(); save();
   _burstT=0; burst('gold');
@@ -7294,7 +7300,7 @@ document.addEventListener('click', e=>{
     case 'asc-open': openAscent(); break;
     case 'asc-node': { ensureAscent(); const nd=ascFlat().find(x=>x.id===t.dataset.id); if(!nd) break;
       const done=DB.ascent.done[nd.id]; const curId=(ascFlat()[DB.ascent.node]||{}).id;
-      toast(nd.ico, nd.n, done?('Cleared '+done):(curId===nd.id? nd.d : 'Locked — climb further first')); break; }
+      toast(nd.ico, nd.n, done?('Cleared '+done):(curId===nd.id? ascDesc(nd) : 'Locked — climb further first')); break; }
     case 'vault-open': openVault(); break;
     case 'cache-open': { setTimeout(fxCache, 480); const _va=$('.vo-art'); if(_va && _va.classList){ _va.classList.remove('crack'); void _va.offsetWidth; _va.classList.add('crack'); }
       const res=openCache(); if(!res) break;
