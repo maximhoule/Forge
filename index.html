@@ -1602,6 +1602,70 @@ body.ui2 .overlay{backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px)}
 body.ui2 .toast{background:rgba(22,26,34,.86); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-color:rgba(255,255,255,.08); border-radius:16px}
 body.ui2 .sec-head{margin-top:22px}
 .asc-goal{font-size:11.5px; color:var(--energy-soft,#FFB47A); margin-top:3px; font-weight:600}
+/* ===================== v74 ===================== */
+.hist-act{display:flex; gap:14px; justify-content:flex-end; padding:8px 2px 2px}
+.ed-ex{padding:10px 12px; margin-bottom:10px; border-radius:14px; background:var(--surface-2); border:1px solid var(--line-soft)}
+.ed-h{display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; font-size:13.5px}
+.ed-set{display:grid; grid-template-columns:22px 1fr 14px 1fr 34px; gap:6px; align-items:center; margin-top:6px; font-size:12px; color:var(--muted)}
+.ed-set input{padding:8px 10px; text-align:center}
+.ed-set.flag input{border-color:#FFB061; box-shadow:0 0 0 2px rgba(255,176,97,.25)}
+.ed-x{height:34px; border-radius:10px; border:1px solid var(--line); background:none; color:#FF6B8A}
+.dcheck{display:flex; gap:12px; align-items:center; padding:13px 14px; margin-bottom:14px; border-radius:var(--r-md); border:1px solid rgba(255,176,97,.5); background:linear-gradient(135deg, rgba(255,176,97,.1), var(--surface) 60%); cursor:pointer}
+.dc-i{font-size:22px}
+.dc-b{flex:1; min-width:0}
+.dc-t{font-weight:700; font-size:13.5px}
+.dc-s{font-size:11px; color:var(--muted); margin-top:3px; line-height:1.4}
+.dc-row{display:flex; justify-content:space-between; gap:10px; align-items:center; padding:10px 0; border-top:1px solid var(--line-soft)}
+.dc-row b{display:block; font-size:13px}
+.dc-row span{font-size:11px; color:var(--muted)}
+.dc-act{display:flex; gap:6px; flex:0 0 auto}
+.dc-act .btn{width:auto}
+.upd-bar{position:fixed; left:12px; right:12px; top:calc(10px + env(safe-area-inset-top)); z-index:500; max-width:520px; margin:0 auto; display:flex; align-items:center; gap:10px; padding:10px 12px 10px 14px; border-radius:16px; background:rgba(22,26,34,.92); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(var(--e1rgb),.55); box-shadow:0 12px 30px -10px rgba(0,0,0,.8); font-size:13px; animation:rcRise .4s ease both}
+.upd-bar span{flex:1}
+.upd-bar button{border:none; border-radius:10px; padding:8px 14px; font-weight:800; font-size:12.5px; cursor:pointer}
+.upd-bar button[data-action="apply-update"]{background:var(--grad-energy); color:#fff}
+.upd-bar button[data-action="upd-later"]{background:none; color:var(--muted); padding:8px}
+.exhead .mini-link.on{border-color:rgba(var(--e1rgb),.6); color:var(--text); background:rgba(var(--e1rgb),.14)}
+.wu-box{margin:0 14px 10px; padding:9px 12px; border-radius:12px; background:rgba(var(--e1rgb),.06); border:1px dashed rgba(var(--e1rgb),.35)}
+.wu-h{font-size:10px; letter-spacing:1.2px; text-transform:uppercase; color:var(--muted-2); font-weight:700; margin-bottom:4px}
+.wu-row{display:grid; grid-template-columns:1fr 46px 1.2fr; gap:6px; padding:4px 0; font-size:12.5px; border-top:1px solid var(--line-soft)}
+.wu-row:first-of-type{border-top:none}
+.wu-row span{color:var(--muted)}
+.wu-row em{font-style:normal; color:var(--muted-2); font-size:11px; text-align:right}
+.exblock.ss-a{margin-bottom:0; border-bottom-left-radius:0; border-bottom-right-radius:0; box-shadow:inset 3px 0 0 #B07CFF}
+.exblock.ss-b{border-top-left-radius:0; border-top-right-radius:0; box-shadow:inset 3px 0 0 #B07CFF; border-top:1px dashed rgba(176,124,255,.5)}
+.ss-tag{padding:5px 14px 0; font-size:9.5px; font-weight:800; letter-spacing:1.4px; text-transform:uppercase; color:#D9B8FF}
+.exp-card{padding:13px 14px; margin-bottom:14px; border-radius:var(--r-md); border:1px solid rgba(92,176,255,.4); background:linear-gradient(135deg, rgba(92,176,255,.1), var(--surface) 60%); cursor:pointer}
+.exp-card.won{border-color:rgba(255,210,77,.5)}
+.ex-top{display:flex; justify-content:space-between; align-items:center}
+.ex-e{font-family:'Cinzel',serif; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:#8FC4FF; font-weight:700}
+.ex-c{font-size:11px; color:var(--muted); font-weight:700}
+.ex-map{display:flex; align-items:center; margin:12px 0 8px}
+.xn{flex:0 0 32px; height:32px; border-radius:10px; display:grid; place-items:center; font-style:normal; font-size:15px; background:var(--surface-3); border:1px solid var(--line); filter:grayscale(1); opacity:.55}
+.xn.on{filter:none; opacity:1; border-color:rgba(92,176,255,.7); background:rgba(92,176,255,.16); box-shadow:0 0 12px -3px rgba(92,176,255,.8)}
+.xn.chest{border-color:rgba(255,210,77,.5)}
+.xn.chest.on{border-color:#FFD24D; background:rgba(255,210,77,.18); box-shadow:0 0 14px -2px rgba(255,210,77,.9)}
+.xl{flex:1; height:2px; margin:0 3px; background:repeating-linear-gradient(90deg, var(--line) 0 5px, transparent 5px 9px)}
+.ex-s{font-size:11px; color:var(--muted)}
+.ex-room{display:flex; align-items:center; gap:12px; padding:10px 0; border-top:1px solid var(--line-soft); opacity:.85}
+.ex-room.on{opacity:1}
+.ex-room .er-i{flex:0 0 34px; height:34px; border-radius:10px; display:grid; place-items:center; background:var(--surface-3); font-size:16px}
+.ex-room.on .er-i{background:rgba(92,176,255,.18)}
+.ex-room div{flex:1; min-width:0}
+.ex-room b{display:block; font-size:13px}
+.ex-room span{font-size:11px; color:var(--muted)}
+.ex-room em{font-style:normal; font-size:11px; color:var(--teal); font-weight:700}
+.emb-bal{font-size:14px; padding:10px 12px; margin:4px 0 12px; border-radius:12px; background:rgba(255,138,43,.1); border:1px solid rgba(255,138,43,.35)}
+.emb-bal b{font-family:var(--font-epic); font-size:18px}
+.cf-row{display:flex; align-items:center; gap:10px; padding:8px 0; border-top:1px solid var(--line-soft)}
+.cf-row .li-prev{flex:0 0 40px; height:40px; display:grid; place-items:center; font-size:18px}
+.cf-row div{flex:1; min-width:0}
+.cf-row b{display:block; font-size:12.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.cf-row span{font-size:10.5px; color:var(--muted)}
+.cf-row .btn{width:auto; min-width:76px}
+.cf-row .btn[disabled]{opacity:.45}
+.emb-gain{text-align:center; margin-top:8px; font-size:12.5px; font-weight:800; color:#FFB47A}
+.t-src{margin-top:8px; font-size:11px; color:var(--muted); font-style:italic}
 @media(prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
 </style>
 </head>
@@ -1651,6 +1715,7 @@ body.ui2 .sec-head{margin-top:22px}
     <div id="quickStart"></div>
     <div id="backupNudge"></div>
     <div id="contractCard"></div>
+    <div id="expCard"></div>
 
     <div class="stat-grid">
       <div class="stat hot"><div class="k"><span class="flick">🔥</span> Streak</div><div class="v"><span id="stStreak">0</span><small id="stStreakSub"> days</small></div></div>
@@ -2903,6 +2968,105 @@ const TEMPLATES = [
         {n:'Burpee', s:1, r:'60 s max', rest:0}
       ]}
     ]
+  },
+  {
+    id:'wendler-bbb', name:'5/3/1 Boring But Big', goal:'hybrid', goalLabel:'Strength + Size',
+    src:'Jim Wendler — 5/3/1 (2009) and the Boring But Big template',
+    freq:'4 days / week', repFocus:'5/3/1 main lift + 5×10 volume', rest:'3 min main · 90 s volume',
+    progression:'Set a training max at 90% of your 1RM. Week 1: 65/75/85% × 5, 5, 5+. Week 2: 70/80/90% × 3, 3, 3+. Week 3: 75/85/95% × 5, 3, 1+. Week 4: deload at 40–60%. The last main set is as many reps as you can with good form. Volume is 5×10 at 50–60% of the training max. After each 4-week cycle add 2.5 kg / 5 lb to the press and bench training max and 5 kg / 10 lb to squat and deadlift.',
+    said:'Heavy top sets drive strength while 50 reps of volume on the same lift drive size — the slow, repeatable progression is why 5/3/1 is one of the most-run programs in strength training.',
+    days:[
+      {name:'Press', ex:[{n:'Overhead Press', s:3, r:'5/3/1+ (last set AMRAP)', rest:180},{n:'Overhead Press', s:5, r:'10 @ 50–60% TM', rest:90},{n:'Chin-Up', s:5, r:'10', rest:90},{n:'Hanging Leg Raise', s:3, r:'15', rest:60}]},
+      {name:'Deadlift', ex:[{n:'Deadlift', s:3, r:'5/3/1+ (last set AMRAP)', rest:210},{n:'Deadlift', s:5, r:'10 @ 50–60% TM', rest:120},{n:'Hanging Leg Raise', s:4, r:'15', rest:60}]},
+      {name:'Bench', ex:[{n:'Barbell Bench Press', s:3, r:'5/3/1+ (last set AMRAP)', rest:180},{n:'Barbell Bench Press', s:5, r:'10 @ 50–60% TM', rest:90},{n:'Single-Arm Dumbbell Row', s:5, r:'10/side', rest:75}]},
+      {name:'Squat', ex:[{n:'Back Squat', s:3, r:'5/3/1+ (last set AMRAP)', rest:210},{n:'Back Squat', s:5, r:'10 @ 50–60% TM', rest:120},{n:'Leg Curl', s:5, r:'10', rest:75}]}
+    ]
+  },
+  {
+    id:'gzclp', name:'GZCLP', goal:'strength', goalLabel:'Max Strength',
+    src:'Cody Lefever (GZCL) — the GZCLP linear progression',
+    freq:'3–4 days / week', repFocus:'T1 5×3 · T2 3×10 · T3 3×15', rest:'3–5 min T1 · 2 min T2 · 60–90 s T3',
+    progression:'Rotate A1 → B1 → A2 → B2. T1: when you complete 5×3 (last set AMRAP), add 5 kg / 10 lb to lower body and 2.5 kg / 5 lb to upper body. If you miss, move to 6×2, then 10×1, then retest. T2: 3×10 → 3×8 → 3×6 on misses. T3: when the last set reaches 25 reps, add weight.',
+    said:'Three tiers train the same patterns at three intensities — heavy for strength, moderate for size, light for work capacity — so each session covers the whole strength-hypertrophy-endurance range.',
+    days:[
+      {name:'A1', ex:[{n:'Back Squat', s:5, r:'3 (last set AMRAP)', rest:240},{n:'Barbell Bench Press', s:3, r:'10', rest:120},{n:'Lat Pulldown', s:3, r:'15 (last set AMRAP)', rest:75}]},
+      {name:'B1', ex:[{n:'Overhead Press', s:5, r:'3 (last set AMRAP)', rest:210},{n:'Deadlift', s:3, r:'10', rest:150},{n:'Single-Arm Dumbbell Row', s:3, r:'15 (last set AMRAP)', rest:75}]},
+      {name:'A2', ex:[{n:'Barbell Bench Press', s:5, r:'3 (last set AMRAP)', rest:210},{n:'Back Squat', s:3, r:'10', rest:150},{n:'Lat Pulldown', s:3, r:'15 (last set AMRAP)', rest:75}]},
+      {name:'B2', ex:[{n:'Deadlift', s:5, r:'3 (last set AMRAP)', rest:240},{n:'Overhead Press', s:3, r:'10', rest:120},{n:'Single-Arm Dumbbell Row', s:3, r:'15 (last set AMRAP)', rest:75}]}
+    ]
+  },
+  {
+    id:'greyskull', name:'Greyskull LP', goal:'strength', goalLabel:'Max Strength',
+    src:'John Sheaffer — Greyskull LP (the widely used “Phrakture” variant)',
+    freq:'3 days / week, alternating A and B', repFocus:'2×5 + 1×5+ (AMRAP)', rest:'2–3 min',
+    progression:'Add 1.25–2.5 kg / 2.5–5 lb to upper-body lifts and 2.5–5 kg / 5–10 lb to squat and deadlift every session. Any lift where the last set falls short of 5: drop 10% and build back. If you beat 10 reps on the last set, add double the usual jump.',
+    said:'Built for beginners: the AMRAP last set auto-regulates your effort, and a 10% reset on stalls keeps the linear progression going far longer than a fixed 5×5.',
+    days:[
+      {name:'A', ex:[{n:'Overhead Press', s:3, r:'5 (last set AMRAP)', rest:180},{n:'Chin-Up', s:3, r:'5–8', rest:120},{n:'Back Squat', s:3, r:'5 (last set AMRAP)', rest:180}]},
+      {name:'B', ex:[{n:'Barbell Bench Press', s:3, r:'5 (last set AMRAP)', rest:180},{n:'Barbell Row', s:3, r:'5–8', rest:120},{n:'Deadlift', s:1, r:'5 (AMRAP)', rest:180}]}
+    ]
+  },
+  {
+    id:'sns', name:'Simple & Sinister', goal:'general', goalLabel:'General Fitness',
+    src:'Pavel Tsatsouline (StrongFirst) — Kettlebell Simple & Sinister',
+    freq:'5–6 days / week · ~30 min', repFocus:'100 swings · 10 get-ups', rest:'Recover until breathing is easy',
+    progression:'Swings: 10 sets of 10 (one-arm in the book, alternating hands). Get-ups: 10 singles, alternating sides. Move up a kettlebell size once you can do the whole session fresh — the book’s “Simple” standard is 100 one-arm swings in 5 min and 10 get-ups in 10 min with a 32 kg bell for men (24 kg for women).',
+    said:'Two movements cover hip power, grip, shoulder stability and conditioning; practising them often at moderate effort builds strength without leaving you sore for the rest of your life.',
+    days:[
+      {name:'Practice', ex:[{n:'Goblet Squat', s:3, r:'5', rest:30},{n:'Single-Leg Glute Bridge', s:2, r:'10/side', rest:30},{n:'Kettlebell Swing', s:10, r:'10', rest:60},{n:'Turkish Get-Up', s:10, r:'1 (alternate sides)', rest:45}]}
+    ]
+  },
+  {
+    id:'easy-strength', name:'Easy Strength — 40 Days', goal:'strength', goalLabel:'Max Strength',
+    src:'Dan John & Pavel Tsatsouline — Easy Strength (2011)',
+    freq:'5 days / week for 40 sessions', repFocus:'2×5 · never to failure', rest:'2 min',
+    progression:'Same five lifts every session. Start well below your limit and let the weight climb on its own: when a set feels fast and easy, add a little next time. Never grind or miss a rep. After 40 sessions, test and pick five new lifts.',
+    said:'Frequent, sub-maximal practice teaches the nervous system the lifts without beating up your recovery — strength as a skill.',
+    days:[
+      {name:'Daily', ex:[{n:'Deadlift', s:2, r:'5', rest:120},{n:'Barbell Bench Press', s:2, r:'5', rest:120},{n:'Pull-Up', s:2, r:'5', rest:120},{n:'Ab Wheel Rollout', s:1, r:'5', rest:60},{n:"Farmer's Carry", s:1, r:'40 m', rest:60}]}
+    ]
+  },
+  {
+    id:'dup-hps', name:'Undulating Periodization (H · P · S)', goal:'strength', goalLabel:'Max Strength',
+    src:'Rhea et al., J Strength Cond Res 2002 · Zourdos et al., J Strength Cond Res 2016',
+    freq:'3 days / week', repFocus:'Hypertrophy 8 · Power 2 · Strength 3', rest:'2–4 min',
+    progression:'Each week runs hypertrophy, power, then strength days. Percentages are of your current 1RM. Add 2.5 kg / 5 lb to each day once every set is completed with good speed. Retest maxes every 6–8 weeks.',
+    said:'Changing the rep range day to day (instead of month to month) produced larger strength gains than linear periodization in head-to-head trials, while spreading fatigue across the week.',
+    days:[
+      {name:'Hypertrophy', ex:[{n:'Back Squat', s:4, r:'8 @ 70–75%', rest:150},{n:'Barbell Bench Press', s:4, r:'8 @ 70–75%', rest:150},{n:'Romanian Deadlift', s:3, r:'10', rest:120},{n:'Barbell Row', s:3, r:'10', rest:90}]},
+      {name:'Power', ex:[{n:'Box Jump', s:3, r:'3', rest:90},{n:'Back Squat', s:6, r:'2 @ 75–80% (move fast)', rest:150},{n:'Barbell Bench Press', s:6, r:'2 @ 75–80% (move fast)', rest:150},{n:'Push Press', s:4, r:'3', rest:120}]},
+      {name:'Strength', ex:[{n:'Back Squat', s:5, r:'3 @ 85–90%', rest:240},{n:'Barbell Bench Press', s:5, r:'3 @ 85–90%', rest:240},{n:'Deadlift', s:3, r:'3 @ 85%', rest:240},{n:'Chin-Up', s:3, r:'5–8', rest:120}]}
+    ]
+  },
+  {
+    id:'liftmor', name:'LIFTMOR Bone Strength', goal:'general', goalLabel:'General Fitness',
+    src:'Watson et al., J Bone Miner Res 2018 — the LIFTMOR trial',
+    freq:'2 days / week · 30 min', repFocus:'5×5 at 80–85%', rest:'2–3 min',
+    progression:'Start with a month of lighter technique work, then build to 5 sets of 5 at about 80–85% of your 1RM. Add load only while form stays perfect. The trial ran 8 months, twice a week, supervised.',
+    said:'Heavy, high-intensity lifting plus impact loading increased bone density at the spine and hip in women with low bone mass, with no more injuries than the low-intensity control group.',
+    days:[
+      {name:'Session', ex:[{n:'Deadlift', s:5, r:'5 @ 80–85%', rest:180},{n:'Overhead Press', s:5, r:'5 @ 80–85%', rest:150},{n:'Back Squat', s:5, r:'5 @ 80–85%', rest:180},{n:'Chin-Up', s:5, r:'5 (jump up, drop-land)', rest:90}]}
+    ]
+  },
+  {
+    id:'fifa11plus', name:'FIFA 11+ Injury Prevention', goal:'balance', goalLabel:'Balance & Stability',
+    src:'Soligard et al., BMJ 2008 · FIFA Medical Centre of Excellence',
+    freq:'2–3 days / week · ~20 min as a warm-up', repFocus:'core · Nordics · balance · landing', rest:'30–60 s',
+    progression:'Run 8 minutes of running drills first. Each block has three difficulty levels: progress from level 1 to level 3 once you can do every rep with control — longer holds, more Nordic reps, harder balance (eyes closed, unstable surface) and higher jumps.',
+    said:'In a randomized trial of 1,892 youth football players, teams using this warm-up had about a third fewer injuries and roughly half as many severe ones; the Nordic hamstring curl alone reduces hamstring injuries by about half.',
+    days:[
+      {name:'11+ Warm-up', ex:[{n:'Plank', s:3, r:'20–30 s', rest:30},{n:'Side Plank', s:3, r:'20–30 s/side', rest:30},{n:'Nordic Curl', s:3, r:'3–5', rest:60},{n:'Single-Leg Balance', s:2, r:'30 s/side', rest:30},{n:'Walking Lunge', s:2, r:'10/side', rest:45},{n:'Tuck Jump', s:2, r:'8', rest:60},{n:'Skater Hop', s:2, r:'6/side', rest:45}]}
+    ]
+  },
+  {
+    id:'schoenfeld-hv', name:'High-Volume Hypertrophy', goal:'muscle', goalLabel:'Build Muscle',
+    src:'Schoenfeld et al., Med Sci Sports Exerc 2019 — resistance training volume study',
+    freq:'3 days / week (e.g. Mon · Wed · Fri)', repFocus:'5 sets × 8–12', rest:'90 s',
+    progression:'Train each set to just short of failure. When you reach 12 reps on every set, add weight. This mirrors the study’s high-volume group (5 sets per exercise, 3 times a week) — very demanding, so run it as a 6–8 week block, then return to 3 sets.',
+    said:'In trained men, 5 sets per exercise grew more muscle than 1 or 3 sets over 8 weeks, while strength gains were similar across groups — volume is the main driver of growth.',
+    days:[
+      {name:'Full body', ex:[{n:'Barbell Bench Press', s:5, r:'8–12', rest:90},{n:'Overhead Press', s:5, r:'8–12', rest:90},{n:'Lat Pulldown', s:5, r:'8–12', rest:90},{n:'Seated Cable Row', s:5, r:'8–12', rest:90},{n:'Back Squat', s:5, r:'8–12', rest:90},{n:'Leg Press', s:5, r:'8–12', rest:90},{n:'Leg Extension', s:5, r:'8–12', rest:90}]}
+    ]
   }
 ];
 
@@ -3272,6 +3436,7 @@ function showSummary({volume, prHits, xp, newAch}){
   if(dq>0){ const tq=DB.loot.q.slice(-dq), best=tq.indexOf('mythic')>=0?'Mythic':tq.indexOf('epic')>=0?'Epic':tq.indexOf('rare')>=0?'Rare':'';
     cards.push({c:'cache',i:'📦',t:(dq>1?dq+' Forge Caches':'Forge Cache')+' earned',s:best?best+' or better inside':'Crack it open in the Vault'}); }
   if(_contractJust){ cards.push({c:'contract',i:'📜',t:'Daily contract fulfilled',s:_contractJust.t+' · streak '+_contractJust.streak}); _contractJust=null; }
+  if(_expJust){ cards.push({c:_expJust.chest?'cache':'asc',i:_expJust.chest?'🎁':'🗺️',t:_expJust.chest?'Expedition complete · chest opened':'Expedition · '+_expJust.n+' cleared',s:_expJust.chest?'Epic cache + 100 XP':('+40 XP · '+_expJust.left+' room'+(_expJust.left!==1?'s':'')+' left this week')}); _expJust=null; }
   if(DB.ascent.node>B.node || DB.ascent.lap>B.lap){ const names=ascFlat().slice(B.node, DB.ascent.node).map(n=>n.n);
     cards.push({c:'asc',i:'⛰️',t:'Ascent · '+(names.length>1?names.length+' nodes cleared':'node cleared'),s:names.join(', ')}); }
   const sd2=(DB.season.score||0)-B.ss, t2=seasonTier(DB.season.score||0).n;
@@ -3525,6 +3690,165 @@ function sanitizeDB(){ try{
     if(l.type!=='cardio'){ l.entries=(Array.isArray(l.entries)?l.entries:[]).filter(e=>e && e.exercise).map(e=>{ e.sets=Array.isArray(e.sets)?e.sets.filter(s=>s && typeof s==='object'):[]; return e; }); }
     return l; });
 }catch(e){} }
+/* ===================== HISTORY EDITING — fix or delete logged sessions ===================== */
+let _ed=null;
+function recomputePRs(names){ const want=new Set(names); want.forEach(n=>{ delete DB.prs[n]; });
+  chronLog().forEach(x=>{ if(x.type==='cardio') return; (x.entries||[]).forEach(e=>{ if(!want.has(e.exercise)) return;
+    (e.sets||[]).forEach(s=>{ const w=+s.weight||0, r=+s.reps||0; if(s.done===false || !(w>0) || !(r>0)) return; const v=epley(w,r), c=DB.prs[e.exercise];
+      if(!c || v>c.e1rm+0.01) DB.prs[e.exercise]={weight:w, reps:r, e1rm:v, date:x.date||todayStr()}; }); }); }); }
+function sessVolume(x){ return Math.round((x.entries||[]).reduce((a,e)=>a+(e.sets||[]).reduce((b,s)=>b+((s.done!==false && +s.weight>0 && +s.reps>0)? (+s.weight)*(+s.reps):0),0),0)); }
+function logIndex(id){ return (DB.log||[]).findIndex(x=>x.id===id); }
+function openLogEdit(id){ const x=(DB.log||[]).find(l=>l.id===id); if(!x){ toast('🗂','Entry not found','It may have been deleted'); return; }
+  _ed=JSON.parse(JSON.stringify(x)); paintLogEdit(); }
+function paintLogEdit(){ const x=_ed, u=DB.settings.unit; if(!x) return; let body;
+  if(x.type==='cardio') body=`<div class="form-field"><label>Distance · ${dU()}</label><input id="edDist" type="number" inputmode="decimal" step="0.01" value="${x.distance!=null?Math.round(toDisp(x.distance)*100)/100:''}"></div>
+    <div class="form-field"><label>Duration · minutes</label><input id="edMin" type="number" inputmode="decimal" step="0.1" value="${x.durationMin||''}"></div>`;
+  else body=(x.entries||[]).map((e,ei)=>`<div class="ed-ex"><div class="ed-h"><b>${esc(e.exercise)}</b><button class="mini-link" data-action="ed-rm-ex" data-ei="${ei}" style="color:#FF6B8A">Remove</button></div>
+    ${(e.sets||[]).map((s,si)=>`<div class="ed-set${s._flag?' flag':''}"><span>${si+1}</span><input class="ed-w" data-ei="${ei}" data-si="${si}" type="number" inputmode="decimal" value="${s.weight===''||s.weight==null?'':s.weight}" placeholder="${u}"><span>×</span><input class="ed-r" data-ei="${ei}" data-si="${si}" type="number" inputmode="numeric" value="${s.reps===''||s.reps==null?'':s.reps}" placeholder="reps"><button class="ed-x" data-action="ed-rm-set" data-ei="${ei}" data-si="${si}" aria-label="Delete set">✕</button></div>`).join('')}
+    ${(e.sets||[]).length?'':'<div class="hint" style="text-align:left">No sets — this exercise will be dropped</div>'}</div>`).join('') || '<div class="hint">No exercises left — save to keep an empty entry, or delete the session.</div>';
+  openSheet(`<div class="grab"></div><h3>Edit ${x.type==='cardio'?'run':'session'}</h3><p class="sh-lead">${esc(x.title||(x.type==='cardio'?'Run':'Workout'))} · ${sd(x.date)}. Personal records for the exercises involved are recalculated when you save.</p>
+    ${body}
+    <div class="btn-row" style="margin-top:14px"><button class="btn btn-primary" data-action="ed-save">Save changes</button><button class="btn btn-ghost" data-action="close-sheet">Cancel</button></div>
+    <button class="btn btn-ghost" data-action="ed-del" style="margin-top:10px;color:#FF6B8A">Delete this ${x.type==='cardio'?'run':'session'}</button>`); }
+function pullLogEdit(){ if(!_ed || _ed.type==='cardio') return;
+  $$('.ed-w').forEach(i=>{ const s=_ed.entries[+i.dataset.ei] && _ed.entries[+i.dataset.ei].sets[+i.dataset.si]; if(s) s.weight=i.value; });
+  $$('.ed-r').forEach(i=>{ const s=_ed.entries[+i.dataset.ei] && _ed.entries[+i.dataset.ei].sets[+i.dataset.si]; if(s) s.reps=i.value; }); }
+function saveLogEdit(){ if(!_ed) return; const i=logIndex(_ed.id); if(i<0){ closeSheet(); return; } const old=DB.log[i], x=_ed;
+  if(x.type==='cardio'){ const dI=parseFloat(($('#edDist')||{}).value), mI=parseFloat(($('#edMin')||{}).value);
+    if(!(dI>0)){ toast('⚠️','Distance needed','Enter a distance above zero'); return; }
+    const km=Math.round(fromDisp(dI)*1000)/1000; DB.stats.distanceKm=Math.max(0,(DB.stats.distanceKm||0)-(old.distance||0)+km); x.distance=km; x.durationMin=mI>0? mI : (old.durationMin||0); }
+  else { pullLogEdit(); x.entries=(x.entries||[]).map(e=>{ e.sets=(e.sets||[]).map(s=>{ delete s._flag; return s; }); return e; }).filter(e=>e.sets.length);
+    const nv=sessVolume(x); DB.stats.totalVolume=Math.max(0,(DB.stats.totalVolume||0)-(old.volume||0)+nv); x.volume=nv; }
+  DB.log[i]=x; const names=[...new Set([...(old.entries||[]),...(x.entries||[])].map(e=>e.exercise))]; if(names.length) recomputePRs(names);
+  _ed=null; save(); closeSheet(); renderRecords(); toast('✎','Saved','History and records updated'); }
+function deleteLog(id){ const i=logIndex(id); if(i<0) return false; const x=DB.log[i];
+  if(x.type==='cardio'){ DB.stats.cardioSessions=Math.max(0,(DB.stats.cardioSessions||0)-1); DB.stats.distanceKm=Math.max(0,(DB.stats.distanceKm||0)-(x.distance||0)); }
+  else { DB.stats.workouts=Math.max(0,(DB.stats.workouts||0)-1); DB.stats.totalVolume=Math.max(0,(DB.stats.totalVolume||0)-(x.volume||0)); }
+  DB.log.splice(i,1); const names=(x.entries||[]).map(e=>e.exercise); if(names.length) recomputePRs(names); save(); return true; }
+/* unusual sets: a set whose estimated max is far above what you normally manage on that exercise */
+function suspectSets(){ const by={}, out=[];
+  chronLog().forEach(x=>{ if(x.type==='cardio') return; (x.entries||[]).forEach(e=>{ let b=0; (e.sets||[]).forEach(s=>{ const w=+s.weight||0, r=+s.reps||0; if(w>0&&r>0) b=Math.max(b,epley(w,r)); }); if(b>0) (by[e.exercise]=by[e.exercise]||[]).push({id:x.id,b,date:x.date}); }); });
+  Object.keys(by).forEach(n=>{ const L=by[n]; if(L.length<4) return; const vs=L.map(o=>o.b).sort((a,b)=>a-b), med=vs[Math.floor(vs.length/2)];
+    L.forEach(o=>{ if(o.b>med*1.45 && !(DB.settings.okSus||{})[o.id+'|'+n]) out.push({n, id:o.id, date:o.date, b:Math.round(o.b), med:Math.round(med)}); }); });
+  return out.sort((a,b)=>(b.b/b.med)-(a.b/a.med)); }
+function dataCheckCard(){ const S=suspectSets(); if(!S.length) return '';
+  return `<div class="dcheck" data-action="dc-open"><div class="dc-i">⚠️</div><div class="dc-b"><div class="dc-t">${S.length} logged session${S.length>1?'s look':' looks'} unusual</div><div class="dc-s">${esc(S[0].n)} on ${sd(S[0].date)}: estimated max ${fmt(S[0].b)} ${DB.settings.unit}, vs your usual ${fmt(S[0].med)}. A typo here skews your PRs and weight suggestions.</div></div><span class="chev">›</span></div>`; }
+function openDataCheck(){ const S=suspectSets(), u=DB.settings.unit;
+  openSheet(`<div class="grab"></div><h3>Check these sessions</h3><p class="sh-lead">These are far above your usual for the same exercise. Fix them if they're typos, or keep them if they're real.</p>
+    ${S.length? S.map(s=>`<div class="dc-row"><div><b>${esc(s.n)}</b><span>${sd(s.date)} · est. max ${fmt(s.b)} ${u} · usual ${fmt(s.med)} ${u}</span></div><div class="dc-act"><button class="btn btn-ghost btn-sm" data-action="log-edit" data-id="${s.id}" data-flag="${esc(s.n)}">Fix</button><button class="btn btn-ghost btn-sm" data-action="dc-keep" data-id="${s.id}" data-ex="${esc(s.n)}">It's real</button></div></div>`).join('') : '<div class="hint">Nothing unusual left. 👍</div>'}
+    <button class="btn btn-primary" data-action="close-sheet" style="margin-top:12px">Done</button>`); }
+/* ===================== UPDATE CHECK — tells you when a newer FORGE is available ===================== */
+let _updChecked=0;
+function _vnum(v){ return parseInt(String(v||'').replace(/\D/g,''),10)||0; }
+function checkForUpdate(force){ try{
+  if(typeof location==='undefined' || !/^https?:/.test(location.protocol) || typeof fetch!=='function') return;
+  if(navigator.onLine===false || (!force && Date.now()-_updChecked<60*1000)) return; _updChecked=Date.now();
+  fetch('./index.html?fresh='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():'').then(t=>{ const m=String(t).match(/const APP_V='(v\d+)'/);
+    if(m && _vnum(m[1])>_vnum(APP_V)) onNewVersion(m[1]); else if(force) toast('✓','You’re up to date','FORGE '+APP_V+' is the latest'); }).catch(()=>{});
+}catch(e){} }
+/* auto-update: apply as soon as it is safe; never mid-rest, mid-edit or in a loop */
+let _updPending=null;
+function updSafe(){ try{ if(restRunning || restPaused) return false; const ov=document.getElementById('overlay'); if(ov && ov.classList && ov.classList.contains('show')) return false;
+  const a=document.activeElement; if(a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName||'')) return false; if(typeof FX!=='undefined' && FX.busy) return false; return true; }catch(e){ return true; } }
+function onNewVersion(v){ _updPending=v;
+  if(DB.settings.autoUpd===false){ showUpdateBanner(v); return; }
+  let tried=null; try{ tried=JSON.parse(localStorage.getItem('forge.updTry')||'null'); }catch(e){}
+  if(tried && tried.v===v && Date.now()-tried.t<10*60*1000){ showUpdateBanner(v); return; }
+  tryAutoUpdate(); }
+function tryAutoUpdate(){ if(!_updPending || !updSafe()) return false; const v=_updPending; _updPending=null;
+  try{ localStorage.setItem('forge.updTry', JSON.stringify({v, t:Date.now()})); }catch(e){}
+  try{ save(); if(activeSession) Store.set('forge.activeSession', activeSession); }catch(e){}
+  toast('⬆','Updating to FORGE '+v,'One moment…'); setTimeout(applyUpdate, 700); return true; }
+setInterval(()=>{ if(_updPending) tryAutoUpdate(); }, 5000);
+function showUpdateBanner(v){ if(document.getElementById('updBar')) return; const b=document.createElement('div'); b.id='updBar'; b.className='upd-bar';
+  b.innerHTML=`<span>FORGE <b>${esc(v)}</b> is ready</span><button data-action="apply-update">Update</button><button data-action="upd-later" aria-label="Later">✕</button>`; document.body.appendChild(b); }
+function applyUpdate(){ const go=()=>{ try{ location.reload(); }catch(e){} };
+  try{ Promise.resolve(window.caches? caches.keys().then(ks=>Promise.all(ks.map(k=>caches.delete(k)))) : 0)
+    .then(()=> navigator.serviceWorker? navigator.serviceWorker.getRegistration().then(r=>r&&r.update()) : 0).catch(()=>{}).then(go); }catch(e){ go(); } }
+document.addEventListener('visibilitychange',()=>{ try{ if(document.visibilityState==='visible'){ if(_updPending) tryAutoUpdate(); checkForUpdate(); } }catch(e){} });
+window.addEventListener('pageshow',()=>{ try{ checkForUpdate(); }catch(e){} });
+function whatsNew(){ try{ const prev=DB.settings.lastV; if(prev===APP_V) return; DB.settings.lastV=APP_V; save(); if(prev) setTimeout(()=>toast('✨','Updated to FORGE '+APP_V,'Your data carried over'),1200); }catch(e){} }
+/* ===================== ASCENT — also counts sessions from the last 7 days ===================== */
+const ASC_EVT_T=['anyw','anyc','vol','run','pace','mob','bal'];
+function ascHistory(){ try{ ensureAscent(); const cut=Date.now()-7*864e5; let n=0, guard=0;
+  while(guard++<6){ const nd=ascFlat()[DB.ascent.node]; if(!nd || ASC_EVT_T.indexOf(nd.t)<0) break; let hit=0;
+    for(const x of chronLog()){ if(!(x.ts>=cut)) continue;
+      const evt= x.type==='cardio'? {type:'cardio', km:+x.distance||0, min:+x.durationMin||0} : _wEvt({entries:x.entries||[]}, x.volume||sessVolume(x));
+      const c=ascentCheck(evt); if(c){ n+=c; hit=1; break; } }
+    if(!hit) break; }
+  return n; }catch(e){ return 0; } }
+/* ===================== WARM-UP RAMP + SUPERSETS ===================== */
+const _BAR_RE=/barbell|back squat|front squat|deadlift|overhead press|bench press|pendlay|push press|hang clean|power clean|good morning|zercher|hip thrust/i, _NOBAR_RE=/dumbbell|machine|cable|goblet|kettlebell|smith|trap bar|single-leg|split/i;
+function isBarbell(n){ return _BAR_RE.test(n) && !_NOBAR_RE.test(n); }
+function workWeight(en){ const s=(en.sets||[]).find(x=>+x.weight>0); if(s) return +s.weight; const g=suggestNext(en); if(g && g.w>0) return g.w; const ls=lastSets(en.exercise); if(ls){ const w=Math.max(...ls.sets.map(x=>x.w||0)); if(w>0) return w; } return 0; }
+function warmupSets(en){ const W=workWeight(en), lb=DB.settings.unit==='lb', bar=isBarbell(en.exercise)?(lb?45:20):0, step=lb?5:2.5; if(!(W>0)) return [];
+  const R=w=>Math.max(bar, Math.round(w/step)*step), out=[];
+  if(bar){ out.push({w:bar,r:10,lbl:'Empty bar'}); [[.4,5],[.6,3],[.8,2]].forEach(([p,r])=>{ const w=R(W*p); if(w>bar && w<W && !out.some(o=>o.w===w)) out.push({w,r}); }); }
+  else [[.5,8],[.75,3]].forEach(([p,r])=>{ const w=R(W*p); if(w>0 && w<W && !out.some(o=>o.w===w)) out.push({w,r}); });
+  return out.map(o=>{ if(bar && o.w>bar){ const P=platesFor(o.w,bar,DB.settings.unit); o.pl=(P.plates||[]).map(p=>p.count>1?p.count+'×'+p.plate:String(p.plate)).join(' + '); } return o; }); }
+function warmupHTML(en){ const S=warmupSets(en), u=DB.settings.unit; if(!S.length) return `<div class="wu-box"><div class="hint" style="text-align:left;margin:0">Enter a working weight on set 1 to build your warm-up.</div></div>`;
+  return `<div class="wu-box"><div class="wu-h">Warm-up to ${fmt(workWeight(en))} ${u} · not logged</div>${S.map(o=>`<div class="wu-row"><b>${o.lbl||(fmt(o.w)+' '+u)}</b><span>× ${o.r}</span><em>${o.pl?o.pl+' /side':''}</em></div>`).join('')}</div>`; }
+function curExIdx(){ if(!activeSession) return -1; const E=activeSession.entries||[], open=e=>(e.sets||[]).some(s=>!s.done), dn=e=>(e.sets||[]).filter(s=>s.done).length;
+  let i=E.findIndex(open); if(i<0) return -1;
+  if(E[i].ss && E[i+1] && open(E[i+1]) && dn(E[i])>dn(E[i+1])) return i+1;
+  return i; }
+function ssRest(ei, si){ const E=activeSession.entries, en=E[ei], nx=E[ei+1], pv=E[ei-1];
+  if(en.ss && nx && (nx.sets||[]).some(s=>!s.done)) return {rs:0, go:nx.exercise};
+  if(pv && pv.ss) return {rs:Math.max(restFor(en,si), restFor(pv,Math.min(si,(pv.sets||[]).length-1)))};
+  return {rs:restFor(en,si)}; }
+/* ===================== EXPEDITIONS — a weekly 5-room run; each room needs a different kind of session ===================== */
+const EXP_ROOMS={
+  lift:{ico:'🏋',n:'Iron Hall',d:()=>'Finish a strength session of 12+ sets',test:e=>e.type==='workout'&&e.sets>=12},
+  run:{ico:'🏃',n:'Ash Road',d:()=>'Run '+dLabel(3,1)+' or more',test:e=>e.type==='cardio'&&e.km>=3},
+  mob:{ico:'🧘',n:'Quiet Grotto',d:()=>'A session with 3+ mobility moves',test:e=>e.type==='workout'&&e.mobN>=3},
+  bal:{ico:'⚖️',n:'Rope Bridge',d:()=>'A session with 2+ balance moves',test:e=>e.type==='workout'&&e.balN>=2},
+  gap:{ico:'🎯',n:'The Neglected Wing',d:x=>'Do 4+ sets for '+(WS_LABEL[x.gap]||'your weakest muscle')+' (your least-trained muscle)',test:(e,x)=>e.type==='workout'&&e.reg&&(e.reg[x.gap]||0)>=4},
+  pr:{ico:'⚡',n:'Proving Ground',d:()=>'Set a personal record',test:e=>e.type==='workout'&&e.prs>=1},
+  heat:{ico:'🔥',n:'Furnace Gate',d:()=>'Reach Heat 8 in a session',test:e=>e.type==='workout'&&e.heat>=8}
+};
+const EXP_PRIO=['gap','pr','heat','bal','mob','lift','run'];
+var _expJust=null;
+function expState(){ const wk=weekKey(); let X=DB.settings.exp;
+  if(!X || X.wk!==wk || !Array.isArray(X.rooms) || X.rooms.length!==5 || X.rooms.some(k=>!EXP_ROOMS[k]) || !X.done || typeof X.done!=='object'){ let gap='abs'; try{ const r=weeklyMuscleSets(); gap=Object.keys(WS_LABEL).sort((a,b)=>(r[a]||0)-(r[b]||0))[0]; }catch(e){}
+    const extra=['gap','pr','heat'][_mhash('ex'+wk)%3], rooms=['lift','run','mob','bal',extra].sort((a,b)=>_mhash(wk+a)-_mhash(wk+b));
+    X=DB.settings.exp={wk, rooms, gap, done:{}, chest:false}; save(); }
+  return X; }
+function expCheck(evt){ try{ const X=expState(); const id=EXP_PRIO.find(k=>X.rooms.indexOf(k)>=0 && !X.done[k] && EXP_ROOMS[k].test(evt,X)); if(!id) return null;
+  X.done[id]=todayStr(); gainXP(40); let chest=false;
+  if(!X.chest && X.rooms.every(k=>X.done[k])){ X.chest=true; chest=true; cacheGrant(tal('treasure')?'mythic':'epic'); gainXP(100); }
+  save(); _expJust={n:EXP_ROOMS[id].n, chest, left:X.rooms.filter(k=>!X.done[k]).length}; return _expJust; }catch(e){ return null; } }
+function renderExpCard(){ const host=$('#expCard'); if(!host) return; const X=expState(), n=X.rooms.filter(k=>X.done[k]).length;
+  const nodes=X.rooms.map(k=>`<i class="xn${X.done[k]?' on':''}" title="${EXP_ROOMS[k].n}">${EXP_ROOMS[k].ico}</i>`).join('<b class="xl"></b>');
+  host.innerHTML=`<div class="exp-card${X.chest?' won':''}" data-action="exp-open"><div class="ex-top"><span class="ex-e">Expedition · this week</span><span class="ex-c">${X.chest?'Chest claimed':n+' / 5 rooms'}</span></div>
+    <div class="ex-map">${nodes}<b class="xl"></b><i class="xn chest${X.chest?' on':''}">${X.chest?'✨':'🎁'}</i></div>
+    <div class="ex-s">${X.chest?'Cleared. A new map opens Monday.':'Each room needs a different kind of session · chest: epic cache + 100 XP'}</div></div>`; }
+function openExpedition(){ const X=expState();
+  openSheet(`<div class="grab"></div><h3>Expedition</h3><p class="sh-lead">Clear all five rooms this week to open the chest. One room per session, so mix up what you train. Each room is worth 40 XP.</p>
+    ${X.rooms.map(k=>{ const R=EXP_ROOMS[k], d=X.done[k]; return `<div class="ex-room${d?' on':''}"><span class="er-i">${R.ico}</span><div><b>${R.n}</b><span>${esc(R.d(X))}</span></div><em>${d?'✓ '+sd(d):''}</em></div>`; }).join('')}
+    <div class="ex-room chest${X.chest?' on':''}"><span class="er-i">${X.chest?'✨':'🎁'}</span><div><b>The Chest</b><span>${tal('treasure')?'Mythic':'Epic'} cache + 100 XP</span></div><em>${X.chest?'✓ claimed':''}</em></div>
+    <button class="btn btn-primary" data-action="close-sheet" style="margin-top:12px">Done</button>`); }
+/* ===================== FORGE CRAFTING — embers from caches; spend them on what you want ===================== */
+const EMB_GAIN=[0,5,10,20,40], CRAFT_COST={1:40,2:80,3:160,4:320}, TRANS=[['','rare',30],['rare','epic',60],['epic','mythic',150]];
+function emb(){ ensureLoot(); return DB.loot.emb||0; }
+function embAdd(n){ ensureLoot(); DB.loot.emb=Math.max(0,(DB.loot.emb||0)+n); }
+function embMigrate(){ try{ ensureLoot(); if(DB.settings.embMig) return; DB.settings.embMig=1; const n=Math.min(600,(DB.loot.opened||0)*6); if(n){ embAdd(n); setTimeout(()=>toast('🔥','Embers recovered','Your past caches left '+n+' embers — spend them at the Forge in the Vault'),2600); } save(); }catch(e){} }
+function craftable(){ return LOOT.filter(x=>!DB.loot.owned[x.id]).map(x=>({x, why: x.t2 && !asc2()? 'Lap II only' : (x.ev && !(activeEvent()&&activeEvent().id===x.ev))? 'Event only' : ''})); }
+function openForge(){ ensureLoot(); const E=emb(), C=craftable(), q=DB.loot.q[0], tr=q!==undefined? TRANS.find(t=>t[0]===(q||'')) : null;
+  openSheet(`<div class="grab"></div><h3>The Forge</h3><p class="sh-lead">Every cache you open leaves embers (more for rarer drops, and plenty when there's nothing left to find). Spend them here.</p>
+    <div class="emb-bal">🔥 <b>${fmt(E)}</b> embers</div>
+    <div class="spr-card"><div class="spr-sec"><span>Craft a missing item</span><span class="spr-secr">${C.length} left</span></div>
+      ${C.length? C.map(({x,why})=>{ const c=CRAFT_COST[x.r]; return `<div class="cf-row"><span class="li-prev">${lootSwatch(x)}</span><div><b>${esc(x.n)}</b><span>${RARN[x.r]}${why?' · '+why:''}</span></div><button class="btn btn-sm ${!why&&E>=c?'btn-primary':'btn-ghost'}" data-action="craft" data-id="${x.id}"${why||E<c?' disabled':''}>${c} 🔥</button></div>`; }).join('') : '<div class="hint" style="text-align:left">Collection complete.</div>'}</div>
+    <div class="spr-card"><div class="spr-sec"><span>Other uses</span></div>
+      <div class="cf-row"><span class="li-prev">📦</span><div><b>Transmute next cache</b><span>${q===undefined?'No unopened caches':tr?(RARN[({'':1,rare:2,epic:3})[tr[0]]]+' → '+RARN[({rare:2,epic:3,mythic:4})[tr[1]]]):'Already Mythic'}</span></div><button class="btn btn-sm btn-ghost" data-action="emb-trans"${!tr||E<tr[2]?' disabled':''}>${tr?tr[2]:'—'} 🔥</button></div>
+      <div class="cf-row"><span class="li-prev">❄️</span><div><b>Streak freeze</b><span>You hold ${DB.stats.streakFreezes||0}</span></div><button class="btn btn-sm btn-ghost" data-action="emb-freeze"${E<120?' disabled':''}>120 🔥</button></div>
+      <div class="cf-row"><span class="li-prev">📜</span><div><b>Reroll today's contract</b><span>${esc(todayContract().c.t(todayContract()))}</span></div><button class="btn btn-sm btn-ghost" data-action="emb-reroll"${E<40||contractState().done[todayContract().id]?' disabled':''}>40 🔥</button></div></div>
+    <button class="btn btn-ghost" data-action="vault-open" style="margin-top:12px">Back to the Vault</button>`); }
+function craftItem(id){ ensureLoot(); const x=LOOT.find(i=>i.id===id), c=x&&CRAFT_COST[x.r]; if(!x || DB.loot.owned[id]) return false; const w=craftable().find(o=>o.x.id===id);
+  if(!w || w.why){ toast('⚒','Can’t craft that yet', w?w.why:''); return false; } if(emb()<c){ toast('🔥','Not enough embers', c+' needed'); return false; }
+  embAdd(-c); DB.loot.owned[id]=todayStr(); save(); try{ _burstT=0; burst(x.r>=4?'gold':'pr'); }catch(e){} toast('⚒','Forged!', x.n+' · '+RARN[x.r]); return true; }
+function embTransmute(){ ensureLoot(); const q=DB.loot.q; if(!q.length) return false; const tr=TRANS.find(t=>t[0]===(q[0]||'')); if(!tr || emb()<tr[2]) return false; embAdd(-tr[2]); q[0]=tr[1]; save(); toast('📦','Transmuted','Your next cache is now '+tr[1]); return true; }
+function embFreeze(){ if(emb()<120) return false; embAdd(-120); DB.stats.streakFreezes=(DB.stats.streakFreezes||0)+1; save(); toast('❄️','Streak freeze forged','You now hold '+DB.stats.streakFreezes); return true; }
+function embReroll(){ const S=contractState(); if(emb()<40 || S.done[todayContract().id]) return false; embAdd(-40); if(!S.rr||S.rr.wk!==weekKey()) S.rr={wk:weekKey(),used:0,off:0}; S.rr.off=(S.rr.off||0)+1; save(); renderContract(); const k=todayContract(); toast('↻','New contract',k.c.t(k)); return true; }
 /* ===================== DATA PROTECTION ===================== */
 let _persistAsked=false;
 function requestPersist(){ if(_persistAsked) return; _persistAsked=true;
@@ -3686,8 +4010,8 @@ function renderHome(){
       <div style="font-size:12px;color:var(--muted)">${a.d}</div></div>
       <span class="ra-tier ${a.tier}">${a.tier}</span></div>`).join('');
   }
-  if(!_san){ _san=true; sanitizeDB(); } requestPersist(); fxAmbient(); sprRegent(); renderTalentCard(); renderQuickStart(); renderBackupNudge(); renderContract(); renderRelic(); renderWeapon(); renderSpriteDen(); applyFolds(); renderAscentCard(); renderLapAura(); renderEventCard(); applyLoot(); applyAmoled();
-  if(!_caughtUp){ _caughtUp=true; ascentCheck(); monumentCheck(); }
+  if(!_san){ _san=true; sanitizeDB(); } requestPersist(); fxAmbient(); sprRegent(); renderTalentCard(); renderQuickStart(); renderBackupNudge(); renderContract(); renderExpCard(); renderRelic(); renderWeapon(); renderSpriteDen(); applyFolds(); renderAscentCard(); renderLapAura(); renderEventCard(); applyLoot(); applyAmoled();
+  if(!_caughtUp){ _caughtUp=true; embMigrate(); ascentCheck(); ascHistory(); monumentCheck(); whatsNew(); setTimeout(()=>checkForUpdate(),400); }
   startEmbers(); setTimeout(tickUp,0);
 }
 
@@ -3743,7 +4067,7 @@ function renderTrain(){
       <div class="ghead"><div><h4>${t.name}</h4></div><span class="goal-tag ${t.goal}">${t.goalLabel}</span></div>
       <div class="tmeta"><span>📅 <b>${t.freq}</b></span><span>🔢 <b>${t.repFocus}</b></span><span>⏱ <b>${t.rest}</b></span></div>
       <div class="t-note"><b>Progressive overload —</b> ${t.progression}</div>
-      <div class="t-note said"><b>SAID principle —</b> ${t.said}</div>
+      <div class="t-note said"><b>SAID principle —</b> ${t.said}</div>${t.src?`<div class="t-src">📚 ${esc(t.src)}</div>`:''}
       <button class="mini-link" data-action="toggle-tpl" data-tpl="${t.id}" style="margin-top:12px">View ${dayCount} training day${dayCount>1?'s':''} ▾</button>
       <div class="collapse" id="tpl-${t.id}">
         <div class="day-list">${t.days.map(d=>`<div class="day-row"><div class="dn"><span>${d.name}</span><span style="color:var(--muted-2);font-size:11px">${d.ex.length} moves</span></div><div class="de">${d.ex.map(e=>e.n).join(', ')}</div></div>`).join('')}</div>
@@ -3963,7 +4287,7 @@ function hrZones(){ const mx=maxHR(); if(!mx) return null; const rest=(DB.settin
   return {mx, rest, zones:defs.map(d=>({name:d[0], lo:calc(d[1]), hi:calc(d[2])}))}; }
 
 /* ===================== VO2MAX — dedicated entry + analysis ===================== */
-const APP_V='v73';
+const APP_V='v75';
 function vo2Parts(){
   const s=DB.settings, age=currentAge();
   const bv=bestVo2(), vr=vo2FromRestHR();
@@ -4165,7 +4489,7 @@ function renderRecords(){
   </div>
   <div class="chart-card"><h3>${heading}</h3><p class="chart-sub">${sub}</p>${selectHtml}<div class="chart-box">${chartInner}</div></div>`;
 
-  html+=muscleCard(); html+=strengthCard(); html+=profileCard();
+  html+=dataCheckCard(); html+=muscleCard(); html+=strengthCard(); html+=profileCard();
   { const ws=weeklySetsHTML(); html+=foldSection('wsets', ico('target'), 'Weekly sets per muscle', ws.sum, ws.html); }
   { const bm=benchHTML(); if(bm) html+=foldSection('bench', ico('flag'), 'Benchmarks', bm.sum, bm.html); }
   { let _pr = prRows.length
@@ -4191,11 +4515,11 @@ function renderRecords(){
         const _rt=(x.path && x.path.length>1);
         const _avg=(x.distance>0 && x.durationMin>0)?paceLabel(x.durationMin/x.distance):null;
         const _det=(_rt?`<div class="route-wrap" style="margin:6px 0 4px">${routeSVG(x.path,300,150)}</div>`:'')+((x.splits&&x.splits.length)?splitsTable(x.splits):'')+(_avg?`<div class="hd-row"><span>Avg pace</span><span class="mono">${_avg}</span></div>`:'')+((x.incline!=null)?`<div class="hd-row"><span>Treadmill incline</span><span class="mono">${x.incline}%${x.effKm?(' · '+dNum(x.effKm)+' '+dU()+' eff.'):''}</span></div>`:'')+((x.hrAvg)?`<div class="hd-row"><span>Heart rate</span><span class="mono">${x.hrAvg} avg${x.hrMax?(' · '+x.hrMax+' max'):''}</span></div>`:'');
-        return `<div class="hist-row"><div class="hist-main" data-action="toggle-log"><div class="hist-ico c">🏃</div><div class="hist-body"><div class="hist-title">${dLabel(x.distance)} · ${gn[x.goal]||'Run'}</div><div class="hist-meta">${x.durationMin?(x.durationMin+' min'+(_avg?' · '+_avg:'')):'Cardio session'}${_rt?' · 🗺 route':''}</div></div><div class="hist-date">${sd(x.date)}</div></div>${_det?`<div class="hist-detail">${_det}</div>`:''}</div>`;
+        return `<div class="hist-row"><div class="hist-main" data-action="toggle-log"><div class="hist-ico c">🏃</div><div class="hist-body"><div class="hist-title">${dLabel(x.distance)} · ${gn[x.goal]||'Run'}</div><div class="hist-meta">${x.durationMin?(x.durationMin+' min'+(_avg?' · '+_avg:'')):'Cardio session'}${_rt?' · 🗺 route':''}</div></div><div class="hist-date">${sd(x.date)}</div></div><div class="hist-detail">${_det||''}<div class="hist-act"><button class="mini-link" data-action="log-edit" data-id="${x.id}">✎ Edit</button><button class="mini-link" data-action="log-del" data-id="${x.id}" style="color:#FF6B8A">Delete</button></div></div></div>`;
       }
       const setCount=(x.entries||[]).reduce((a,e)=>a+(e.sets||[]).length,0);
       const detail=(x.entries||[]).map(e=>{ const best=(e.sets||[]).reduce((b,s)=>{ const k=(+s.weight||0); return k>b.w?{w:k,r:(+s.reps||0)}:b; },{w:0,r:0}); return `<div class="hd-row"><span>${esc(e.exercise)}</span><span class="mono">${(e.sets||[]).length} sets · best ${best.w||0}×${best.r||0}</span></div>`; }).join('');
-      return `<div class="hist-row"><div class="hist-main" data-action="toggle-log"><div class="hist-ico s">🏋</div><div class="hist-body"><div class="hist-title">${esc(x.title||'Workout')}</div><div class="hist-meta">${fmt(x.volume||0)} ${DB.settings.unit} · ${setCount} sets</div></div><div class="hist-date">${sd(x.date)}</div></div><div class="hist-detail">${detail||'<div class="hd-row"><span>No completed sets logged</span></div>'}</div></div>`;
+      return `<div class="hist-row"><div class="hist-main" data-action="toggle-log"><div class="hist-ico s">🏋</div><div class="hist-body"><div class="hist-title">${esc(x.title||'Workout')}</div><div class="hist-meta">${fmt(x.volume||0)} ${DB.settings.unit} · ${setCount} sets</div></div><div class="hist-date">${sd(x.date)}</div></div><div class="hist-detail">${detail||'<div class="hd-row"><span>No completed sets logged</span></div>'}<div class="hist-act"><button class="mini-link" data-action="log-edit" data-id="${x.id}">✎ Edit</button><button class="mini-link" data-action="log-del" data-id="${x.id}" style="color:#FF6B8A">Delete</button></div></div></div>`;
     }).join('');
   } else _hist+=`<div class="card tight" style="color:var(--muted);font-size:13px">Your completed workouts and runs will be listed here.</div>`;
     html+=foldSection('hist', ico('history'), 'History', hasLog?(DB.log.length+' entries'):'', _hist); }
@@ -4758,9 +5082,9 @@ function openCache(){ ensureLoot(); const L=DB.loot;
   let pool=LOOT.filter(x=>x.r===t && !L.owned[x.id] && (!x.t2 || asc2()) && (!x.ev || (activeEvent()&&activeEvent().id===x.ev)));
   for(let d=1; d<4 && !pool.length; d++) pool=LOOT.filter(x=>(x.r===t-d||x.r===t+d) && !L.owned[x.id] && (!x.t2 || asc2()) && (!x.ev || (activeEvent()&&activeEvent().id===x.ev)));
   L.opened++; if(t>=4){ L.pM=0; L.pE=0; } else if(t===3){ L.pE=0; L.pM++; } else { L.pE++; L.pM++; }
-  if(!pool.length){ gainXP(40); save(); return {overflow:true, tier:t}; }
+  if(!pool.length){ gainXP(40); embAdd(60); save(); return {overflow:true, tier:t, emb:60}; }
   const item=pool[Math.floor(rng()*pool.length)];
-  L.owned[item.id]=todayStr(); save(); return {item, tier:item.r}; }
+  L.owned[item.id]=todayStr(); embAdd(EMB_GAIN[item.r]||5); save(); return {item, tier:item.r, emb:EMB_GAIN[item.r]||5}; }
 function equipLoot(id){ ensureLoot(); const it=LOOT.find(x=>x.id===id); if(!it || !DB.loot.owned[id]) return null;
   if(it.k==='title') return it;
   DB.loot.equip[it.k]=(DB.loot.equip[it.k]===id)?'':id; save(); applyLoot(); return it; }
@@ -4779,10 +5103,11 @@ function emberTint(){ ensureLoot(); const it=LOOT.find(i=>i.id===DB.loot.equip.e
 function metalTint(){ ensureLoot(); const it=LOOT.find(i=>i.id===DB.loot.equip.metal); return it? it.v : {b:['#ECF2FA','#B3BFD2','#7C89A0'], d:['#9AA6BB','#66738B','#454F64']}; }
 function flameTint(){ ensureLoot(); const it=LOOT.find(i=>i.id===DB.loot.equip.flame); return it? it.v : ['#FFD24D','#FF8A2B','#FF4D8C']; }
 function runeTint(){ ensureLoot(); const it=LOOT.find(i=>i.id===DB.loot.equip.rune); return it? it.v : {g:'#FFC94D', s:'#FFE79A'}; }
-function _wEvt(sess, vol){ let mob=0, bal=0; const ps=new Set();
+function _wEvt(sess, vol){ let mob=0, bal=0; const ps=new Set(), reg={};
   (sess&&sess.entries||[]).forEach(e=>{ const i=exInfo(e.exercise)||{}; const pil=i.pil||[];
-    if(pil.includes('mobility')) mob++; if(pil.includes('balance')) bal++; pil.forEach(p=>ps.add(p)); });
-  return {type:'workout', volume:vol||0, mobN:mob, balN:bal, pils:ps.size}; }
+    if(pil.includes('mobility')) mob++; if(pil.includes('balance')) bal++; pil.forEach(p=>ps.add(p));
+    const n=(e.sets||[]).filter(s=>s.done!==false).length; (MUSCLE_MAP[i.g]||[]).forEach(r=>{ reg[r]=(reg[r]||0)+n; }); });
+  return {type:'workout', volume:vol||0, mobN:mob, balN:bal, pils:ps.size, reg}; }
 function cacheArtSVG(n, size){ size=size||88; const glow=n>0;
   return `<svg viewBox="0 0 100 100" width="${size}" height="${size}" style="display:block">
   <defs><linearGradient id="cav" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3A4358"/><stop offset="1" stop-color="#1B2130"/></linearGradient>
@@ -5482,6 +5807,7 @@ function openVault(){ ensureLoot(); const n=DB.loot.q.length;
     <div class="vo-s">Every finished session forges one. PRs upgrade the roll. Bosses drop epics.</div>
     <button id="vaultOpenBtn" class="btn btn-primary btn-sm" data-action="cache-open" style="margin-top:9px; width:auto">${n?'Crack open':'Train to earn one'}</button></div></div>
   <div id="cacheReveal"></div>
+  <button class="btn btn-ghost" id="forgeBtn" data-action="forge-open" style="margin-top:10px">⚒ Forge · ${fmt(emb())} 🔥</button>
   <div id="vaultBody" style="margin-top:12px">${vaultBody()}</div>
   <button class="btn btn-ghost btn-sm" data-action="close-sheet" style="margin-top:10px">Close</button>`); }
 
@@ -5864,7 +6190,7 @@ function startSession(title, eyebrow, exList){
 const _ISO_RE=/(banded|raise|curl|extension|\bfly\b|flye|crossover|kickback|pushdown|pec deck|shrug|abduction|adduction|pullover|face pull|pull-apart|rear-delt|calf|svend|tate press|21s|cuban)/i;
 let _restEi=null, _restBase=0, restPaused=false;
 function curRestTarget(){ if(!activeSession) return null; const E=activeSession.entries||[];
-  const ei=E.findIndex(e=>(e.sets||[]).some(s=>!s.done)); if(ei<0) return null;
+  const ei=curExIdx(); if(ei<0) return null;
   return {ei, si:E[ei].sets.findIndex(s=>!s.done), en:E[ei]}; }
 function primeRest(){ if(restRunning || restPaused || !activeSession) return;
   const c=curRestTarget(); restSeconds=c? restFor(c.en, c.si) : 0; restTotal=restSeconds; paintRest(); }
@@ -5972,12 +6298,13 @@ function renderSession(){
   const _tp=String(activeSession.title||'').split(' · ');
   $('#sessTitle').textContent=_tp.length>1? _tp.slice(1).join(' · ') : activeSession.title;
   $('#sessEyebrow').textContent=_tp.length>1? _tp[0] : (activeSession.eyebrow||'Active session');
-  const curEi=activeSession.entries.findIndex(e=>(e.sets||[]).some(s=>!s.done));
+  const curEi=curExIdx();
   $('#sessionBody').innerHTML=sessionTopHTML()+activeSession.entries.map((en,ei)=>{
     const info=exInfo(en.exercise);
     const ls=lastSets(en.exercise), sug=suggestNext(en), nx=(en.sets||[]).findIndex(s=>!s.done), complete=nx<0 && (en.sets||[]).length>0, collapsed=complete && !en.open;
-    return `<div class="exblock${complete?' complete':''}${ei===curEi?' current':''}"><div class="exhead"><div><div class="en">${esc(en.exercise)}</div><div class="eg">${info.g}${en.target?' · target '+esc(en.target):''} ${restBadge(en, ei)}</div>${ls?`<div class="ex-last">↩ Last ${fmtSets(ls.sets)} · ${sd(ls.date)}</div>`:''}${(sug && !complete)?`<div class="ex-next${sug.up?' up':''}">→ Try ${sug.w} ${DB.settings.unit} × ${sug.r}<span>${esc(sug.why)}</span></div>`:''}</div><div class="ex-actions"><button class="mini-link" data-action="ex-cues" data-ex="${esc(en.exercise)}">ⓘ Form</button><button class="mini-link" data-action="swap-ex" data-ei="${ei}">⇄ Swap</button><button class="mini-link" data-action="rm-ex" data-ei="${ei}">Remove</button></div></div>
-    ${collapsed?`<button class="ex-sum" data-action="ex-expand" data-ei="${ei}"><span>✓ ${en.sets.length} set${en.sets.length!==1?'s':''} done${bestTxt(en)}</span><b>Show</b></button>`:en.sets.map((st,si)=>{ const g=setGhost(en,si,sug,ls); return `<div class="setrow ${st.done?'done':''}${(si===nx && ei===curEi)?' next':''}${st.crit===2?' leg':(st.crit?' crit':'')}" data-ei="${ei}" data-si="${si}">${st.crit?`<span class="crit-tag">${st.crit===2?'LEGENDARY':'CRIT'}</span>`:''}
+    const _pss=ei>0 && activeSession.entries[ei-1].ss;
+    return `<div class="exblock${complete?' complete':''}${ei===curEi?' current':''}${en.ss?' ss-a':''}${_pss?' ss-b':''}">${en.ss?'<div class="ss-tag">⛓ Superset</div>':''}<div class="exhead"><div><div class="en">${esc(en.exercise)}</div><div class="eg">${info.g}${en.target?' · target '+esc(en.target):''} ${restBadge(en, ei)}</div>${ls?`<div class="ex-last">↩ Last ${fmtSets(ls.sets)} · ${sd(ls.date)}</div>`:''}${(sug && !complete)?`<div class="ex-next${sug.up?' up':''}">→ Try ${sug.w} ${DB.settings.unit} × ${sug.r}<span>${esc(sug.why)}</span></div>`:''}</div><div class="ex-actions"><button class="mini-link" data-action="ex-cues" data-ex="${esc(en.exercise)}">ⓘ Form</button><button class="mini-link" data-action="swap-ex" data-ei="${ei}">⇄ Swap</button><button class="mini-link" data-action="rm-ex" data-ei="${ei}">Remove</button>${complete?'':`<button class="mini-link${en.wu?' on':''}" data-action="ex-wu" data-ei="${ei}">🔥 Warm-up</button>`}${(activeSession.entries[ei+1] && !_pss)?`<button class="mini-link${en.ss?' on':''}" data-action="ex-ss" data-ei="${ei}">⛓ ${en.ss?'Unlink':'Superset next'}</button>`:''}</div></div>
+    ${(en.wu && !complete)?warmupHTML(en):''}${collapsed?`<button class="ex-sum" data-action="ex-expand" data-ei="${ei}"><span>✓ ${en.sets.length} set${en.sets.length!==1?'s':''} done${bestTxt(en)}</span><b>Show</b></button>`:en.sets.map((st,si)=>{ const g=setGhost(en,si,sug,ls); return `<div class="setrow ${st.done?'done':''}${(si===nx && ei===curEi)?' next':''}${st.crit===2?' leg':(st.crit?' crit':'')}" data-ei="${ei}" data-si="${si}">${st.crit?`<span class="crit-tag">${st.crit===2?'LEGENDARY':'CRIT'}</span>`:''}
       <div class="setno">${si+1}</div>
       <div class="field"><label>${DB.settings.unit}</label><input type="number" inputmode="decimal" class="s-weight" data-ei="${ei}" data-si="${si}" value="${st.weight}" placeholder="${g&&g.w!==''?g.w:'—'}"></div>
       <div class="field"><label>Reps</label><input type="number" inputmode="numeric" class="s-reps" data-ei="${ei}" data-si="${si}" value="${st.reps}" placeholder="${g&&g.r!==''?g.r:'—'}"></div>
@@ -6049,6 +6376,7 @@ function finishSession(){
   if(tal('scav') && Math.random()<.06*tal('scav')) cacheGrant('');
   progAdvance(_recapBase && _recapBase.prog);
   contractCheck({type:'workout', volume, sets:_recapBase?_recapBase.sets:0, prs:prHits.length, heat:(_recapBase&&_recapBase.heat)?_recapBase.heat.peak:0, mobN:_ascEvt.mobN, allDone:!!(_recapBase&&_recapBase.allDone), prog:_recapBase&&_recapBase.prog});
+  expCheck({type:'workout', sets:_recapBase?_recapBase.sets:0, prs:prHits.length, heat:(_recapBase&&_recapBase.heat)?_recapBase.heat.peak:0, mobN:_ascEvt.mobN, balN:_ascEvt.balN, reg:_ascEvt.reg});
   save();
   showSummary({volume, prHits, xp:60+prHits.length*40, newAch});
 }
@@ -6243,6 +6571,7 @@ function logCardio(dist, goal, min, extra){
   ascentCheck({type:'cardio', km:dist, min:min||0});
   monumentCheck();
   contractCheck({type:'cardio', km:dist});
+  expCheck({type:'cardio', km:dist});
   renderHome();
 }
 
@@ -6827,7 +7156,8 @@ function openSettings(){
       <button class="toggle-row" data-action="toggle-sound"><span>Beep when rest ends</span><span class="tog ${DB.settings.sound===false?'':'on'}"><span class="tog-dot"></span></span></button>
       <button class="toggle-row" data-action="toggle-bgrest"><span>Keep rest timer alive in the background<small style="display:block;font-size:10.5px;color:var(--muted-2);font-weight:500;margin-top:2px">Plays a silent track, which makes Android lower your music</small></span><span class="tog ${DB.settings.bgRest?'on':''}"><span class="tog-dot"></span></span></button>
     </div>
-    <div class="form-field"><label>App version</label><div class="ver-badge">FORGE ${APP_V}</div></div>
+    <div class="form-field"><label>App version</label><div class="ver-badge">FORGE ${APP_V}</div><button class="mini-link" data-action="check-update" style="margin-left:10px">Check for update</button></div>
+    <div class="form-field"><label>Auto-update</label><button class="btn btn-ghost btn-sm" data-action="tog-autoupd" style="width:auto">${DB.settings.autoUpd===false?'Off · ask first':'On · updates when you open the app'}</button></div>
     <div class="form-field"><label>AMOLED pure black</label><button class="btn btn-ghost btn-sm" data-action="tog-amoled" id="amoledBtn" style="width:auto">${DB.settings.amoled?'On':'Off'}</button></div>
     <div class="form-field"><label>Refined UI</label><button class="btn btn-ghost btn-sm" data-action="tog-ui2" style="width:auto">${DB.settings.ui2===false?'Off · classic look':'On'}</button></div>
     <div class="form-field"><label>Epic effects</label><div style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" data-action="tog-fx" style="width:auto">${DB.settings.fx===false?'Off':'On'}</button><button class="btn btn-ghost btn-sm" data-action="fx-preview" style="width:auto">▶ Preview effects</button></div></div>
@@ -7154,7 +7484,7 @@ document.addEventListener('click', e=>{
       st.done=!st.done;
       Store.set('forge.activeSession', activeSession); noteSave();
       row.classList.toggle('done', st.done); t.classList.toggle('on', st.done); row.classList.remove('next');
-      if(st.done){ const en=activeSession.entries[ei]; const rs=restFor(en, si); if(rs>0){ _restEi=ei; _restBase=rs; startRest(rs); } else { _restEi=null; } }
+      if(st.done){ const _sr=ssRest(ei, si), rs=_sr.rs; if(rs>0){ _restEi=ei; _restBase=rs; startRest(rs); } else { _restEi=null; if(_sr.go) toast('⛓','Superset','Straight to '+_sr.go); } }
       const _h0=activeSession.heat? activeSession.heat.n : 0;
       if(st.done) onSetDone(ei, si, st);
       if(st.done) fxSetDone(t, st, _h0);
@@ -7263,6 +7593,26 @@ document.addEventListener('click', e=>{
     case 'log-where': { logWhere=t.dataset.w; $$('#logWhereChips .chip').forEach(c=>c.classList.toggle('on', c.dataset.w===logWhere)); const iw=$('#tmInclineWrap'); if(iw) iw.style.display=logWhere==='tm'?'block':'none'; break; }
     case 'log-run-submit': submitLogRun(); break;
     case 'repeat-last': repeatLast(); break;
+    case 'apply-update': applyUpdate(); break;
+    case 'exp-open': openExpedition(); break;
+    case 'forge-open': openForge(); break;
+    case 'craft': if(craftItem(t.dataset.id)){ openForge(); renderVaultRow(); } break;
+    case 'emb-trans': if(embTransmute()) openForge(); break;
+    case 'emb-freeze': if(embFreeze()) openForge(); break;
+    case 'emb-reroll': if(embReroll()) openForge(); break;
+    case 'upd-later': { const b=document.getElementById('updBar'); if(b) b.remove(); break; }
+    case 'check-update': checkForUpdate(true); break;
+    case 'tog-autoupd': DB.settings.autoUpd=(DB.settings.autoUpd===false); save(); openSettings(); break;
+    case 'ex-wu': { const en=activeSession && activeSession.entries[+t.dataset.ei]; if(en){ en.wu=!en.wu; Store.set('forge.activeSession',activeSession); renderSession(); } break; }
+    case 'ex-ss': { const E=activeSession && activeSession.entries, i=+t.dataset.ei; if(E && E[i] && E[i+1]){ E[i].ss=!E[i].ss; if(E[i].ss && E[i-1]) E[i-1].ss=false; if(E[i].ss) E[i+1].ss=false; Store.set('forge.activeSession',activeSession); renderSession(); toast('⛓', E[i].ss?'Superset on':'Superset off', E[i].ss? E[i].exercise+' → '+E[i+1].exercise+' · rest after the pair' : ''); } break; }
+    case 'log-edit': { openLogEdit(t.dataset.id); if(_ed && t.dataset.flag && _ed.entries){ const e=_ed.entries.find(z=>z.exercise===t.dataset.flag); if(e){ const b=Math.max(...e.sets.map(s=>epley(+s.weight||0,+s.reps||0))); e.sets.forEach(s=>{ if(epley(+s.weight||0,+s.reps||0)>=b-0.01) s._flag=1; }); paintLogEdit(); } } break; }
+    case 'log-del': if(confirm('Delete this entry? Your records are recalculated; XP you earned stays.')){ if(deleteLog(t.dataset.id)){ renderRecords(); toast('🗑','Deleted','History and records updated'); } } break;
+    case 'ed-rm-set': if(_ed && _ed.entries && _ed.entries[+t.dataset.ei]){ pullLogEdit(); _ed.entries[+t.dataset.ei].sets.splice(+t.dataset.si,1); paintLogEdit(); } break;
+    case 'ed-rm-ex': if(_ed && _ed.entries){ pullLogEdit(); _ed.entries.splice(+t.dataset.ei,1); paintLogEdit(); } break;
+    case 'ed-save': saveLogEdit(); break;
+    case 'ed-del': if(_ed && confirm('Delete this entry? Your records are recalculated; XP you earned stays.')){ deleteLog(_ed.id); _ed=null; closeSheet(); renderRecords(); toast('🗑','Deleted','History and records updated'); } break;
+    case 'dc-open': openDataCheck(); break;
+    case 'dc-keep': { DB.settings.okSus=DB.settings.okSus||{}; DB.settings.okSus[t.dataset.id+'|'+t.dataset.ex]=1; save(); openDataCheck(); renderRecords(); break; }
     case 'tog-ui2': DB.settings.ui2=(DB.settings.ui2===false); save(); fxAmbient(); openSettings(); break;
     case 'tog-fx': DB.settings.fx=(DB.settings.fx===false); save(); fxAmbient(); openSettings(); break;
     case 'fx-preview': closeSheet(); setTimeout(fxPreview, 280); break;
@@ -7305,11 +7655,13 @@ document.addEventListener('click', e=>{
     case 'cache-open': { setTimeout(fxCache, 480); const _va=$('.vo-art'); if(_va && _va.classList){ _va.classList.remove('crack'); void _va.offsetWidth; _va.classList.add('crack'); }
       const res=openCache(); if(!res) break;
       const rv=$('#cacheReveal');
-      if(res.overflow){ if(rv) rv.innerHTML='<div class="cache-card r2"><div class="cc-rar">Overflow</div><div class="cc-name">+40 XP</div><div class="cc-pool">Collection complete — the Forge overflows</div></div>'; }
+      if(res.overflow){ if(rv) rv.innerHTML='<div class="cache-card r2"><div class="cc-rar">Overflow</div><div class="cc-name">+40 XP · +60 🔥</div><div class="cc-pool">Nothing new left at this rarity — the Forge overflows</div></div>'; }
       else{ const it=res.item; const pool=LOOT_POOLS.find(p=>p[0]===it.k)||['','',''];
         if(it.r>=4){ _burstT=0; burst('gold'); } else if(it.r===3){ burst('pr'); } else if(it.r===2){ burst('teal'); }
         if(rv) rv.innerHTML=`<div class="cache-card r${it.r}"><div class="cc-rar">${RARN[it.r]}</div><div class="cc-prev">${lootSwatch(it)}</div><div class="cc-name">${esc(it.n)}</div><div class="cc-pool">${pool[1]}</div><button class="btn btn-primary btn-sm" data-action="loot-equip" data-id="${it.id}" style="margin-top:8px; width:auto">Equip</button></div>`;
         setTimeout(()=>toast(pool[2], RARN[it.r]+' drop!', it.n, it.r>=3?'gold':''), 250); }
+      if(rv && !res.overflow && res.emb && rv.insertAdjacentHTML) rv.insertAdjacentHTML('beforeend','<div class="emb-gain">+'+res.emb+' 🔥 embers</div>');
+      const fb=$('#forgeBtn'); if(fb) fb.textContent='⚒ Forge · '+fmt(emb())+' 🔥';
       const vb=$('#vaultBody'); if(vb) vb.innerHTML=vaultBody();
       const ob=$('#vaultOpenBtn'); if(ob) ob.textContent=DB.loot.q.length?('Crack open ('+DB.loot.q.length+')'):'Train to earn one';
       renderVaultRow(); break; }
@@ -7400,12 +7752,21 @@ async function _acquireWake(){ try{ if('wakeLock' in navigator){ _wakeLock=await
 function _releaseWake(){ try{ _wakeLock&&_wakeLock.release&&_wakeLock.release(); }catch(e){} _wakeLock=null; }
 function stopRest(){ restPaused=false; restRunning=false; if(restInt){ clearInterval(restInt); restInt=null; } restSeconds=0; restTotal=0; restFired=false; _stopKeepAlive(); _releaseWake(); paintRest(); }
 function highlightNextSet(){ try{ var p=document.querySelectorAll('#sessionBody .setrow.next'); for(var i=0;i<p.length;i++) p[i].classList.remove('next'); var rows=document.querySelectorAll('#sessionBody .setrow:not(.done)'); if(rows[0]){ rows[0].classList.add('next'); rows[0].scrollIntoView({block:'center',behavior:'smooth'}); } }catch(e){} }
-function _playAlertSound(){ if(DB.settings.sound===false) return; try{ _ensureAudio(); _alertAudio.currentTime=0; const p=_alertAudio.play(); if(p&&p.catch) p.catch(()=>{}); }catch(e){} }
+/* Rest beep through Web Audio: Chrome on Android does not request audio focus for it, so music keeps playing at full volume */
+let _wa=null, _waT=0;
+function _waUnlock(){ try{ if(_wa) return; const C=window.AudioContext||window.webkitAudioContext; if(!C) return; _wa=new C(); if(_wa.state==='running') _wa.suspend().catch(()=>{}); }catch(e){ _wa=null; } }
+function _waBeep(){ try{ if(!_wa) return false; const go=()=>{ const t0=_wa.currentTime+.02, g=_wa.createGain(); g.connect(_wa.destination); g.gain.value=0;
+    [[880,0],[880,.22],[1320,.44]].forEach(([f,o])=>{ const os=_wa.createOscillator(); os.type='sine'; os.frequency.value=f; os.connect(g); os.start(t0+o); os.stop(t0+o+.16);
+      g.gain.setValueAtTime(0,t0+o); g.gain.linearRampToValueAtTime(.55,t0+o+.015); g.gain.setValueAtTime(.55,t0+o+.12); g.gain.linearRampToValueAtTime(0,t0+o+.16); });
+    clearTimeout(_waT); _waT=setTimeout(()=>{ try{ _wa.suspend(); }catch(e){} }, 1200); };
+  if(_wa.state==='running') go(); else _wa.resume().then(go).catch(()=>{}); return true; }catch(e){ return false; } }
+document.addEventListener('pointerdown', _waUnlock, {passive:true});
+function _playAlertSound(){ if(DB.settings.sound===false) return; if(_waBeep()) return; try{ _ensureAudio(); _alertAudio.currentTime=0; const p=_alertAudio.play(); if(p&&p.catch) p.catch(()=>{}); }catch(e){} }
 function _restAlert(){
   if(restFired) return; restFired=true;
   _playAlertSound();
   try{ navigator.vibrate&&navigator.vibrate([200,90,200,90,320]); }catch(e){}
-  try{ if('Notification' in window && Notification.permission==='granted'){ new Notification('Rest over 💪',{body:'Time for your next set.',tag:'forge-rest',renotify:true,silent:DB.settings.sound===false}); } }catch(e){}
+  try{ if('Notification' in window && Notification.permission==='granted'){ new Notification('Rest over 💪',{body:'Time for your next set.',tag:'forge-rest',renotify:true,silent:(DB.settings.sound===false || document.visibilityState==='visible')}); } }catch(e){}
   speak('Rest over. Next set.');
   toast('⏱','Rest over','Time for your next set');
   _stopKeepAlive(); _releaseWake(); highlightNextSet(); fxRestEnd();
@@ -7448,7 +7809,7 @@ function restAdjust(d){
   else { restSeconds=Math.max(0,restSeconds+d); }
   paintRest();
 }
-function testRestAlert(){ try{ _ensureAudio(); _alertAudio.currentTime=0; const p=_alertAudio.play(); if(p&&p.catch)p.catch(()=>{}); }catch(e){} try{ navigator.vibrate&&navigator.vibrate([200,90,200]); }catch(e){} try{ if('Notification' in window && Notification.permission==='granted'){ new Notification('Test — rest alert 🔔',{body:'This is how it will warn you.',tag:'forge-test'}); } }catch(e){} }
+function testRestAlert(){ _waUnlock(); if(!_waBeep()){ try{ _ensureAudio(); _alertAudio.currentTime=0; const p=_alertAudio.play(); if(p&&p.catch)p.catch(()=>{}); }catch(e){} } try{ navigator.vibrate&&navigator.vibrate([200,90,200]); }catch(e){} try{ if('Notification' in window && Notification.permission==='granted'){ new Notification('Test — rest alert 🔔',{body:'This is how it will warn you.',tag:'forge-test'}); } }catch(e){} }
 function _fitSessionPad(){ try{ const b=$('#sessionBar'), s=$('#screen-session'); if(b&&s){ const h=b.offsetHeight; if(typeof h==='number' && h>0) s.style.setProperty('--sess-pad', (h+110)+'px'); } }catch(e){} }
 function paintRest(){
   const m=Math.floor(restSeconds/60), s=restSeconds%60;
