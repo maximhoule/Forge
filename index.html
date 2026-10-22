@@ -10,8 +10,8 @@
 <meta name="apple-mobile-web-app-title" content="FORGE">
 <title>FORGE — Training Log</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E1116'/%3E%3Ctext x='32' y='44' font-family='Arial' font-weight='900' font-size='34' fill='%23FF5A2C' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="icon-180.png">
 <link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Cinzel:wght@700;800&display=swap" rel="stylesheet">
@@ -1667,6 +1667,42 @@ body.ui2 .sec-head{margin-top:22px}
 .emb-gain{text-align:center; margin-top:8px; font-size:12.5px; font-weight:800; color:#FFB47A}
 .t-src{margin-top:8px; font-size:11px; color:var(--muted); font-style:italic}
 @media(prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
+.pf-box{background:linear-gradient(160deg,rgba(255,138,43,.10),rgba(255,77,140,.06) 60%,transparent),var(--surface); border:1px solid var(--line); border-radius:var(--r-md); padding:14px; margin-bottom:14px}
+.pf-h{display:flex; gap:10px; align-items:center; margin-bottom:10px}
+.pf-h .pf-ic{width:34px; height:34px; border-radius:10px; display:grid; place-items:center; background:var(--grad-energy); font-size:17px; flex:none}
+.pf-h b{display:block; font-family:'Saira Condensed'; font-size:20px; letter-spacing:.3px; line-height:1.1}
+.pf-h small{color:var(--muted-2); font-size:12px}
+.pf-in{position:relative}
+.pf-in input{width:100%; box-sizing:border-box; background:var(--surface-2); border:1px solid var(--line); border-radius:12px; padding:13px 40px 13px 14px; color:inherit; font:inherit; font-size:15px; outline:none; -webkit-appearance:none; appearance:none}
+.pf-in input:focus{border-color:var(--energy-1); box-shadow:0 0 0 3px rgba(255,138,43,.18)}
+.pf-in input::-webkit-search-cancel-button{display:none}
+.pf-x{position:absolute; right:6px; top:50%; transform:translateY(-50%); width:30px; height:30px; border-radius:99px; background:transparent; border:0; color:var(--muted-2); font-size:14px}
+.pf-ex{display:flex; gap:6px; overflow-x:auto; padding:10px 0 2px; scrollbar-width:none; -webkit-mask-image:linear-gradient(90deg,#000 88%,transparent)}
+.pf-ex::-webkit-scrollbar{display:none}
+.pf-chip{flex:none; font-size:12px; padding:6px 11px; border-radius:99px; background:var(--surface-2); border:1px solid var(--line-soft); color:var(--muted); white-space:nowrap}
+.pf-und{display:flex; flex-wrap:wrap; gap:5px; align-items:center; font-size:11.5px; color:var(--muted-2); margin:12px 0 2px}
+.pf-und span{background:rgba(255,255,255,.06); border:1px solid var(--line-soft); color:var(--muted); padding:3px 8px; border-radius:99px}
+.pf-lbl{font-size:11px; letter-spacing:1.2px; text-transform:uppercase; font-weight:700; color:var(--muted); margin:14px 0 8px}
+.pf-lbl small{letter-spacing:0; text-transform:none; font-weight:500; color:var(--muted-2); margin-left:6px}
+.pf-card{background:var(--surface-2); border:1px solid var(--line-soft); border-radius:12px; padding:12px; margin-bottom:8px; animation:pfIn .28s ease both}
+.pf-card.top{border-color:rgba(255,138,43,.55); box-shadow:0 0 0 1px rgba(255,138,43,.15),0 8px 24px -14px rgba(255,90,44,.6)}
+.pf-card:nth-child(3){animation-delay:.04s}.pf-card:nth-child(4){animation-delay:.08s}.pf-card:nth-child(5){animation-delay:.12s}.pf-card:nth-child(6){animation-delay:.16s}
+@keyframes pfIn{from{opacity:0; transform:translateY(6px)}to{opacity:1; transform:none}}
+.pf-row{display:flex; align-items:center; gap:10px}
+.pf-rank{width:26px; height:26px; border-radius:99px; display:grid; place-items:center; font-weight:800; font-size:12px; background:var(--surface); border:1px solid var(--line); flex:none}
+.pf-card.top .pf-rank{background:var(--grad-energy); border:0; color:#fff}
+.pf-nm{flex:1; min-width:0}.pf-nm b{display:block; font-family:'Saira Condensed'; font-size:18px; line-height:1.1; letter-spacing:.2px}
+.pf-nm small{color:var(--muted-2); font-size:11.5px; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.pf-pct{font-family:'Saira Condensed'; font-weight:800; font-size:20px; color:var(--gold)}
+.pf-bar{height:4px; border-radius:99px; background:rgba(255,255,255,.07); margin:9px 0 8px; overflow:hidden}
+.pf-bar i{display:block; height:100%; background:var(--grad-energy); border-radius:99px}
+.pf-why{display:flex; flex-direction:column; gap:3px; font-size:12.5px; color:#BDF5E9}
+.pf-why .w{color:#FFC98A}
+.pf-meta{font-size:11.5px; color:var(--muted-2); margin-top:7px}
+.pf-act{display:flex; gap:8px; margin-top:10px}.pf-act .btn{flex:1; padding:10px 8px; font-size:13px}
+.pf-none{font-size:13px; color:var(--muted); margin-top:12px; line-height:1.45}
+.tcard.pf-flash{animation:pfFlash 1.4s ease}
+@keyframes pfFlash{0%,60%{border-color:var(--energy-1); box-shadow:0 0 0 3px rgba(255,138,43,.25)}100%{}}
 </style>
 </head>
 <body>
@@ -4060,7 +4096,7 @@ function renderTrain(){
   // templates
   const _goals=[...new Set(TEMPLATES.map(x=>x.goal))];
   const _tchips=`<div class="chips" style="margin-bottom:12px; flex-wrap:wrap"><button class="chip ${tplFilter==='all'?'on':''}" data-action="tpl-filter" data-g="all">All · ${TEMPLATES.length}</button>${_goals.map(g=>{ const n=TEMPLATES.filter(x=>x.goal===g).length; const lbl=TEMPLATES.find(x=>x.goal===g).goalLabel; return `<button class="chip ${tplFilter===g?'on':''}" data-action="tpl-filter" data-g="${g}">${lbl} · ${n}</button>`; }).join('')}</div>`;
-  $('#tab-templates').innerHTML = _tchips + TEMPLATES.filter(x=>tplFilter==='all'||x.goal===tplFilter).map(t=>{
+  $('#tab-templates').innerHTML = pfBoxHTML() + _tchips + TEMPLATES.filter(x=>tplFilter==='all'||x.goal===tplFilter).map(t=>{
     const dayCount=t.days.length;
     const exNames=t.days[0].ex.filter(e=>exInfo(e.n).p!=='mobility').slice(0,3).map(e=>e.n).join(' · ');
     return `<div class="tcard" data-tpl="${t.id}">
@@ -4076,6 +4112,7 @@ function renderTrain(){
     </div>`;
   }).join('');
 
+  pfRender();
   renderRtList();
   // keep tab visibility
   $('#tab-templates').style.display = trainTab==='templates'?'block':'none';
@@ -4287,7 +4324,7 @@ function hrZones(){ const mx=maxHR(); if(!mx) return null; const rest=(DB.settin
   return {mx, rest, zones:defs.map(d=>({name:d[0], lo:calc(d[1]), hi:calc(d[2])}))}; }
 
 /* ===================== VO2MAX — dedicated entry + analysis ===================== */
-const APP_V='v75';
+const APP_V='v76';
 function vo2Parts(){
   const s=DB.settings, age=currentAge();
   const bv=bestVo2(), vr=vo2FromRestHR();
@@ -6580,6 +6617,255 @@ function logCardio(dist, goal, min, extra){
    ============================================================ */
 let cardioTab='quick', planDays=3;
 let tplFilter='all';
+/* ===================== PROGRAM FINDER — offline natural-language recommender ===================== */
+let pfQuery='';
+const PF_META={ // level: 1 beginner · 2 intermediate · 3 advanced; tags = extra words people use
+  'foundations':{lv:1,tags:['beginner','start','new','first program','basics','full body','overall']},
+  'ppl-strength':{lv:2,tags:['push pull legs','ppl','flexible']},
+  'hyper-ul':{lv:2,tags:['upper lower','hypertrophy','size','aesthetic']},
+  'conditioning':{lv:1,tags:['fat loss','lose weight','weight loss','cut','lean','circuit','stamina','burn','tone','shred']},
+  'powerbuild':{lv:2,tags:['powerbuilding','strong and big','size and strength','both']},
+  'fivebyfive':{lv:1,tags:['5x5','stronglifts','simple','barbell basics']},
+  'ul-strength':{lv:2,tags:['upper lower','powerlifting']},
+  'bro-split':{lv:2,tags:['bodybuilding','bro split','pump','body part','aesthetic','chest day']},
+  'athletic':{lv:2,tags:['athlete','sport','jump','vertical','explosive','speed','agility','basketball','volleyball']},
+  'calisthenics':{lv:1,tags:['bodyweight','calisthenics','home','no equipment','no gym','street workout','pull-up']},
+  'mobility-flow':{lv:1,tags:['stretch','flexibility','recovery','rest day','yoga','stiff','tight']},
+  'balance-stability':{lv:1,tags:['stability','single leg','ankle','knee','fall','unilateral']},
+  'novice-lp':{lv:1,tags:['beginner','novice','linear progression','first program','new to lifting']},
+  'texas-method':{lv:3,tags:['texas','intermediate','plateau','stalled','weekly progression']},
+  'wave-4day':{lv:3,tags:['wave','periodization','powerlifting','peaking','advanced']},
+  'tiered-t123':{lv:2,tags:['tier','core','pallof']},
+  'ppl-6day':{lv:3,tags:['ppl','push pull legs','high frequency','6 days','bodybuilding']},
+  'fullbody-x3':{lv:1,tags:['full body','hypertrophy','beginner','efficient']},
+  'glute-pchain':{lv:2,addon:1,tags:['glute','glutes','booty','butt','hamstring','posterior chain','hips','legs']},
+  'min-dose':{lv:1,tags:['minimal','busy','short','quick','time efficient','minimum effective dose','little time']},
+  'hybrid-engine':{lv:2,tags:['run','running','runner','cardio','hybrid','conditioning','hyrox','engine','fat loss']},
+  'longevity-pb':{lv:1,tags:['longevity','older','aging','senior','bone','fall','healthspan','power','over 40','over 50']},
+  'desk-reset':{lv:1,tags:['desk','office','posture','sitting','neck','back pain','work from home','computer']},
+  'hybrid-blueprint':{lv:3,tags:['hybrid','athlete','skill','handstand','power']},
+  'minimal-fullbody2':{lv:1,tags:['minimal','busy','twice a week','time efficient','full body']},
+  'joint-resilient':{lv:1,tags:['joint','pain','shoulder','knee','back','injury','prehab','rehab','cranky','resilient','stiff']},
+  'movement-flow':{lv:1,tags:['daily','mobility','morning','routine','joints','cars','flexibility']},
+  'calisthenics-hybrid':{lv:2,tags:['calisthenics','bodyweight','hybrid','pull-up','dips']},
+  'hybrid-3plus3':{lv:2,tags:['athlete','jump','knee','nordic','tibialis','sport','explosive']},
+  'wendler-bbb':{lv:2,tags:['531','5/3/1','wendler','boring but big','bbb','size and strength']},
+  'gzclp':{lv:1,tags:['gzcl','gzclp','linear progression','beginner','novice']},
+  'greyskull':{lv:1,tags:['greyskull','gslp','amrap','beginner','novice']},
+  'sns':{lv:1,tags:['kettlebell','simple and sinister','home','minimal','swing','get-up','pavel']},
+  'easy-strength':{lv:2,tags:['easy strength','minimal','low fatigue','daily','short','pavel','dan john','grease the groove']},
+  'dup-hps':{lv:2,tags:['science','research','evidence','study','undulating','dup','periodization']},
+  'liftmor':{lv:1,tags:['bone','osteoporosis','osteopenia','bone density','women','menopause','older','heavy']},
+  'fifa11plus':{lv:1,tags:['injury prevention','acl','knee','soccer','football','sport','warm-up','hamstring','team sport']},
+  'schoenfeld-hv':{lv:3,tags:['science','research','evidence','study','high volume','volume','hypertrophy','schoenfeld']}
+};
+const PF_GOALS={
+  strength:['strength','strong','stronger','powerlift','1rm','one rep max','max out','heavier','lift more','bench more','squat more','deadlift more','raw strength'],
+  muscle:['muscle','hypertroph','size','bigger','mass','bulk','aesthetic','bodybuild','physique','gain','jacked','swole','arms','chest','tone','toned','build'],
+  endurance:['endurance','hybrid','hyrox','crossfit','fat loss','lose weight','weight loss','lose fat','burn fat','lean','cut','cutting','cardio','stamina','conditioning','run','running','marathon','5k','10k','shred','get fit'],
+  hybrid:['strength and size','size and strength','strong and big','big and strong','powerbuild','muscle and strength','strength and muscle','bigger and stronger','stronger and bigger','size + strength','strength + size'],
+  power:['power','explosive','jump','vertical','speed','sprint','athletic','athlete','sport','agility','fast'],
+  mobility:['mobility','flexib','stretch','stiff','tight','posture','yoga','range of motion','desk','recovery','rest day','loosen','limber','joint'],
+  balance:['balance','stability','stable','fall','ankle','injury','prevent','acl','older','senior','aging','longevity','bone','single leg','proprioception'],
+  general:['general','health','healthy','overall','everything','fitness','in shape','longevity','beginner','start','consistent']
+};
+const PF_REL={strength:{hybrid:.7,power:.4,general:.3,muscle:.35,endurance:.2},muscle:{hybrid:.7,general:.35,strength:.35,endurance:.15},endurance:{general:.4,power:.2,hybrid:.15},hybrid:{strength:.65,muscle:.65,general:.3,power:.3},power:{hybrid:.45,strength:.4,balance:.25},mobility:{balance:.45,general:.2},balance:{mobility:.4,general:.35,power:.25},general:{hybrid:.35,strength:.3,muscle:.3,endurance:.3,balance:.25}};
+const PF_GLBL={strength:'💪 Strength',muscle:'🏋️ Muscle',endurance:'🔥 Fat loss / engine',hybrid:'⚡ Strength + size',power:'🚀 Power',mobility:'🧘 Mobility',balance:'🦵 Balance & resilience',general:'❤️ General health'};
+const PF_NUM={one:1,two:2,three:3,four:4,five:5,six:6,seven:7,twice:2,once:1,thrice:3};
+const _pfCache={};
+function pfEquip(n){
+  if(isBarbell(n)) return 'barbell';
+  if(/kettlebell|turkish|swing/i.test(n)) return 'kb';
+  if(/cable|machine|pulldown|leg press|leg curl|leg extension|pec deck|pushdown|hip abduction|smith|lat pull|seated row|hack squat/i.test(n)) return 'machine';
+  if(/trap bar/i.test(n)) return 'barbell';
+  if(/dumbbell|goblet|lateral raise|suitcase|farmer|db |curl|fly|shrug/i.test(n)) return 'db';
+  if(/pull-up|chin-up|dip|hanging|muscle-up|inverted row/i.test(n)) return 'bar';
+  if(/box|bench|step-up/i.test(n)) return 'box';
+  return 'bw';
+}
+function pfProfile(t){
+  if(_pfCache[t.id]) return _pfCache[t.id];
+  const meta=PF_META[t.id]||{lv:2,tags:[]};
+  const f=String(t.freq).toLowerCase(); let lo, hi;
+  const rg=f.match(/(\d)\s*[–\-+]\s*(\d)/), one=f.match(/(\d)/);
+  if(/daily/.test(f)) { lo=3; hi=7; }
+  else if(t.id==='hybrid-engine'){ lo=3; hi=5; }
+  else if(rg){ lo=+rg[1]; hi=+rg[2]; if(f.indexOf('+')>=0){ hi=lo+hi; } }
+  else if(one){ lo=hi=+one[1]; } else { lo=hi=3; }
+  if(meta.addon) hi=Math.max(hi,6);
+  const dRest={strength:150,muscle:90,endurance:45,mobility:25,balance:45,power:120,hybrid:105,general:75}[t.goal]||90;
+  const mins=t.days.map(d=>d.ex.reduce((a,e)=>a+(+e.s||1)*((e.rest!=null?+e.rest:dRest)+40),0)/60);
+  let min=Math.round(mins.reduce((a,b)=>a+b,0)/mins.length/5)*5+5;
+  const pm=f.match(/(\d+)\s*min/); if(pm) min=+pm[1];
+  const exs=[...new Set(t.days.flatMap(d=>d.ex.map(e=>e.n)))];
+  const work=exs.filter(n=>exInfo(n).p!=='mobility');
+  const eq={}; work.forEach(n=>{ const k=pfEquip(n); eq[k]=(eq[k]||0)+1; });
+  const hay=(t.name+' '+t.goalLabel+' '+t.said+' '+t.progression+' '+(t.src||'')+' '+t.repFocus+' '+meta.tags.join(' ')).toLowerCase();
+  return _pfCache[t.id]={lo,hi,min,lv:meta.lv,tags:meta.tags,exs,work,eq,hay,jumps:exs.filter(n=>/jump|hop|bound|plyo/i.test(n)).length,addon:!!meta.addon};
+}
+const PF_GENERIC=new Set(['legs','upper','lower','full','split','days','strong','strength','muscle','power','lift','lifts','lifting','hybrid','engine','balance','mobility','flow','reset','method','program','plus','stability','fitness','general','minimal','dose','athletic','conditioning','foundations','tiered','wave','high','volume','easy','calisthenics','flex','equipment','home','gym','weights','injury','size','build','bigger','stronger','fast','faster','older']);
+function _pfRe(w){ return w.replace(/[.*+?^${}()|[\]\\\/]/g,'\\$&'); }
+function pfHas(q,w){ return w.length<=3 ? new RegExp('(^|[^a-z0-9])'+_pfRe(w)+'([^a-z0-9]|$)').test(q) : new RegExp('(^|[^a-z0-9])'+_pfRe(w)).test(q); }
+function pfParse(raw){
+  let q=' '+String(raw||'').toLowerCase().replace(/[’']/g,"'").replace(/\s+/g,' ')+' ';
+  Object.keys(PF_NUM).forEach(w=>{ q=q.replace(new RegExp('\\b'+w+'\\b','g'), w==='twice'||w==='once'||w==='thrice'? PF_NUM[w]+' times':String(PF_NUM[w])); });
+  const P={raw:q.trim(), goals:{}, days:null, mins:null, lvl:null, home:false, equip:null, avoid:{}, injury:null, words:[]};
+  const neg=/(no|without|avoid|hate|don't like|dont like|not|can't|cant|skip|except)\s+(any\s+|a\s+|the\s+)?([a-z\-]+)/g; let m;
+  while((m=neg.exec(q))){ const w=m[3];
+    if(/^(barbell|bar|barbells)$/.test(w)) P.avoid.barbell=1;
+    else if(/^(machine|machines|cable|cables)$/.test(w)) P.avoid.machine=1;
+    else if(w==='gym') P.home=true;
+    else if(/^(run|running|runs|cardio|jog|jogging)$/.test(w)) P.avoid.run=1;
+    else if(/^(jump|jumps|jumping|plyo|plyos|plyometrics)$/.test(w)) P.avoid.jump=1;
+    else if(/^(equipment|weights|weight)$/.test(w)) P.home=P.bw=true;
+  }
+  // strip negated phrases so "no running" does not count as a running goal
+  const qg=q.replace(neg,' ').replace(/powerlift\w*/g,'strength powerlifting');
+  Object.keys(PF_GOALS).forEach(g=>{ let n=0; PF_GOALS[g].forEach(w=>{ if(pfHas(qg,w)) n++; }); if(n) P.goals[g]=n; });
+  if(P.avoid.run) delete P.goals.endurance;
+  if((P.goals.strength||0)+(P.goals.muscle||0)>=2 && P.goals.strength && P.goals.muscle) P.goals.hybrid=(P.goals.hybrid||0)+2;
+  if(P.goals.endurance && (P.goals.strength||P.goals.muscle||P.goals.hybrid||/lift|weights|gym|hybrid|hyrox|crossfit/.test(qg))) P.concurrent=true;
+  let dm=q.match(/(\d)\s*(?:x|times?|days?|sessions?|workouts?|d)\b\s*(?:a|per|each|\/|every)?\s*(?:week|wk|w)?/) || q.match(/(\d)\s*(?:\/|per|a)\s*(?:week|wk)/);
+  if(dm) P.days=Math.min(7,Math.max(1,+dm[1])); else if(/every ?day|daily|7 days/.test(q)) P.days=7;
+  const mm=q.match(/(\d{2,3})\s*(?:min|minutes|mins|m)\b/), hm=q.match(/(\d(?:\.\d)?)\s*(?:h|hr|hrs|hours?)\b/);
+  if(mm) P.mins=+mm[1]; else if(/half an hour|half hour/.test(q)) P.mins=30; else if(hm) P.mins=Math.round(+hm[1]*60); else if(/an hour|one hour/.test(q)) P.mins=60;
+  else if(/quick|short|busy|no time|little time|limited time/.test(q)) P.mins=35;
+  if(/beginner|new to|never lifted|just start|starting out|first time|newbie|novice|untrained|returning|out of shape|haven't trained/.test(q)) P.lvl=1;
+  else if(/advanced|experienced|years of|veteran|elite|competitive/.test(q)) P.lvl=3;
+  else if(/intermediate|plateau|stall|stuck/.test(q)) P.lvl=2;
+  if(/home|no gym|garage|apartment|hotel|travel|park|outdoor/.test(q)) P.home=true;
+  if(/bodyweight|body weight|calisthenics|no equipment|nothing at home|no weights/.test(q)) { P.home=true; P.bw=true; }
+  if(/kettlebell|kb\b/.test(qg)) P.equip='kb';
+  else if(/dumbbell|db only|dumbbells/.test(qg)) P.equip='db';
+  else if(/barbell|powerlift|squat rack|full gym|commercial gym/.test(qg)) P.equip='gym';
+  const inj=q.match(/(knee|back|shoulder|hip|ankle|neck|wrist|elbow)s?\s*(pain|hurt|injur|issue|problem|ache|sore)|(bad|cranky|weak|sore|injured|hurt|stiff)\s+(knee|back|shoulder|hip|ankle|neck|wrist|elbow)/);
+  if(inj){ P.injury=inj[1]||inj[4]; if(/knee|ankle/.test(P.injury)) P.avoid.jump=1; }
+  P.words=qg.split(/[^a-z0-9\/\-]+/).filter(w=>w.length>=4 && !/^(want|need|with|that|this|program|programme|workout|training|train|week|days|like|would|could|should|best|good|something|from|into|some|about|more|less|also|have|make|help|plan|routine|minutes|times|only|just|really|very|what|which|give|suggest|find|show|looking|look|time|body|lose|gain|build|work|weight|weights)$/.test(w));
+  return P;
+}
+function pfMe(){
+  const now=Date.now(), wk=7*864e5, L=DB.log||[];
+  const recent=L.filter(x=>x.ts && now-x.ts<28*864e5 && x.type==='strength');
+  const perWeek=Math.round(recent.length/4);
+  const total=L.filter(x=>x.type==='strength').length;
+  const g={}; (DB.routines||[]).forEach(r=>{ if(r.goal) g[r.goal]=(g[r.goal]||0)+1; });
+  const cardio=L.filter(x=>x.ts && now-x.ts<28*864e5 && x.type==='cardio').length;
+  return {perWeek:Math.min(6,Math.max(2,perWeek||3)), lvl: total<24?1: total>150?3:2, goal:Object.keys(g).sort((a,b)=>g[b]-g[a])[0]||null, cardio, total, have:new Set((DB.routines||[]).map(r=>r.name))};
+}
+function pfScore(t,P){
+  const pr=pfProfile(t); let s=0, max=0, bonus=0; const why=[], warn=[];
+  const gk=Object.keys(P.goals);
+  if(gk.length){ const tot=gk.reduce((a,g)=>a+P.goals[g],0); let gs=0;
+    gk.forEach(g=>{ const w=P.goals[g]/tot; gs+= w*(t.goal===g?1:((PF_REL[g]||{})[t.goal]||0)); });
+    s+=45*gs; max+=45;
+    if(P.goals[t.goal]) why.push('Built for '+PF_GLBL[t.goal].replace(/^\S+\s/,'').toLowerCase());
+    else if(gs>=.4) why.push('Partly fits — a '+t.goalLabel.toLowerCase()+' program');
+    else if(gs<.2){ s-=10; }
+  }
+  const tagHits=pr.tags.filter(w=>pfHas(P.raw,w)); if(tagHits.length){ bonus+=Math.min(40,20*tagHits.length); why.push('Made for “'+tagHits.slice(0,2).join('”, “')+'”'); }
+  const named=P.words.filter(w=>!PF_GENERIC.has(w) && !tagHits.includes(w) && pfHas((t.name+' '+(t.src||'')).toLowerCase(),w)); if(named.length){ bonus+=35; why.push('Named “'+named[0]+'”'); }
+  const exHit=P.words.filter(w=>w.length>=5 && !PF_GENERIC.has(w) && pr.exs.some(n=>n.toLowerCase().indexOf(w)>=0)); if(exHit.length){ bonus+=Math.min(12,6*exHit.length); why.push('Includes '+pr.exs.find(n=>n.toLowerCase().indexOf(exHit[0])>=0)); }
+  if(P.days){ max+=22; const d=P.days;
+    if(d>=pr.lo&&d<=pr.hi){ s+=22; why.push(d+' day'+(d>1?'s':'')+' a week ✓'); }
+    else if(Math.abs(d-(d<pr.lo?pr.lo:pr.hi))===1){ s+=8; warn.push('Written for '+t.freq.split(/[·(]/)[0].trim()+' — you said '+d); }
+    else { s-=18; warn.push('Needs '+t.freq.split(/[·(]/)[0].trim()); } }
+  if(P.mins){ max+=18;
+    if(pr.min<=P.mins+5){ s+=18; why.push('~'+pr.min+' min sessions'+(pr.min<=P.mins?' ✓':'')); }
+    else if(pr.min<=P.mins*1.3){ s+=6; warn.push('Runs ~'+pr.min+' min — trim accessories to fit '+P.mins); }
+    else { s-=16; warn.push('Long sessions (~'+pr.min+' min)'); } }
+  if(P.lvl){ max+=15; const dl=pr.lv-P.lvl;
+    if(dl===0){ s+=15; why.push(['','Beginner-friendly','Intermediate level','Advanced programming'][pr.lv]); }
+    else if(dl===1){ s+=4; warn.push(P.lvl===1?'A step up for a beginner':'Expects some experience'); }
+    else if(dl>=2){ s-=22; warn.push('Advanced — earn it first'); }
+    else if(dl===-1){ s+=6; } else { s-=6; warn.push('Probably too simple for you'); } }
+  const W=pr.work.length||1, eq=k=>(pr.eq[k]||0)/W;
+  if(P.home||P.equip){ max+=25;
+    let ok;
+    if(P.bw) ok=eq('bw')+eq('bar')*.8+eq('box')*.8;
+    else if(P.equip==='kb') ok=eq('kb')+eq('bw')+eq('box')*.8+eq('bar')*.6+eq('db')*.3;
+    else if(P.equip==='db') ok=eq('db')+eq('bw')+eq('box')+eq('bar')*.6+eq('kb')*.7;
+    else if(P.equip==='gym') ok=1;
+    else ok=eq('bw')+eq('db')+eq('kb')+eq('bar')*.8+eq('box')*.8;
+    ok=Math.min(1,ok); s+=25*ok-20*(1-ok);
+    if(P.equip==='kb' && eq('kb')>=.3){ bonus+=15; why.push('Kettlebell-based ✓'); }
+    else if(P.equip==='db' && eq('db')>=.25){ bonus+=8; why.push('Dumbbell-based ✓'); }
+    else if(ok>=.85 && P.equip!=='gym') why.push(P.bw?'No equipment needed ✓':P.equip==='db'?'Works with dumbbells ✓':'Doable at home ✓');
+    else if(ok<.6) warn.push('Needs '+(eq('barbell')>.3?'a barbell':eq('machine')>.3?'gym machines':'equipment')); }
+  if(P.equip==='gym' && eq('barbell')>.35){ s+=8; }
+  if(P.avoid.barbell && eq('barbell')>.2){ s-=50*eq('barbell')+8; warn.push('Barbell-heavy'); }
+  if(P.avoid.machine && eq('machine')>.2){ s-=18; warn.push('Uses machines'); }
+  if(P.avoid.jump && pr.jumps){ s-=8*Math.min(3,pr.jumps); warn.push('Includes jumps — swap or skip them'); }
+  if(P.avoid.run && /run/i.test(t.freq+t.name)){ s-=30; warn.push('Has runs built in'); }
+  if(P.injury){ const hit=/joint-resilient|desk-reset|movement-flow|mobility-flow/.test(t.id)||(P.injury==='knee'&&/hybrid-3plus3|balance-stability|fifa11plus|longevity-pb/.test(t.id))||(P.injury==='back'&&/min-dose|sns/.test(t.id));
+    if(hit){ bonus+=30; why.push('Kind to cranky '+P.injury+'s'); } }
+  if(P.concurrent && /hybrid-engine|conditioning|hybrid-3plus3/.test(t.id)){ bonus+=t.id==='hybrid-engine'?30:15; why.push('Mixes lifting with conditioning'); }
+  if(pr.addon && P.days && P.days>2) s-=10;
+  if(P.noGoal && (t.goal==='mobility'||t.goal==='balance'||pr.addon)) s-=12;
+  if(pr.addon && P.days && P.days>2) warn.push('Add-on — pair it with a main split');
+  if(!max && !bonus){ // nothing structured — fall back to free-text relevance
+    const hits=P.words.filter(w=>pr.hay.indexOf(w)>=0||pr.exs.some(n=>n.toLowerCase().indexOf(w)>=0)); bonus+=hits.length*15;
+    if(hits.length && !why.length) why.push('Mentions “'+hits[0]+'”'); }
+  s+=bonus;
+  return {t, pr, s, max, bonus, pct:0, why:[...new Set(why)].slice(0,4), warn:warn.slice(0,2)};
+}
+function pfRank(P, list){
+  const all=(list||TEMPLATES).map(t=>pfScore(t,P)); if(!all.length) return [];
+  const B=Math.max(0,...all.map(r=>r.bonus)), den=Math.max(1,all[0].max+(all[0].max?B*.4:B));
+  all.forEach(r=>{ r.pct=Math.max(3,Math.min(99,Math.round(r.s/den*100))); });
+  return all.filter(r=>r.s>0 && (r.why.length||r.pct>=40)).sort((a,b)=>b.s-a.s||a.pr.min-b.pr.min);
+}
+function pfSearch(raw){
+  const P=pfParse(raw);
+  if(!Object.keys(P.goals).length && (P.days||P.mins||P.lvl||P.home||P.equip)){ P.noGoal=true; P.goals={general:1,muscle:1,strength:1}; }
+  return {P, res:pfRank(P).slice(0,5)};
+}
+function pfForMe(){
+  const me=pfMe(); const P=pfParse('');
+  P.days=me.perWeek; P.lvl=me.lvl; if(me.goal) P.goals[me.goal]=2; else P.goals.general=1;
+  if(me.cardio>=4) P.goals.hybrid=1;
+  const res=pfRank(P, TEMPLATES.filter(t=>!me.have.has(t.name))).slice(0,3);
+  return {me,P,res};
+}
+function pfUnderstood(P){
+  const c=[]; const both=P.goals.hybrid&&P.goals.strength&&P.goals.muscle; if(!P.noGoal) Object.keys(P.goals).filter(g=>!(both&&(g==='strength'||g==='muscle'))).sort((a,b)=>P.goals[b]-P.goals[a]).slice(0,3).forEach(g=>c.push(PF_GLBL[g]));
+  if(P.days) c.push('📅 '+P.days+' day'+(P.days>1?'s':'')+'/wk'); if(P.mins) c.push('⏱ ≤'+P.mins+' min');
+  if(P.lvl) c.push(['','🌱 Beginner','📈 Intermediate','🏆 Advanced'][P.lvl]);
+  if(P.bw) c.push('🤸 No equipment'); else if(P.home) c.push('🏠 Home');
+  if(P.equip==='kb') c.push('🔔 Kettlebell'); if(P.equip==='db') c.push('🏋️ Dumbbells'); if(P.equip==='gym') c.push('🏢 Full gym');
+  if(P.injury) c.push('🩹 '+P.injury[0].toUpperCase()+P.injury.slice(1));
+  if(P.avoid.barbell) c.push('🚫 Barbell'); if(P.avoid.machine) c.push('🚫 Machines'); if(P.avoid.jump) c.push('🚫 Jumps'); if(P.avoid.run) c.push('🚫 Running');
+  return c;
+}
+const PF_EXAMPLES=['3 days, build muscle, 45 min','Beginner, want to get strong','Kettlebell only at home','Lose fat but keep strength','Bad knees, want stronger legs','Desk job, stiff back and neck','Get faster and jump higher','Bone density, over 50'];
+function pfBoxHTML(){
+  return `<div class="pf-box"><div class="pf-h"><span class="pf-ic">🔎</span><div><b>Program finder</b><small>Say what you want — goal, days, time, gear, level</small></div></div>
+    <div class="pf-in"><input id="pfQ" type="search" enterkeyhint="search" autocomplete="off" placeholder="e.g. 4 days, muscle + strength, 60 min" value="${esc(pfQuery)}"><button class="pf-x" data-action="pf-clear" aria-label="Clear" style="${pfQuery?'':'display:none'}">✕</button></div>
+    <div class="pf-ex">${PF_EXAMPLES.map(x=>`<button class="pf-chip" data-action="pf-ex" data-q="${esc(x)}">${esc(x)}</button>`).join('')}</div>
+    <div id="pfRes"></div></div>`;
+}
+function pfCard(r,i){
+  const t=r.t, pr=r.pr, have=(DB.routines||[]).some(x=>x.name===t.name);
+  const eqs=Object.keys(pr.eq).sort((a,b)=>pr.eq[b]-pr.eq[a]).slice(0,2).map(k=>({barbell:'Barbell',db:'Dumbbells',kb:'Kettlebell',machine:'Machines',bw:'Bodyweight',bar:'Pull-up bar',box:'Box/bench'})[k]).join(' + ');
+  return `<div class="pf-card${i===0?' top':''}"><div class="pf-row"><span class="pf-rank">${i===0?'★':i+1}</span><div class="pf-nm"><b>${esc(t.name)}</b><small>${esc(t.goalLabel)}${t.src?' · '+esc(t.src.split(/[—·(,]/)[0].trim()).slice(0,40):''}</small></div><span class="pf-pct">${r.pct}%</span></div>
+    <div class="pf-bar"><i style="width:${r.pct}%"></i></div>
+    <div class="pf-why">${r.why.map(w=>`<span>✓ ${esc(w.replace(/ ✓$/,''))}</span>`).join('')}${r.warn.map(w=>`<span class="w">⚠ ${esc(w)}</span>`).join('')}</div>
+    <div class="pf-meta">📅 ${pr.lo===pr.hi?pr.lo:pr.lo+'–'+pr.hi}×/wk · ⏱ ~${pr.min} min · ${['','🌱 Beginner','📈 Intermediate','🏆 Advanced'][pr.lv]}${eqs?' · '+eqs:''}</div>
+    <div class="pf-act"><button class="btn btn-ghost" data-action="pf-view" data-tpl="${t.id}">View days</button>${have?`<button class="btn btn-ghost" disabled>✓ In your routines</button>`:`<button class="btn btn-primary" data-action="use-tpl" data-tpl="${t.id}">Add to my routines</button>`}</div></div>`;
+}
+function pfRender(){
+  const box=$('#pfRes'); if(!box) return;
+  const q=pfQuery.trim();
+  if(!q){ const F=pfForMe();
+    box.innerHTML = F.res.length? `<div class="pf-lbl">✨ Suggested for you <small>from your last 4 weeks · ~${F.me.perWeek} sessions/wk · ${['','beginner','intermediate','advanced'][F.me.lvl]}</small></div>`+F.res.map(pfCard).join('') : ''; return; }
+  const R=pfSearch(q), u=pfUnderstood(R.P);
+  box.innerHTML = (u.length?`<div class="pf-und">Understood: ${u.map(x=>`<span>${x}</span>`).join('')}</div>`:'')
+    + (R.res.length? `<div class="pf-lbl">Best matches <small>${R.res.length} of ${TEMPLATES.length} programs</small></div>`+R.res.map(pfCard).join('')
+      : `<div class="pf-none">No clear match yet. Try a goal (strength, muscle, fat loss, mobility), days per week, minutes, or gear — e.g. <i>“3 days, kettlebell, 30 min”</i>.</div>`);
+}
+let _pfT=0;
+document.addEventListener('input', e=>{ if(e.target && e.target.id==='pfQ'){ pfQuery=String(e.target.value).slice(0,160); const x=$('.pf-x'); if(x) x.style.display=pfQuery?'':'none'; clearTimeout(_pfT); _pfT=setTimeout(pfRender,140); } });
+document.addEventListener('keydown', e=>{ if(e.target && e.target.id==='pfQ' && e.key==='Enter'){ e.preventDefault(); clearTimeout(_pfT); pfRender(); e.target.blur(); } });
+
 
 function buildRunPlan(start, goal, days){
   const r1=x=>Math.round(x*10)/10;
@@ -7452,6 +7738,11 @@ document.addEventListener('click', e=>{
     // exercise picker
     case 'exg-toggle': { const g=t.closest('.exg'); if(g&&g.classList) g.classList.toggle('open'); break; }
     case 'tpl-filter': tplFilter=t.dataset.g; renderTrain(); window.scrollTo(0,0); break;
+    case 'pf-ex': { pfQuery=t.dataset.q; const i=$('#pfQ'); if(i) i.value=pfQuery; const x=$('.pf-x'); if(x) x.style.display=''; pfRender(); break; }
+    case 'pf-clear': { pfQuery=''; const i=$('#pfQ'); if(i){ i.value=''; i.focus&&i.focus(); } if(t.style) t.style.display='none'; pfRender(); break; }
+    case 'pf-view': { const id=t.dataset.tpl; if(tplFilter!=='all'){ tplFilter='all'; renderTrain(); }
+      const c=$('#tpl-'+id); if(c && !c.classList.contains('open')){ c.classList.add('open'); const b=$('[data-action="toggle-tpl"][data-tpl="'+id+'"]'); if(b) b.textContent='Hide training days ▴'; }
+      const card=$('.tcard[data-tpl="'+id+'"]'); if(card){ card.classList.remove('pf-flash'); void card.offsetWidth; card.classList.add('pf-flash'); if(card.scrollIntoView) card.scrollIntoView({behavior:'smooth',block:'start'}); } break; }
     case 'pick-ex': { const name=t.dataset.name; const cb=exPickCallback; closeSheet(); setTimeout(()=>cb&&cb(name),60); break; }
     case 'swap-browse': { const ei=+t.dataset.ei; closeSheet(); setTimeout(()=>openExPicker(n=>swapPick(ei,n)),80); break; }
     case 'swap-create': { const ei=+t.dataset.ei; exPickCallback=n=>swapPick(ei,n); _cxReturn=()=>openSwap(ei); openCustomEx(''); break; }
