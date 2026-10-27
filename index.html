@@ -1703,6 +1703,45 @@ body.ui2 .sec-head{margin-top:22px}
 .pf-none{font-size:13px; color:var(--muted); margin-top:12px; line-height:1.45}
 .tcard.pf-flash{animation:pfFlash 1.4s ease}
 @keyframes pfFlash{0%,60%{border-color:var(--energy-1); box-shadow:0 0 0 3px rgba(255,138,43,.25)}100%{}}
+.tl-bar{margin:0 -2px 6px}
+.tl-row{display:flex; gap:6px; overflow-x:auto; padding:2px 2px 8px; scrollbar-width:none}
+.tl-row::-webkit-scrollbar{display:none}
+.tl-row .chip{flex:none; white-space:nowrap; padding:8px 13px; font-size:12.5px}
+.tl-row .chip i{font-style:normal; opacity:.6; margin-left:3px; font-weight:700}
+.tl-row .chip.dim{opacity:.45}
+.tl-f{align-items:center; gap:5px}
+.tl-k{flex:none; font-size:10.5px; letter-spacing:1px; text-transform:uppercase; color:var(--muted-2); font-weight:700; margin:0 2px 0 6px}
+.tl-k:first-child{margin-left:0}
+.fchip{flex:none; font-size:12px; padding:6px 11px; border-radius:99px; background:transparent; border:1px solid var(--line); color:var(--muted); font-weight:600; white-space:nowrap}
+.fchip.on{background:var(--energy-glow); border-color:var(--energy-1); color:#FFD2B5}
+.tl-status{font-size:12px; color:var(--muted-2); margin:2px 2px 10px}
+.tl-clear{background:none; border:0; color:var(--energy-1); font-weight:700; font-size:12px; padding:0}
+.tl-empty{text-align:center; color:var(--muted); font-size:13px; padding:30px 10px}
+.tsec{margin-bottom:18px}
+.tsec-h{display:flex; align-items:center; gap:10px; margin:4px 2px 9px}
+.tsec-ic{width:32px; height:32px; border-radius:10px; display:grid; place-items:center; background:var(--surface-2); border:1px solid var(--line-soft); font-size:16px; flex:none}
+.tsec-h b{display:block; font-family:'Saira Condensed'; font-size:19px; letter-spacing:.3px; line-height:1.1}
+.tsec-h small{display:block; font-size:12px; color:var(--muted-2); line-height:1.3}
+.tsec-h>div{flex:1; min-width:0}
+.tsec-n{font-size:12px; font-weight:800; color:var(--muted); background:var(--surface-2); border-radius:99px; padding:3px 9px}
+.tsec-more{width:100%; background:transparent; border:1px dashed var(--line); color:var(--muted); font-weight:600; font-size:12.5px; padding:10px; border-radius:var(--r-md)}
+.tcard.tc2{padding:0; margin-bottom:8px; overflow:hidden}
+.tc-head{display:block; width:100%; text-align:left; background:none; border:0; color:inherit; padding:13px 40px 12px 14px; position:relative; font:inherit}
+.tc-top{display:flex; align-items:baseline; gap:8px; flex-wrap:wrap}
+.tc2 .tc-top h4{font-size:19px; margin:0}
+.tc-lv{font-size:10.5px; font-weight:700; color:var(--muted-2)}
+.tc-lv.lv1{color:#8FE3B0}.tc-lv.lv2{color:#9CCBFF}.tc-lv.lv3{color:#FFB38A}
+.tc-best{font-size:13px; color:var(--muted); margin-top:3px; line-height:1.35}
+.tc-meta{display:flex; flex-wrap:wrap; gap:4px 12px; font-size:11.5px; color:var(--muted-2); margin-top:7px}
+.tc-have{color:var(--teal); font-weight:700}
+.tc-chev{position:absolute; right:14px; top:50%; transform:translateY(-50%); color:var(--muted-2); transition:transform .2s; font-size:13px}
+.tcard.tc2.open .tc-chev{transform:translateY(-50%) rotate(180deg)}
+.tcard.tc2.open{border-color:var(--line)}
+.tc2>.collapse{padding:0 14px 14px; border-top:1px solid var(--line-soft)}
+.goal-tag.flex{background:rgba(120,220,140,.16); color:#9BE8AE}
+.pf-mini{display:flex; align-items:center; gap:10px; padding:9px 10px; background:var(--surface-2); border:1px solid var(--line-soft); border-radius:10px; margin-bottom:6px; width:100%; text-align:left; color:inherit; font:inherit}
+.pf-mini .pf-nm b{font-size:16px}
+.pf-mini .pf-pct{font-size:16px}
 </style>
 </head>
 <body>
@@ -3103,6 +3142,68 @@ const TEMPLATES = [
     days:[
       {name:'Full body', ex:[{n:'Barbell Bench Press', s:5, r:'8–12', rest:90},{n:'Overhead Press', s:5, r:'8–12', rest:90},{n:'Lat Pulldown', s:5, r:'8–12', rest:90},{n:'Seated Cable Row', s:5, r:'8–12', rest:90},{n:'Back Squat', s:5, r:'8–12', rest:90},{n:'Leg Press', s:5, r:'8–12', rest:90},{n:'Leg Extension', s:5, r:'8–12', rest:90}]}
     ]
+  },
+  {
+    id:'long-length', name:'Long-Length Hypertrophy', goal:'flex', goalLabel:'Muscle + Mobility',
+    src:'Maeo et al. 2021 & 2023, Pedrosa et al. 2022, Kassiano et al. 2023 — training muscles at long lengths',
+    freq:'4 days / week (Upper · Lower · Upper · Lower)', repFocus:'3 × 8–12, 3 s lowering, 1 s pause in the stretch', rest:'90–120 s',
+    progression:'Use the deepest range you can control and pause 1 s in the stretched position. When every set reaches 12 reps at that range, add the smallest weight jump. Range comes first: never shorten a rep to lift more.',
+    said:'Muscles trained at long lengths grow more: overhead triceps extensions out-grew pushdowns, seated leg curls out-grew lying curls, and lengthened-range reps out-grew short-range reps. Loading the stretch also builds range of motion you can use.',
+    days:[
+      {name:'Upper A — stretch-loaded push/pull', ex:[{n:'Dumbbell Bench Press', s:3, r:'8–12', rest:120},{n:'Neutral-Grip Lat Pulldown', s:3, r:'8–12', rest:90},{n:'Dumbbell Fly', s:3, r:'10–12', rest:90},{n:'Seal Row', s:3, r:'10–12', rest:90},{n:'Overhead Triceps Extension', s:3, r:'10–12', rest:75},{n:'Incline Dumbbell Curl', s:3, r:'10–12', rest:75},{n:'Cable Lateral Raise', s:3, r:'12–15', rest:60},{n:'Shoulder Dislocates', s:2, r:'10', rest:30}]},
+      {name:'Lower A — hinge & split', ex:[{n:'Romanian Deadlift', s:3, r:'8–10', rest:120},{n:'Bulgarian Split Squat', s:3, r:'8–10 / leg', rest:90},{n:'Seated Leg Curl', s:3, r:'10–12', rest:90},{n:'Heels-Elevated Goblet Squat', s:3, r:'10–12', rest:90},{n:'Calf Raise', s:3, r:'10–15 (2 s stretch)', rest:60},{n:'Couch Stretch', s:2, r:'45 s / side', rest:20}]},
+      {name:'Upper B — overhead & pullover', ex:[{n:'Incline Dumbbell Press', s:3, r:'8–12', rest:120},{n:'Single-Arm Cable Row', s:3, r:'10–12 / arm', rest:75},{n:'Deficit Push-Up', s:3, r:'8–15', rest:75},{n:'Dumbbell Pullover', s:3, r:'10–12', rest:75},{n:'Rope Overhead Extension', s:3, r:'10–12', rest:60},{n:'Bayesian Cable Curl', s:3, r:'10–12', rest:60},{n:'Bench T-Spine Extension', s:2, r:'8', rest:30}]},
+      {name:'Lower B — deep knee & hip', ex:[{n:'Hack Squat', s:3, r:'8–12', rest:120},{n:'Good Morning', s:3, r:'8–10', rest:120},{n:'Static Split Squat', s:3, r:'10 / leg (front foot raised)', rest:90},{n:'Reverse Nordic Curl', s:3, r:'6–10', rest:90},{n:'Seated Calf Raise', s:3, r:'12–15', rest:60},{n:'Cossack Squat', s:2, r:'6 / side', rest:45},{n:'90/90 Hip Switch', s:2, r:'8', rest:20}]}
+    ]
+  },
+  {
+    id:'full-range-fb', name:'Full-Range Full Body', goal:'flex', goalLabel:'Muscle + Mobility',
+    src:'Afonso et al., Sports Medicine 2021 — strength training improves range of motion as much as stretching',
+    freq:'3 days / week (A · B · C)', repFocus:'3 × 8–12 through full range', rest:'75–90 s',
+    progression:'Choose a weight you can move through your full, pain-free range for 8 reps. Add reps each week; once every set hits 12, go heavier. Do the mobility drill between sets instead of sitting — it costs no extra time. Dumbbells and a bench are all you need.',
+    said:'A meta-analysis found full-range strength training improved flexibility as much as static stretching — while also building muscle. One session, both adaptations.',
+    days:[
+      {name:'Day A', ex:[{n:'Goblet Squat', s:3, r:'8–12 (deep)', rest:90},{n:'Dumbbell Bench Press', s:3, r:'8–12', rest:90},{n:'Single-Arm Dumbbell Row', s:3, r:'10–12 / arm', rest:75},{n:'Single-Leg RDL', s:3, r:'8–10 / leg', rest:75},{n:'Lateral Raise', s:3, r:'12–15', rest:60},{n:"World's Greatest Stretch", s:2, r:'5 / side', rest:20},{n:'Deep Squat Hold', s:2, r:'45 s', rest:20}]},
+      {name:'Day B', ex:[{n:'Bulgarian Split Squat', s:3, r:'8–10 / leg', rest:90},{n:'Arnold Press', s:3, r:'8–12', rest:75},{n:'Dumbbell Pullover', s:3, r:'10–12', rest:75},{n:'Incline Dumbbell Curl', s:3, r:'10–12', rest:60},{n:'Overhead Triceps Extension', s:3, r:'10–12', rest:60},{n:'Cossack Squat', s:2, r:'6 / side', rest:30},{n:'Thoracic Rotation', s:2, r:'8 / side', rest:20}]},
+      {name:'Day C', ex:[{n:'Heels-Elevated Goblet Squat', s:3, r:'10–12', rest:90},{n:'Deficit Push-Up', s:3, r:'8–15', rest:75},{n:'Chest-Supported Row', s:3, r:'10–12', rest:75},{n:'Slider Leg Curl', s:3, r:'8–12', rest:60},{n:'Jefferson Curl', s:2, r:'8 (light)', rest:45},{n:'Hip CARs', s:2, r:'5 / side', rest:20},{n:'Shoulder CARs', s:2, r:'5 / side', rest:20}]}
+    ]
+  },
+  {
+    id:'bw-strength-flex', name:'Bodyweight Strength-Flex', goal:'flex', goalLabel:'Muscle + Mobility',
+    src:'Kikuchi & Nakazato 2017 (push-ups matched bench press for muscle growth) · Afonso et al. 2021',
+    freq:'3 days / week · no equipment (pull-up bar optional)', repFocus:'3 × 6–15, hard sets', rest:'60–90 s',
+    progression:'Take every set to 1–2 reps short of failure. When you pass 15 reps, move to the harder version: deficit or feet-raised push-ups, single-leg box squat to lower boxes, slower Nordics. Hold each loaded stretch a little deeper each week.',
+    said:'Bodyweight training built as much muscle as weights when sets were taken close to failure — and deep-range moves like Cossack squats and Jefferson curls build mobility at the same time.',
+    days:[
+      {name:'Push + legs', ex:[{n:'Deficit Push-Up', s:3, r:'8–15', rest:75},{n:'Pike Push-Up', s:3, r:'6–12', rest:75},{n:'Single-Leg Box Squat', s:3, r:'6–10 / leg', rest:75},{n:'Sissy Squat', s:3, r:'8–12', rest:60},{n:'Bench Dip', s:2, r:'10–15', rest:60},{n:'Cossack Squat', s:2, r:'6 / side', rest:30},{n:'Cobra Stretch', s:2, r:'30 s', rest:20}]},
+      {name:'Pull + hinge', ex:[{n:'Pull-Up', s:3, r:'5–10 (or Inverted Row)', rest:90},{n:'Inverted Row', s:3, r:'8–15', rest:75},{n:'Nordic Curl', s:3, r:'3–6 slow', rest:90},{n:'Single-Leg Glute Bridge', s:3, r:'10–15 / leg', rest:60},{n:'Jefferson Curl', s:2, r:'8 (slow)', rest:45},{n:'Prone Swimmers', s:2, r:'8', rest:20},{n:'Puppy Pose', s:2, r:'30 s', rest:20}]},
+      {name:'Full body flow', ex:[{n:'Push-Up', s:3, r:'10–20', rest:60},{n:'Reverse Lunge', s:3, r:'10 / leg', rest:60},{n:'Reverse Nordic Curl', s:3, r:'6–10', rest:75},{n:'Bear Crawl', s:3, r:'30 s', rest:45},{n:'Hollow Body Hold', s:3, r:'20–40 s', rest:45},{n:'Lizard Pose', s:2, r:'30 s / side', rest:20},{n:'Deep Squat Hold', s:2, r:'45 s', rest:20}]}
+    ]
+  },
+  {
+    id:'deep-legs', name:'Deep-Range Legs & Hips', goal:'flex', goalLabel:'Muscle + Mobility',
+    src:'Kassiano 2023 & Pedrosa 2022 (lengthened-range leg growth) · van Dyk et al. 2019 meta-analysis (Nordic curls)',
+    freq:'2 days / week (as your leg days, or added to any split)', repFocus:'3 × 6–15, full depth', rest:'60–120 s',
+    progression:'Earn depth before load: knee past toes, hips below knees, slow 3 s lowering. Once you own the full range for 15 reps, add weight in small jumps. Nordics and reverse Nordics: lower slower before adding reps.',
+    said:'Training legs at long lengths — deep split squats, deep squats, seated leg curls — grew more muscle than shallow reps, and strengthens knees and hips at end range. Programs that include Nordic curls cut hamstring injuries by up to half.',
+    days:[
+      {name:'Knee-dominant', ex:[{n:'Static Split Squat', s:3, r:'8–12 / leg (front foot raised)', rest:90},{n:'Heels-Elevated Goblet Squat', s:3, r:'10–15', rest:90},{n:'Reverse Nordic Curl', s:3, r:'6–10', rest:90},{n:'Tibialis Raise', s:3, r:'15–20', rest:45},{n:'Seated Calf Raise', s:3, r:'12–15 (2 s stretch)', rest:45},{n:'Couch Stretch', s:2, r:'45 s / side', rest:20},{n:'Wall Ankle Rock', s:2, r:'10 / side', rest:20}]},
+      {name:'Hip-dominant', ex:[{n:'Romanian Deadlift', s:3, r:'8–10', rest:120},{n:'Nordic Curl', s:3, r:'3–6 slow', rest:90},{n:'Cossack Squat', s:3, r:'6–8 / side', rest:60},{n:'Copenhagen Plank', s:3, r:'20–30 s / side', rest:45},{n:'Hip Thrust', s:3, r:'10–12 (pause at top)', rest:90},{n:'Frog Stretch', s:2, r:'45 s', rest:20},{n:'90/90 Hip Switch', s:2, r:'8', rest:20}]}
+    ]
+  },
+  {
+    id:'flex-ppl', name:'Flexible PPL + Finishers', goal:'flex', goalLabel:'Muscle + Mobility',
+    src:'Built on lengthened-range training research (Maeo 2023, Pedrosa 2022) with 6-minute mobility finishers',
+    freq:'5 days / week (Push · Pull · Legs · Upper · Lower)', repFocus:'3–4 × 6–12', rest:'90–150 s',
+    progression:'Main lifts: add weight when you hit the top of the rep range on every set, keeping full depth. Accessories target the stretched position. Each day ends with a short mobility finisher for the area you just trained — the muscles are warm, so you gain range faster.',
+    said:'Higher frequency with stretch-focused accessories builds size, and finishing each session with loaded mobility trains range in the muscles you just worked.',
+    days:[
+      {name:'Push', ex:[{n:'Incline Barbell Press', s:4, r:'6–10', rest:150},{n:'Dumbbell Fly', s:3, r:'10–12', rest:90},{n:'Dumbbell Shoulder Press', s:3, r:'8–12', rest:90},{n:'Overhead Triceps Extension', s:3, r:'10–12', rest:75},{n:'Cable Lateral Raise', s:3, r:'12–15', rest:60},{n:'Doorway Pec Stretch', s:2, r:'30 s', rest:15},{n:'Shoulder Dislocates', s:2, r:'10', rest:15}]},
+      {name:'Pull', ex:[{n:'Wide-Grip Pull-Up', s:4, r:'6–10', rest:120},{n:'Chest-Supported Row', s:3, r:'8–12', rest:90},{n:'Dumbbell Pullover', s:3, r:'10–12', rest:75},{n:'Face Pull', s:3, r:'12–15', rest:60},{n:'Incline Dumbbell Curl', s:3, r:'10–12', rest:60},{n:'Thread the Needle', s:2, r:'6 / side', rest:15},{n:"Child's Pose", s:2, r:'40 s', rest:15}]},
+      {name:'Legs', ex:[{n:'Back Squat', s:4, r:'6–10 (full depth)', rest:150},{n:'Romanian Deadlift', s:3, r:'8–10', rest:120},{n:'Bulgarian Split Squat', s:3, r:'8–10 / leg', rest:90},{n:'Seated Leg Curl', s:3, r:'10–12', rest:75},{n:'Calf Raise', s:3, r:'10–15 (2 s stretch)', rest:60},{n:'Pigeon Pose', s:2, r:'40 s / side', rest:15},{n:'Deep Squat Hold', s:2, r:'45 s', rest:15}]},
+      {name:'Upper', ex:[{n:'Dumbbell Bench Press', s:3, r:'8–12', rest:120},{n:'Neutral-Grip Lat Pulldown', s:3, r:'8–12', rest:90},{n:'Arnold Press', s:3, r:'8–12', rest:90},{n:'Single-Arm Cable Row', s:3, r:'10–12', rest:75},{n:'Bayesian Cable Curl', s:2, r:'10–12', rest:60},{n:'Rope Overhead Extension', s:2, r:'10–12', rest:60},{n:'Bench T-Spine Extension', s:2, r:'8', rest:15},{n:'Wall Slides', s:2, r:'10', rest:15}]},
+      {name:'Lower', ex:[{n:'Hack Squat', s:3, r:'8–12', rest:120},{n:'Good Morning', s:3, r:'8–10', rest:120},{n:'Reverse Nordic Curl', s:3, r:'6–10', rest:75},{n:'Hip Adduction', s:3, r:'12–15', rest:60},{n:'Seated Calf Raise', s:3, r:'12–15', rest:45},{n:'Couch Stretch', s:2, r:'45 s / side', rest:15},{n:'Adductor Rock-Back', s:2, r:'10', rest:15}]}
+    ]
   }
 ];
 
@@ -4094,23 +4195,7 @@ function renderTrain(){
   renderBoss();
   if(trainTab===null) trainTab = DB.routines.length? 'routines':'templates';
   // templates
-  const _goals=[...new Set(TEMPLATES.map(x=>x.goal))];
-  const _tchips=`<div class="chips" style="margin-bottom:12px; flex-wrap:wrap"><button class="chip ${tplFilter==='all'?'on':''}" data-action="tpl-filter" data-g="all">All · ${TEMPLATES.length}</button>${_goals.map(g=>{ const n=TEMPLATES.filter(x=>x.goal===g).length; const lbl=TEMPLATES.find(x=>x.goal===g).goalLabel; return `<button class="chip ${tplFilter===g?'on':''}" data-action="tpl-filter" data-g="${g}">${lbl} · ${n}</button>`; }).join('')}</div>`;
-  $('#tab-templates').innerHTML = pfBoxHTML() + _tchips + TEMPLATES.filter(x=>tplFilter==='all'||x.goal===tplFilter).map(t=>{
-    const dayCount=t.days.length;
-    const exNames=t.days[0].ex.filter(e=>exInfo(e.n).p!=='mobility').slice(0,3).map(e=>e.n).join(' · ');
-    return `<div class="tcard" data-tpl="${t.id}">
-      <div class="ghead"><div><h4>${t.name}</h4></div><span class="goal-tag ${t.goal}">${t.goalLabel}</span></div>
-      <div class="tmeta"><span>📅 <b>${t.freq}</b></span><span>🔢 <b>${t.repFocus}</b></span><span>⏱ <b>${t.rest}</b></span></div>
-      <div class="t-note"><b>Progressive overload —</b> ${t.progression}</div>
-      <div class="t-note said"><b>SAID principle —</b> ${t.said}</div>${t.src?`<div class="t-src">📚 ${esc(t.src)}</div>`:''}
-      <button class="mini-link" data-action="toggle-tpl" data-tpl="${t.id}" style="margin-top:12px">View ${dayCount} training day${dayCount>1?'s':''} ▾</button>
-      <div class="collapse" id="tpl-${t.id}">
-        <div class="day-list">${t.days.map(d=>`<div class="day-row"><div class="dn"><span>${d.name}</span><span style="color:var(--muted-2);font-size:11px">${d.ex.length} moves</span></div><div class="de">${d.ex.map(e=>e.n).join(', ')}</div></div>`).join('')}</div>
-        <button class="btn btn-primary" data-action="use-tpl" data-tpl="${t.id}" style="margin-top:12px">Add to my routines</button>
-      </div>
-    </div>`;
-  }).join('');
+  $('#tab-templates').innerHTML = pfBoxHTML() + tplListHTML();
 
   pfRender();
   renderRtList();
@@ -4324,7 +4409,7 @@ function hrZones(){ const mx=maxHR(); if(!mx) return null; const rest=(DB.settin
   return {mx, rest, zones:defs.map(d=>({name:d[0], lo:calc(d[1]), hi:calc(d[2])}))}; }
 
 /* ===================== VO2MAX — dedicated entry + analysis ===================== */
-const APP_V='v76';
+const APP_V='v77';
 function vo2Parts(){
   const s=DB.settings, age=currentAge();
   const bv=bestVo2(), vr=vo2FromRestHR();
@@ -6657,9 +6742,15 @@ const PF_META={ // level: 1 beginner · 2 intermediate · 3 advanced; tags = ext
   'dup-hps':{lv:2,tags:['science','research','evidence','study','undulating','dup','periodization']},
   'liftmor':{lv:1,tags:['bone','osteoporosis','osteopenia','bone density','women','menopause','older','heavy']},
   'fifa11plus':{lv:1,tags:['injury prevention','acl','knee','soccer','football','sport','warm-up','hamstring','team sport']},
+  'long-length':{lv:2,tags:['mobility','flexib','stretch','loaded stretch','long length','lengthened','range of motion','full range','hypertrophy']},
+  'full-range-fb':{lv:1,tags:['mobility','flexib','full range','range of motion','dumbbell','dumbbells','home','stretch','full body']},
+  'bw-strength-flex':{lv:1,tags:['bodyweight','no equipment','home','no gym','mobility','flexib','calisthenics','stretch']},
+  'deep-legs':{lv:2,addon:1,tags:['legs','knee','knees','hips','deep squat','nordic','mobility','flexib','atg','knees over toes','ankle']},
+  'flex-ppl':{lv:2,tags:['ppl','push pull legs','mobility','flexib','stretch','5 days','finisher']},
   'schoenfeld-hv':{lv:3,tags:['science','research','evidence','study','high volume','volume','hypertrophy','schoenfeld']}
 };
 const PF_GOALS={
+  flex:['muscle and mobility','mobility and muscle','muscle + mobility','strength and mobility','mobility and strength','flexible and strong','strong and flexible','loaded stretch','lengthened','long length','full range','stretch-focused','mobile muscle','build muscle and flexib','build muscle while'],
   strength:['strength','strong','stronger','powerlift','1rm','one rep max','max out','heavier','lift more','bench more','squat more','deadlift more','raw strength'],
   muscle:['muscle','hypertroph','size','bigger','mass','bulk','aesthetic','bodybuild','physique','gain','jacked','swole','arms','chest','tone','toned','build'],
   endurance:['endurance','hybrid','hyrox','crossfit','fat loss','lose weight','weight loss','lose fat','burn fat','lean','cut','cutting','cardio','stamina','conditioning','run','running','marathon','5k','10k','shred','get fit'],
@@ -6669,11 +6760,12 @@ const PF_GOALS={
   balance:['balance','stability','stable','fall','ankle','injury','prevent','acl','older','senior','aging','longevity','bone','single leg','proprioception'],
   general:['general','health','healthy','overall','everything','fitness','in shape','longevity','beginner','start','consistent']
 };
-const PF_REL={strength:{hybrid:.7,power:.4,general:.3,muscle:.35,endurance:.2},muscle:{hybrid:.7,general:.35,strength:.35,endurance:.15},endurance:{general:.4,power:.2,hybrid:.15},hybrid:{strength:.65,muscle:.65,general:.3,power:.3},power:{hybrid:.45,strength:.4,balance:.25},mobility:{balance:.45,general:.2},balance:{mobility:.4,general:.35,power:.25},general:{hybrid:.35,strength:.3,muscle:.3,endurance:.3,balance:.25}};
-const PF_GLBL={strength:'💪 Strength',muscle:'🏋️ Muscle',endurance:'🔥 Fat loss / engine',hybrid:'⚡ Strength + size',power:'🚀 Power',mobility:'🧘 Mobility',balance:'🦵 Balance & resilience',general:'❤️ General health'};
+const PF_REL={flex:{muscle:.6,mobility:.55,hybrid:.3,general:.3,strength:.25},strength:{flex:.25,hybrid:.7,power:.4,general:.3,muscle:.35,endurance:.2},muscle:{flex:.6,hybrid:.7,general:.35,strength:.35,endurance:.15},endurance:{general:.4,power:.2,hybrid:.15},hybrid:{strength:.65,muscle:.65,general:.3,power:.3},power:{hybrid:.45,strength:.4,balance:.25},mobility:{flex:.6,balance:.45,general:.2},balance:{mobility:.4,general:.35,power:.25},general:{hybrid:.35,strength:.3,muscle:.3,endurance:.3,balance:.25}};
+const PF_GLBL={flex:'🌀 Muscle + mobility',strength:'💪 Strength',muscle:'🏋️ Muscle',endurance:'🔥 Fat loss / engine',hybrid:'⚡ Strength + size',power:'🚀 Power',mobility:'🧘 Mobility',balance:'🦵 Balance & resilience',general:'❤️ General health'};
 const PF_NUM={one:1,two:2,three:3,four:4,five:5,six:6,seven:7,twice:2,once:1,thrice:3};
 const _pfCache={};
 function pfEquip(n){
+  if(/nordic|slider|razor curl|sissy|reverse lunge|split squat|cossack|pistol|bodyweight|push-up|hollow|plank|bear crawl|glute bridge|copenhagen/i.test(n) && !/weighted/i.test(n)) return /bench dip/i.test(n)?'box':'bw';
   if(isBarbell(n)) return 'barbell';
   if(/kettlebell|turkish|swing/i.test(n)) return 'kb';
   if(/cable|machine|pulldown|leg press|leg curl|leg extension|pec deck|pushdown|hip abduction|smith|lat pull|seated row|hack squat/i.test(n)) return 'machine';
@@ -6687,13 +6779,14 @@ function pfProfile(t){
   if(_pfCache[t.id]) return _pfCache[t.id];
   const meta=PF_META[t.id]||{lv:2,tags:[]};
   const f=String(t.freq).toLowerCase(); let lo, hi;
-  const rg=f.match(/(\d)\s*[–\-+]\s*(\d)/), one=f.match(/(\d)/);
+  const rg=f.split('·')[0].match(/(\d)\s*[–\-+]\s*(\d)/), one=f.match(/(\d)/);
   if(/daily/.test(f)) { lo=3; hi=7; }
   else if(t.id==='hybrid-engine'){ lo=3; hi=5; }
+  else if(t.id==='hybrid-3plus3'){ lo=3; hi=6; }
   else if(rg){ lo=+rg[1]; hi=+rg[2]; if(f.indexOf('+')>=0){ hi=lo+hi; } }
   else if(one){ lo=hi=+one[1]; } else { lo=hi=3; }
   if(meta.addon) hi=Math.max(hi,6);
-  const dRest={strength:150,muscle:90,endurance:45,mobility:25,balance:45,power:120,hybrid:105,general:75}[t.goal]||90;
+  const dRest={flex:90,strength:150,muscle:90,endurance:45,mobility:25,balance:45,power:120,hybrid:105,general:75}[t.goal]||90;
   const mins=t.days.map(d=>d.ex.reduce((a,e)=>a+(+e.s||1)*((e.rest!=null?+e.rest:dRest)+40),0)/60);
   let min=Math.round(mins.reduce((a,b)=>a+b,0)/mins.length/5)*5+5;
   const pm=f.match(/(\d+)\s*min/); if(pm) min=+pm[1];
@@ -6724,6 +6817,7 @@ function pfParse(raw){
   Object.keys(PF_GOALS).forEach(g=>{ let n=0; PF_GOALS[g].forEach(w=>{ if(pfHas(qg,w)) n++; }); if(n) P.goals[g]=n; });
   if(P.avoid.run) delete P.goals.endurance;
   if((P.goals.strength||0)+(P.goals.muscle||0)>=2 && P.goals.strength && P.goals.muscle) P.goals.hybrid=(P.goals.hybrid||0)+2;
+  if(P.goals.mobility && (P.goals.muscle||P.goals.strength||P.goals.hybrid)) { P.goals.flex=(P.goals.flex||0)+4; P.flexCombo=true; }
   if(P.goals.endurance && (P.goals.strength||P.goals.muscle||P.goals.hybrid||/lift|weights|gym|hybrid|hyrox|crossfit/.test(qg))) P.concurrent=true;
   let dm=q.match(/(\d)\s*(?:x|times?|days?|sessions?|workouts?|d)\b\s*(?:a|per|each|\/|every)?\s*(?:week|wk|w)?/) || q.match(/(\d)\s*(?:\/|per|a)\s*(?:week|wk)/);
   if(dm) P.days=Math.min(7,Math.max(1,+dm[1])); else if(/every ?day|daily|7 days/.test(q)) P.days=7;
@@ -6798,6 +6892,7 @@ function pfScore(t,P){
   if(P.avoid.run && /run/i.test(t.freq+t.name)){ s-=30; warn.push('Has runs built in'); }
   if(P.injury){ const hit=/joint-resilient|desk-reset|movement-flow|mobility-flow/.test(t.id)||(P.injury==='knee'&&/hybrid-3plus3|balance-stability|fifa11plus|longevity-pb/.test(t.id))||(P.injury==='back'&&/min-dose|sns/.test(t.id));
     if(hit){ bonus+=30; why.push('Kind to cranky '+P.injury+'s'); } }
+  if(P.goals.flex && t.goal==='flex'){ bonus+=15; why.push('Builds muscle and mobility together'); }
   if(P.concurrent && /hybrid-engine|conditioning|hybrid-3plus3/.test(t.id)){ bonus+=t.id==='hybrid-engine'?30:15; why.push('Mixes lifting with conditioning'); }
   if(pr.addon && P.days && P.days>2) s-=10;
   if(P.noGoal && (t.goal==='mobility'||t.goal==='balance'||pr.addon)) s-=12;
@@ -6827,7 +6922,7 @@ function pfForMe(){
   return {me,P,res};
 }
 function pfUnderstood(P){
-  const c=[]; const both=P.goals.hybrid&&P.goals.strength&&P.goals.muscle; if(!P.noGoal) Object.keys(P.goals).filter(g=>!(both&&(g==='strength'||g==='muscle'))).sort((a,b)=>P.goals[b]-P.goals[a]).slice(0,3).forEach(g=>c.push(PF_GLBL[g]));
+  const c=[]; const both=P.goals.hybrid&&P.goals.strength&&P.goals.muscle; if(!P.noGoal) Object.keys(P.goals).filter(g=>!(both&&(g==='strength'||g==='muscle')) && !(P.flexCombo&&(g==='muscle'||g==='mobility'||g==='strength'||g==='hybrid'))).sort((a,b)=>P.goals[b]-P.goals[a]).slice(0,3).forEach(g=>c.push(PF_GLBL[g]));
   if(P.days) c.push('📅 '+P.days+' day'+(P.days>1?'s':'')+'/wk'); if(P.mins) c.push('⏱ ≤'+P.mins+' min');
   if(P.lvl) c.push(['','🌱 Beginner','📈 Intermediate','🏆 Advanced'][P.lvl]);
   if(P.bw) c.push('🤸 No equipment'); else if(P.home) c.push('🏠 Home');
@@ -6836,7 +6931,7 @@ function pfUnderstood(P){
   if(P.avoid.barbell) c.push('🚫 Barbell'); if(P.avoid.machine) c.push('🚫 Machines'); if(P.avoid.jump) c.push('🚫 Jumps'); if(P.avoid.run) c.push('🚫 Running');
   return c;
 }
-const PF_EXAMPLES=['3 days, build muscle, 45 min','Beginner, want to get strong','Kettlebell only at home','Lose fat but keep strength','Bad knees, want stronger legs','Desk job, stiff back and neck','Get faster and jump higher','Bone density, over 50'];
+const PF_EXAMPLES=['3 days, build muscle, 45 min','Muscle and mobility','Beginner, want to get strong','Kettlebell only at home','Lose fat but keep strength','Bad knees, want stronger legs','Desk job, stiff back and neck','Get faster and jump higher','Bone density, over 50'];
 function pfBoxHTML(){
   return `<div class="pf-box"><div class="pf-h"><span class="pf-ic">🔎</span><div><b>Program finder</b><small>Say what you want — goal, days, time, gear, level</small></div></div>
     <div class="pf-in"><input id="pfQ" type="search" enterkeyhint="search" autocomplete="off" placeholder="e.g. 4 days, muscle + strength, 60 min" value="${esc(pfQuery)}"><button class="pf-x" data-action="pf-clear" aria-label="Clear" style="${pfQuery?'':'display:none'}">✕</button></div>
@@ -6856,7 +6951,7 @@ function pfRender(){
   const box=$('#pfRes'); if(!box) return;
   const q=pfQuery.trim();
   if(!q){ const F=pfForMe();
-    box.innerHTML = F.res.length? `<div class="pf-lbl">✨ Suggested for you <small>from your last 4 weeks · ~${F.me.perWeek} sessions/wk · ${['','beginner','intermediate','advanced'][F.me.lvl]}</small></div>`+F.res.map(pfCard).join('') : ''; return; }
+    box.innerHTML = F.res.length? `<div class="pf-lbl">✨ Suggested for you <small>from your last 4 weeks · ~${F.me.perWeek} sessions/wk · ${['','beginner','intermediate','advanced'][F.me.lvl]}</small></div>`+F.res.map(r=>`<button class="pf-mini" data-action="pf-view" data-tpl="${r.t.id}"><div class="pf-nm"><b>${esc(r.t.name)}</b><small>${esc(TPL_BEST[r.t.id]||r.t.goalLabel)}</small></div><span class="pf-pct">${r.pct}%</span></button>`).join('') : ''; return; }
   const R=pfSearch(q), u=pfUnderstood(R.P);
   box.innerHTML = (u.length?`<div class="pf-und">Understood: ${u.map(x=>`<span>${x}</span>`).join('')}</div>`:'')
     + (R.res.length? `<div class="pf-lbl">Best matches <small>${R.res.length} of ${TEMPLATES.length} programs</small></div>`+R.res.map(pfCard).join('')
@@ -6865,6 +6960,109 @@ function pfRender(){
 let _pfT=0;
 document.addEventListener('input', e=>{ if(e.target && e.target.id==='pfQ'){ pfQuery=String(e.target.value).slice(0,160); const x=$('.pf-x'); if(x) x.style.display=pfQuery?'':'none'; clearTimeout(_pfT); _pfT=setTimeout(pfRender,140); } });
 document.addEventListener('keydown', e=>{ if(e.target && e.target.id==='pfQ' && e.key==='Enter'){ e.preventDefault(); clearTimeout(_pfT); pfRender(); e.target.blur(); } });
+/* ===================== PROGRAM LIST — grouped, compact, filterable ===================== */
+let tplDays='any', tplLvl=0, tplHome=false; const tplMore={};
+const TPL_SEC=[
+  ['strength','💪','Get stronger on the big lifts'],
+  ['muscle','🏋️','Build size with volume'],
+  ['flex','🌀','Grow muscle through full range — get mobile while you build'],
+  ['hybrid','⚡','Strength and size together'],
+  ['general','❤️','All-round fitness, short sessions, bodyweight'],
+  ['endurance','🔥','Conditioning, fat loss, lifting + running'],
+  ['power','🚀','Jump higher, move faster'],
+  ['mobility','🧘','Move better, recover, undo the desk'],
+  ['balance','🦵','Stability, resilience, injury prevention']
+];
+const TPL_BEST={
+  'foundations':'Your first structured program — learn the main lifts',
+  'ppl-strength':'Push / pull / legs you can run 3 or 6 days',
+  'hyper-ul':'Classic upper/lower split for size',
+  'conditioning':'Circuits that burn fat and build stamina',
+  'powerbuild':'Heavy compounds plus bodybuilding accessories',
+  'fivebyfive':'Five lifts, 5 × 5, add weight every session',
+  'ul-strength':'Upper/lower split built around heavy triples and fives',
+  'bro-split':'One muscle group per day, high pump',
+  'athletic':'Jumps, cleans and sprint-ready legs',
+  'calisthenics':'Bodyweight skills and strength, anywhere',
+  'mobility-flow':'Gentle flow for rest days',
+  'balance-stability':'Single-leg strength and steadier joints',
+  'novice-lp':'Simple linear progression for new lifters',
+  'texas-method':'Volume · light · intensity week for stalled lifters',
+  'wave-4day':'Wave-loaded 4-day block for experienced lifters',
+  'tiered-t123':'Heavy tier 1, volume tier 2, pump tier 3',
+  'ppl-6day':'High-frequency push/pull/legs for size',
+  'fullbody-x3':'Efficient full-body hypertrophy, 3 days',
+  'glute-pchain':'Glute and hamstring add-on for any split',
+  'min-dose':'Minimum effective dose — 2 short sessions',
+  'hybrid-engine':'Lift 3 days, run 2 — build an engine',
+  'longevity-pb':'Power, bone and balance for healthy aging',
+  'desk-reset':'10-minute fix for desk posture and stiffness',
+  'hybrid-blueprint':'Advanced mix of strength, power and skills',
+  'minimal-fullbody2':'Two full-body days that cover everything',
+  'joint-resilient':'Strong, pain-free shoulders, hips and back',
+  'movement-flow':'12-minute daily joint flow',
+  'calisthenics-hybrid':'Barbell basics plus bodyweight skills',
+  'hybrid-3plus3':'Athletic legs, knees and springiness',
+  'wendler-bbb':'5/3/1 main lift plus 5 × 10 for size',
+  'gzclp':'Tiered linear progression — a beginner favourite',
+  'greyskull':'Linear progression with AMRAP last sets',
+  'sns':'One kettlebell: swings and get-ups',
+  'easy-strength':'Low-fatigue strength, 5 short days',
+  'dup-hps':'Hypertrophy · power · strength days (DUP)',
+  'liftmor':'Heavy, safe lifting to build bone density',
+  'fifa11plus':'The proven sports warm-up that prevents injuries',
+  'schoenfeld-hv':'5 sets per move — maximum volume block',
+  'long-length':'Stretch-loaded upper/lower for size and range',
+  'full-range-fb':'Dumbbell full body that builds muscle and flexibility',
+  'bw-strength-flex':'No-equipment muscle with deep-range moves',
+  'deep-legs':'Deep split squats, Nordics and hip range',
+  'flex-ppl':'5-day split with mobility finishers'
+};
+const TPL_LV=['','🌱 Beginner','📈 Intermediate','🏆 Advanced'];
+function tplHomeOk(pr){ const W=pr.work.length||1, f=k=>(pr.eq[k]||0)/W; return f('bw')+f('db')+f('kb')+f('bar')*.8+f('box')*.8 >= .8; }
+function tplEquipLbl(pr){ const e=pr.eq, g=[]; if(e.barbell) g.push('Barbell'); if(e.machine) g.push('Machines'); if(!g.length){ if(e.db) g.push('Dumbbells'); if(e.kb) g.push('Kettlebell'); if(e.bar) g.push('Pull-up bar'); } if(!g.length) g.push('Bodyweight'); return (tplHomeOk(pr)&&!e.barbell&&!e.machine?'🏠 ':'')+g.slice(0,2).join(' + '); }
+function tplDaysLbl(pr){ return pr.addon? pr.lo+'×/wk add-on' : (pr.lo===pr.hi?pr.lo:pr.lo+'–'+pr.hi)+'×/wk'; }
+function tplPass(t){ const pr=pfProfile(t);
+  if(tplDays!=='any'){ const d=+tplDays; if(d>=5 ? pr.hi<5 : !(d>=pr.lo && d<=pr.hi)) return false; }
+  if(tplLvl && pr.lv!==tplLvl) return false;
+  if(tplHome && !tplHomeOk(pr)) return false;
+  return true; }
+function tplCardHTML(t){
+  const pr=pfProfile(t), have=(DB.routines||[]).some(x=>x.name===t.name), dc=t.days.length;
+  return `<div class="tcard tc2" data-tpl="${t.id}">
+    <button class="tc-head" data-action="toggle-tpl" data-tpl="${t.id}">
+      <div class="tc-top"><h4>${esc(t.name)}</h4><span class="tc-lv lv${pr.lv}">${TPL_LV[pr.lv]}</span></div>
+      <div class="tc-best">${esc(TPL_BEST[t.id]||t.repFocus)}</div>
+      <div class="tc-meta"><span>📅 ${tplDaysLbl(pr)}</span><span>⏱ ~${pr.min} min</span><span>${tplEquipLbl(pr)}</span>${have?'<span class="tc-have">✓ In routines</span>':''}</div>
+      <span class="tc-chev">▾</span>
+    </button>
+    <div class="collapse" id="tpl-${t.id}">
+      <div class="tmeta"><span>📅 <b>${esc(t.freq)}</b></span><span>🔢 <b>${esc(t.repFocus)}</b></span><span>⏱ <b>${esc(t.rest)}</b></span></div>
+      <div class="t-note"><b>Progressive overload —</b> ${t.progression}</div>
+      <div class="t-note said"><b>Why it works —</b> ${t.said}</div>${t.src?`<div class="t-src">📚 ${esc(t.src)}</div>`:''}
+      <div class="day-list">${t.days.map(d=>`<div class="day-row"><div class="dn"><span>${esc(d.name)}</span><span style="color:var(--muted-2);font-size:11px">${d.ex.length} moves</span></div><div class="de">${d.ex.map(e=>esc(e.n)).join(', ')}</div></div>`).join('')}</div>
+      ${have?`<button class="btn btn-ghost" disabled style="margin-top:12px">✓ Already in your routines</button>`:`<button class="btn btn-primary" data-action="use-tpl" data-tpl="${t.id}" style="margin-top:12px">Add to my routines · ${dc} day${dc>1?'s':''}</button>`}
+    </div>
+  </div>`;
+}
+function tplListHTML(){
+  const secs=TPL_SEC.filter(s=>TEMPLATES.some(t=>t.goal===s[0]));
+  TEMPLATES.forEach(t=>{ if(!secs.some(s=>s[0]===t.goal)) secs.push([t.goal,'📋','']); });
+  const lbl=g=>(TEMPLATES.find(x=>x.goal===g)||{}).goalLabel||g;
+  const shown=TEMPLATES.filter(tplPass), filt=tplDays!=='any'||tplLvl||tplHome;
+  const gchips=`<div class="tl-row">${[['all','All',shown.length]].concat(secs.map(s=>[s[0],s[1]+' '+lbl(s[0]),shown.filter(t=>t.goal===s[0]).length])).map(([g,l,n])=>`<button class="chip ${tplFilter===g?'on':''}${n?'':' dim'}" data-action="tpl-filter" data-g="${g}">${l} <i>${n}</i></button>`).join('')}</div>`;
+  const fchips=`<div class="tl-row tl-f"><span class="tl-k">Days</span>${['any',2,3,4,5].map(d=>`<button class="fchip ${String(tplDays)===String(d)?'on':''}" data-action="tpl-days" data-d="${d}">${d==='any'?'Any':d===5?'5+':d}</button>`).join('')}<span class="tl-k">Level</span>${[0,1,2,3].map(l=>`<button class="fchip ${tplLvl===l?'on':''}" data-action="tpl-lvl" data-l="${l}">${l?TPL_LV[l].split(' ')[0]:'Any'}</button>`).join('')}<button class="fchip ${tplHome?'on':''}" data-action="tpl-home">🏠 Home</button></div>`;
+  const status=`<div class="tl-status">${shown.filter(t=>tplFilter==='all'||t.goal===tplFilter).length} of ${TEMPLATES.length} programs${filt?` · <button class="tl-clear" data-action="tpl-clear">Clear filters</button>`:''}</div>`;
+  const body=secs.filter(s=>tplFilter==='all'||s[0]===tplFilter).map(s=>{
+    const list=shown.filter(t=>t.goal===s[0]).sort((a,b)=>pfProfile(a).lv-pfProfile(b).lv||pfProfile(a).lo-pfProfile(b).lo);
+    if(!list.length) return '';
+    const cap=(tplFilter==='all'&&!filt&&!tplMore[s[0]])?3:99, rest=list.length-cap;
+    return `<section class="tsec" id="tsec-${s[0]}"><div class="tsec-h"><span class="tsec-ic">${s[1]}</span><div><b>${esc(lbl(s[0]))}</b><small>${esc(s[2])}</small></div><span class="tsec-n">${list.length}</span></div>
+      ${list.slice(0,cap).map(tplCardHTML).join('')}
+      ${rest>0?`<button class="tsec-more" data-action="tpl-more" data-g="${s[0]}">Show ${rest} more ${esc(lbl(s[0]).toLowerCase())} program${rest>1?'s':''} ▾</button>`:''}</section>`;
+  }).join('');
+  return `<div class="tl-bar">${gchips}${fchips}</div>${status}${body||`<div class="tl-empty">No program matches these filters.<br><button class="mini-link" data-action="tpl-clear" style="margin-top:10px">Clear filters</button></div>`}`;
+}
 
 
 function buildRunPlan(start, goal, days){
@@ -7688,7 +7886,12 @@ document.addEventListener('click', e=>{
     case 'train-tab': trainTab=t.dataset.tab; renderTrain(); break;
 
     // template interactions
-    case 'toggle-tpl': { const el=$('#tpl-'+t.dataset.tpl); el.classList.toggle('open'); t.textContent = el.classList.contains('open')?'Hide training days ▴':('View '+TEMPLATES.find(x=>x.id===t.dataset.tpl).days.length+' training days ▾'); break; }
+    case 'toggle-tpl': { const el=$('#tpl-'+t.dataset.tpl); if(!el) break; el.classList.toggle('open'); const c=t.closest&&t.closest('.tcard'); if(c&&c.classList) c.classList.toggle('open', el.classList.contains('open')); break; }
+    case 'tpl-days': tplDays=t.dataset.d==='any'?'any':+t.dataset.d; renderTrain(); break;
+    case 'tpl-lvl': tplLvl=+t.dataset.l||0; renderTrain(); break;
+    case 'tpl-home': tplHome=!tplHome; renderTrain(); break;
+    case 'tpl-clear': tplDays='any'; tplLvl=0; tplHome=false; tplFilter='all'; renderTrain(); break;
+    case 'tpl-more': tplMore[t.dataset.g]=1; renderTrain(); break;
     case 'use-tpl': {
       const tpl=TEMPLATES.find(x=>x.id===t.dataset.tpl);
       const copy={id:uid(), name:tpl.name, goal:tpl.goal, goalLabel:tpl.goalLabel,
@@ -7737,12 +7940,12 @@ document.addEventListener('click', e=>{
 
     // exercise picker
     case 'exg-toggle': { const g=t.closest('.exg'); if(g&&g.classList) g.classList.toggle('open'); break; }
-    case 'tpl-filter': tplFilter=t.dataset.g; renderTrain(); window.scrollTo(0,0); break;
+    case 'tpl-filter': tplFilter=t.dataset.g; renderTrain(); break;
     case 'pf-ex': { pfQuery=t.dataset.q; const i=$('#pfQ'); if(i) i.value=pfQuery; const x=$('.pf-x'); if(x) x.style.display=''; pfRender(); break; }
     case 'pf-clear': { pfQuery=''; const i=$('#pfQ'); if(i){ i.value=''; i.focus&&i.focus(); } if(t.style) t.style.display='none'; pfRender(); break; }
-    case 'pf-view': { const id=t.dataset.tpl; if(tplFilter!=='all'){ tplFilter='all'; renderTrain(); }
-      const c=$('#tpl-'+id); if(c && !c.classList.contains('open')){ c.classList.add('open'); const b=$('[data-action="toggle-tpl"][data-tpl="'+id+'"]'); if(b) b.textContent='Hide training days ▴'; }
-      const card=$('.tcard[data-tpl="'+id+'"]'); if(card){ card.classList.remove('pf-flash'); void card.offsetWidth; card.classList.add('pf-flash'); if(card.scrollIntoView) card.scrollIntoView({behavior:'smooth',block:'start'}); } break; }
+    case 'pf-view': { const id=t.dataset.tpl, tp=TEMPLATES.find(x=>x.id===id); if(!tp) break; tplFilter=tp.goal; tplDays='any'; tplLvl=0; tplHome=false; tplMore[tp.goal]=1; renderTrain();
+      const c=$('#tpl-'+id); if(c && !c.classList.contains('open')){ c.classList.add('open'); }
+      const card=$('.tcard[data-tpl="'+id+'"]'); if(card){ card.classList.add('open'); card.classList.remove('pf-flash'); void card.offsetWidth; card.classList.add('pf-flash'); if(card.scrollIntoView) card.scrollIntoView({behavior:'smooth',block:'start'}); } break; }
     case 'pick-ex': { const name=t.dataset.name; const cb=exPickCallback; closeSheet(); setTimeout(()=>cb&&cb(name),60); break; }
     case 'swap-browse': { const ei=+t.dataset.ei; closeSheet(); setTimeout(()=>openExPicker(n=>swapPick(ei,n)),80); break; }
     case 'swap-create': { const ei=+t.dataset.ei; exPickCallback=n=>swapPick(ei,n); _cxReturn=()=>openSwap(ei); openCustomEx(''); break; }
