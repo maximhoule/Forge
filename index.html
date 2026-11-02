@@ -2267,6 +2267,11 @@ const EX = [
   {n:'Low-to-High Cable Fly', g:'Chest', p:'push', pil:['strength']},
   {n:'Floor Press', g:'Chest', p:'push', pil:['strength'], c:1},
   {n:'Svend Press', g:'Chest', p:'push', pil:['strength']},
+  {n:'Hex Press', g:'Chest', p:'push', pil:['strength']},
+  {n:'Upright Row', g:'Shoulders', p:'pull', pil:['strength']},
+  {n:'Machine Curl', g:'Biceps', p:'pull', pil:['strength']},
+  {n:'Pendulum Squat', g:'Quads', p:'legs', pil:['strength'], c:1},
+  {n:'Incline Sit-Up', g:'Core', p:'core', pil:['strength']},
   {n:'Weighted Push-Up', g:'Chest', p:'push', pil:['strength']},
   {n:'Deficit Push-Up', g:'Chest', p:'push', pil:['strength','mobility']},
   {n:'Seal Row', g:'Back', p:'pull', pil:['strength'], c:1},
@@ -3436,6 +3441,107 @@ const TEMPLATES = [
       {name:'Chest & arms', ex:[{n:'Incline Dumbbell Press', s:4, r:'8–12', rest:90},{n:'Low-to-High Cable Fly', s:3, r:'12–15', rest:60},{n:'Machine Chest Press', s:3, r:'10–12', rest:75},{n:'Bayesian Cable Curl', s:3, r:'10–12', rest:60},{n:'Rope Overhead Extension', s:3, r:'10–12', rest:60},{n:'Hammer Curl', s:2, r:'12', rest:45},{n:'Triceps Pushdown', s:2, r:'12–15', rest:45}]},
       {name:'Legs', ex:[{n:'Hack Squat', s:4, r:'8–12', rest:120},{n:'Romanian Deadlift', s:3, r:'8–10', rest:120},{n:'Leg Extension', s:3, r:'12–15', rest:60},{n:'Seated Leg Curl', s:3, r:'10–12', rest:60},{n:'Calf Raise', s:4, r:'10–15', rest:45},{n:'Ab Wheel Rollout', s:3, r:'8–12', rest:45}]},
       {name:'Back thickness & delts', ex:[{n:'Chest-Supported Row', s:4, r:'8–12', rest:90},{n:'Neutral-Grip Lat Pulldown', s:3, r:'10–12', rest:75},{n:'Meadows Row', s:3, r:'10 / arm', rest:75},{n:'Lateral Raise', s:4, r:'15–20', rest:45},{n:'Face Pull', s:3, r:'15', rest:45},{n:'Cable Crunch', s:3, r:'12–15', rest:45}]}
+    ]
+  },
+  {
+    id:'coleman-heavy', name:'Heavy Volume Split (Ronnie Coleman style)', goal:'pro', goalLabel:'IFBB Pro Styles',
+    src:'Based on the high-volume routine widely reported from 8× Mr. Olympia Ronnie Coleman’s era (Fitness Volt, 2025) — Coleman never released an official program',
+    freq:'6 days / week (Back+Bi+Shoulders · Legs · Chest+Tri, twice) · Sunday off', repFocus:'Heavy basics 5 × 5–8, then 3–4 × 8–15', rest:'2–3 min heavy · 60–90 s pump',
+    progression:'Coleman paired very heavy compound lifts with high volume: each muscle twice a week, the first lift heavy and the rest for pump. Push the top sets hard but never sacrifice form — he famously trained heavy for decades, and paid for it with his joints. Add weight to the first exercise whenever all sets hit the top of the range.',
+    said:'Heavy compounds plus lots of sets, twice a week per muscle, lines up with what research shows drives growth: frequency, volume and progressive load. It is a lot of work — eat and sleep to match, or drop to the first three days only.',
+    days:[
+      {name:'Mon — back, biceps, shoulders', ex:[{n:'Deadlift', s:3, r:'8–10', rest:180},{n:'Barbell Row', s:3, r:'8–12', rest:120},{n:'T-Bar Row', s:3, r:'8–12', rest:120},{n:'Barbell Curl', s:4, r:'8–10', rest:75},{n:'Preacher Curl', s:4, r:'8–10', rest:60},{n:'Overhead Press', s:3, r:'8–10', rest:120},{n:'Dumbbell Shoulder Press', s:3, r:'8–10', rest:90}]},
+      {name:'Tue — legs (heavy)', ex:[{n:'Back Squat', s:5, r:'5–8', rest:180},{n:'Leg Press', s:5, r:'5–8', rest:150},{n:'Leg Curl', s:3, r:'8–12', rest:90},{n:'Stiff-Leg Deadlift', s:3, r:'8–12', rest:120},{n:'Walking Lunge', s:3, r:'10 / leg', rest:90}]},
+      {name:'Wed — chest & triceps', ex:[{n:'Barbell Bench Press', s:5, r:'5–8', rest:180},{n:'Incline Barbell Press', s:3, r:'8–12', rest:120},{n:'Dumbbell Fly', s:4, r:'8–10', rest:75},{n:'Close-Grip Bench Press', s:3, r:'8–12', rest:90},{n:'Overhead Triceps Extension', s:4, r:'8–12', rest:75}]},
+      {name:'Thu — back, biceps, shoulders (volume)', ex:[{n:'Barbell Row', s:4, r:'8–12', rest:120},{n:'Seated Cable Row', s:4, r:'12–15', rest:90},{n:'Spider Curl', s:4, r:'10–12', rest:60},{n:'Machine Curl', s:4, r:'10–12', rest:60},{n:'Cable Curl', s:3, r:'12–15', rest:45},{n:'Dumbbell Shoulder Press', s:4, r:'8–10', rest:90},{n:'Front Raise', s:3, r:'10–12', rest:45},{n:'Lateral Raise', s:3, r:'8–10', rest:45}]},
+      {name:'Fri — legs (volume)', ex:[{n:'Front Squat', s:5, r:'8–12', rest:150},{n:'Leg Extension', s:4, r:'12–15', rest:60},{n:'Leg Curl', s:4, r:'12–15', rest:60},{n:'Hack Squat', s:3, r:'10–12', rest:120},{n:'Seated Leg Curl', s:3, r:'10–12', rest:60}]},
+      {name:'Sat — chest, triceps, calves', ex:[{n:'Incline Dumbbell Press', s:4, r:'8–12', rest:120},{n:'Decline Bench Press', s:4, r:'8–12', rest:120},{n:'Dumbbell Fly', s:4, r:'8–12', rest:60},{n:'Skull Crushers', s:4, r:'8–10', rest:75},{n:'Dips', s:4, r:'8–10', rest:75},{n:'Seated Calf Raise', s:3, r:'10–12', rest:45},{n:'Donkey Calf Raise', s:3, r:'10–12', rest:45},{n:'Cable Crunch', s:3, r:'to failure', rest:45}]}
+    ]
+  },
+  {
+    id:'cbum-ppl', name:'Classic Physique PPL (Chris Bumstead style)', goal:'pro', goalLabel:'IFBB Pro Styles',
+    src:'Based on the push/pull/legs workout 6× Classic Physique Mr. Olympia Chris Bumstead explained in his own YouTube video (via Fitness Volt) — not his paid app program',
+    freq:'6 days / week (Push · Pull · Legs · Push 2 · Pull 2 · Legs 2)', repFocus:'Heavy 5–8 top sets · 10–12 moderate · drop sets & 40 s holds', rest:'2–3 min heavy · 60–90 s accessories',
+    progression:'Warm up into 1–2 heavy top sets of 5–8, then a moderate back-off set of 10–12. Finish isolations with drop sets or 40-second continuous sets for the pump. When the top set hits 8 clean reps, add weight. Adjust to how you recover — CBum stresses the plan should fit your needs.',
+    said:'Every muscle twice a week, a heavy top set for tension and higher-rep pump work for volume — a well-supported recipe for hypertrophy, and the classic-physique emphasis on chest, delts, arms and glutes.',
+    days:[
+      {name:'Push', ex:[{n:'Incline Barbell Press', s:3, r:'2×5–8 heavy, 1×10–12', rest:180},{n:'Dumbbell Shoulder Press', s:3, r:'10–12 (alternating)', rest:90},{n:'Cable Fly', s:3, r:'10–12 (superset ↓)', rest:30},{n:'Overhead Triceps Extension', s:4, r:'7–10', rest:75},{n:'Lateral Raise', s:4, r:'10–12', rest:60},{n:'Dips', s:3, r:'to failure', rest:75}]},
+      {name:'Pull', ex:[{n:'Lat Pulldown', s:3, r:'8–10 + drop set', rest:90},{n:'Barbell Row', s:3, r:'2×6–8 heavy, 1×10–12', rest:150},{n:'Incline Dumbbell Curl', s:4, r:'10–12', rest:60},{n:'Pull-Up', s:3, r:'to failure', rest:90},{n:'EZ-Bar Curl', s:4, r:'2×8–10, 2×40 s', rest:60}]},
+      {name:'Legs', ex:[{n:'Walking Lunge', s:3, r:'12–15 / leg', rest:90},{n:'Romanian Deadlift', s:3, r:'10–12', rest:120},{n:'Hip Thrust', s:3, r:'10–12', rest:90},{n:'Seated Calf Raise', s:4, r:'10–12 (superset ↓)', rest:30},{n:'Leg Curl', s:4, r:'2×8–10, 2×40 s', rest:60}]},
+      {name:'Push 2', ex:[{n:'Close-Grip Bench Press', s:3, r:'8–10', rest:120},{n:'Overhead Press', s:3, r:'10–12', rest:120},{n:'Pec Deck', s:3, r:'1×8–10, 2×40 s', rest:60},{n:'Rope Overhead Extension', s:3, r:'10–12', rest:60},{n:'Lateral Raise', s:4, r:'10–12 (superset ↓)', rest:20},{n:'Push-Up', s:3, r:'to failure', rest:60}]},
+      {name:'Pull 2', ex:[{n:'Rack Pull', s:2, r:'8–10 (after 3 warm-ups)', rest:180},{n:'Pull-Up', s:3, r:'warm-up sets', rest:90},{n:'Hammer Curl', s:3, r:'10–12', rest:60},{n:'Lat Pulldown', s:3, r:'10–12 reverse grip', rest:75},{n:'Cable Curl', s:3, r:'10–12', rest:60},{n:'Seated Cable Row', s:2, r:'20 (drop sets)', rest:75},{n:'Concentration Curl', s:1, r:'drop set', rest:45}]},
+      {name:'Legs 2', ex:[{n:'Back Squat', s:4, r:'3×8–10, 1×4–6', rest:180},{n:'Leg Press', s:2, r:'40 s continuous (superset ↓)', rest:20},{n:'Calf Raise', s:4, r:'10–12 + bounce reps to failure', rest:60},{n:'Hip Adduction', s:4, r:'10–12', rest:60},{n:'Leg Extension', s:4, r:'2×10–12, 2 triple drop sets', rest:60}]}
+    ]
+  },
+  {
+    id:'cutler-split', name:'One-Muscle-a-Day Split (Jay Cutler style)', goal:'pro', goalLabel:'IFBB Pro Styles',
+    src:'Based on the split reported for 4× Mr. Olympia Jay Cutler (Fitness Volt, 2023), who says his sessions never ran over an hour — no single official program exists',
+    freq:'5 days / week (Chest · Back · Arms · off · Shoulders+Calves · Legs · off)', repFocus:'3–4 × 8–12 on every exercise', rest:'60–90 s',
+    progression:'Classic bodybuilding split: one major muscle per session, 3–4 sets of 8–12, controlled reps and a hard squeeze. Keep it under an hour — move with purpose. Add weight when you get 12 reps on every set of an exercise.',
+    said:'Each muscle gets a big dose of volume once a week. Research favours hitting muscles twice a week, so this suits intermediate-to-advanced lifters who like the focus and recovery of a body-part split.',
+    days:[
+      {name:'Chest', ex:[{n:'Incline Barbell Press', s:4, r:'8–12', rest:120},{n:'Incline Dumbbell Press', s:3, r:'8–12', rest:90},{n:'Pec Deck', s:3, r:'8–12', rest:60},{n:'Barbell Bench Press', s:3, r:'8–12', rest:120},{n:'Cable Crossover', s:3, r:'10–12', rest:60},{n:'Dumbbell Pullover', s:3, r:'10–12', rest:60}]},
+      {name:'Back', ex:[{n:'Dumbbell Pullover', s:3, r:'10–12', rest:60},{n:'Lat Pulldown', s:4, r:'8–12 wide grip', rest:90},{n:'Chest-Supported Row', s:3, r:'8–12', rest:90},{n:'Neutral-Grip Lat Pulldown', s:3, r:'8–12 underhand', rest:75},{n:'Barbell Row', s:3, r:'8–12', rest:120},{n:'Seated Cable Row', s:3, r:'8–12', rest:75},{n:'45° Back Extension', s:3, r:'10–12', rest:60}]},
+      {name:'Arms', ex:[{n:'Triceps Pushdown', s:4, r:'8–12 rope', rest:60},{n:'Close-Grip Bench Press', s:3, r:'8–12', rest:90},{n:'Overhead Triceps Extension', s:3, r:'8–12', rest:60},{n:'Barbell Curl', s:4, r:'8–12', rest:60},{n:'Hammer Curl', s:3, r:'8–12', rest:60},{n:'Preacher Curl', s:3, r:'8–12 one arm', rest:60},{n:'Reverse Curl', s:3, r:'8–12', rest:45}]},
+      {name:'Shoulders & calves', ex:[{n:'Lateral Raise', s:4, r:'8–12 seated', rest:60},{n:'Dumbbell Shoulder Press', s:4, r:'8–12', rest:90},{n:'Cable Lateral Raise', s:3, r:'10–12', rest:45},{n:'Front Raise', s:3, r:'8–12', rest:45},{n:'Reverse Pec Deck', s:3, r:'10–12', rest:45},{n:'Calf Raise', s:4, r:'10–12', rest:45},{n:'Donkey Calf Raise', s:3, r:'10–12', rest:45},{n:'Seated Calf Raise', s:3, r:'10–12', rest:45}]},
+      {name:'Legs', ex:[{n:'Leg Extension', s:4, r:'10–12', rest:60},{n:'Leg Press', s:4, r:'8–12', rest:120},{n:'Hack Squat', s:3, r:'8–12', rest:120},{n:'Walking Lunge', s:3, r:'10 / leg', rest:90},{n:'Seated Leg Curl', s:4, r:'8–12', rest:60},{n:'Romanian Deadlift', s:3, r:'8–12', rest:120},{n:'Leg Curl', s:3, r:'10–12', rest:60}]}
+    ]
+  },
+  {
+    id:'zane-3way', name:'Aesthetic Three-Way Split (Frank Zane style)', goal:'pro', goalLabel:'IFBB Pro Styles',
+    src:'Based on the 3-on / 1-off split 3× Mr. Olympia Frank Zane describes in interviews (Fitness Volt) — sets and reps are FORGE’s choice, Zane doesn’t specify them',
+    freq:'4–6 days / week (3 days on, 1 off, repeat)', repFocus:'3–4 × 8–12, slow negatives', rest:'60–90 s · stretch 10–15 s after every set',
+    progression:'Zane’s rules: perfect form makes light weights feel heavy; lower slower than you lift; after every set, stretch the muscle you just trained for 10–15 s. Abs every day, about 12 minutes of easy cardio after each workout. He avoided heavy squats and heavy behind-the-neck pressing for joint health — so should you.',
+    said:'Grouping muscles that work together (back with biceps and forearms, chest with shoulders and triceps) means each session trains a whole movement system. Moderate loads, slow eccentrics and stretching built the most symmetrical physique of his era — with joints that lasted into his 80s.',
+    days:[
+      {name:'Back, biceps, forearms, abs', ex:[{n:'Lat Pulldown', s:4, r:'8–12 (to the front)', rest:90},{n:'Single-Arm Dumbbell Row', s:3, r:'8–12 / arm', rest:75},{n:'Seated Cable Row', s:3, r:'10–12', rest:75},{n:'Concentration Curl', s:3, r:'8–12', rest:60},{n:'Incline Dumbbell Curl', s:3, r:'8–12', rest:60},{n:'Reverse Curl', s:3, r:'10–12', rest:45},{n:'Hanging Knee Raise', s:3, r:'15–20', rest:30}]},
+      {name:'Legs & abs', ex:[{n:'Leg Extension', s:4, r:'10–12', rest:60},{n:'Leg Curl', s:4, r:'10–12', rest:60},{n:'Back Squat', s:3, r:'10–12 (moderate, not heavy)', rest:120},{n:'Leg Press', s:3, r:'10–12', rest:90},{n:'Calf Raise', s:4, r:'12–15', rest:45},{n:'Cable Crunch', s:3, r:'15', rest:30}]},
+      {name:'Chest, shoulders, triceps, abs', ex:[{n:'Incline Dumbbell Press', s:3, r:'8–12', rest:90},{n:'Dumbbell Fly', s:3, r:'10–12', rest:60},{n:'Dips', s:3, r:'8–12 (machine or bars)', rest:75},{n:'Dumbbell Shoulder Press', s:3, r:'8–12 (slow, moderate)', rest:75},{n:'Lateral Raise', s:3, r:'10–12', rest:45},{n:'Triceps Pushdown', s:3, r:'10–12', rest:45},{n:'Overhead Triceps Extension', s:2, r:'10–12', rest:45},{n:'Reverse Crunch', s:3, r:'15–20', rest:30}]}
+    ]
+  },
+  {
+    id:'haney-3on', name:'Stimulate, Don’t Annihilate (Lee Haney style)', goal:'pro', goalLabel:'IFBB Pro Styles',
+    src:'Based on 8× Mr. Olympia Lee Haney’s “stimulate, don’t annihilate” approach and his reported alternating 3-on / 1-off routines (Steel Supplements, 2024)',
+    freq:'4–6 days / week (3 on, 1 off · alternate Routine 1 and 2)', repFocus:'4 × 6–10 on compounds · 12–20 on calves & abs', rest:'60–120 s',
+    progression:'Two 3-day cycles alternate: run days 1–3, rest, then days 4–6, rest. Calves and abs every training day. Haney’s rule: stop each session while you could still do more — enough to stimulate growth, never so much you can’t recover. If you’re still sore or flat, cut sets or take an extra day off.',
+    said:'Pairing push and pull days and stopping short of exhaustion kept Haney healthy enough to win 8 straight Olympias. Research backs the idea: you don’t need to train to complete failure to grow, and managing fatigue lets you train more often.',
+    days:[
+      {name:'R1 · Chest & arms', ex:[{n:'Barbell Bench Press', s:4, r:'6–8', rest:120},{n:'Incline Barbell Press', s:4, r:'6–8', rest:120},{n:'Incline Dumbbell Press', s:3, r:'8–10', rest:90},{n:'Barbell Curl', s:4, r:'8–10', rest:60},{n:'Preacher Curl', s:3, r:'8–10', rest:60},{n:'Triceps Pushdown', s:4, r:'10–12', rest:60},{n:'Skull Crushers', s:3, r:'6–8', rest:60},{n:'Calf Raise', s:4, r:'15–20', rest:30},{n:'Hanging Leg Raise', s:3, r:'15–20', rest:30}]},
+      {name:'R1 · Legs', ex:[{n:'Leg Extension', s:4, r:'12–15', rest:60},{n:'Leg Press', s:4, r:'10–12', rest:120},{n:'Back Squat', s:4, r:'8–10', rest:150},{n:'Leg Curl', s:4, r:'8–10', rest:60},{n:'Stiff-Leg Deadlift', s:3, r:'8–10', rest:90},{n:'Seated Calf Raise', s:4, r:'15–20', rest:30},{n:'Incline Sit-Up', s:3, r:'15–20', rest:30}]},
+      {name:'R1 · Back & shoulders', ex:[{n:'Lat Pulldown', s:4, r:'8–10 (to the front)', rest:90},{n:'T-Bar Row', s:4, r:'6–8', rest:120},{n:'Seated Cable Row', s:4, r:'8–10', rest:75},{n:'Overhead Press', s:4, r:'6–8', rest:120},{n:'Lateral Raise', s:4, r:'8–10', rest:45},{n:'Upright Row', s:3, r:'6–8', rest:60},{n:'Calf Raise', s:4, r:'15–20', rest:30},{n:'Reverse Crunch', s:3, r:'15–20', rest:30}]},
+      {name:'R2 · Chest & arms', ex:[{n:'Barbell Bench Press', s:4, r:'6–8', rest:120},{n:'Incline Barbell Press', s:4, r:'8–10', rest:120},{n:'Dumbbell Fly', s:3, r:'8–10', rest:60},{n:'Dips', s:3, r:'12–15', rest:60},{n:'Cable Crossover', s:3, r:'12–15', rest:45},{n:'Incline Dumbbell Curl', s:4, r:'8–10', rest:60},{n:'Concentration Curl', s:3, r:'6–8', rest:45},{n:'Overhead Triceps Extension', s:3, r:'8–10 one arm', rest:45},{n:'Seated Calf Raise', s:4, r:'15–20', rest:30}]},
+      {name:'R2 · Legs', ex:[{n:'Leg Extension', s:4, r:'12–15', rest:60},{n:'Leg Press', s:4, r:'10–12', rest:120},{n:'Back Squat', s:4, r:'8–10', rest:150},{n:'Leg Curl', s:4, r:'8–10', rest:60},{n:'Stiff-Leg Deadlift', s:3, r:'8–10', rest:90},{n:'Calf Raise', s:6, r:'15–20', rest:30},{n:'Hanging Leg Raise', s:3, r:'15–20', rest:30}]},
+      {name:'R2 · Back & shoulders', ex:[{n:'Neutral-Grip Lat Pulldown', s:4, r:'10–12 narrow grip', rest:75},{n:'Barbell Row', s:4, r:'8–10', rest:120},{n:'Seated Cable Row', s:3, r:'8–10', rest:75},{n:'Single-Arm Dumbbell Row', s:3, r:'8–10 / arm', rest:60},{n:'Overhead Press', s:4, r:'6–8', rest:120},{n:'Lateral Raise', s:4, r:'8–10', rest:45},{n:'Upright Row', s:3, r:'6–8', rest:60},{n:'Calf Raise', s:4, r:'15–20', rest:30},{n:'Incline Sit-Up', s:3, r:'15–20', rest:30}]}
+    ]
+  },
+  {
+    id:'lunsford-8', name:'8-Day Priority Rotation (Derek Lunsford style)', goal:'pro', goalLabel:'IFBB Pro Styles',
+    src:'Based on the 8-day rotation 2023 & 2025 Mr. Olympia Derek Lunsford described for his 2024 prep, with exercises from his filmed quad and back sessions (Fitness Volt) — other days filled in by FORGE',
+    freq:'5–6 days / week (8-day cycle: Quads · Chest · Arms · off · Shoulders · Hams · off · Back)', repFocus:'Work up in sets of ~12 to a top set of 10–12', rest:'90–150 s',
+    progression:'Lunsford never drops below roughly 10–12 reps: build up in sets of 12 to one hard top set, then 1–2 back-off sets. Train by feel — he prioritizes whichever body parts are lagging and adjusts the rotation around recovery. Put your weakest muscle on the day after a rest day.',
+    said:'An 8-day cycle lets each muscle recover fully between sessions while splitting legs into quad and hamstring days for more total leg volume. Keeping reps in the 10–12 range manages joint stress while still training close to failure.',
+    days:[
+      {name:'Quads', ex:[{n:'Leg Extension', s:4, r:'12 · 12 · 10–12 top set', rest:75},{n:'Hack Squat', s:4, r:'12 · 12 · top set 10–12', rest:150},{n:'Leg Press', s:3, r:'12 (banded if possible)', rest:120},{n:'Hip Adduction', s:3, r:'12–15', rest:60}]},
+      {name:'Chest', ex:[{n:'Incline Machine Press', s:4, r:'12 · 12 · top set 10–12', rest:120},{n:'Incline Dumbbell Press', s:3, r:'10–12', rest:90},{n:'Machine Chest Press', s:3, r:'10–12', rest:90},{n:'Pec Deck', s:3, r:'12–15', rest:60},{n:'Cable Crossover', s:3, r:'12–15', rest:60}]},
+      {name:'Arms', ex:[{n:'Preacher Curl', s:4, r:'10–12', rest:60},{n:'Triceps Pushdown', s:4, r:'10–12', rest:60},{n:'Hammer Curl', s:3, r:'10–12', rest:60},{n:'Rope Overhead Extension', s:3, r:'10–12', rest:60},{n:'Cable Curl', s:3, r:'12–15', rest:45},{n:'Dips', s:3, r:'10–12', rest:60}]},
+      {name:'Shoulders', ex:[{n:'Machine Shoulder Press', s:4, r:'12 · 12 · top set 10–12', rest:120},{n:'Lateral Raise', s:4, r:'12–15', rest:45},{n:'Cable Lateral Raise', s:3, r:'12–15', rest:45},{n:'Reverse Pec Deck', s:4, r:'12–15', rest:45},{n:'Dumbbell Shrug', s:3, r:'10–12', rest:60}]},
+      {name:'Hamstrings', ex:[{n:'Seated Leg Curl', s:4, r:'12 · 12 · top set 10–12', rest:75},{n:'Romanian Deadlift', s:3, r:'10–12', rest:150},{n:'Leg Curl', s:3, r:'10–12', rest:60},{n:'Hip Thrust', s:3, r:'10–12', rest:90},{n:'Seated Calf Raise', s:4, r:'12–15', rest:45}]},
+      {name:'Back', ex:[{n:'Straight-Arm Pulldown', s:3, r:'12–15', rest:60},{n:'Single-Arm Cable Row', s:3, r:'10–12 / arm (low row)', rest:75},{n:'Chest-Supported Row', s:3, r:'10–12', rest:90},{n:'T-Bar Row', s:3, r:'10–12 chest-supported', rest:90},{n:'Lat Pulldown', s:3, r:'10–12 one arm', rest:75},{n:'Rack Pull', s:3, r:'10–12', rest:150},{n:'Seated Cable Row', s:3, r:'10–12', rest:75}]}
+    ]
+  },
+  {
+    id:'terry-physique', name:'Physique Champion Split (Ryan Terry style)', goal:'pro', goalLabel:'IFBB Pro Styles',
+    src:'Based on the training split and exercises Men’s Physique Mr. Olympia Ryan Terry shared with Myprotein, plus his “5 pillars” (Fitness Volt) — gaps filled by FORGE',
+    freq:'6 days / week (Back+Bi · Chest+Tri · Legs · Shoulders+Calves · Back · Arms) + active-rest core day', repFocus:'Pyramids 12 → 8 · 1–3 reps from failure · 3 s lowering', rest:'60–120 s',
+    progression:'Terry’s pillars: take sets within 1–3 reps of failure, lower every rep over 3 seconds, and keep progressing — more weight or reps over time. Pyramid the main lift up (12, 10, 8, 8). Short on time? Turn the session into supersets, as he does when travelling. Back gets two days for the width the physique stage demands.',
+    said:'Two back days plus dedicated shoulder and arm days build the wide, 3D upper body that wins Men’s Physique. Slow eccentrics and training close to failure are both supported by research for growth.',
+    days:[
+      {name:'Back & biceps', ex:[{n:'Lat Pulldown', s:4, r:'12 · 10 · 8 · 8', rest:90},{n:'Seated Cable Row', s:3, r:'10–12', rest:75},{n:'Straight-Arm Pulldown', s:3, r:'12–15', rest:60},{n:'Preacher Curl', s:3, r:'10–12', rest:60},{n:'Cable Curl', s:3, r:'12 rope', rest:45}]},
+      {name:'Chest & triceps', ex:[{n:'Incline Dumbbell Press', s:4, r:'12 · 10 · 8 · 8', rest:120},{n:'Cable Fly', s:4, r:'12 (supported)', rest:60},{n:'Incline Machine Press', s:3, r:'6–7 neutral grip', rest:120},{n:'Dumbbell Pullover', s:3, r:'6–7 (superset ↓)', rest:20},{n:'Hex Press', s:3, r:'6–7', rest:75},{n:'Machine Chest Press', s:7, r:'FST-7 · 10', rest:40},{n:'Triceps Pushdown', s:3, r:'10–12', rest:45}]},
+      {name:'Legs', ex:[{n:'Leg Extension', s:4, r:'8–12', rest:75},{n:'Hack Squat', s:4, r:'8–12 (V-squat / leverage)', rest:120},{n:'Pendulum Squat', s:4, r:'12–15', rest:120},{n:'Leg Press', s:3, r:'8–12 one leg', rest:90},{n:'Seated Leg Curl', s:3, r:'10–12', rest:60},{n:'Seated Calf Raise', s:4, r:'10–12', rest:45}]},
+      {name:'Shoulders & calves', ex:[{n:'Reverse Pec Deck', s:3, r:'12–15 (chest-supported)', rest:45},{n:'Barbell Shrug', s:3, r:'8–12 rear + front', rest:60},{n:'Overhead Press', s:3, r:'10', rest:120},{n:'Lateral Raise', s:3, r:'8–12 (superset ↓)', rest:20},{n:'Plate Front Raise', s:3, r:'8–12', rest:60},{n:'Machine Shoulder Press', s:4, r:'12', rest:75},{n:'Calf Raise', s:4, r:'10–12', rest:45}]},
+      {name:'Back only', ex:[{n:'Chest-Supported Row', s:4, r:'15 · 10 · 8 · 8 one arm', rest:90},{n:'Pull-Up', s:3, r:'12 (stay rigid)', rest:90},{n:'T-Bar Row', s:4, r:'15 · 12 · 12 · 15', rest:90},{n:'Neutral-Grip Lat Pulldown', s:4, r:'15 · 12 · 12 · 15 chest-supported', rest:75},{n:'45° Back Extension', s:4, r:'12 weighted', rest:60}]},
+      {name:'Arms', ex:[{n:'Preacher Curl', s:4, r:'10–12', rest:60},{n:'Dips', s:4, r:'10–12', rest:60},{n:'Triceps Pushdown', s:3, r:'12–15', rest:45},{n:'Cable Curl', s:3, r:'12–15 rope', rest:45},{n:'Cable Crunch', s:3, r:'12–15', rest:30}]}
     ]
   }
 ];
@@ -4642,7 +4748,7 @@ function hrZones(){ const mx=maxHR(); if(!mx) return null; const rest=(DB.settin
   return {mx, rest, zones:defs.map(d=>({name:d[0], lo:calc(d[1]), hi:calc(d[2])}))}; }
 
 /* ===================== VO2MAX — dedicated entry + analysis ===================== */
-const APP_V='v79';
+const APP_V='v80';
 function vo2Parts(){
   const s=DB.settings, age=currentAge();
   const bv=bestVo2(), vr=vo2FromRestHR();
@@ -6390,6 +6496,11 @@ Object.assign(CUES,{
 "Incline Machine Press":["Set the seat so handles sit at upper-chest height","Drive up and slightly in, squeeze the top","Letting the shoulders roll forward off the pad"],
 "Low-to-High Cable Fly":["Start low and wide, sweep up to eye level","Soft elbows held at one angle throughout","Bending the arms into a press as it gets heavy"],
 "Floor Press":["Upper arms touch the floor, pause a beat","Elbows ~45°, press straight up","Bouncing the triceps off the floor"],
+"Hex Press":["Press two dumbbells together hard, flat sides touching","Lower to the chest keeping them squeezed","Letting the bells drift apart"],
+"Upright Row":["Grip about shoulder-width, lead with the elbows","Pull to lower-chest height only","Yanking to the chin with a narrow grip"],
+"Machine Curl":["Upper arm flat on the pad","Squeeze hard at the top, 2–3 s lowering","Lifting the elbows off the pad"],
+"Pendulum Squat":["Back flat on the pad, feet mid-platform","Sink deep with knees tracking over toes","Cutting depth short as it gets heavy"],
+"Incline Sit-Up":["Feet hooked, curl up one vertebra at a time","Lower slowly to just short of flat","Yanking on the neck with the hands"],
 "Svend Press":["Crush the plates together hard the whole set","Press straight out, squeeze the inner chest","Letting the plates slip apart and losing tension"],
 "Weighted Push-Up":["Plate sits on the upper back, brace hard","Full depth, full lockout","Hips sagging once the load is on"],
 "Deficit Push-Up":["Hands elevated on blocks, chest sinks below","Control the deep stretch — no bouncing","Dropping fast and straining the shoulder"],
@@ -6995,13 +7106,20 @@ const PF_META={ // level: 1 beginner · 2 intermediate · 3 advanced; tags = ext
   'yates-hit':{lv:3,tags:['dorian','yates','blood and guts','hit','high intensity','one set','mr olympia','olympia','ifbb','pro','bodybuilder']},
   'arnold-split':{lv:3,tags:['arnold','schwarzenegger','golden era','old school','classic','double split','ifbb','pro','bodybuilder','olympia']},
   'mentzer-hd':{lv:2,tags:['mentzer','heavy duty','hit','high intensity','one set','low volume','pre-exhaust','ifbb','pro','bodybuilder']},
-  'fst7':{lv:3,tags:['fst-7','fst7','rambod','phil heath','jay cutler','pump','fascia','ifbb','pro','bodybuilder','olympia']},
+  'fst7':{lv:3,tags:['fst-7','fst7','rambod','pump','fascia','ifbb','pro','bodybuilder','olympia']},
   'mountain-dog':{lv:3,tags:['mountain dog','meadows','john meadows','pump','loaded stretch','ifbb','pro','bodybuilder']},
   'mp-vtaper':{lv:2,tags:["men's physique",'mens physique','physique','v taper','v-taper','wide back','shoulders','aesthetic','quincey','whittington','ifbb','pro','classic physique','beach']},
+  'coleman-heavy':{lv:3,tags:['ronnie','coleman','yeah buddy','light weight','heavy','mass','olympia','ifbb','pro','bodybuilder']},
+  'cbum-ppl':{lv:2,tags:['cbum','bumstead','chris bumstead','classic physique','ppl','push pull legs','olympia','ifbb','pro','aesthetic']},
+  'cutler-split':{lv:2,tags:['jay cutler','cutler','bro split','body part','one muscle','olympia','ifbb','pro','bodybuilder']},
+  'zane-3way':{lv:2,tags:['frank zane','zane','aesthetic','symmetry','golden era','classic','old school','olympia','ifbb','pro']},
+  'haney-3on':{lv:2,tags:['lee haney','haney','stimulate','annihilate','3 on 1 off','olympia','ifbb','pro','bodybuilder']},
+  'lunsford-8':{lv:3,tags:['derek lunsford','lunsford','8 day','rotation','olympia','ifbb','pro','bodybuilder']},
+  'terry-physique':{lv:2,tags:['ryan terry','terry',"men's physique",'mens physique','physique','v taper','olympia','ifbb','pro','aesthetic']},
   'schoenfeld-hv':{lv:3,tags:['science','research','evidence','study','high volume','volume','hypertrophy','schoenfeld']}
 };
 const PF_GOALS={
-  pro:['ifbb','pro bodybuilder','bodybuilder','bodybuilding pro','olympia','golden era','old school','physique','v taper','v-taper','fst-7','fst7','heavy duty','mountain dog','arnold','dorian','yates','mentzer','meadows','rambod','like the pros','like a pro','train like'],
+  pro:['ronnie','coleman','bumstead','cbum','cutler','zane','haney','lunsford','ryan terry','champion','famous','ifbb','pro bodybuilder','bodybuilder','bodybuilding pro','olympia','golden era','old school','physique','v taper','v-taper','fst-7','fst7','heavy duty','mountain dog','arnold','dorian','yates','mentzer','meadows','rambod','like the pros','like a pro','train like'],
   fun:['fun','unorthodox','unusual','weird','odd','creative','innovative','variety','bored','different exercises','strongman','primal','animal flow','playground','spice','something new','not boring','exciting'],
   flex:['muscle and mobility','mobility and muscle','muscle + mobility','strength and mobility','mobility and strength','flexible and strong','strong and flexible','loaded stretch','lengthened','long length','full range','stretch-focused','mobile muscle','build muscle and flexib','build muscle while'],
   strength:['strength','strong','stronger','powerlift','1rm','one rep max','max out','heavier','lift more','bench more','squat more','deadlift more','raw strength'],
@@ -7293,7 +7411,14 @@ const TPL_BEST={
   'mentzer-hd':'Two short workouts a week, pre-exhaust to failure',
   'fst7':'Heavy basics + 7-set pump finishers, 5 days',
   'mountain-dog':'Pre-activation, heavy, pump, loaded stretch',
-  'mp-vtaper':'Wide lats, capped delts, tight waist — physique stage look'
+  'mp-vtaper':'Wide lats, capped delts, tight waist — physique stage look',
+  'coleman-heavy':'Heavy basics + huge volume, each muscle twice a week',
+  'cbum-ppl':'Push/pull/legs ×2 with drop sets and 40 s holds',
+  'cutler-split':'One muscle a day, 3–4 × 8–12, under an hour',
+  'zane-3way':'Symmetry first: slow reps, stretch between sets',
+  'haney-3on':'Train hard, recover harder — 3 on, 1 off',
+  'lunsford-8':'8-day rotation, quads and hams on separate days',
+  'terry-physique':'Two back days, pyramids and 3 s negatives'
 };
 const TPL_LV=['','🌱 Beginner','📈 Intermediate','🏆 Advanced'];
 function tplHomeOk(pr){ const W=pr.work.length||1, f=k=>(pr.eq[k]||0)/W; return f('bw')+f('db')+f('kb')+f('bar')*.8+f('box')*.8 >= .8; }
