@@ -1739,6 +1739,7 @@ body.ui2 .sec-head{margin-top:22px}
 .tcard.tc2.open{border-color:var(--line)}
 .tc2>.collapse{padding:0 14px 14px; border-top:1px solid var(--line-soft)}
 .tc-sci{color:#9CCBFF; font-weight:600}
+.goal-tag.pro{background:rgba(255,200,61,.18); color:#FFD566}
 .goal-tag.fun{background:rgba(255,120,200,.16); color:#FFA8DA}
 .goal-tag.flex{background:rgba(120,220,140,.16); color:#9BE8AE}
 .pf-mini{display:flex; align-items:center; gap:10px; padding:9px 10px; background:var(--surface-2); border:1px solid var(--line-soft); border-radius:10px; margin-bottom:6px; width:100%; text-align:left; color:inherit; font:inherit}
@@ -3358,6 +3359,84 @@ const TEMPLATES = [
       {name:'Jump & throw', ex:[{n:'Broad Jump', s:4, r:'3 (measure it)', rest:90},{n:'Rotational Med Ball Throw', s:3, r:'5 / side', rest:60},{n:'Skater Hop', s:3, r:'6 / side', rest:60},{n:'Dumbbell Snatch', s:3, r:'5 / arm', rest:75},{n:'Bear Crawl', s:3, r:'20 m', rest:45},{n:'Jump Rope', s:3, r:'45 s', rest:30}]},
       {name:'Slam & sprint-ready', ex:[{n:'Box Jump', s:4, r:'4', rest:90},{n:'Medicine Ball Slam', s:4, r:'8', rest:60},{n:'Kettlebell Swing', s:4, r:'12', rest:60},{n:'Tuck Jump', s:3, r:'5', rest:60},{n:'Mountain Climber', s:3, r:'30 s', rest:30},{n:'Burpee', s:2, r:'10', rest:60}]}
     ]
+  },
+  {
+    id:'yates-hit', name:'Blood & Guts HIT (Dorian Yates style)', goal:'pro', goalLabel:'IFBB Pro Styles',
+    src:'Based on the training 6× Mr. Olympia Dorian Yates described publicly (Blood & Guts) — not an official program',
+    freq:'4 days / week (Chest+Bi · Legs · rest · Shoulders+Tri · Back · rest ×2)', repFocus:'Warm-ups, then 1 all-out set of 6–10 per exercise', rest:'2–3 min',
+    progression:'Do 2–3 progressively heavier warm-up sets, then ONE working set taken to true failure with strict form, a controlled 3–4 s lowering and a squeeze at the top. Beat the logbook every session — one more rep or a little more weight. Low volume, maximum effort, plenty of rest.',
+    said:'Yates built his physique on very few, extremely hard sets and long recovery. Research finds more weekly sets usually build more muscle, so this suits experienced lifters who need a break from volume or are short on recovery — not beginners.',
+    days:[
+      {name:'Chest & biceps', ex:[{n:'Incline Barbell Press', s:1, r:'6–8 to failure', rest:180},{n:'Dumbbell Bench Press', s:1, r:'6–8 to failure', rest:180},{n:'Dumbbell Fly', s:1, r:'8–10 to failure', rest:150},{n:'Cable Crossover', s:1, r:'8–10 to failure', rest:120},{n:'Incline Dumbbell Curl', s:1, r:'6–8 to failure', rest:120},{n:'Preacher Curl', s:1, r:'6–8 to failure', rest:120}]},
+      {name:'Legs', ex:[{n:'Leg Extension', s:1, r:'10–12 to failure', rest:120},{n:'Leg Press', s:1, r:'10–12 to failure', rest:180},{n:'Hack Squat', s:1, r:'10–12 to failure', rest:180},{n:'Leg Curl', s:1, r:'8–10 to failure', rest:120},{n:'Stiff-Leg Deadlift', s:1, r:'8–10', rest:150},{n:'Calf Raise', s:1, r:'10–12 to failure', rest:90},{n:'Seated Calf Raise', s:1, r:'10–12 to failure', rest:90}]},
+      {name:'Shoulders & triceps', ex:[{n:'Machine Shoulder Press', s:1, r:'6–8 to failure', rest:180},{n:'Lateral Raise', s:1, r:'8–10 to failure', rest:120},{n:'Cable Rear-Delt Fly', s:1, r:'8–10 to failure', rest:120},{n:'Triceps Pushdown', s:1, r:'8–10 to failure', rest:120},{n:'Skull Crushers', s:1, r:'8–10 to failure', rest:120},{n:'Single-Arm Cable Kickback', s:1, r:'10–12 to failure', rest:90}]},
+      {name:'Back', ex:[{n:'Dumbbell Pullover', s:1, r:'8–10 to failure', rest:150},{n:'Neutral-Grip Lat Pulldown', s:1, r:'8–10 to failure', rest:150},{n:'Barbell Row', s:1, r:'6–8 underhand (Yates row)', rest:180},{n:'Single-Arm Dumbbell Row', s:1, r:'8–10 to failure', rest:150},{n:'Reverse Pec Deck', s:1, r:'10–12 to failure', rest:120},{n:'Deadlift', s:1, r:'6–8 (or Rack Pull)', rest:240},{n:'45° Back Extension', s:1, r:'10–12', rest:90}]}
+    ]
+  },
+  {
+    id:'arnold-split', name:'Golden Era Double Split (Arnold style)', goal:'pro', goalLabel:'IFBB Pro Styles',
+    src:'Based on the split Arnold Schwarzenegger describes in The New Encyclopedia of Modern Bodybuilding — not an official program',
+    freq:'6 days / week (Chest+Back · Shoulders+Arms · Legs, twice)', repFocus:'4–5 × 8–12, supersets of opposing muscles', rest:'60–90 s',
+    progression:'Old-school volume: 4–5 sets per exercise, pyramiding the weight up each set. Superset chest with back and biceps with triceps, as Arnold did. Calves and abs every day. Add weight whenever you hit 12 reps on the first set. This is a lot of work — eat for it, and drop to 4 days if recovery suffers.',
+    said:'Hitting each muscle twice a week with high volume matches what research shows grows muscle best (2×/week, 10+ hard sets). Pairing opposing muscles saves time and gives a huge pump.',
+    days:[
+      {name:'Chest & back', ex:[{n:'Barbell Bench Press', s:5, r:'6–10 (pyramid)', rest:90},{n:'Wide-Grip Pull-Up', s:5, r:'to failure', rest:90},{n:'Incline Barbell Press', s:4, r:'8–10', rest:90},{n:'T-Bar Row', s:4, r:'8–10', rest:90},{n:'Dumbbell Fly', s:4, r:'10–12', rest:75},{n:'Barbell Row', s:4, r:'8–10', rest:90},{n:'Dumbbell Pullover', s:3, r:'12–15', rest:60},{n:'Dips', s:3, r:'to failure', rest:60},{n:'Donkey Calf Raise', s:4, r:'10–15', rest:45}]},
+      {name:'Shoulders & arms', ex:[{n:'Overhead Press', s:4, r:'6–10', rest:90},{n:'Arnold Press', s:4, r:'8–10', rest:75},{n:'Lateral Raise', s:4, r:'10–12', rest:60},{n:'Cable Rear-Delt Fly', s:3, r:'12', rest:60},{n:'Barbell Curl', s:4, r:'8–10', rest:60},{n:'Close-Grip Bench Press', s:4, r:'8–10', rest:60},{n:'Concentration Curl', s:3, r:'10–12', rest:45},{n:'Skull Crushers', s:3, r:'10–12', rest:45},{n:'Hanging Leg Raise', s:3, r:'15', rest:45}]},
+      {name:'Legs', ex:[{n:'Back Squat', s:5, r:'8–12 (pyramid)', rest:150},{n:'Front Squat', s:3, r:'8–10', rest:120},{n:'Leg Extension', s:4, r:'12', rest:60},{n:'Leg Curl', s:4, r:'10–12', rest:60},{n:'Stiff-Leg Deadlift', s:3, r:'10', rest:90},{n:'Walking Lunge', s:3, r:'12 / leg', rest:75},{n:'Calf Raise', s:5, r:'10–15', rest:45},{n:'Seated Calf Raise', s:4, r:'15', rest:45}]}
+    ]
+  },
+  {
+    id:'mentzer-hd', name:'Heavy Duty (Mike Mentzer style)', goal:'pro', goalLabel:'IFBB Pro Styles',
+    src:'Based on Mike Mentzer’s published Heavy Duty principles (consolidated routine) — not an official program',
+    freq:'2 workouts / week (rotate A · B · C, 3–4 rest days between)', repFocus:'1 set to failure · pre-exhaust supersets', rest:'No rest inside a superset · 2–3 min between',
+    progression:'One working set per exercise, taken to positive failure; supersets are done with no rest between the two moves (isolation first to pre-exhaust, compound second). If you don’t beat the previous workout, add an extra rest day before the next one. Mentzer believed recovery — not volume — limits growth.',
+    said:'Pre-exhaust supersets make the target muscle the weak link in the compound lift, and very brief training leaves maximum recovery. Expect strength gains; evidence suggests most people grow more with more sets, so treat this as a time-efficient phase.',
+    days:[
+      {name:'A — chest & back', ex:[{n:'Pec Deck', s:1, r:'6–10 → straight into ↓', rest:10},{n:'Incline Barbell Press', s:1, r:'1–3 to failure', rest:180},{n:'Dumbbell Pullover', s:1, r:'6–10 → straight into ↓', rest:10},{n:'Neutral-Grip Lat Pulldown', s:1, r:'6–10 to failure', rest:180},{n:'Deadlift', s:1, r:'5–8', rest:180}]},
+      {name:'B — legs', ex:[{n:'Leg Extension', s:1, r:'8–15 → straight into ↓', rest:10},{n:'Leg Press', s:1, r:'8–15 to failure', rest:180},{n:'Leg Curl', s:1, r:'6–10 to failure', rest:120},{n:'Calf Raise', s:1, r:'12–20 to failure', rest:90}]},
+      {name:'C — shoulders & arms', ex:[{n:'Lateral Raise', s:1, r:'6–10 to failure', rest:120},{n:'Cable Rear-Delt Fly', s:1, r:'6–10 to failure', rest:120},{n:'Barbell Curl', s:1, r:'6–10 to failure', rest:120},{n:'Triceps Pushdown', s:1, r:'6–10 → straight into ↓', rest:10},{n:'Dips', s:1, r:'3–6 to failure', rest:120}]}
+    ]
+  },
+  {
+    id:'fst7', name:'FST-7 Pump Split (Hany Rambod style)', goal:'pro', goalLabel:'IFBB Pro Styles',
+    src:'Based on coach Hany Rambod’s published FST-7 method (used with Olympia champions Phil Heath and Jay Cutler) — not an official program',
+    freq:'5 days / week (Chest+Tri · Back · Legs · Shoulders · Arms)', repFocus:'3–4 × 8–12, then a final 7 × 10–12 “FST-7” set', rest:'90 s · 30–45 s on FST-7 sets',
+    progression:'Train the heavy basics first. The last exercise for each muscle is the FST-7 finisher: 7 sets of 10–12 with only 30–45 s rest, stretching the muscle and drinking water between sets. Use a weight you can barely finish 12 with on set 1 — reps will drop. Add weight to the main lifts each week.',
+    said:'FST stands for Fascia Stretch Training: the short rests and loaded stretches create a massive pump and lots of metabolic stress, on top of normal heavy volume — a proven way bodybuilders add extra weekly sets without longer sessions.',
+    days:[
+      {name:'Chest & triceps', ex:[{n:'Incline Dumbbell Press', s:4, r:'8–12', rest:90},{n:'Barbell Bench Press', s:3, r:'8–10', rest:120},{n:'Dips', s:3, r:'10–12', rest:90},{n:'Pec Deck', s:7, r:'FST-7 · 10–12', rest:40},{n:'Skull Crushers', s:3, r:'8–12', rest:75},{n:'Triceps Pushdown', s:7, r:'FST-7 · 10–12', rest:40}]},
+      {name:'Back', ex:[{n:'Wide-Grip Pull-Up', s:3, r:'8–12', rest:90},{n:'Barbell Row', s:4, r:'8–10', rest:120},{n:'T-Bar Row', s:3, r:'8–12', rest:90},{n:'Rack Pull', s:3, r:'6–8', rest:150},{n:'Straight-Arm Pulldown', s:7, r:'FST-7 · 10–12', rest:40}]},
+      {name:'Legs', ex:[{n:'Leg Extension', s:3, r:'12–15', rest:60},{n:'Back Squat', s:4, r:'8–12', rest:150},{n:'Hack Squat', s:3, r:'10–12', rest:120},{n:'Leg Press', s:7, r:'FST-7 · 10–12', rest:45},{n:'Seated Leg Curl', s:4, r:'10–12', rest:75},{n:'Calf Raise', s:7, r:'FST-7 · 12–15', rest:30}]},
+      {name:'Shoulders', ex:[{n:'Dumbbell Shoulder Press', s:4, r:'8–12', rest:90},{n:'Lateral Raise', s:3, r:'12–15', rest:60},{n:'Reverse Pec Deck', s:3, r:'12–15', rest:60},{n:'Barbell Shrug', s:3, r:'10–12', rest:75},{n:'Cable Lateral Raise', s:7, r:'FST-7 · 10–12', rest:40}]},
+      {name:'Arms', ex:[{n:'EZ-Bar Curl', s:4, r:'8–12', rest:75},{n:'Close-Grip Bench Press', s:4, r:'8–10', rest:90},{n:'Hammer Curl', s:3, r:'10–12', rest:60},{n:'Rope Overhead Extension', s:3, r:'10–12', rest:60},{n:'Cable Curl', s:7, r:'FST-7 · 10–12', rest:40},{n:'Triceps Pushdown', s:7, r:'FST-7 · 10–12', rest:40}]}
+    ]
+  },
+  {
+    id:'mountain-dog', name:'Mountain Dog Phases (John Meadows style)', goal:'pro', goalLabel:'IFBB Pro Styles',
+    src:'Based on the late IFBB pro & coach John Meadows’ freely published Mountain Dog principles — not an official program',
+    freq:'4 days / week (Chest+Bi · Legs · rest · Back+Tri · Shoulders+Arms)', repFocus:'Pre-activation → explosive → heavy → pump → loaded stretch', rest:'60–150 s',
+    progression:'Every workout follows Meadows’ phases: 1) light pre-activation pump, 2) an explosive or heavy main lift, 3) supramaximal pump work (high reps, partials), 4) a loaded stretch to finish. Rotate exercises every 3–4 weeks — it’s why his own invention, the Meadows row, exists. Never chase weight at the cost of joint health.',
+    said:'Warming the target muscle first improves the mind-muscle connection and protects joints; heavy work builds tension; pump work adds metabolic stress; loaded stretches train the muscle at long lengths, which research links to extra growth.',
+    days:[
+      {name:'Chest & biceps', ex:[{n:'Cable Crossover', s:2, r:'15–20 (pre-activation)', rest:45},{n:'Incline Dumbbell Press', s:4, r:'6–8 heavy', rest:150},{n:'Svend Press', s:3, r:'12–15', rest:60},{n:'Dumbbell Fly', s:2, r:'10 + 30 s stretch hold', rest:60},{n:'Spider Curl', s:3, r:'10–12', rest:60},{n:'Incline Dumbbell Curl', s:2, r:'10 + stretch hold', rest:60}]},
+      {name:'Legs', ex:[{n:'Leg Curl', s:3, r:'15–20 (pre-activation)', rest:45},{n:'Back Squat', s:4, r:'6–10', rest:180},{n:'Hack Squat', s:3, r:'10–12 + partials', rest:120},{n:'Romanian Deadlift', s:3, r:'8–10', rest:120},{n:'Walking Lunge', s:2, r:'20 steps', rest:90},{n:'Calf Raise', s:3, r:'15 + 10 s stretch', rest:45}]},
+      {name:'Back & triceps', ex:[{n:'Straight-Arm Pulldown', s:2, r:'15–20 (pre-activation)', rest:45},{n:'Meadows Row', s:4, r:'8–12 / arm', rest:90},{n:'Rack Pull', s:3, r:'5–8', rest:150},{n:'Kroc Row', s:2, r:'15–25 / arm', rest:90},{n:'Seated Cable Row', s:2, r:'12 + stretch hold', rest:60},{n:'JM Press', s:3, r:'8–10', rest:90},{n:'Rope Overhead Extension', s:2, r:'12–15', rest:60}]},
+      {name:'Shoulders & arms', ex:[{n:'Face Pull', s:2, r:'20 (pre-activation)', rest:45},{n:'Bradford Press', s:3, r:'10–12', rest:90},{n:'Lateral Raise', s:4, r:'12–15 + partials', rest:60},{n:'Cable Rear-Delt Fly', s:3, r:'15', rest:45},{n:'Zottman Curl', s:3, r:'10–12', rest:60},{n:'Dips', s:3, r:'to failure', rest:75}]}
+    ]
+  },
+  {
+    id:'mp-vtaper', name:'Men’s Physique V-Taper', goal:'pro', goalLabel:'IFBB Pro Styles',
+    src:'Built around what the IFBB Men’s Physique division (e.g. pro Quincey Whittington) is judged on: wide lats, capped delts, a tight waist — not any athlete’s personal routine',
+    freq:'5 days / week (Back width · Delts · Chest+Arms · Legs · Back thickness+Delts)', repFocus:'3–4 × 8–15, controlled tempo', rest:'60–90 s',
+    progression:'Physique competitors are judged in board shorts, so the program prioritizes lats and side delts (hit twice a week) and keeps the waist tight: no heavy oblique work. Add reps until you hit the top of the range on every set, then add weight. Legs are trained once a week for balance and athleticism.',
+    said:'The V-taper look comes from a high shoulder-to-waist ratio. Training lats and side delts twice a week with plenty of sets — the frequency and volume research shows grows muscle best — widens the frame, while direct core work stays on anti-extension moves, not heavy side bends.',
+    days:[
+      {name:'Back width', ex:[{n:'Wide-Grip Pull-Up', s:4, r:'8–12', rest:90},{n:'Lat Pulldown', s:4, r:'10–12', rest:75},{n:'Straight-Arm Pulldown', s:3, r:'12–15', rest:60},{n:'Single-Arm Cable Row', s:3, r:'10–12 / arm', rest:60},{n:'Cable Rear-Delt Fly', s:3, r:'15', rest:45},{n:'Hanging Leg Raise', s:3, r:'12–15', rest:45}]},
+      {name:'Delts', ex:[{n:'Dumbbell Shoulder Press', s:4, r:'8–12', rest:90},{n:'Lateral Raise', s:4, r:'12–15', rest:60},{n:'Cable Lateral Raise', s:3, r:'12–15 / arm', rest:45},{n:'Reverse Pec Deck', s:3, r:'15', rest:45},{n:'Dumbbell Shrug', s:3, r:'12', rest:60}]},
+      {name:'Chest & arms', ex:[{n:'Incline Dumbbell Press', s:4, r:'8–12', rest:90},{n:'Low-to-High Cable Fly', s:3, r:'12–15', rest:60},{n:'Machine Chest Press', s:3, r:'10–12', rest:75},{n:'Bayesian Cable Curl', s:3, r:'10–12', rest:60},{n:'Rope Overhead Extension', s:3, r:'10–12', rest:60},{n:'Hammer Curl', s:2, r:'12', rest:45},{n:'Triceps Pushdown', s:2, r:'12–15', rest:45}]},
+      {name:'Legs', ex:[{n:'Hack Squat', s:4, r:'8–12', rest:120},{n:'Romanian Deadlift', s:3, r:'8–10', rest:120},{n:'Leg Extension', s:3, r:'12–15', rest:60},{n:'Seated Leg Curl', s:3, r:'10–12', rest:60},{n:'Calf Raise', s:4, r:'10–15', rest:45},{n:'Ab Wheel Rollout', s:3, r:'8–12', rest:45}]},
+      {name:'Back thickness & delts', ex:[{n:'Chest-Supported Row', s:4, r:'8–12', rest:90},{n:'Neutral-Grip Lat Pulldown', s:3, r:'10–12', rest:75},{n:'Meadows Row', s:3, r:'10 / arm', rest:75},{n:'Lateral Raise', s:4, r:'15–20', rest:45},{n:'Face Pull', s:3, r:'15', rest:45},{n:'Cable Crunch', s:3, r:'12–15', rest:45}]}
+    ]
   }
 ];
 
@@ -4563,7 +4642,7 @@ function hrZones(){ const mx=maxHR(); if(!mx) return null; const rest=(DB.settin
   return {mx, rest, zones:defs.map(d=>({name:d[0], lo:calc(d[1]), hi:calc(d[2])}))}; }
 
 /* ===================== VO2MAX — dedicated entry + analysis ===================== */
-const APP_V='v78';
+const APP_V='v79';
 function vo2Parts(){
   const s=DB.settings, age=currentAge();
   const bv=bestVo2(), vr=vo2FromRestHR();
@@ -6913,9 +6992,16 @@ const PF_META={ // level: 1 beginner · 2 intermediate · 3 advanced; tags = ext
   'primal-flow':{lv:1,tags:['primal','animal flow','crawl','ground','fun','unorthodox','play','movement','coordination']},
   'weird-hyper':{lv:2,tags:['variety','weird','unusual','different exercises','fun','unorthodox','bodybuilding','new exercises']},
   'playground':{lv:1,tags:['playground','fun','jump','throw','slam','play','games','recess','explosive']},
+  'yates-hit':{lv:3,tags:['dorian','yates','blood and guts','hit','high intensity','one set','mr olympia','olympia','ifbb','pro','bodybuilder']},
+  'arnold-split':{lv:3,tags:['arnold','schwarzenegger','golden era','old school','classic','double split','ifbb','pro','bodybuilder','olympia']},
+  'mentzer-hd':{lv:2,tags:['mentzer','heavy duty','hit','high intensity','one set','low volume','pre-exhaust','ifbb','pro','bodybuilder']},
+  'fst7':{lv:3,tags:['fst-7','fst7','rambod','phil heath','jay cutler','pump','fascia','ifbb','pro','bodybuilder','olympia']},
+  'mountain-dog':{lv:3,tags:['mountain dog','meadows','john meadows','pump','loaded stretch','ifbb','pro','bodybuilder']},
+  'mp-vtaper':{lv:2,tags:["men's physique",'mens physique','physique','v taper','v-taper','wide back','shoulders','aesthetic','quincey','whittington','ifbb','pro','classic physique','beach']},
   'schoenfeld-hv':{lv:3,tags:['science','research','evidence','study','high volume','volume','hypertrophy','schoenfeld']}
 };
 const PF_GOALS={
+  pro:['ifbb','pro bodybuilder','bodybuilder','bodybuilding pro','olympia','golden era','old school','physique','v taper','v-taper','fst-7','fst7','heavy duty','mountain dog','arnold','dorian','yates','mentzer','meadows','rambod','like the pros','like a pro','train like'],
   fun:['fun','unorthodox','unusual','weird','odd','creative','innovative','variety','bored','different exercises','strongman','primal','animal flow','playground','spice','something new','not boring','exciting'],
   flex:['muscle and mobility','mobility and muscle','muscle + mobility','strength and mobility','mobility and strength','flexible and strong','strong and flexible','loaded stretch','lengthened','long length','full range','stretch-focused','mobile muscle','build muscle and flexib','build muscle while'],
   strength:['strength','strong','stronger','powerlift','1rm','one rep max','max out','heavier','lift more','bench more','squat more','deadlift more','raw strength'],
@@ -6927,8 +7013,8 @@ const PF_GOALS={
   balance:['balance','stability','stable','fall','ankle','injury','prevent','acl','older','senior','aging','longevity','bone','single leg','proprioception'],
   general:['general','health','healthy','overall','everything','fitness','in shape','longevity','beginner','start','consistent']
 };
-const PF_REL={fun:{general:.35,hybrid:.3,muscle:.3,power:.35,strength:.25,flex:.25},flex:{muscle:.6,mobility:.55,hybrid:.3,general:.3,strength:.25},strength:{flex:.25,hybrid:.7,power:.4,general:.3,muscle:.35,endurance:.2},muscle:{flex:.6,hybrid:.7,general:.35,strength:.35,endurance:.15},endurance:{general:.4,power:.2,hybrid:.15},hybrid:{strength:.65,muscle:.65,general:.3,power:.3},power:{hybrid:.45,strength:.4,balance:.25},mobility:{flex:.6,balance:.45,general:.2},balance:{mobility:.4,general:.35,power:.25},general:{hybrid:.35,strength:.3,muscle:.3,endurance:.3,balance:.25}};
-const PF_GLBL={fun:'🎲 Fun & variety',flex:'🌀 Muscle + mobility',strength:'💪 Strength',muscle:'🏋️ Muscle',endurance:'🔥 Fat loss / engine',hybrid:'⚡ Strength + size',power:'🚀 Power',mobility:'🧘 Mobility',balance:'🦵 Balance & resilience',general:'❤️ General health'};
+const PF_REL={pro:{muscle:.7,hybrid:.35,fun:.2,general:.15},fun:{general:.35,hybrid:.3,muscle:.3,power:.35,strength:.25,flex:.25},flex:{muscle:.6,mobility:.55,hybrid:.3,general:.3,strength:.25},strength:{flex:.25,hybrid:.7,power:.4,general:.3,muscle:.35,endurance:.2},muscle:{pro:.6,flex:.6,hybrid:.7,general:.35,strength:.35,endurance:.15},endurance:{general:.4,power:.2,hybrid:.15},hybrid:{strength:.65,muscle:.65,general:.3,power:.3},power:{hybrid:.45,strength:.4,balance:.25},mobility:{flex:.6,balance:.45,general:.2},balance:{mobility:.4,general:.35,power:.25},general:{hybrid:.35,strength:.3,muscle:.3,endurance:.3,balance:.25}};
+const PF_GLBL={pro:'🏆 Pro bodybuilding',fun:'🎲 Fun & variety',flex:'🌀 Muscle + mobility',strength:'💪 Strength',muscle:'🏋️ Muscle',endurance:'🔥 Fat loss / engine',hybrid:'⚡ Strength + size',power:'🚀 Power',mobility:'🧘 Mobility',balance:'🦵 Balance & resilience',general:'❤️ General health'};
 const PF_NUM={one:1,two:2,three:3,four:4,five:5,six:6,seven:7,twice:2,once:1,thrice:3};
 const _pfCache={};
 function pfEquip(n){
@@ -6953,8 +7039,8 @@ function pfProfile(t){
   else if(rg){ lo=+rg[1]; hi=+rg[2]; if(f.indexOf('+')>=0){ hi=lo+hi; } }
   else if(one){ lo=hi=+one[1]; } else { lo=hi=3; }
   if(meta.addon) hi=Math.max(hi,6);
-  const dRest={fun:75,flex:90,strength:150,muscle:90,endurance:45,mobility:25,balance:45,power:120,hybrid:105,general:75}[t.goal]||90;
-  const mins=t.days.map(d=>d.ex.reduce((a,e)=>a+(+e.s||1)*((e.rest!=null?+e.rest:dRest)+40),0)/60);
+  const dRest={pro:90,fun:75,flex:90,strength:150,muscle:90,endurance:45,mobility:25,balance:45,power:120,hybrid:105,general:75}[t.goal]||90;
+  const mins=t.days.map(d=>d.ex.reduce((a,e)=>a+((+e.s||1)<=1?2.5:+e.s)*((e.rest!=null?+e.rest:dRest)+40),0)/60);
   let min=Math.round(mins.reduce((a,b)=>a+b,0)/mins.length/5)*5+5;
   const pm=f.match(/(\d+)\s*min/); if(pm) min=+pm[1];
   const exs=[...new Set(t.days.flatMap(d=>d.ex.map(e=>e.n)))];
@@ -7101,7 +7187,7 @@ function pfUnderstood(P){
   if(P.avoid.barbell) c.push('🚫 Barbell'); if(P.avoid.machine) c.push('🚫 Machines'); if(P.avoid.jump) c.push('🚫 Jumps'); if(P.avoid.run) c.push('🚫 Running');
   return c;
 }
-const PF_EXAMPLES=['3 days, build muscle, 45 min','Muscle and mobility','4 days gym, science-based','Something fun and different','Beginner, want to get strong','Kettlebell only at home','Lose fat but keep strength','Bad knees, want stronger legs','Desk job, stiff back and neck','Get faster and jump higher','Bone density, over 50'];
+const PF_EXAMPLES=['3 days, build muscle, 45 min','Muscle and mobility','4 days gym, science-based','Something fun and different','Train like an IFBB pro','Beginner, want to get strong','Kettlebell only at home','Lose fat but keep strength','Bad knees, want stronger legs','Desk job, stiff back and neck','Get faster and jump higher','Bone density, over 50'];
 function pfBoxHTML(){
   return `<div class="pf-box"><div class="pf-h"><span class="pf-ic">🔎</span><div><b>Program finder</b><small>Say what you want — goal, days, time, gear, level</small></div></div>
     <div class="pf-in"><input id="pfQ" type="search" enterkeyhint="search" autocomplete="off" placeholder="e.g. 4 days, muscle + strength, 60 min" value="${esc(pfQuery)}"><button class="pf-x" data-action="pf-clear" aria-label="Clear" style="${pfQuery?'':'display:none'}">✕</button></div>
@@ -7136,6 +7222,7 @@ function tplIsSci(t){ return /\b(19|20)\d\d\b/.test(t.src||''); } const tplMore=
 const TPL_SEC=[
   ['strength','💪','Get stronger on the big lifts'],
   ['muscle','🏋️','Build size with volume'],
+  ['pro','🏆','Train like the pros — classic and modern bodybuilding methods'],
   ['flex','🌀','Grow muscle through full range — get mobile while you build'],
   ['hybrid','⚡','Strength and size together'],
   ['fun','🎲','Odd lifts, strongman, primal and playground moves — keep it fresh'],
@@ -7200,7 +7287,13 @@ const TPL_BEST={
   'odd-strongman':'Zerchers, carries and off-centre lifts',
   'primal-flow':'Crawl, rotate, get up — training that feels like play',
   'weird-hyper':'Unusual angles: Svend, JM, Spider, Cyclist squats',
-  'playground':'Jumps, throws and slams — recess for adults'
+  'playground':'Jumps, throws and slams — recess for adults',
+  'yates-hit':'One brutal set per exercise, 4 days, long recovery',
+  'arnold-split':'Golden-era 6-day volume with supersets',
+  'mentzer-hd':'Two short workouts a week, pre-exhaust to failure',
+  'fst7':'Heavy basics + 7-set pump finishers, 5 days',
+  'mountain-dog':'Pre-activation, heavy, pump, loaded stretch',
+  'mp-vtaper':'Wide lats, capped delts, tight waist — physique stage look'
 };
 const TPL_LV=['','🌱 Beginner','📈 Intermediate','🏆 Advanced'];
 function tplHomeOk(pr){ const W=pr.work.length||1, f=k=>(pr.eq[k]||0)/W; return f('bw')+f('db')+f('kb')+f('bar')*.8+f('box')*.8 >= .8; }
