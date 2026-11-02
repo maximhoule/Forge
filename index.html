@@ -1667,13 +1667,14 @@ body.ui2 .sec-head{margin-top:22px}
 .emb-gain{text-align:center; margin-top:8px; font-size:12.5px; font-weight:800; color:#FFB47A}
 .t-src{margin-top:8px; font-size:11px; color:var(--muted); font-style:italic}
 @media(prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
-.pf-box{background:linear-gradient(160deg,rgba(255,138,43,.10),rgba(255,77,140,.06) 60%,transparent),var(--surface); border:1px solid var(--line); border-radius:var(--r-md); padding:14px; margin-bottom:14px}
+.pf-box{background:linear-gradient(160deg,rgba(255,138,43,.10),rgba(255,77,140,.06) 60%,transparent),var(--surface); border:1px solid var(--line); border-radius:var(--r-md); padding:12px; margin-bottom:6px}
 .pf-h{display:flex; gap:10px; align-items:center; margin-bottom:10px}
 .pf-h .pf-ic{width:34px; height:34px; border-radius:10px; display:grid; place-items:center; background:var(--grad-energy); font-size:17px; flex:none}
 .pf-h b{display:block; font-family:'Saira Condensed'; font-size:20px; letter-spacing:.3px; line-height:1.1}
 .pf-h small{color:var(--muted-2); font-size:12px}
 .pf-in{position:relative}
-.pf-in input{width:100%; box-sizing:border-box; background:var(--surface-2); border:1px solid var(--line); border-radius:12px; padding:13px 40px 13px 14px; color:inherit; font:inherit; font-size:15px; outline:none; -webkit-appearance:none; appearance:none}
+.pf-lens{position:absolute; left:13px; top:50%; transform:translateY(-50%); font-size:15px; pointer-events:none; opacity:.85}
+.pf-in input{width:100%; box-sizing:border-box; background:var(--surface-2); border:1px solid var(--line); border-radius:12px; padding:13px 40px 13px 38px; color:inherit; font:inherit; font-size:15px; outline:none; -webkit-appearance:none; appearance:none}
 .pf-in input:focus{border-color:var(--energy-1); box-shadow:0 0 0 3px rgba(255,138,43,.18)}
 .pf-in input::-webkit-search-cancel-button{display:none}
 .pf-x{position:absolute; right:6px; top:50%; transform:translateY(-50%); width:30px; height:30px; border-radius:99px; background:transparent; border:0; color:var(--muted-2); font-size:14px}
@@ -1701,8 +1702,6 @@ body.ui2 .sec-head{margin-top:22px}
 .pf-meta{font-size:11.5px; color:var(--muted-2); margin-top:7px}
 .pf-act{display:flex; gap:8px; margin-top:10px}.pf-act .btn{flex:1; padding:10px 8px; font-size:13px}
 .pf-none{font-size:13px; color:var(--muted); margin-top:12px; line-height:1.45}
-.tcard.pf-flash{animation:pfFlash 1.4s ease}
-@keyframes pfFlash{0%,60%{border-color:var(--energy-1); box-shadow:0 0 0 3px rgba(255,138,43,.25)}100%{}}
 .tl-bar{margin:0 -2px 6px}
 .tl-row{display:flex; gap:6px; overflow-x:auto; padding:2px 2px 8px; scrollbar-width:none}
 .tl-row::-webkit-scrollbar{display:none}
@@ -1717,27 +1716,15 @@ body.ui2 .sec-head{margin-top:22px}
 .tl-status{font-size:12px; color:var(--muted-2); margin:2px 2px 10px}
 .tl-clear{background:none; border:0; color:var(--energy-1); font-weight:700; font-size:12px; padding:0}
 .tl-empty{text-align:center; color:var(--muted); font-size:13px; padding:30px 10px}
-.tsec{margin-bottom:18px}
 .tsec-h{display:flex; align-items:center; gap:10px; margin:4px 2px 9px}
 .tsec-ic{width:32px; height:32px; border-radius:10px; display:grid; place-items:center; background:var(--surface-2); border:1px solid var(--line-soft); font-size:16px; flex:none}
 .tsec-h b{display:block; font-family:'Saira Condensed'; font-size:19px; letter-spacing:.3px; line-height:1.1}
 .tsec-h small{display:block; font-size:12px; color:var(--muted-2); line-height:1.3}
 .tsec-h>div{flex:1; min-width:0}
 .tsec-n{font-size:12px; font-weight:800; color:var(--muted); background:var(--surface-2); border-radius:99px; padding:3px 9px}
-.tsec-more{width:100%; background:transparent; border:1px dashed var(--line); color:var(--muted); font-weight:600; font-size:12.5px; padding:10px; border-radius:var(--r-md)}
-.tcard.tc2{padding:0; margin-bottom:8px; overflow:hidden}
-.tc-head{display:block; width:100%; text-align:left; background:none; border:0; color:inherit; padding:13px 40px 12px 14px; position:relative; font:inherit}
-.tc-top{display:flex; align-items:baseline; gap:8px; flex-wrap:wrap}
-.tc2 .tc-top h4{font-size:19px; margin:0}
 .tc-lv{font-size:10.5px; font-weight:700; color:var(--muted-2)}
 .tc-lv.lv1{color:#8FE3B0}.tc-lv.lv2{color:#9CCBFF}.tc-lv.lv3{color:#FFB38A}
-.tc-best{font-size:13px; color:var(--muted); margin-top:3px; line-height:1.35}
-.tc-meta{display:flex; flex-wrap:wrap; gap:4px 12px; font-size:11.5px; color:var(--muted-2); margin-top:7px}
 .tc-have{color:var(--teal); font-weight:700}
-.tc-chev{position:absolute; right:14px; top:50%; transform:translateY(-50%); color:var(--muted-2); transition:transform .2s; font-size:13px}
-.tcard.tc2.open .tc-chev{transform:translateY(-50%) rotate(180deg)}
-.tcard.tc2.open{border-color:var(--line)}
-.tc2>.collapse{padding:0 14px 14px; border-top:1px solid var(--line-soft)}
 .tc-sci{color:#9CCBFF; font-weight:600}
 .goal-tag.pro{background:rgba(255,200,61,.18); color:#FFD566}
 .goal-tag.fun{background:rgba(255,120,200,.16); color:#FFA8DA}
@@ -1745,6 +1732,57 @@ body.ui2 .sec-head{margin-top:22px}
 .pf-mini{display:flex; align-items:center; gap:10px; padding:9px 10px; background:var(--surface-2); border:1px solid var(--line-soft); border-radius:10px; margin-bottom:6px; width:100%; text-align:left; color:inherit; font:inherit}
 .pf-mini .pf-nm b{font-size:16px}
 .pf-mini .pf-pct{font-size:16px}
+.tg-lbl{font-size:11px; letter-spacing:1.2px; text-transform:uppercase; font-weight:700; color:var(--muted); margin:16px 2px 8px}
+.tg-lbl small{letter-spacing:0; text-transform:none; font-weight:500; color:var(--muted-2); margin-left:6px}
+.tg-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+.tg-tile{position:relative; text-align:left; background:var(--surface); border:1px solid var(--line-soft); border-radius:14px; padding:12px 12px 11px; color:inherit; font:inherit; min-height:84px; overflow:hidden}
+.tg-tile:active{transform:scale(.98)}
+.tg-tile .tg-ic{font-size:22px; line-height:1; display:block; margin-bottom:7px}
+.tg-tile b{display:block; font-family:'Saira Condensed'; font-size:17px; line-height:1.1; letter-spacing:.2px}
+.tg-tile small{display:block; font-size:11.5px; color:var(--muted-2); margin-top:2px}
+.tg-tile::after{content:''; position:absolute; right:-18px; top:-18px; width:70px; height:70px; border-radius:50%; background:var(--tg,rgba(255,255,255,.05)); filter:blur(2px)}
+.g-strength{--tg:rgba(255,138,43,.16)}.g-muscle{--tg:rgba(255,61,127,.16)}.g-pro{--tg:rgba(255,200,61,.18)}.g-flex{--tg:rgba(120,220,140,.16)}.g-hybrid{--tg:rgba(255,210,77,.14)}.g-fun{--tg:rgba(255,120,200,.16)}.g-general{--tg:rgba(45,226,196,.14)}.g-endurance{--tg:rgba(77,163,255,.16)}.g-power{--tg:rgba(139,124,255,.2)}.g-mobility{--tg:rgba(52,234,208,.16)}.g-balance{--tg:rgba(255,210,77,.16)}.g-all{--tg:rgba(255,255,255,.07)}
+.pf-carousel{display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding-bottom:2px; scroll-snap-type:x mandatory}
+.pf-carousel::-webkit-scrollbar{display:none}
+.pf-carousel .pf-mini{flex:0 0 78%; margin:0; scroll-snap-align:start}
+.tv-top{display:flex; align-items:center; gap:8px; margin-bottom:12px}
+.tv-back{flex:none; background:var(--surface-2); border:1px solid var(--line); color:var(--text); font-weight:700; font-size:13px; padding:8px 12px; border-radius:99px}
+.tv-jump{padding-bottom:0; flex:1; min-width:0; -webkit-mask-image:linear-gradient(90deg,#000 85%,transparent)}
+.tv-jump .chip{padding:7px 11px; font-size:12px}
+.tv-h{margin:2px 2px 10px}
+.tp-list{display:flex; flex-direction:column; gap:6px; margin-top:4px}
+.tp-row{display:flex; align-items:center; gap:10px; width:100%; text-align:left; background:var(--surface); border:1px solid var(--line-soft); border-radius:12px; padding:11px 10px 10px 13px; color:inherit; font:inherit}
+.tp-row:active{border-color:var(--line)}
+.tp-main{flex:1; min-width:0}
+.tp-main b{display:block; font-family:'Saira Condensed'; font-size:17px; line-height:1.15; letter-spacing:.2px}
+.tp-main small{display:block; font-size:12px; color:var(--muted); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.tp-meta{display:flex; flex-wrap:wrap; gap:2px 9px; font-size:11px; color:var(--muted-2); margin-top:5px; align-items:center}
+.tp-g{font-size:9px; padding:3px 7px}
+.tp-side{flex:none; display:flex; flex-direction:column; align-items:flex-end; gap:0}
+.tp-fit{font-family:'Saira Condensed'; font-weight:800; font-size:17px; color:var(--gold); line-height:1}
+.tp-side i{font-style:normal; font-size:9.5px; color:var(--muted-2); text-transform:uppercase; letter-spacing:.8px}
+.tp-chev{color:var(--muted-2); font-size:20px; line-height:1; margin-top:2px}
+.td-top{display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:6px; font-size:12px}
+.td-name{margin:2px 0 2px}
+.td-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin:12px 0}
+.td-stats div{background:var(--surface-2); border-radius:10px; padding:8px 6px; text-align:center; min-width:0}
+.td-stats b{display:block; font-size:12.5px; line-height:1.2; overflow-wrap:anywhere}
+.td-stats small{display:block; font-size:9.5px; color:var(--muted-2); text-transform:uppercase; letter-spacing:.6px; margin-top:2px}
+.td-days{margin-top:12px; display:flex; flex-direction:column; gap:6px}
+.td-day{background:var(--surface-2); border-radius:10px; padding:0 12px}
+.td-day summary{display:flex; justify-content:space-between; align-items:center; gap:8px; padding:11px 0; font-weight:700; font-size:13.5px; list-style:none; cursor:pointer}
+.td-day summary::-webkit-details-marker{display:none}
+.td-day summary small{font-weight:500; color:var(--muted-2); font-size:11.5px; flex:none}
+.td-day ol{margin:0 0 10px; padding-left:20px; font-size:12.5px; color:var(--muted)}
+.td-day li{display:flex; justify-content:space-between; gap:10px; padding:4px 0; border-top:1px solid var(--line-soft)}
+.td-day li small{color:var(--muted-2); flex:none; max-width:45%; text-align:right}
+.boss-card.mini{padding:11px 12px; align-items:center; gap:11px}
+.boss-card.mini .boss-ico{font-size:28px}
+.boss-card.mini .boss-eyebrow{white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%}
+.boss-card.mini .boss-name{font-size:15px; margin:1px 0 0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.boss-card.mini .btn{flex:none; margin:0}
+.boss-tg{flex:none; width:30px; height:30px; border-radius:99px; background:rgba(255,255,255,.06); border:1px solid var(--line-soft); color:var(--muted); font-size:12px}
+.boss-card .boss-tg.up{position:absolute; right:10px; top:10px}
 </style>
 </head>
 <body>
@@ -1849,7 +1887,7 @@ body.ui2 .sec-head{margin-top:22px}
 
     <div id="bossCard"></div>
 
-    <div class="chips" style="margin-bottom:18px">
+    <div class="chips" id="trainTabs" style="margin-bottom:14px">
       <button class="chip on" data-tab="templates" data-action="train-tab">Programs</button>
       <button class="chip" data-tab="routines" data-action="train-tab">My routines</button>
     </div>
@@ -4534,7 +4572,7 @@ function renderTrain(){
   renderBoss();
   if(trainTab===null) trainTab = DB.routines.length? 'routines':'templates';
   // templates
-  $('#tab-templates').innerHTML = pfBoxHTML() + tplListHTML();
+  $('#tab-templates').innerHTML = (tplView==='home'? pfBoxHTML() : '') + tplListHTML();
 
   pfRender();
   renderRtList();
@@ -4748,7 +4786,7 @@ function hrZones(){ const mx=maxHR(); if(!mx) return null; const rest=(DB.settin
   return {mx, rest, zones:defs.map(d=>({name:d[0], lo:calc(d[1]), hi:calc(d[2])}))}; }
 
 /* ===================== VO2MAX — dedicated entry + analysis ===================== */
-const APP_V='v80';
+const APP_V='v81';
 function vo2Parts(){
   const s=DB.settings, age=currentAge();
   const bv=bestVo2(), vr=vo2FromRestHR();
@@ -5250,7 +5288,8 @@ function currentBoss(){
 function renderBoss(){
   const host=$('#bossCard'); if(!host) return; const b=currentBoss();
   if(b.beaten){ host.innerHTML=`<div class="boss-card slain"><div class="boss-ico">${b.ico}</div><div class="boss-body"><div class="boss-eyebrow">Monthly boss · defeated</div><div class="boss-name">${esc(b.name)} ✝</div><div class="boss-sub">Title claimed: “${esc(b.title)}” · a new boss rises next month</div></div></div>`; return; }
-  host.innerHTML=`<div class="boss-card"><div class="boss-ico">${b.ico}</div><div class="boss-body">
+  if(!DB.settings.bossOpen){ host.innerHTML=`<div class="boss-card mini"><div class="boss-ico">${b.ico}</div><div class="boss-body"><div class="boss-eyebrow">Monthly boss · ${bossDaysLeft()}d to slay</div><div class="boss-name">${esc(b.name)}</div></div><button class="btn btn-primary btn-sm" data-action="boss-fight">⚔ Fight</button><button class="boss-tg" data-action="boss-toggle" aria-label="Show boss details">▾</button></div>`; return; }
+  host.innerHTML=`<div class="boss-card"><button class="boss-tg up" data-action="boss-toggle" aria-label="Collapse">▴</button><div class="boss-ico">${b.ico}</div><div class="boss-body">
     <div class="boss-eyebrow">Monthly boss · ${bossDaysLeft()}d to slay</div>
     <div class="boss-name">${esc(b.name)}</div>
     <div class="boss-quote">“${esc(bossLine(b.key,'taunt'))}”</div>
@@ -7291,7 +7330,7 @@ function pfForMe(){
   const me=pfMe(); const P=pfParse('');
   P.days=me.perWeek; P.lvl=me.lvl; if(me.goal) P.goals[me.goal]=2; else P.goals.general=1;
   if(me.cardio>=4) P.goals.hybrid=1;
-  const res=pfRank(P, TEMPLATES.filter(t=>!me.have.has(t.name))).slice(0,3);
+  const res=pfRank(P, TEMPLATES.filter(t=>!me.have.has(t.name))).slice(0,5);
   return {me,P,res};
 }
 function pfUnderstood(P){
@@ -7307,9 +7346,9 @@ function pfUnderstood(P){
 }
 const PF_EXAMPLES=['3 days, build muscle, 45 min','Muscle and mobility','4 days gym, science-based','Something fun and different','Train like an IFBB pro','Beginner, want to get strong','Kettlebell only at home','Lose fat but keep strength','Bad knees, want stronger legs','Desk job, stiff back and neck','Get faster and jump higher','Bone density, over 50'];
 function pfBoxHTML(){
-  return `<div class="pf-box"><div class="pf-h"><span class="pf-ic">🔎</span><div><b>Program finder</b><small>Say what you want — goal, days, time, gear, level</small></div></div>
-    <div class="pf-in"><input id="pfQ" type="search" enterkeyhint="search" autocomplete="off" placeholder="e.g. 4 days, muscle + strength, 60 min" value="${esc(pfQuery)}"><button class="pf-x" data-action="pf-clear" aria-label="Clear" style="${pfQuery?'':'display:none'}">✕</button></div>
-    <div class="pf-ex">${PF_EXAMPLES.map(x=>`<button class="pf-chip" data-action="pf-ex" data-q="${esc(x)}">${esc(x)}</button>`).join('')}</div>
+  return `<div class="pf-box">
+    <div class="pf-in"><span class="pf-lens">🔎</span><input id="pfQ" type="search" enterkeyhint="search" autocomplete="off" placeholder="Describe it: 4 days, muscle, 60 min…" value="${esc(pfQuery)}"><button class="pf-x" data-action="pf-clear" aria-label="Clear" style="${pfQuery?'':'display:none'}">✕</button></div>
+    <div class="pf-ex"${pfQuery?' style="display:none"':''}>${PF_EXAMPLES.map(x=>`<button class="pf-chip" data-action="pf-ex" data-q="${esc(x)}">${esc(x)}</button>`).join('')}</div>
     <div id="pfRes"></div></div>`;
 }
 function pfCard(r,i){
@@ -7321,11 +7360,14 @@ function pfCard(r,i){
     <div class="pf-meta">📅 ${pr.lo===pr.hi?pr.lo:pr.lo+'–'+pr.hi}×/wk · ⏱ ~${pr.min} min · ${['','🌱 Beginner','📈 Intermediate','🏆 Advanced'][pr.lv]}${eqs?' · '+eqs:''}</div>
     <div class="pf-act"><button class="btn btn-ghost" data-action="pf-view" data-tpl="${t.id}">View days</button>${have?`<button class="btn btn-ghost" disabled>✓ In your routines</button>`:`<button class="btn btn-primary" data-action="use-tpl" data-tpl="${t.id}">Add to my routines</button>`}</div></div>`;
 }
+function pfShowBrowse(on){ const b=$('#tplBrowse'); if(b&&b.style) b.style.display=on?'':'none'; const x=$('.pf-ex'); if(x&&x.style) x.style.display=on?'':'none'; }
 function pfRender(){
   const box=$('#pfRes'); if(!box) return;
   const q=pfQuery.trim();
   if(!q){ const F=pfForMe();
-    box.innerHTML = F.res.length? `<div class="pf-lbl">✨ Suggested for you <small>from your last 4 weeks · ~${F.me.perWeek} sessions/wk · ${['','beginner','intermediate','advanced'][F.me.lvl]}</small></div>`+F.res.map(r=>`<button class="pf-mini" data-action="pf-view" data-tpl="${r.t.id}"><div class="pf-nm"><b>${esc(r.t.name)}</b><small>${esc(TPL_BEST[r.t.id]||r.t.goalLabel)}</small></div><span class="pf-pct">${r.pct}%</span></button>`).join('') : ''; return; }
+    pfShowBrowse(true);
+    box.innerHTML = F.res.length? `<div class="pf-lbl">✨ For you <small>~${F.me.perWeek} sessions/wk · ${['','beginner','intermediate','advanced'][F.me.lvl]}</small></div><div class="pf-carousel">`+F.res.map(r=>`<button class="pf-mini" data-action="pf-view" data-tpl="${r.t.id}"><div class="pf-nm"><b>${esc(r.t.name)}</b><small>${esc(TPL_BEST[r.t.id]||r.t.goalLabel)}</small></div><span class="pf-pct">${r.pct}%</span></button>`).join('')+'</div>' : ''; return; }
+  pfShowBrowse(false);
   const R=pfSearch(q), u=pfUnderstood(R.P);
   box.innerHTML = (u.length?`<div class="pf-und">Understood: ${u.map(x=>`<span>${x}</span>`).join('')}</div>`:'')
     + (R.res.length? `<div class="pf-lbl">Best matches <small>${R.res.length} of ${TEMPLATES.length} programs</small></div>`+R.res.map(pfCard).join('')
@@ -7336,7 +7378,7 @@ document.addEventListener('input', e=>{ if(e.target && e.target.id==='pfQ'){ pfQ
 document.addEventListener('keydown', e=>{ if(e.target && e.target.id==='pfQ' && e.key==='Enter'){ e.preventDefault(); clearTimeout(_pfT); pfRender(); e.target.blur(); } });
 /* ===================== PROGRAM LIST — grouped, compact, filterable ===================== */
 let tplDays='any', tplLvl=0, tplHome=false, tplSci=false;
-function tplIsSci(t){ return /\b(19|20)\d\d\b/.test(t.src||''); } const tplMore={};
+function tplIsSci(t){ return /\b(19|20)\d\d\b/.test(t.src||''); }
 const TPL_SEC=[
   ['strength','💪','Get stronger on the big lifts'],
   ['muscle','🏋️','Build size with volume'],
@@ -7430,42 +7472,66 @@ function tplPass(t){ const pr=pfProfile(t);
   if(tplHome && !tplHomeOk(pr)) return false;
   if(tplSci && !tplIsSci(t)) return false;
   return true; }
-function tplCardHTML(t){
-  const pr=pfProfile(t), have=(DB.routines||[]).some(x=>x.name===t.name), dc=t.days.length;
-  return `<div class="tcard tc2" data-tpl="${t.id}">
-    <button class="tc-head" data-action="toggle-tpl" data-tpl="${t.id}">
-      <div class="tc-top"><h4>${esc(t.name)}</h4><span class="tc-lv lv${pr.lv}">${TPL_LV[pr.lv]}</span></div>
-      <div class="tc-best">${esc(TPL_BEST[t.id]||t.repFocus)}</div>
-      <div class="tc-meta"><span>📅 ${tplDaysLbl(pr)}</span><span>⏱ ~${pr.min} min</span><span>${tplEquipLbl(pr)}</span>${tplIsSci(t)?'<span class="tc-sci">🔬 Research</span>':''}${have?'<span class="tc-have">✓ In routines</span>':''}</div>
-      <span class="tc-chev">▾</span>
-    </button>
-    <div class="collapse" id="tpl-${t.id}">
-      <div class="tmeta"><span>📅 <b>${esc(t.freq)}</b></span><span>🔢 <b>${esc(t.repFocus)}</b></span><span>⏱ <b>${esc(t.rest)}</b></span></div>
-      <div class="t-note"><b>Progressive overload —</b> ${t.progression}</div>
-      <div class="t-note said"><b>Why it works —</b> ${t.said}</div>${t.src?`<div class="t-src">📚 ${esc(t.src)}</div>`:''}
-      <div class="day-list">${t.days.map(d=>`<div class="day-row"><div class="dn"><span>${esc(d.name)}</span><span style="color:var(--muted-2);font-size:11px">${d.ex.length} moves</span></div><div class="de">${d.ex.map(e=>esc(e.n)).join(', ')}</div></div>`).join('')}</div>
-      ${have?`<button class="btn btn-ghost" disabled style="margin-top:12px">✓ Already in your routines</button>`:`<button class="btn btn-primary" data-action="use-tpl" data-tpl="${t.id}" style="margin-top:12px">Add to my routines · ${dc} day${dc>1?'s':''}</button>`}
-    </div>
+let tplView='home', tplSort='fit';
+function tplLbl(g){ return (TEMPLATES.find(x=>x.goal===g)||{}).goalLabel||g; }
+function tplSecs(){ const secs=TPL_SEC.filter(s=>TEMPLATES.some(t=>t.goal===s[0])); TEMPLATES.forEach(t=>{ if(!secs.some(s=>s[0]===t.goal)) secs.push([t.goal,'📋','']); }); return secs; }
+function tplFitMap(){ // how well each program fits YOUR schedule & level (the goal is already chosen by browsing)
+  const me=pfMe(), P=pfParse(''); P.days=me.perWeek; P.lvl=me.lvl; const m={};
+  TEMPLATES.forEach(t=>{ const r=pfScore(t,P); m[t.id]=Math.max(0,Math.min(100,Math.round(r.s/Math.max(1,r.max)*100))); }); return m; }
+function tplViewList(){
+  let list=TEMPLATES.filter(t=>(tplView==='all'||tplView==='sci'||t.goal===tplView) && tplPass(t) && (tplView!=='sci'||tplIsSci(t)));
+  const fit=tplFitMap(), pr=t=>pfProfile(t);
+  if(tplSort==='short') list.sort((a,b)=>pr(a).min-pr(b).min);
+  else if(tplSort==='easy') list.sort((a,b)=>pr(a).lv-pr(b).lv||pr(a).min-pr(b).min);
+  else list.sort((a,b)=>(fit[b.id]||0)-(fit[a.id]||0));
+  return {list, fit};
+}
+function tplRowHTML(t, fit){
+  const p=pfProfile(t), have=(DB.routines||[]).some(x=>x.name===t.name);
+  return `<button class="tp-row" data-action="tpl-detail" data-tpl="${t.id}">
+    <div class="tp-main"><b>${esc(t.name)}</b><small>${esc(TPL_BEST[t.id]||t.repFocus)}</small>
+      <div class="tp-meta"><span class="tc-lv lv${p.lv}">${['','🌱 Beg','📈 Int','🏆 Adv'][p.lv]}</span><span>${tplDaysLbl(p)}</span><span>~${p.min} min</span><span>${tplEquipLbl(p)}</span>${tplIsSci(t)?'<span class="tc-sci">🔬</span>':''}${tplView==='all'||tplView==='sci'?`<span class="tp-g goal-tag ${t.goal}">${esc(t.goalLabel)}</span>`:''}</div></div>
+    <div class="tp-side">${have?'<span class="tc-have">✓ added</span>':fit>=80?'<span class="tp-fit">★</span><i>great fit</i>':fit>=55?'<i>good fit</i>':''}<span class="tp-chev">›</span></div>
+  </button>`;
+}
+function tplHomeHTML(){
+  const secs=tplSecs();
+  const quick=[['beg','🌱 Beginner'],['d3','📅 3 days'],['d4','📅 4 days'],['d5','📅 5+ days'],['short','⏱ Under 40 min'],['home','🏠 Home / no gym'],['sci','🔬 Research-backed']];
+  return `<div id="tplBrowse"${pfQuery?' style="display:none"':''}>
+    <div class="tg-lbl">Quick picks</div>
+    <div class="tl-row">${quick.map(([k,l])=>`<button class="fchip" data-action="tpl-quick" data-k="${k}">${l}</button>`).join('')}</div>
+    <div class="tg-lbl">Browse by goal <small>${TEMPLATES.length} programs</small></div>
+    <div class="tg-grid">${secs.map(s=>`<button class="tg-tile g-${s[0]}" data-action="tpl-open" data-g="${s[0]}"><span class="tg-ic">${s[1]}</span><b>${esc(tplLbl(s[0]))}</b><small>${(n=>n+' program'+(n===1?'':'s'))(TEMPLATES.filter(t=>t.goal===s[0]).length)}</small></button>`).join('')}
+      <button class="tg-tile g-all" data-action="tpl-open" data-g="all"><span class="tg-ic">📋</span><b>All programs</b><small>${TEMPLATES.length} · sort & filter</small></button></div>
   </div>`;
 }
-function tplListHTML(){
-  const secs=TPL_SEC.filter(s=>TEMPLATES.some(t=>t.goal===s[0]));
-  TEMPLATES.forEach(t=>{ if(!secs.some(s=>s[0]===t.goal)) secs.push([t.goal,'📋','']); });
-  const lbl=g=>(TEMPLATES.find(x=>x.goal===g)||{}).goalLabel||g;
-  const shown=TEMPLATES.filter(tplPass), filt=tplDays!=='any'||tplLvl||tplHome||tplSci;
-  const gchips=`<div class="tl-row">${[['all','All',shown.length]].concat(secs.map(s=>[s[0],s[1]+' '+lbl(s[0]),shown.filter(t=>t.goal===s[0]).length])).map(([g,l,n])=>`<button class="chip ${tplFilter===g?'on':''}${n?'':' dim'}" data-action="tpl-filter" data-g="${g}">${l} <i>${n}</i></button>`).join('')}</div>`;
-  const fchips=`<div class="tl-row tl-f"><span class="tl-k">Days</span>${['any',2,3,4,5].map(d=>`<button class="fchip ${String(tplDays)===String(d)?'on':''}" data-action="tpl-days" data-d="${d}">${d==='any'?'Any':d===5?'5+':d}</button>`).join('')}<span class="tl-k">Level</span>${[0,1,2,3].map(l=>`<button class="fchip ${tplLvl===l?'on':''}" data-action="tpl-lvl" data-l="${l}">${l?TPL_LV[l].split(' ')[0]:'Any'}</button>`).join('')}<button class="fchip ${tplHome?'on':''}" data-action="tpl-home">🏠 Home</button><button class="fchip ${tplSci?'on':''}" data-action="tpl-sci">🔬 Research</button></div>`;
-  const status=`<div class="tl-status">${shown.filter(t=>tplFilter==='all'||t.goal===tplFilter).length} of ${TEMPLATES.length} programs${filt?` · <button class="tl-clear" data-action="tpl-clear">Clear filters</button>`:''}</div>`;
-  const body=secs.filter(s=>tplFilter==='all'||s[0]===tplFilter).map(s=>{
-    const list=shown.filter(t=>t.goal===s[0]).sort((a,b)=>pfProfile(a).lv-pfProfile(b).lv||pfProfile(a).lo-pfProfile(b).lo);
-    if(!list.length) return '';
-    const cap=(tplFilter==='all'&&!filt&&!tplMore[s[0]])?3:99, rest=list.length-cap;
-    return `<section class="tsec" id="tsec-${s[0]}"><div class="tsec-h"><span class="tsec-ic">${s[1]}</span><div><b>${esc(lbl(s[0]))}</b><small>${esc(s[2])}</small></div><span class="tsec-n">${list.length}</span></div>
-      ${list.slice(0,cap).map(tplCardHTML).join('')}
-      ${rest>0?`<button class="tsec-more" data-action="tpl-more" data-g="${s[0]}">Show ${rest} more ${esc(lbl(s[0]).toLowerCase())} program${rest>1?'s':''} ▾</button>`:''}</section>`;
-  }).join('');
-  return `<div class="tl-bar">${gchips}${fchips}</div>${status}${body||`<div class="tl-empty">No program matches these filters.<br><button class="mini-link" data-action="tpl-clear" style="margin-top:10px">Clear filters</button></div>`}`;
+function tplCatHTML(){
+  const sec=tplSecs().find(s=>s[0]===tplView), title=tplView==='all'?'All programs':tplView==='sci'?'Research-backed':tplLbl(tplView);
+  const ic=tplView==='all'?'📋':tplView==='sci'?'🔬':(sec?sec[1]:'📋'), blurb=tplView==='all'?'Every program in one list':tplView==='sci'?'Programs that cite published studies':(sec?sec[2]:'');
+  const {list,fit}=tplViewList(), filt=tplDays!=='any'||tplLvl||tplHome||(tplSci&&tplView!=='sci');
+  const fchips=`<div class="tl-row tl-f"><span class="tl-k">Days</span>${['any',2,3,4,5].map(d=>`<button class="fchip ${String(tplDays)===String(d)?'on':''}" data-action="tpl-days" data-d="${d}">${d==='any'?'Any':d===5?'5+':d}</button>`).join('')}<span class="tl-k">Level</span>${[0,1,2,3].map(l=>`<button class="fchip ${tplLvl===l?'on':''}" data-action="tpl-lvl" data-l="${l}">${l?TPL_LV[l].split(' ')[0]:'Any'}</button>`).join('')}<button class="fchip ${tplHome?'on':''}" data-action="tpl-home">🏠 Home</button>${tplView!=='sci'?`<button class="fchip ${tplSci?'on':''}" data-action="tpl-sci">🔬 Research</button>`:''}</div>`;
+  const sort=`<div class="tl-row tl-f"><span class="tl-k">Sort</span>${[['fit','✨ Best fit for you'],['short','⏱ Shortest'],['easy','🌱 Easiest first']].map(([k,l])=>`<button class="fchip ${tplSort===k?'on':''}" data-action="tpl-sort" data-k="${k}">${l}</button>`).join('')}</div>`;
+  return `<div class="tv-top"><button class="tv-back" data-action="tpl-back">‹ All goals</button><div class="tl-row tv-jump">${tplSecs().map(s=>`<button class="chip ${tplView===s[0]?'on':''}" data-action="tpl-open" data-g="${s[0]}">${s[1]} ${esc(tplLbl(s[0]))}</button>`).join('')}</div></div>
+    <div class="tsec-h tv-h"><span class="tsec-ic">${ic}</span><div><b>${esc(title)}</b><small>${esc(blurb)}</small></div><span class="tsec-n">${list.length}</span></div>
+    ${fchips}${sort}
+    ${filt?`<div class="tl-status">${list.length} match · <button class="tl-clear" data-action="tpl-clear">Clear filters</button></div>`:''}
+    <div class="tp-list">${list.map(t=>tplRowHTML(t,fit[t.id])).join('')||`<div class="tl-empty">No program matches these filters.<br><button class="mini-link" data-action="tpl-clear" style="margin-top:10px">Clear filters</button></div>`}</div>`;
 }
+function tplListHTML(){ return tplView==='home'? tplHomeHTML() : tplCatHTML(); }
+function openTplDetail(id){
+  const t=TEMPLATES.find(x=>x.id===id); if(!t) return; const p=pfProfile(t), have=(DB.routines||[]).some(x=>x.name===t.name), dc=t.days.length;
+  openSheet(`<div class="grab"></div>
+    <div class="td-top"><span class="goal-tag ${t.goal}">${esc(t.goalLabel)}</span><span class="tc-lv lv${p.lv}">${TPL_LV[p.lv]}</span>${tplIsSci(t)?'<span class="tc-sci">🔬 Research</span>':''}</div>
+    <h3 class="td-name">${esc(t.name)}</h3>
+    <p class="sh-lead">${esc(TPL_BEST[t.id]||'')}</p>
+    <div class="td-stats"><div><b>${tplDaysLbl(p)}</b><small>frequency</small></div><div><b>~${p.min} min</b><small>per session</small></div><div><b>${dc}</b><small>training day${dc>1?'s':''}</small></div><div><b>${esc(tplEquipLbl(p).replace('🏠 ',''))}</b><small>equipment</small></div></div>
+    ${have?`<button class="btn btn-ghost" disabled>✓ Already in your routines</button>`:`<button class="btn btn-primary" data-action="use-tpl" data-tpl="${t.id}">Add to my routines</button>`}
+    <div class="tmeta"><span>📅 <b>${esc(t.freq)}</b></span><span>🔢 <b>${esc(t.repFocus)}</b></span><span>⏱ <b>${esc(t.rest)}</b></span></div>
+    <div class="t-note"><b>How to progress —</b> ${t.progression}</div>
+    <div class="t-note said"><b>Why it works —</b> ${t.said}</div>${t.src?`<div class="t-src">📚 ${esc(t.src)}</div>`:''}
+    <div class="td-days">${t.days.map((d,i)=>`<details class="td-day"${i===0?' open':''}><summary><span>${esc(d.name)}</span><small>${d.ex.length} moves · ${d.ex.reduce((a,e)=>a+(+e.s||1),0)} sets</small></summary><ol>${d.ex.map(e=>`<li><span>${esc(e.n)}</span><small>${e.s} × ${esc(String(e.r))}</small></li>`).join('')}</ol></details>`).join('')}</div>`);
+}
+function tplGoTop(){ try{ const h=$('#trainTabs'); if(h && h.getBoundingClientRect){ const y=h.getBoundingClientRect().top+(window.scrollY||0)-70; if(isFinite(y)) window.scrollTo(0,Math.max(0,y)); } }catch(e){} }
 
 
 function buildRunPlan(start, goal, days){
@@ -8289,13 +8355,19 @@ document.addEventListener('click', e=>{
     case 'train-tab': trainTab=t.dataset.tab; renderTrain(); break;
 
     // template interactions
-    case 'toggle-tpl': { const el=$('#tpl-'+t.dataset.tpl); if(!el) break; el.classList.toggle('open'); const c=t.closest&&t.closest('.tcard'); if(c&&c.classList) c.classList.toggle('open', el.classList.contains('open')); break; }
+    case 'tpl-open': tplView=t.dataset.g||'all'; renderTrain(); tplGoTop(); break;
+    case 'tpl-back': tplView='home'; renderTrain(); tplGoTop(); break;
+    case 'tpl-sort': tplSort=t.dataset.k||'fit'; renderTrain(); break;
+    case 'tpl-detail': openTplDetail(t.dataset.tpl); break;
+    case 'tpl-quick': { const k=t.dataset.k; tplDays='any'; tplLvl=0; tplHome=false; tplSci=false; tplSort='fit'; tplView='all';
+      if(k==='beg') tplLvl=1; else if(k==='d3') tplDays=3; else if(k==='d4') tplDays=4; else if(k==='d5') tplDays=5; else if(k==='home') tplHome=true; else if(k==='short') tplSort='short'; else if(k==='sci') tplView='sci';
+      renderTrain(); tplGoTop(); break; }
+    case 'boss-toggle': DB.settings.bossOpen=!DB.settings.bossOpen; save(); renderBoss(); break;
     case 'tpl-days': tplDays=t.dataset.d==='any'?'any':+t.dataset.d; renderTrain(); break;
     case 'tpl-lvl': tplLvl=+t.dataset.l||0; renderTrain(); break;
     case 'tpl-home': tplHome=!tplHome; renderTrain(); break;
     case 'tpl-sci': tplSci=!tplSci; renderTrain(); break;
     case 'tpl-clear': tplDays='any'; tplLvl=0; tplHome=false; tplSci=false; tplFilter='all'; renderTrain(); break;
-    case 'tpl-more': tplMore[t.dataset.g]=1; renderTrain(); break;
     case 'use-tpl': {
       const tpl=TEMPLATES.find(x=>x.id===t.dataset.tpl);
       const copy={id:uid(), name:tpl.name, goal:tpl.goal, goalLabel:tpl.goalLabel,
@@ -8347,9 +8419,7 @@ document.addEventListener('click', e=>{
     case 'tpl-filter': tplFilter=t.dataset.g; renderTrain(); break;
     case 'pf-ex': { pfQuery=t.dataset.q; const i=$('#pfQ'); if(i) i.value=pfQuery; const x=$('.pf-x'); if(x) x.style.display=''; pfRender(); break; }
     case 'pf-clear': { pfQuery=''; const i=$('#pfQ'); if(i){ i.value=''; i.focus&&i.focus(); } if(t.style) t.style.display='none'; pfRender(); break; }
-    case 'pf-view': { const id=t.dataset.tpl, tp=TEMPLATES.find(x=>x.id===id); if(!tp) break; tplFilter=tp.goal; tplDays='any'; tplLvl=0; tplHome=false; tplSci=false; tplMore[tp.goal]=1; renderTrain();
-      const c=$('#tpl-'+id); if(c && !c.classList.contains('open')){ c.classList.add('open'); }
-      const card=$('.tcard[data-tpl="'+id+'"]'); if(card){ card.classList.add('open'); card.classList.remove('pf-flash'); void card.offsetWidth; card.classList.add('pf-flash'); if(card.scrollIntoView) card.scrollIntoView({behavior:'smooth',block:'start'}); } break; }
+    case 'pf-view': openTplDetail(t.dataset.tpl); break;
     case 'pick-ex': { const name=t.dataset.name; const cb=exPickCallback; closeSheet(); setTimeout(()=>cb&&cb(name),60); break; }
     case 'swap-browse': { const ei=+t.dataset.ei; closeSheet(); setTimeout(()=>openExPicker(n=>swapPick(ei,n)),80); break; }
     case 'swap-create': { const ei=+t.dataset.ei; exPickCallback=n=>swapPick(ei,n); _cxReturn=()=>openSwap(ei); openCustomEx(''); break; }
