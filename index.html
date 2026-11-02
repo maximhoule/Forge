@@ -1762,20 +1762,20 @@ body.ui2 .sec-head{margin-top:22px}
 .tp-fit{font-family:'Saira Condensed'; font-weight:800; font-size:17px; color:var(--gold); line-height:1}
 .tp-side i{font-style:normal; font-size:9.5px; color:var(--muted-2); text-transform:uppercase; letter-spacing:.8px}
 .tp-chev{color:var(--muted-2); font-size:20px; line-height:1; margin-top:2px}
-.td-top{display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:6px; font-size:12px}
-.td-name{margin:2px 0 2px}
-.td-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin:12px 0}
-.td-stats div{background:var(--surface-2); border-radius:10px; padding:8px 6px; text-align:center; min-width:0}
-.td-stats b{display:block; font-size:12.5px; line-height:1.2; overflow-wrap:anywhere}
-.td-stats small{display:block; font-size:9.5px; color:var(--muted-2); text-transform:uppercase; letter-spacing:.6px; margin-top:2px}
-.td-days{margin-top:12px; display:flex; flex-direction:column; gap:6px}
-.td-day{background:var(--surface-2); border-radius:10px; padding:0 12px}
-.td-day summary{display:flex; justify-content:space-between; align-items:center; gap:8px; padding:11px 0; font-weight:700; font-size:13.5px; list-style:none; cursor:pointer}
-.td-day summary::-webkit-details-marker{display:none}
-.td-day summary small{font-weight:500; color:var(--muted-2); font-size:11.5px; flex:none}
-.td-day ol{margin:0 0 10px; padding-left:20px; font-size:12.5px; color:var(--muted)}
-.td-day li{display:flex; justify-content:space-between; gap:10px; padding:4px 0; border-top:1px solid var(--line-soft)}
-.td-day li small{color:var(--muted-2); flex:none; max-width:45%; text-align:right}
+.pd-top{display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:6px; font-size:12px}
+.pd-name{margin:2px 0 2px}
+.pd-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin:12px 0}
+.pd-stats div{background:var(--surface-2); border-radius:10px; padding:8px 6px; text-align:center; min-width:0}
+.pd-stats b{display:block; font-size:12.5px; line-height:1.2; overflow-wrap:anywhere}
+.pd-stats small{display:block; font-size:9.5px; color:var(--muted-2); text-transform:uppercase; letter-spacing:.6px; margin-top:2px}
+.pd-days{margin-top:12px; display:flex; flex-direction:column; gap:6px}
+.pd-day{background:var(--surface-2); border-radius:10px; padding:0 12px}
+.pd-day summary{display:flex; justify-content:space-between; align-items:center; gap:8px; padding:11px 0; font-weight:700; font-size:13.5px; list-style:none; cursor:pointer}
+.pd-day summary::-webkit-details-marker{display:none}
+.pd-day summary small{font-weight:500; color:var(--muted-2); font-size:11.5px; flex:none}
+.pd-day ol{margin:0 0 10px; padding-left:20px; font-size:12.5px; color:var(--muted)}
+.pd-day li{display:flex; justify-content:space-between; gap:10px; padding:4px 0; border-top:1px solid var(--line-soft)}
+.pd-day li small{color:var(--muted-2); flex:none; max-width:45%; text-align:right}
 .boss-card.mini{padding:11px 12px; align-items:center; gap:11px}
 .boss-card.mini .boss-ico{font-size:28px}
 .boss-card.mini .boss-eyebrow{white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%}
@@ -1783,6 +1783,37 @@ body.ui2 .sec-head{margin-top:22px}
 .boss-card.mini .btn{flex:none; margin:0}
 .boss-tg{flex:none; width:30px; height:30px; border-radius:99px; background:rgba(255,255,255,.06); border:1px solid var(--line-soft); color:var(--muted); font-size:12px}
 .boss-card .boss-tg.up{position:absolute; right:10px; top:10px}
+.rt-next{display:flex; align-items:center; gap:10px; background:linear-gradient(150deg,rgba(var(--e1rgb),.16),rgba(var(--e2rgb),.08) 60%,transparent),var(--surface); border:1px solid rgba(var(--e1rgb),.35); border-radius:var(--r-md); padding:12px 12px 12px 14px; margin-bottom:12px}
+.rn-l{flex:1; min-width:0}
+.rn-eb{display:block; font-size:10px; letter-spacing:1.1px; text-transform:uppercase; font-weight:700; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.rn-l b{display:block; font-family:'Saira Condensed'; font-size:20px; line-height:1.15; margin-top:2px}
+.rn-l small{display:block; font-size:12px; color:var(--muted-2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.rn-a{flex:none; display:flex; flex-direction:column; align-items:flex-end; gap:6px}
+.rn-link{background:none; border:0; color:var(--muted); font-size:11px; font-weight:600; padding:0; text-decoration:underline; text-underline-offset:2px}
+.rt-bar{display:flex; gap:8px; align-items:center; margin-bottom:6px}
+.rt-bar #rtSearch{flex:1; min-width:0}
+.rt-count{flex:1; font-size:12px; color:var(--muted-2); font-weight:600}
+.rt-new{flex:none; white-space:nowrap}
+.rt-row{display:flex; align-items:center; gap:4px; background:var(--surface); border:1px solid var(--line-soft); border-radius:12px; padding:4px 8px 4px 4px}
+.rt-row .rt-star{flex:none; width:36px; height:44px; background:none; border:0; color:var(--muted-2); font-size:17px}
+.rt-row .rt-star.on{color:var(--gold)}
+.rt-rmain{flex:1; min-width:0; text-align:left; background:none; border:0; color:inherit; font:inherit; padding:8px 4px}
+.rt-rmain b{display:block; font-family:'Saira Condensed'; font-size:17px; line-height:1.15; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.rt-rmain small{display:block; font-size:11.5px; color:var(--muted-2); margin-top:2px}
+.rt-tags{display:flex; gap:6px; flex-wrap:wrap; margin-top:5px}
+.rt-tags .goal-tag{font-size:9px; padding:3px 7px}
+.rt-act{font-size:10.5px; font-weight:700; color:var(--teal)}
+.rt-go{flex:none}
+.rt-chev{flex:none; background:none; border:0; color:var(--muted-2); font-size:22px; width:30px; height:40px}
+.pd-top .rt-star{background:var(--surface-2); border:1px solid var(--line); border-radius:99px; padding:5px 11px; color:var(--muted); font-size:12px; font-weight:700}
+.pd-top .rt-star.on{color:var(--gold)}
+.rt-days{display:flex; flex-direction:column; gap:6px; margin-top:4px}
+.rt-day{display:flex; align-items:center; gap:10px; background:var(--surface-2); border:1px solid transparent; border-radius:11px; padding:10px 10px 10px 12px}
+.rt-day.nx{border-color:rgba(var(--e1rgb),.45)}
+.rt-dl{flex:1; min-width:0}
+.rt-dl b{font-size:14px}
+.rt-dl small{display:block; font-size:11.5px; color:var(--muted-2); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.rt-up{font-size:9.5px; font-weight:800; letter-spacing:.8px; text-transform:uppercase; color:var(--energy-1); margin-left:8px}
 </style>
 </head>
 <body>
@@ -1895,8 +1926,7 @@ body.ui2 .sec-head{margin-top:22px}
     <div id="tab-templates"></div>
 
     <div id="tab-routines" style="display:none">
-      <button class="btn btn-primary" data-action="new-routine" style="margin-bottom:16px">＋ Build a custom routine</button>
-      <div class="rt-tools" id="rtTools" style="display:none"><input id="rtSearch" placeholder="Search your routines…"></div>
+      <div id="rtTop"></div>
     <div id="routineList"></div>
     </div>
   </section>
@@ -4533,39 +4563,63 @@ function renderHome(){
    RENDER: TRAIN
    ============================================================ */
 let trainTab=null;
-let rtQuery='', rtOpen={};
+let rtQuery='';
 function _agoTxt(ts){ if(!ts) return 'never used'; const d=Math.floor((Date.now()-ts)/86400000);
   return d<=0?'used today':(d===1?'used yesterday':'used '+d+'d ago'); }
+let rtSort='recent';
+function rtStats(r){ const ex=r.days.reduce((a,d)=>a+d.ex.length,0), sets=r.days.length? Math.round(r.days.reduce((a,d)=>a+d.ex.reduce((b,e)=>b+(parseInt(e.s)||3),0),0)/r.days.length):0;
+  const used=DB.log.filter(x=>x.type==='strength' && typeof x.name==='string' && x.name.indexOf(r.name+' · ')===0).length; return {ex, sets, used}; }
+function rtNextIdx(r){ return r.days.length? (((r.ld==null?-1:r.ld)+1)%r.days.length) : 0; }
+function rtUpNextHTML(){
+  const T=progToday();
+  if(T){ const st=T.doneToday?'Done for today':(T.sched?'Today':'Up next'+(T.nextDayLbl?' · '+T.nextDayLbl:''));
+    return `<div class="rt-next"><div class="rn-l"><span class="rn-eb">📅 ${esc(st)} · your program</span><b>${esc(T.day.name)}</b><small>${esc(T.r.name)} · ${T.day.ex.length} exercises</small></div>
+      <div class="rn-a"><button class="btn btn-primary btn-sm" data-action="prog-start">${T.sched&&!T.doneToday?'Start ▸':'Train ▸'}</button><button class="rn-link" data-action="prog-open" data-id="${T.r.id}">Schedule</button></div></div>`; }
+  const r=(DB.routines||[]).filter(x=>x.lu).sort((a,b)=>b.lu-a.lu)[0]; if(!r || !r.days.length) return '';
+  const i=rtNextIdx(r), d=r.days[i];
+  return `<div class="rt-next"><div class="rn-l"><span class="rn-eb">↺ Continue · ${esc(_agoTxt(r.lu))}</span><b>${esc(d.name)}</b><small>${esc(r.name)}${r.days.length>1?' · day '+(i+1)+' of '+r.days.length:''} · ${d.ex.length} exercises</small></div>
+    <div class="rn-a"><button class="btn btn-primary btn-sm" data-action="start-day" data-routine="${r.id}" data-day="${i}">Start ▸</button><button class="rn-link" data-action="prog-open" data-id="${r.id}">Make it my program</button></div></div>`;
+}
+function rtRowHTML(r){
+  const s=rtStats(r), act=DB.settings.prog&&DB.settings.prog.rid===r.id;
+  return `<div class="rt-row" data-routine="${r.id}">
+    <button class="rt-star ${r.pin?'on':''}" data-action="rt-pin" data-routine="${r.id}" aria-label="Pin">${r.pin?'★':'☆'}</button>
+    <button class="rt-rmain" data-action="rt-detail" data-routine="${r.id}"><b>${esc(r.name)}</b>
+      <small>${r.days.length} day${r.days.length>1?'s':''} · ${s.ex} exercises · ${esc(_agoTxt(r.lu))}</small>
+      ${act||r.goal?`<span class="rt-tags">${act?'<span class="rt-act">📅 Active program</span>':''}${r.goal?`<span class="goal-tag ${esc(r.goal)}">${esc(r.goalLabel||r.goal)}</span>`:''}</span>`:''}</button>
+    ${r.days.length===1?`<button class="btn btn-primary btn-sm rt-go" data-action="start-day" data-routine="${r.id}" data-day="0">Start</button>`:`<button class="rt-chev" data-action="rt-detail" data-routine="${r.id}" aria-label="Open">›</button>`}
+  </div>`;
+}
 function rtListHTML(){
+  if(!DB.routines.length) return `<div class="empty"><div class="e-ico">📋</div><div class="e-t">No routines yet</div><div class="e-d">Build one from scratch, or browse Programs and add one — it lands here, ready to start.</div><button class="btn btn-ghost btn-sm" data-action="train-tab" data-tab="templates" style="margin-top:12px">Browse programs</button></div>`;
   const q=rtQuery.trim().toLowerCase();
   let list=DB.routines.slice();
   if(q) list=list.filter(r=> r.name.toLowerCase().includes(q) || r.days.some(d=> (d.name||'').toLowerCase().includes(q) || d.ex.some(e=> e.n.toLowerCase().includes(q))));
-  list.sort((a,b)=> ((b.pin?1:0)-(a.pin?1:0)) || ((b.lu||0)-(a.lu||0)));
-  if(!DB.routines.length) return `<div class="empty"><div class="e-ico">📋</div><div class="e-t">No routines yet</div><div class="e-d">Build one from scratch, or add a program from the library and tweak it to fit you.</div></div>`;
-  if(!list.length) return `<div class="empty"><div class="e-ico">🔍</div><div class="e-t">No matches</div><div class="e-d">Nothing named “${esc(rtQuery)}” — try another word or clear the search.</div></div>`;
-  return list.map(r=>{
-    const open=!!rtOpen[r.id]; const exN=r.days.reduce((a,d)=>a+d.ex.length,0);
-    return `<div class="tcard rt-item ${open?'open':''}" data-routine="${r.id}">
-    <div class="rt-head">
-      <button class="rt-star ${r.pin?'on':''}" data-action="rt-pin" data-routine="${r.id}">${r.pin?'★':'☆'}</button>
-      <button class="rt-main" data-action="rt-toggle" data-routine="${r.id}">
-        <div class="rt-name">${esc(r.name)}</div>
-        <div class="rt-sub">${r.days.length} day${r.days.length>1?'s':''} · ${exN} exercise${exN!==1?'s':''} · ${_agoTxt(r.lu)}</div>
-      </button>
-      ${r.days.length===1? `<button class="btn btn-primary btn-sm rt-start" data-action="start-day" data-routine="${r.id}" data-day="0">Start ▸</button>` : `<span class="rt-ch">▾</span>`}
-    </div>
-    <div class="rt-body" style="display:${open?'block':'none'}">
-      <div class="day-list">${r.days.map((d,di)=>`<div class="day-row" data-action="start-day" data-routine="${r.id}" data-day="${di}" style="cursor:pointer"><div class="dn"><span>${esc(d.name)}</span><span style="color:var(--energy-1);font-size:11px;font-weight:700">Start ▸</span></div><div class="de">${d.ex.map(e=>esc(e.n)).join(', ')||'No exercises'}</div></div>`).join('')}</div>
-      <button class="btn btn-ghost btn-sm rt-prog" data-action="prog-open" data-id="${r.id}">${(DB.settings.prog&&DB.settings.prog.rid===r.id)?'📅 Your active program · edit schedule':'📅 Run as my program'}</button>
-      <div class="btn-row" style="margin-top:12px">
-        <button class="btn btn-ghost btn-sm" data-action="edit-routine" data-routine="${r.id}" style="width:100%">Edit</button>
-        <button class="btn btn-ghost btn-sm" data-action="del-routine" data-routine="${r.id}" style="width:100%;color:#FF6B8A">Delete</button>
-      </div>
-    </div></div>`; }).join('');
+  if(!list.length) return `<div class="empty"><div class="e-ico">🔍</div><div class="e-t">No matches</div><div class="e-d">Nothing named “${esc(rtQuery)}” — try an exercise or day name, or clear the search.</div></div>`;
+  const byName=(a,b)=>a.name.localeCompare(b.name), byRecent=(a,b)=>(b.lu||0)-(a.lu||0)||byName(a,b);
+  list.sort(rtSort==='az'?byName:byRecent);
+  const now=Date.now(), recent=x=>x.lu && now-x.lu<14*864e5;
+  const groups=q||rtSort==='az'? [['',list]] : [['★ Pinned',list.filter(r=>r.pin)],['Recently used',list.filter(r=>!r.pin&&recent(r))],['Not used lately',list.filter(r=>!r.pin&&!recent(r))]];
+  return groups.filter(g=>g[1].length).map(([lbl,rs])=>`${lbl?`<div class="tg-lbl">${lbl} <small>${rs.length}</small></div>`:''}<div class="tp-list">${rs.map(rtRowHTML).join('')}</div>`).join('');
+}
+function rtToolsHTML(){
+  const n=DB.routines.length;
+  return `<div class="rt-bar">${n>=3?`<input id="rtSearch" type="search" enterkeyhint="search" autocomplete="off" placeholder="Search routines, days, exercises…" value="${esc(rtQuery)}">`:'<div class="rt-count">'+n+' routine'+(n===1?'':'s')+'</div>'}<button class="btn btn-primary btn-sm rt-new" data-action="new-routine">＋ New</button></div>
+    ${n>=3?`<div class="tl-row tl-f"><span class="tl-k">Sort</span>${[['recent','🕑 Recent'],['az','A–Z']].map(([k,l])=>`<button class="fchip ${rtSort===k?'on':''}" data-action="rt-sort" data-k="${k}">${l}</button>`).join('')}</div>`:''}`;
+}
+function openRtDetail(id){
+  const r=DB.routines.find(x=>x.id===id); if(!r) return; const s=rtStats(r), act=DB.settings.prog&&DB.settings.prog.rid===r.id, nx=act?((DB.settings.prog.next||0)%r.days.length):rtNextIdx(r);
+  openSheet(`<div class="grab"></div>
+    <div class="pd-top">${r.goal?`<span class="goal-tag ${esc(r.goal)}">${esc(r.goalLabel||r.goal)}</span>`:''}${act?'<span class="rt-act">📅 Active program</span>':''}<button class="rt-star ${r.pin?'on':''}" data-action="rt-pin" data-routine="${r.id}" style="margin-left:auto">${r.pin?'★ Pinned':'☆ Pin'}</button></div>
+    <h3 class="pd-name">${esc(r.name)}</h3>
+    <div class="pd-stats"><div><b>${r.days.length}</b><small>day${r.days.length>1?'s':''}</small></div><div><b>${s.ex}</b><small>exercises</small></div><div><b>~${s.sets}</b><small>sets / day</small></div><div><b>${s.used}</b><small>sessions done</small></div></div>
+    <div class="rt-days">${r.days.map((d,i)=>`<div class="rt-day${i===nx?' nx':''}"><div class="rt-dl"><b>${esc(d.name)}</b>${i===nx?'<span class="rt-up">Up next</span>':''}<small>${d.ex.length} exercises · ${esc(d.ex.slice(0,3).map(e=>e.n).join(', ')+(d.ex.length>3?'…':''))}</small></div><button class="btn ${i===nx?'btn-primary':'btn-ghost'} btn-sm" data-action="start-day" data-routine="${r.id}" data-day="${i}">Start</button></div>`).join('')}</div>
+    <button class="btn btn-ghost" data-action="prog-open" data-id="${r.id}" style="margin-top:12px">${act?'📅 Edit program schedule':'📅 Run as my program'}</button>
+    <div class="btn-row" style="margin-top:8px"><button class="btn btn-ghost btn-sm" data-action="edit-routine" data-routine="${r.id}" style="width:100%">✎ Edit</button><button class="btn btn-ghost btn-sm" data-action="del-routine" data-routine="${r.id}" style="width:100%;color:#FF6B8A">Delete</button></div>`);
 }
 function renderRtList(){
   const rl=$('#routineList'); if(!rl) return;
-  const tools=$('#rtTools'); if(tools && tools.style) tools.style.display = DB.routines.length>4?'block':'none';
+  const top=$('#rtTop'); if(top) top.innerHTML=rtUpNextHTML()+rtToolsHTML();
   rl.innerHTML=rtListHTML();
 }
 function renderTrain(){
@@ -4786,7 +4840,7 @@ function hrZones(){ const mx=maxHR(); if(!mx) return null; const rest=(DB.settin
   return {mx, rest, zones:defs.map(d=>({name:d[0], lo:calc(d[1]), hi:calc(d[2])}))}; }
 
 /* ===================== VO2MAX — dedicated entry + analysis ===================== */
-const APP_V='v81';
+const APP_V='v82';
 function vo2Parts(){
   const s=DB.settings, age=currentAge();
   const bv=bestVo2(), vr=vo2FromRestHR();
@@ -7521,15 +7575,15 @@ function tplListHTML(){ return tplView==='home'? tplHomeHTML() : tplCatHTML(); }
 function openTplDetail(id){
   const t=TEMPLATES.find(x=>x.id===id); if(!t) return; const p=pfProfile(t), have=(DB.routines||[]).some(x=>x.name===t.name), dc=t.days.length;
   openSheet(`<div class="grab"></div>
-    <div class="td-top"><span class="goal-tag ${t.goal}">${esc(t.goalLabel)}</span><span class="tc-lv lv${p.lv}">${TPL_LV[p.lv]}</span>${tplIsSci(t)?'<span class="tc-sci">🔬 Research</span>':''}</div>
-    <h3 class="td-name">${esc(t.name)}</h3>
+    <div class="pd-top"><span class="goal-tag ${t.goal}">${esc(t.goalLabel)}</span><span class="tc-lv lv${p.lv}">${TPL_LV[p.lv]}</span>${tplIsSci(t)?'<span class="tc-sci">🔬 Research</span>':''}</div>
+    <h3 class="pd-name">${esc(t.name)}</h3>
     <p class="sh-lead">${esc(TPL_BEST[t.id]||'')}</p>
-    <div class="td-stats"><div><b>${tplDaysLbl(p)}</b><small>frequency</small></div><div><b>~${p.min} min</b><small>per session</small></div><div><b>${dc}</b><small>training day${dc>1?'s':''}</small></div><div><b>${esc(tplEquipLbl(p).replace('🏠 ',''))}</b><small>equipment</small></div></div>
+    <div class="pd-stats"><div><b>${tplDaysLbl(p)}</b><small>frequency</small></div><div><b>~${p.min} min</b><small>per session</small></div><div><b>${dc}</b><small>training day${dc>1?'s':''}</small></div><div><b>${esc(tplEquipLbl(p).replace('🏠 ',''))}</b><small>equipment</small></div></div>
     ${have?`<button class="btn btn-ghost" disabled>✓ Already in your routines</button>`:`<button class="btn btn-primary" data-action="use-tpl" data-tpl="${t.id}">Add to my routines</button>`}
     <div class="tmeta"><span>📅 <b>${esc(t.freq)}</b></span><span>🔢 <b>${esc(t.repFocus)}</b></span><span>⏱ <b>${esc(t.rest)}</b></span></div>
     <div class="t-note"><b>How to progress —</b> ${t.progression}</div>
     <div class="t-note said"><b>Why it works —</b> ${t.said}</div>${t.src?`<div class="t-src">📚 ${esc(t.src)}</div>`:''}
-    <div class="td-days">${t.days.map((d,i)=>`<details class="td-day"${i===0?' open':''}><summary><span>${esc(d.name)}</span><small>${d.ex.length} moves · ${d.ex.reduce((a,e)=>a+(+e.s||1),0)} sets</small></summary><ol>${d.ex.map(e=>`<li><span>${esc(e.n)}</span><small>${e.s} × ${esc(String(e.r))}</small></li>`).join('')}</ol></details>`).join('')}</div>`);
+    <div class="pd-days">${t.days.map((d,i)=>`<details class="pd-day"${i===0?' open':''}><summary><span>${esc(d.name)}</span><small>${d.ex.length} moves · ${d.ex.reduce((a,e)=>a+(+e.s||1),0)} sets</small></summary><ol>${d.ex.map(e=>`<li><span>${esc(e.n)}</span><small>${e.s} × ${esc(String(e.r))}</small></li>`).join('')}</ol></details>`).join('')}</div>`);
 }
 function tplGoTop(){ try{ const h=$('#trainTabs'); if(h && h.getBoundingClientRect){ const y=h.getBoundingClientRect().top+(window.scrollY||0)-70; if(isFinite(y)) window.scrollTo(0,Math.max(0,y)); } }catch(e){} }
 
@@ -8282,7 +8336,7 @@ let srConfirmCb=null;
    EVENT DELEGATION
    ============================================================ */
 document.addEventListener('input', e=>{ const el=e.target;
-  if(el && el.id==='rtSearch'){ rtQuery=el.value||''; renderRtList(); }
+  if(el && el.id==='rtSearch'){ rtQuery=el.value||''; const rl=$('#routineList'); if(rl) rl.innerHTML=rtListHTML(); }
 });
 document.addEventListener('click', e=>{
   const t=e.target.closest('[data-action], [data-nav], [data-tpl], [data-tab], [data-dist], [data-goal], [data-routine]');
@@ -8381,10 +8435,10 @@ document.addEventListener('click', e=>{
     case 'new-routine': openRoutineBuilder(); break;
     case 'edit-routine': openRoutineBuilder(t.dataset.routine); break;
     case 'del-routine':
-      if(confirm('Delete this routine?')){ DB.routines=DB.routines.filter(r=>r.id!==t.dataset.routine); save(); renderTrain(); }
+      if(confirm('Delete this routine?')){ DB.routines=DB.routines.filter(r=>r.id!==t.dataset.routine); save(); closeSheet(); renderTrain(); }
       break;
     case 'start-day':
-      { const _r=DB.routines.find(x=>x.id===t.dataset.routine); if(_r){ _r.lu=Date.now(); save(); } } {
+      closeSheet(); { const _r=DB.routines.find(x=>x.id===t.dataset.routine); if(_r){ _r.lu=Date.now(); _r.ld=+t.dataset.day||0; save(); } } {
       const r=DB.routines.find(x=>x.id===t.dataset.routine); if(!r || !r.days || !r.days[+t.dataset.day]) break; const day=r.days[+t.dataset.day];
       startSession(r.name+' · '+day.name, r.goalLabel||'Strength session',
         day.ex.map(ex=>({n:ex.n, targetSets:parseInt(ex.s)||3, targetReps:ex.r, rest:(ex.rest==null?null:(+ex.rest||0))})));
@@ -8612,9 +8666,10 @@ document.addEventListener('click', e=>{
       toast('⚫','AMOLED '+(DB.settings.amoled?'on':'off'), DB.settings.amoled?'Pure black engaged':'Back to slate'); break; }
     case 'asc-newlap': newLap(); openAscent(); break;
     case 'rt-pin': { const r=DB.routines.find(x=>x.id===t.dataset.routine); if(!r) break;
-      r.pin=!r.pin; save(); renderRtList();
+      r.pin=!r.pin; save(); renderRtList(); if(overlay.classList.contains('show') && $('.pd-name')) openRtDetail(r.id);
       toast(r.pin?'★':'☆', r.pin?'Pinned':'Unpinned', r.name+(r.pin?' — it now sits at the top':'')); break; }
-    case 'rt-toggle': { const id=t.dataset.routine; rtOpen[id]=!rtOpen[id]; renderRtList(); break; }
+    case 'rt-detail': openRtDetail(t.dataset.routine); break;
+    case 'rt-sort': rtSort=t.dataset.k==='az'?'az':'recent'; renderRtList(); break;
     case 'asc-open': openAscent(); break;
     case 'asc-node': { ensureAscent(); const nd=ascFlat().find(x=>x.id===t.dataset.id); if(!nd) break;
       const done=DB.ascent.done[nd.id]; const curId=(ascFlat()[DB.ascent.node]||{}).id;
