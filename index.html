@@ -1738,6 +1738,8 @@ body.ui2 .sec-head{margin-top:22px}
 .tcard.tc2.open .tc-chev{transform:translateY(-50%) rotate(180deg)}
 .tcard.tc2.open{border-color:var(--line)}
 .tc2>.collapse{padding:0 14px 14px; border-top:1px solid var(--line-soft)}
+.tc-sci{color:#9CCBFF; font-weight:600}
+.goal-tag.fun{background:rgba(255,120,200,.16); color:#FFA8DA}
 .goal-tag.flex{background:rgba(120,220,140,.16); color:#9BE8AE}
 .pf-mini{display:flex; align-items:center; gap:10px; padding:9px 10px; background:var(--surface-2); border:1px solid var(--line-soft); border-radius:10px; margin-bottom:6px; width:100%; text-align:left; color:inherit; font:inherit}
 .pf-mini .pf-nm b{font-size:16px}
@@ -3204,6 +3206,158 @@ const TEMPLATES = [
       {name:'Upper', ex:[{n:'Dumbbell Bench Press', s:3, r:'8–12', rest:120},{n:'Neutral-Grip Lat Pulldown', s:3, r:'8–12', rest:90},{n:'Arnold Press', s:3, r:'8–12', rest:90},{n:'Single-Arm Cable Row', s:3, r:'10–12', rest:75},{n:'Bayesian Cable Curl', s:2, r:'10–12', rest:60},{n:'Rope Overhead Extension', s:2, r:'10–12', rest:60},{n:'Bench T-Spine Extension', s:2, r:'8', rest:15},{n:'Wall Slides', s:2, r:'10', rest:15}]},
       {name:'Lower', ex:[{n:'Hack Squat', s:3, r:'8–12', rest:120},{n:'Good Morning', s:3, r:'8–10', rest:120},{n:'Reverse Nordic Curl', s:3, r:'6–10', rest:75},{n:'Hip Adduction', s:3, r:'12–15', rest:60},{n:'Seated Calf Raise', s:3, r:'12–15', rest:45},{n:'Couch Stretch', s:2, r:'45 s / side', rest:15},{n:'Adductor Rock-Back', s:2, r:'10', rest:15}]}
     ]
+  },
+  {
+    id:'phul', name:'PHUL — Power Hypertrophy Upper Lower', goal:'hybrid', goalLabel:'Strength + Size',
+    src:'Classic free template (Brandon Campbell) · supported by Schoenfeld 2016 (2×/week per muscle beats 1×) and Williams 2017 (varied loading beats a single rep range for strength)',
+    freq:'4 days / week (Power Upper · Power Lower · rest · Hypertrophy Upper · Hypertrophy Lower)', repFocus:'Power days 3–5 reps · Hypertrophy days 8–12', rest:'Power 2–3 min · Hypertrophy 60–90 s',
+    progression:'Power days: when every set hits the top of the range (5 reps), add 2.5 kg / 5 lb to upper lifts and 5 kg / 10 lb to lower lifts. Hypertrophy days: add reps until you hit 12 on every set, then add weight. Stop 1–2 reps short of failure on the main lifts.',
+    said:'Each muscle gets hit twice a week, once heavy and once for volume. A meta-analysis found training a muscle twice a week grows more than once, and periodized programs that vary rep ranges build more strength than one fixed range.',
+    days:[
+      {name:'Power Upper', ex:[{n:'Barbell Bench Press', s:4, r:'3–5', rest:180},{n:'Barbell Row', s:4, r:'3–5', rest:180},{n:'Dumbbell Shoulder Press', s:3, r:'6–8', rest:120},{n:'Lat Pulldown', s:3, r:'6–10', rest:90},{n:'Barbell Curl', s:2, r:'6–10', rest:75},{n:'Skull Crushers', s:2, r:'6–10', rest:75}]},
+      {name:'Power Lower', ex:[{n:'Back Squat', s:4, r:'3–5', rest:180},{n:'Deadlift', s:3, r:'3–5', rest:180},{n:'Leg Press', s:4, r:'10–15', rest:120},{n:'Leg Curl', s:4, r:'6–10', rest:90},{n:'Calf Raise', s:4, r:'6–10', rest:60}]},
+      {name:'Hypertrophy Upper', ex:[{n:'Incline Barbell Press', s:4, r:'8–12', rest:90},{n:'Cable Fly', s:3, r:'8–12', rest:75},{n:'Seated Cable Row', s:4, r:'8–12', rest:90},{n:'Single-Arm Dumbbell Row', s:3, r:'8–12', rest:75},{n:'Lateral Raise', s:3, r:'8–12', rest:60},{n:'Incline Dumbbell Curl', s:3, r:'8–12', rest:60},{n:'Triceps Pushdown', s:3, r:'8–12', rest:60}]},
+      {name:'Hypertrophy Lower', ex:[{n:'Front Squat', s:4, r:'8–12', rest:120},{n:'Walking Lunge', s:3, r:'8–12 / leg', rest:90},{n:'Leg Extension', s:3, r:'10–15', rest:75},{n:'Seated Leg Curl', s:3, r:'10–15', rest:75},{n:'Seated Calf Raise', s:4, r:'8–12', rest:60},{n:'Calf Raise', s:3, r:'8–12', rest:60}]}
+    ]
+  },
+  {
+    id:'gbr', name:'Generic Bulking Routine', goal:'muscle', goalLabel:'Build Muscle',
+    src:'Lyle McDonald’s free upper/lower template · matches Schoenfeld 2017 dose-response meta-analysis (10+ sets per muscle per week)',
+    freq:'4 days / week (Lower · Upper · rest · Lower · Upper)', repFocus:'Heavy 6–8 · Light 10–12 · Pump 12–15', rest:'Heavy 3 min · Light 2 min · Pump 60–90 s',
+    progression:'Start 1–2 reps short of failure. Add weight whenever you get the top of the range on every set — about 2.5 kg / 5 lb upper, 5 kg / 10 lb lower. Run it as an 8–10 week block, then take a lighter week before repeating heavier.',
+    said:'Each muscle gets roughly 10–14 hard sets a week, spread over two sessions. A dose-response meta-analysis found 10 or more weekly sets per muscle grew clearly more muscle than fewer than 5.',
+    days:[
+      {name:'Lower A', ex:[{n:'Back Squat', s:4, r:'6–8', rest:180},{n:'Romanian Deadlift', s:3, r:'6–8', rest:180},{n:'Leg Press', s:3, r:'10–12', rest:120},{n:'Leg Curl', s:3, r:'10–12', rest:120},{n:'Calf Raise', s:4, r:'6–8', rest:90},{n:'Seated Calf Raise', s:3, r:'10–12', rest:60}]},
+      {name:'Upper A', ex:[{n:'Barbell Bench Press', s:4, r:'6–8', rest:180},{n:'Barbell Row', s:4, r:'6–8', rest:180},{n:'Overhead Press', s:3, r:'10–12', rest:120},{n:'Lat Pulldown', s:3, r:'10–12', rest:120},{n:'Triceps Pushdown', s:2, r:'12–15', rest:60},{n:'Barbell Curl', s:2, r:'12–15', rest:60}]},
+      {name:'Lower B', ex:[{n:'Deadlift', s:3, r:'6–8', rest:180},{n:'Front Squat', s:3, r:'6–8', rest:180},{n:'Bulgarian Split Squat', s:3, r:'10–12 / leg', rest:120},{n:'Seated Leg Curl', s:3, r:'10–12', rest:90},{n:'Leg Press Calf Raise', s:4, r:'6–8', rest:90},{n:'Seated Calf Raise', s:3, r:'10–12', rest:60}]},
+      {name:'Upper B', ex:[{n:'Incline Barbell Press', s:4, r:'6–8', rest:180},{n:'Chin-Up', s:4, r:'6–8', rest:180},{n:'Dumbbell Bench Press', s:3, r:'10–12', rest:120},{n:'Seated Cable Row', s:3, r:'10–12', rest:120},{n:'Overhead Triceps Extension', s:2, r:'12–15', rest:60},{n:'Hammer Curl', s:2, r:'12–15', rest:60}]}
+    ]
+  },
+  {
+    id:'rpe-ul', name:'Autoregulated Upper/Lower (RPE)', goal:'strength', goalLabel:'Max Strength',
+    src:'Helms et al. 2018, Front Physiol — RPE-based loading matched or beat fixed percentages · Robinson et al. 2024, Sports Med — proximity to failure',
+    freq:'4 days / week (Upper · Lower · rest · Upper · Lower)', repFocus:'Top set @ RPE 8 + back-off sets', rest:'3 min main lifts · 90 s accessories',
+    progression:'RPE 8 = you could do 2 more reps. Each main lift: work up to the top set at RPE 8, then drop the weight ~10% for the back-off sets. On good days the top set goes up on its own; on bad days it adjusts down — no failed sessions. Accessories: add reps, then weight.',
+    said:'Choosing the day’s weight by effort (RPE) instead of fixed percentages produced equal or greater strength gains in trained lifters. Strength doesn’t need sets to failure — stopping a couple of reps short keeps fatigue down so you can train each lift twice a week.',
+    days:[
+      {name:'Upper — bench focus', ex:[{n:'Barbell Bench Press', s:4, r:'1×5 @ RPE 8, then 3×5 (−10%)', rest:180},{n:'Pendlay Row', s:4, r:'6–8 @ RPE 8', rest:150},{n:'Overhead Press', s:3, r:'6–8 @ RPE 8', rest:150},{n:'Chin-Up', s:3, r:'6–10', rest:120},{n:'Lateral Raise', s:2, r:'12–15', rest:60},{n:'Triceps Pushdown', s:2, r:'10–15', rest:60}]},
+      {name:'Lower — squat focus', ex:[{n:'Back Squat', s:4, r:'1×5 @ RPE 8, then 3×5 (−10%)', rest:180},{n:'Romanian Deadlift', s:3, r:'6–8 @ RPE 8', rest:150},{n:'Bulgarian Split Squat', s:3, r:'8–10 / leg', rest:90},{n:'Leg Curl', s:3, r:'10–12', rest:75},{n:'Hanging Leg Raise', s:3, r:'8–12', rest:60}]},
+      {name:'Upper — press focus', ex:[{n:'Overhead Press', s:4, r:'1×4 @ RPE 8, then 3×4 (−10%)', rest:180},{n:'Close-Grip Bench Press', s:3, r:'6–8 @ RPE 8', rest:150},{n:'Chest-Supported Row', s:4, r:'8–10', rest:120},{n:'Lat Pulldown', s:3, r:'8–12', rest:90},{n:'Face Pull', s:2, r:'12–15', rest:60},{n:'Barbell Curl', s:2, r:'8–12', rest:60}]},
+      {name:'Lower — deadlift focus', ex:[{n:'Deadlift', s:4, r:'1×3 @ RPE 8, then 3×3 (−10%)', rest:180},{n:'Front Squat', s:3, r:'5–6 @ RPE 8', rest:150},{n:'Hip Thrust', s:3, r:'8–10', rest:90},{n:'Seated Leg Curl', s:3, r:'10–12', rest:75},{n:'Calf Raise', s:3, r:'8–12', rest:60}]}
+    ]
+  },
+  {
+    id:'block-4', name:'Block Periodized Strength', goal:'strength', goalLabel:'Max Strength',
+    src:'Painter et al. 2012, JSCR — block beat daily-undulating for strength per unit of work · Williams et al. 2017, Sports Med — periodized > non-periodized',
+    freq:'4 days / week · 12-week cycle (3 blocks)', repFocus:'Wk 1–4: 5×8 · Wk 5–8: 5×5 · Wk 9–12: 4×3 → 2×1', rest:'2–4 min main lifts',
+    progression:'Block 1 (accumulation, wk 1–4): main lifts 5×8 at ~70% 1RM, add a little each week. Block 2 (transmutation, wk 5–8): 5×5 at ~80%. Block 3 (realization, wk 9–12): 4×3 at ~87%, then heavy singles at ~92% in week 11 and a test in week 12. Edit the reps in your copy at each new block. Accessories stay 3×8–12.',
+    said:'Concentrating on one quality at a time — volume, then strength, then peaking — gave similar or better strength gains with less total work than mixing them daily, and periodized programs consistently beat non-periodized ones for max strength.',
+    days:[
+      {name:'Squat day', ex:[{n:'Back Squat', s:5, r:'8 · 5 · 3 (by block)', rest:210},{n:'Front Squat', s:3, r:'6–8', rest:150},{n:'Leg Press', s:3, r:'8–12', rest:120},{n:'Seated Leg Curl', s:3, r:'10–12', rest:75},{n:'Ab Wheel Rollout', s:3, r:'8–12', rest:60}]},
+      {name:'Bench day', ex:[{n:'Barbell Bench Press', s:5, r:'8 · 5 · 3 (by block)', rest:210},{n:'Incline Dumbbell Press', s:3, r:'8–12', rest:120},{n:'Barbell Row', s:4, r:'6–10', rest:120},{n:'Lateral Raise', s:3, r:'12–15', rest:60},{n:'Triceps Pushdown', s:3, r:'10–12', rest:60}]},
+      {name:'Deadlift day', ex:[{n:'Deadlift', s:5, r:'5 · 4 · 2 (by block)', rest:240},{n:'Romanian Deadlift', s:3, r:'6–8', rest:150},{n:'Walking Lunge', s:3, r:'10 / leg', rest:90},{n:'Hanging Leg Raise', s:3, r:'8–12', rest:60},{n:'Farmer\'s Carry', s:3, r:'30–40 m', rest:90}]},
+      {name:'Press day', ex:[{n:'Overhead Press', s:5, r:'8 · 5 · 3 (by block)', rest:180},{n:'Close-Grip Bench Press', s:3, r:'6–8', rest:150},{n:'Pull-Up', s:4, r:'6–10', rest:120},{n:'Face Pull', s:3, r:'12–15', rest:60},{n:'Barbell Curl', s:3, r:'8–12', rest:60}]}
+    ]
+  },
+  {
+    id:'paired-45', name:'45-Minute Paired-Set Upper/Lower', goal:'muscle', goalLabel:'Build Muscle',
+    src:'Iversen et al. 2021, Sports Med — time-efficient training review · Robbins et al. 2010 — agonist-antagonist paired sets keep performance with half the time',
+    freq:'4 days / week · ~45 min', repFocus:'Paired sets (A1/A2) × 6–12', rest:'60–90 s between paired moves',
+    progression:'Do A1, rest 60–90 s, do A2, rest, repeat — opposing muscles recover while the other works, so you fit full volume in half the time. Use the app’s superset button to pair them. Add reps to the top of the range, then add weight. Take the last set of each pair 1–2 reps from failure.',
+    said:'Pairing opposing muscles (chest + back, quads + hamstrings) kept training volume and strength while roughly halving session time. A review of time-efficient training found paired sets, compound lifts and ~4–6 hard sets per muscle per session are the best way to get results in under an hour.',
+    days:[
+      {name:'Upper A', ex:[{n:'Barbell Bench Press', s:3, r:'6–8', rest:75},{n:'Barbell Row', s:3, r:'6–8', rest:75},{n:'Dumbbell Shoulder Press', s:3, r:'8–12', rest:75},{n:'Lat Pulldown', s:3, r:'8–12', rest:75},{n:'Barbell Curl', s:2, r:'10–12', rest:60},{n:'Triceps Pushdown', s:2, r:'10–12', rest:60}]},
+      {name:'Lower A', ex:[{n:'Back Squat', s:3, r:'6–8', rest:90},{n:'Romanian Deadlift', s:3, r:'8–10', rest:90},{n:'Leg Extension', s:3, r:'10–12', rest:60},{n:'Leg Curl', s:3, r:'10–12', rest:60},{n:'Calf Raise', s:3, r:'10–15', rest:60},{n:'Cable Crunch', s:3, r:'10–15', rest:60}]},
+      {name:'Upper B', ex:[{n:'Incline Dumbbell Press', s:3, r:'8–12', rest:75},{n:'Chest-Supported Row', s:3, r:'8–12', rest:75},{n:'Overhead Press', s:3, r:'6–8', rest:75},{n:'Chin-Up', s:3, r:'6–10', rest:75},{n:'Lateral Raise', s:2, r:'12–15', rest:45},{n:'Face Pull', s:2, r:'12–15', rest:45}]},
+      {name:'Lower B', ex:[{n:'Deadlift', s:3, r:'4–6', rest:120},{n:'Leg Press', s:3, r:'10–12', rest:90},{n:'Hip Thrust', s:3, r:'8–12', rest:75},{n:'Seated Leg Curl', s:3, r:'10–12', rest:60},{n:'Seated Calf Raise', s:3, r:'12–15', rest:45},{n:'Hanging Leg Raise', s:3, r:'8–12', rest:45}]}
+    ]
+  },
+  {
+    id:'ul4-mobile', name:'Upper/Lower Mobility & Stability', goal:'flex', goalLabel:'Muscle + Mobility',
+    src:'Schoenfeld 2016 (2×/week per muscle) · Afonso et al. 2021 (strength training improves range of motion like stretching) · Behm et al. 2010 CSEP position stand (unilateral & free-weight work for stability)',
+    freq:'4 days / week (Upper · Lower · rest · Upper · Lower)', repFocus:'3 × 6–12 full range + stability finisher', rest:'60–120 s',
+    progression:'Each session: 2 mobility drills first (they double as warm-up), then the lifts through full range, then a short stability block. Add reps to the top of the range, then weight. Stability moves progress by time, slower tempo, or a heavier carry — never by losing position.',
+    said:'Every muscle group is trained twice a week for growth. Full-range lifts build mobility, and single-arm / single-leg work plus anti-rotation core trains the stabilizers that bilateral machines miss.',
+    days:[
+      {name:'Upper A', ex:[{n:'Thoracic Rotation', s:2, r:'8 / side', rest:15},{n:'Wall Slides', s:2, r:'10', rest:15},{n:'Dumbbell Bench Press', s:3, r:'8–12', rest:120},{n:'Chest-Supported Row', s:3, r:'8–12', rest:90},{n:'Single-Arm Landmine Press', s:3, r:'8–10 / arm', rest:75},{n:'Neutral-Grip Lat Pulldown', s:3, r:'8–12', rest:75},{n:'Incline Dumbbell Curl', s:2, r:'10–12', rest:60},{n:'Overhead Triceps Extension', s:2, r:'10–12', rest:60},{n:'Pallof Press', s:3, r:'10 / side', rest:45}]},
+      {name:'Lower A', ex:[{n:'90/90 Hip Switch', s:2, r:'8', rest:15},{n:'Wall Ankle Rock', s:2, r:'10 / side', rest:15},{n:'Back Squat', s:3, r:'6–10 (full depth)', rest:150},{n:'Single-Leg RDL', s:3, r:'8–10 / leg', rest:90},{n:'Lateral Lunge', s:3, r:'8 / side', rest:75},{n:'Seated Leg Curl', s:3, r:'10–12', rest:75},{n:'Single-Leg Calf Raise', s:3, r:'10–15 / leg', rest:45},{n:'Copenhagen Plank', s:2, r:'20–30 s / side', rest:45}]},
+      {name:'Upper B', ex:[{n:'Shoulder CARs', s:2, r:'5 / side', rest:15},{n:'Bench T-Spine Extension', s:2, r:'8', rest:15},{n:'Overhead Press', s:3, r:'6–10', rest:120},{n:'Single-Arm Dumbbell Row', s:3, r:'8–12 / arm', rest:75},{n:'Incline Dumbbell Press', s:3, r:'8–12', rest:90},{n:'Face Pull', s:3, r:'12–15', rest:60},{n:'Hammer Curl', s:2, r:'10–12', rest:60},{n:'Triceps Pushdown', s:2, r:'10–12', rest:60},{n:'Suitcase Carry', s:3, r:'30 m / side', rest:60}]},
+      {name:'Lower B', ex:[{n:'Hip CARs', s:2, r:'5 / side', rest:15},{n:'Couch Stretch', s:2, r:'40 s / side', rest:15},{n:'Romanian Deadlift', s:3, r:'6–10', rest:150},{n:'Bulgarian Split Squat', s:3, r:'8–10 / leg', rest:90},{n:'Hip Thrust', s:3, r:'8–12', rest:90},{n:'Leg Extension', s:2, r:'12–15', rest:60},{n:'Seated Calf Raise', s:3, r:'12–15', rest:45},{n:'Dead Bug', s:3, r:'8 / side (slow)', rest:45}]}
+    ]
+  },
+  {
+    id:'fb4-stable', name:'Full-Body ×4 Strength & Stability', goal:'flex', goalLabel:'Muscle + Mobility',
+    src:'Behm et al. 2010 CSEP position stand (free-weight, unilateral & core training for stability) · Afonso et al. 2021 · Schoenfeld 2016 frequency meta-analysis',
+    freq:'4 days / week (A · B · rest · C · D) · ~50 min', repFocus:'3 × 6–12 · one bilateral + one single-limb lift per pattern', rest:'60–120 s',
+    progression:'Every day trains push, pull, squat, hinge and core — so every muscle is hit 4× a week with moderate volume. Bilateral lifts carry the load; single-arm / single-leg lifts train balance. Progress the single-limb moves only when you can hold the position without wobbling for every rep.',
+    said:'Spreading the same weekly sets over 4 full-body days keeps each session short and fresh. Free-weight unilateral lifts and anti-rotation core work build strength and joint stability together, and deep-range moves train mobility at the same time.',
+    days:[
+      {name:'A — squat + horizontal', ex:[{n:'Goblet Squat', s:3, r:'8–12 (deep)', rest:90},{n:'Barbell Bench Press', s:3, r:'6–10', rest:120},{n:'Single-Arm Dumbbell Row', s:3, r:'8–12 / arm', rest:75},{n:'Single-Leg RDL', s:3, r:'8 / leg', rest:75},{n:'Lateral Raise', s:2, r:'12–15', rest:45},{n:'Pallof Press', s:3, r:'10 / side', rest:45},{n:'Cossack Squat', s:2, r:'6 / side', rest:30}]},
+      {name:'B — hinge + vertical', ex:[{n:'Trap Bar Deadlift', s:3, r:'5–8', rest:150},{n:'Pull-Up', s:3, r:'6–10', rest:120},{n:'Single-Arm Landmine Press', s:3, r:'8–10 / arm', rest:75},{n:'Step-Up', s:3, r:'8–10 / leg', rest:75},{n:'Barbell Curl', s:2, r:'10–12', rest:45},{n:'Suitcase Carry', s:3, r:'30 m / side', rest:60},{n:"World's Greatest Stretch", s:2, r:'5 / side', rest:20}]},
+      {name:'C — lunge + incline', ex:[{n:'Bulgarian Split Squat', s:3, r:'8–10 / leg', rest:90},{n:'Incline Dumbbell Press', s:3, r:'8–12', rest:90},{n:'Seated Cable Row', s:3, r:'8–12', rest:75},{n:'Hip Thrust', s:3, r:'8–12', rest:90},{n:'Overhead Triceps Extension', s:2, r:'10–12', rest:45},{n:'Single-Leg Calf Raise', s:3, r:'12 / leg', rest:45},{n:'Side Plank', s:2, r:'30 s / side', rest:30}]},
+      {name:'D — strength + get-up', ex:[{n:'Front Squat', s:3, r:'5–8', rest:150},{n:'Overhead Press', s:3, r:'6–8', rest:120},{n:'Chin-Up', s:3, r:'6–10', rest:90},{n:'Nordic Curl', s:3, r:'3–6 slow', rest:90},{n:'Face Pull', s:2, r:'12–15', rest:45},{n:'Turkish Get-Up', s:3, r:'2 / side', rest:60},{n:'Thoracic Rotation', s:2, r:'8 / side', rest:20}]}
+    ]
+  },
+  {
+    id:'resilient-4', name:'Resilient Athlete 4-Day', goal:'balance', goalLabel:'Balance & Stability',
+    src:'Lauersen et al. 2014, BJSM meta-analysis — strength training cut sports injuries to under 1/3 · van Dyk 2019 (Nordics) · Behm 2010',
+    freq:'4 days / week (Upper · Lower · rest · Upper · Lower)', repFocus:'3–4 × 5–12 + landing & balance work', rest:'60–150 s',
+    progression:'Main lifts: add weight when every set reaches the top of the range. Landing drills: stick each landing silent and still for 2 s before adding height or distance. Balance holds: add time, then close your eyes or add a reach.',
+    said:'Strength training was the most effective injury-prevention method in a large meta-analysis — cutting sports injuries to under a third — while stretching alone did little. This program trains every muscle twice a week and adds landing control, single-leg balance, Nordics and Copenhagens for knees, ankles, hamstrings and groin.',
+    days:[
+      {name:'Upper — push/pull', ex:[{n:'Barbell Bench Press', s:4, r:'5–8', rest:150},{n:'Pendlay Row', s:4, r:'5–8', rest:120},{n:'Bottoms-Up Kettlebell Press', s:3, r:'6–8 / arm', rest:75},{n:'Chin-Up', s:3, r:'6–10', rest:90},{n:'Cuban Rotation', s:2, r:'10–12', rest:45},{n:'Hammer Curl', s:2, r:'10–12', rest:45},{n:'Half-Kneeling Chop', s:3, r:'10 / side', rest:45}]},
+      {name:'Lower — knee & landing', ex:[{n:'Single-Leg Hop & Stick', s:3, r:'5 / leg', rest:60},{n:'Back Squat', s:4, r:'5–8', rest:150},{n:'Single-Leg Step-Down', s:3, r:'8 / leg (slow)', rest:60},{n:'Nordic Curl', s:3, r:'3–6', rest:90},{n:'Tibialis Raise', s:2, r:'15–20', rest:45},{n:'Single-Leg Calf Raise', s:3, r:'12 / leg', rest:45},{n:'Single-Leg Balance Reach', s:2, r:'6 / leg', rest:30}]},
+      {name:'Upper — overhead & carry', ex:[{n:'Overhead Press', s:4, r:'5–8', rest:150},{n:'Renegade Row', s:3, r:'6–8 / side', rest:90},{n:'Dips', s:3, r:'6–12', rest:90},{n:'Face Pull', s:3, r:'12–15', rest:45},{n:'Skull Crushers', s:2, r:'10–12', rest:45},{n:"Farmer's Carry", s:3, r:'40 m', rest:75},{n:'Turkish Get-Up', s:2, r:'2 / side', rest:60}]},
+      {name:'Lower — hip & groin', ex:[{n:'Skater Hop', s:3, r:'6 / side (stick it)', rest:60},{n:'Deadlift', s:3, r:'4–6', rest:180},{n:'Reverse Lunge', s:3, r:'8 / leg', rest:75},{n:'Copenhagen Plank', s:3, r:'20–30 s / side', rest:45},{n:'Single-Leg Glute Bridge', s:3, r:'10–12 / leg', rest:45},{n:'Seated Calf Raise', s:3, r:'12–15', rest:45},{n:'Stability Ball Stir-the-Pot', s:2, r:'8 / direction', rest:30}]}
+    ]
+  },
+  {
+    id:'odd-strongman', name:'Odd-Object Strongman', goal:'fun', goalLabel:'Fun & Unorthodox',
+    src:'Original FORGE program · strongman-style carries and odd lifts (Winwood et al. 2015 — strongman training as effective as traditional lifting for strength)',
+    freq:'3 days / week (Mon · Wed · Fri)', repFocus:'Odd lifts 3–6 · carries for distance', rest:'2–3 min',
+    progression:'Pick one “event” per day to chase: add 5 m to a carry, 1 rep to a Zercher, or 2.5 kg / 5 lb to a Z press. Odd positions are humbling — start lighter than your normal lifts and own the position first.',
+    said:'Loads held in awkward positions — in the elbows, off-centre, overhead with no back support — make your trunk, grip and hips work in ways machines can’t. A controlled study found strongman-style training built strength and power as well as traditional lifting.',
+    days:[
+      {name:'Event day 1 — Zercher & carry', ex:[{n:'Zercher Squat', s:4, r:'4–6', rest:180},{n:'Meadows Row', s:3, r:'8–10 / arm', rest:90},{n:'Z Press', s:3, r:'6–8', rest:120},{n:"Farmer's Carry", s:4, r:'30–40 m', rest:120},{n:'Bear Crawl', s:3, r:'20 m', rest:60}]},
+      {name:'Event day 2 — off-centre', ex:[{n:'Suitcase Deadlift', s:4, r:'5 / side', rest:150},{n:'Bottoms-Up Kettlebell Press', s:3, r:'5–8 / arm', rest:90},{n:'Kroc Row', s:3, r:'12–20 / arm', rest:90},{n:'Single-Arm Landmine Press', s:3, r:'8 / arm', rest:75},{n:'Suitcase Carry', s:3, r:'30 m / side', rest:90},{n:'Turkish Get-Up', s:3, r:'2 / side', rest:60}]},
+      {name:'Event day 3 — power medley', ex:[{n:'Snatch-Grip High Pull', s:4, r:'4–6', rest:150},{n:'Push Press', s:4, r:'4–6', rest:150},{n:'Gorilla Row', s:3, r:'8 / side', rest:90},{n:'Medicine Ball Slam', s:3, r:'8', rest:60},{n:"Farmer's Carry", s:2, r:'max distance', rest:120}]}
+    ]
+  },
+  {
+    id:'primal-flow', name:'Primal Movement Lab', goal:'fun', goalLabel:'Fun & Unorthodox',
+    src:'Original FORGE program · ground-based crawling, rolling and rotational patterns',
+    freq:'3 days / week · ~40 min', repFocus:'Flows & circuits · 30–45 s or 6–10 reps', rest:'30–60 s',
+    progression:'Move like an animal, not a machine: crawl, rotate, get up and down from the floor. Progress by adding a round, slowing the tempo, or holding the hardest position 2 s longer. Quality first — smooth beats fast.',
+    said:'Training on the floor and in rotation builds coordination, shoulder and hip control, and core strength through every plane — the things straight-line gym lifts skip. It also feels like play, which makes it easier to keep doing.',
+    days:[
+      {name:'Crawl & rotate', ex:[{n:'Bear Crawl', s:3, r:'30 s', rest:30},{n:'Cossack Squat', s:3, r:'6 / side', rest:45},{n:'Renegade Row', s:3, r:'6 / side', rest:60},{n:'Rotational Med Ball Throw', s:3, r:'6 / side', rest:45},{n:'Hollow Body Hold', s:3, r:'30 s', rest:30},{n:'Scorpion Stretch', s:2, r:'6 / side', rest:20}]},
+      {name:'Ground & get-up', ex:[{n:'Turkish Get-Up', s:3, r:'2 / side', rest:60},{n:'Pistol Squat', s:3, r:'3–6 / leg (to a box if needed)', rest:60},{n:'Pike Push-Up', s:3, r:'6–10', rest:60},{n:'Plank Shoulder Tap', s:3, r:'10 / side', rest:30},{n:'Skater Hop', s:3, r:'6 / side', rest:45},{n:'Deep Squat Hold', s:2, r:'60 s', rest:20}]},
+      {name:'Hang & flow', ex:[{n:'Pull-Up', s:3, r:'5–8', rest:75},{n:'L-Sit Hold', s:3, r:'10–20 s', rest:45},{n:'Reverse Lunge with Rotation', s:3, r:'8 / side', rest:45},{n:'Dragon Flag', s:3, r:'3–6 (slow lowering)', rest:60},{n:'Medicine Ball Slam', s:3, r:'10', rest:45},{n:"World's Greatest Stretch", s:2, r:'5 / side', rest:20}]}
+    ]
+  },
+  {
+    id:'weird-hyper', name:'Bodybuilding Oddities', goal:'fun', goalLabel:'Fun & Unorthodox',
+    src:'Kassiano et al. 2022, JSCR systematic review — varying exercises builds muscle more evenly · Fonseca et al. 2014',
+    freq:'4 days / week (Upper · Lower · rest · Upper · Lower)', repFocus:'3 × 8–15 on unusual angles', rest:'60–120 s',
+    progression:'Every exercise here is a less-common variation that hits the muscle from a new angle. Add reps to the top of the range, then weight. Swap any move for its standard version after 6–8 weeks to keep it fresh.',
+    said:'Studies comparing one exercise per muscle to several varied ones found variety grows different regions of the muscle more evenly — the quads, triceps and shoulders don’t respond the same way to every angle.',
+    days:[
+      {name:'Upper — weird push', ex:[{n:'Bradford Press', s:3, r:'8–12', rest:90},{n:'Low-to-High Cable Fly', s:3, r:'12–15', rest:60},{n:'Svend Press', s:3, r:'12–15', rest:60},{n:'JM Press', s:3, r:'8–10', rest:90},{n:'Tate Press', s:2, r:'10–12', rest:60},{n:'Y-Raise', s:3, r:'12–15', rest:45}]},
+      {name:'Lower — weird quads & hams', ex:[{n:'Cyclist Squat', s:3, r:'10–12', rest:90},{n:'Sissy Squat', s:3, r:'8–12', rest:75},{n:'Razor Curl', s:3, r:'6–10', rest:75},{n:'Curtsy Lunge', s:3, r:'10 / leg', rest:60},{n:'Frog Pump', s:3, r:'20–30', rest:45},{n:'Donkey Calf Raise', s:3, r:'12–15', rest:45}]},
+      {name:'Upper — weird pull', ex:[{n:'Seal Row', s:3, r:'8–12', rest:90},{n:'Meadows Row', s:3, r:'8–10 / arm', rest:75},{n:'Straight-Arm Pulldown', s:3, r:'12–15', rest:60},{n:'Spider Curl', s:3, r:'10–12', rest:60},{n:'Zottman Curl', s:2, r:'10–12', rest:60},{n:'Trap-3 Raise', s:3, r:'12–15', rest:45}]},
+      {name:'Lower — weird glutes & core', ex:[{n:'Belt Squat', s:3, r:'10–12', rest:90},{n:'B-Stance Hip Thrust', s:3, r:'8–12 / leg', rest:75},{n:'Reverse Nordic Curl', s:3, r:'6–10', rest:75},{n:'Cable Pull-Through', s:3, r:'12–15', rest:60},{n:'Tibialis Raise', s:2, r:'15–20', rest:45},{n:'Dragon Flag', s:3, r:'3–6', rest:60}]}
+    ]
+  },
+  {
+    id:'playground', name:'Adult Playground', goal:'fun', goalLabel:'Fun & Unorthodox',
+    src:'Original FORGE program · jumps, throws and sprints-style power work (Sáez de Villarreal et al. 2009 & 2012 meta-analyses — plyometrics improve jump height and sprint speed)',
+    freq:'2–3 days / week · ~35 min', repFocus:'Power moves 3–6 reps · games 20–40 s', rest:'45–90 s, full recovery on jumps',
+    progression:'Treat each move like a game: beat your best broad-jump distance, slam harder, stick quieter landings. Rest fully between explosive sets — tired jumps don’t build power. Add a round when everything feels crisp.',
+    said:'Jumping, throwing and bounding train speed and power that slow lifting misses, and a meta-analysis found plyometric training reliably improves jump height and sprint performance. It also just feels like recess.',
+    days:[
+      {name:'Jump & throw', ex:[{n:'Broad Jump', s:4, r:'3 (measure it)', rest:90},{n:'Rotational Med Ball Throw', s:3, r:'5 / side', rest:60},{n:'Skater Hop', s:3, r:'6 / side', rest:60},{n:'Dumbbell Snatch', s:3, r:'5 / arm', rest:75},{n:'Bear Crawl', s:3, r:'20 m', rest:45},{n:'Jump Rope', s:3, r:'45 s', rest:30}]},
+      {name:'Slam & sprint-ready', ex:[{n:'Box Jump', s:4, r:'4', rest:90},{n:'Medicine Ball Slam', s:4, r:'8', rest:60},{n:'Kettlebell Swing', s:4, r:'12', rest:60},{n:'Tuck Jump', s:3, r:'5', rest:60},{n:'Mountain Climber', s:3, r:'30 s', rest:30},{n:'Burpee', s:2, r:'10', rest:60}]}
+    ]
   }
 ];
 
@@ -4409,7 +4563,7 @@ function hrZones(){ const mx=maxHR(); if(!mx) return null; const rest=(DB.settin
   return {mx, rest, zones:defs.map(d=>({name:d[0], lo:calc(d[1]), hi:calc(d[2])}))}; }
 
 /* ===================== VO2MAX — dedicated entry + analysis ===================== */
-const APP_V='v77';
+const APP_V='v78';
 function vo2Parts(){
   const s=DB.settings, age=currentAge();
   const bv=bestVo2(), vr=vo2FromRestHR();
@@ -6747,9 +6901,22 @@ const PF_META={ // level: 1 beginner · 2 intermediate · 3 advanced; tags = ext
   'bw-strength-flex':{lv:1,tags:['bodyweight','no equipment','home','no gym','mobility','flexib','calisthenics','stretch']},
   'deep-legs':{lv:2,addon:1,tags:['legs','knee','knees','hips','deep squat','nordic','mobility','flexib','atg','knees over toes','ankle']},
   'flex-ppl':{lv:2,tags:['ppl','push pull legs','mobility','flexib','stretch','5 days','finisher']},
+  'phul':{lv:2,tags:['phul','power hypertrophy','upper lower','powerbuilding','size and strength','gym']},
+  'gbr':{lv:2,tags:['bulk','bulking','gbr','lyle','upper lower','mass','gym']},
+  'rpe-ul':{lv:2,tags:['rpe','rir','autoregulat','effort','science','research','evidence','upper lower','gym']},
+  'block-4':{lv:3,tags:['block','periodization','peaking','powerlifting','meet','test my max','science','research','evidence']},
+  'paired-45':{lv:1,tags:['superset','paired','time efficient','quick','short','busy','science','research','evidence','upper lower']},
+  'ul4-mobile':{lv:2,tags:['mobility','stability','flexib','all muscle','every muscle','upper lower','balance','gym']},
+  'fb4-stable':{lv:2,tags:['stability','balance','full body','all muscle','every muscle','unilateral','single leg','mobility']},
+  'resilient-4':{lv:2,tags:['injury','injury prevention','resilient','athlete','sport','knee','ankle','groin','stability','balance','landing']},
+  'odd-strongman':{lv:2,tags:['strongman','odd','odd object','carry','carries','zercher','grip','fun','unorthodox']},
+  'primal-flow':{lv:1,tags:['primal','animal flow','crawl','ground','fun','unorthodox','play','movement','coordination']},
+  'weird-hyper':{lv:2,tags:['variety','weird','unusual','different exercises','fun','unorthodox','bodybuilding','new exercises']},
+  'playground':{lv:1,tags:['playground','fun','jump','throw','slam','play','games','recess','explosive']},
   'schoenfeld-hv':{lv:3,tags:['science','research','evidence','study','high volume','volume','hypertrophy','schoenfeld']}
 };
 const PF_GOALS={
+  fun:['fun','unorthodox','unusual','weird','odd','creative','innovative','variety','bored','different exercises','strongman','primal','animal flow','playground','spice','something new','not boring','exciting'],
   flex:['muscle and mobility','mobility and muscle','muscle + mobility','strength and mobility','mobility and strength','flexible and strong','strong and flexible','loaded stretch','lengthened','long length','full range','stretch-focused','mobile muscle','build muscle and flexib','build muscle while'],
   strength:['strength','strong','stronger','powerlift','1rm','one rep max','max out','heavier','lift more','bench more','squat more','deadlift more','raw strength'],
   muscle:['muscle','hypertroph','size','bigger','mass','bulk','aesthetic','bodybuild','physique','gain','jacked','swole','arms','chest','tone','toned','build'],
@@ -6760,8 +6927,8 @@ const PF_GOALS={
   balance:['balance','stability','stable','fall','ankle','injury','prevent','acl','older','senior','aging','longevity','bone','single leg','proprioception'],
   general:['general','health','healthy','overall','everything','fitness','in shape','longevity','beginner','start','consistent']
 };
-const PF_REL={flex:{muscle:.6,mobility:.55,hybrid:.3,general:.3,strength:.25},strength:{flex:.25,hybrid:.7,power:.4,general:.3,muscle:.35,endurance:.2},muscle:{flex:.6,hybrid:.7,general:.35,strength:.35,endurance:.15},endurance:{general:.4,power:.2,hybrid:.15},hybrid:{strength:.65,muscle:.65,general:.3,power:.3},power:{hybrid:.45,strength:.4,balance:.25},mobility:{flex:.6,balance:.45,general:.2},balance:{mobility:.4,general:.35,power:.25},general:{hybrid:.35,strength:.3,muscle:.3,endurance:.3,balance:.25}};
-const PF_GLBL={flex:'🌀 Muscle + mobility',strength:'💪 Strength',muscle:'🏋️ Muscle',endurance:'🔥 Fat loss / engine',hybrid:'⚡ Strength + size',power:'🚀 Power',mobility:'🧘 Mobility',balance:'🦵 Balance & resilience',general:'❤️ General health'};
+const PF_REL={fun:{general:.35,hybrid:.3,muscle:.3,power:.35,strength:.25,flex:.25},flex:{muscle:.6,mobility:.55,hybrid:.3,general:.3,strength:.25},strength:{flex:.25,hybrid:.7,power:.4,general:.3,muscle:.35,endurance:.2},muscle:{flex:.6,hybrid:.7,general:.35,strength:.35,endurance:.15},endurance:{general:.4,power:.2,hybrid:.15},hybrid:{strength:.65,muscle:.65,general:.3,power:.3},power:{hybrid:.45,strength:.4,balance:.25},mobility:{flex:.6,balance:.45,general:.2},balance:{mobility:.4,general:.35,power:.25},general:{hybrid:.35,strength:.3,muscle:.3,endurance:.3,balance:.25}};
+const PF_GLBL={fun:'🎲 Fun & variety',flex:'🌀 Muscle + mobility',strength:'💪 Strength',muscle:'🏋️ Muscle',endurance:'🔥 Fat loss / engine',hybrid:'⚡ Strength + size',power:'🚀 Power',mobility:'🧘 Mobility',balance:'🦵 Balance & resilience',general:'❤️ General health'};
 const PF_NUM={one:1,two:2,three:3,four:4,five:5,six:6,seven:7,twice:2,once:1,thrice:3};
 const _pfCache={};
 function pfEquip(n){
@@ -6786,7 +6953,7 @@ function pfProfile(t){
   else if(rg){ lo=+rg[1]; hi=+rg[2]; if(f.indexOf('+')>=0){ hi=lo+hi; } }
   else if(one){ lo=hi=+one[1]; } else { lo=hi=3; }
   if(meta.addon) hi=Math.max(hi,6);
-  const dRest={flex:90,strength:150,muscle:90,endurance:45,mobility:25,balance:45,power:120,hybrid:105,general:75}[t.goal]||90;
+  const dRest={fun:75,flex:90,strength:150,muscle:90,endurance:45,mobility:25,balance:45,power:120,hybrid:105,general:75}[t.goal]||90;
   const mins=t.days.map(d=>d.ex.reduce((a,e)=>a+(+e.s||1)*((e.rest!=null?+e.rest:dRest)+40),0)/60);
   let min=Math.round(mins.reduce((a,b)=>a+b,0)/mins.length/5)*5+5;
   const pm=f.match(/(\d+)\s*min/); if(pm) min=+pm[1];
@@ -6827,6 +6994,7 @@ function pfParse(raw){
   if(/beginner|new to|never lifted|just start|starting out|first time|newbie|novice|untrained|returning|out of shape|haven't trained/.test(q)) P.lvl=1;
   else if(/advanced|experienced|years of|veteran|elite|competitive/.test(q)) P.lvl=3;
   else if(/intermediate|plateau|stall|stuck/.test(q)) P.lvl=2;
+  if(/scien|research|evidence|proven|stud(y|ies)|peer.?review/.test(q)) P.sci=true;
   if(/home|no gym|garage|apartment|hotel|travel|park|outdoor/.test(q)) P.home=true;
   if(/bodyweight|body weight|calisthenics|no equipment|nothing at home|no weights/.test(q)) { P.home=true; P.bw=true; }
   if(/kettlebell|kb\b/.test(qg)) P.equip='kb';
@@ -6892,6 +7060,7 @@ function pfScore(t,P){
   if(P.avoid.run && /run/i.test(t.freq+t.name)){ s-=30; warn.push('Has runs built in'); }
   if(P.injury){ const hit=/joint-resilient|desk-reset|movement-flow|mobility-flow/.test(t.id)||(P.injury==='knee'&&/hybrid-3plus3|balance-stability|fifa11plus|longevity-pb/.test(t.id))||(P.injury==='back'&&/min-dose|sns/.test(t.id));
     if(hit){ bonus+=30; why.push('Kind to cranky '+P.injury+'s'); } }
+  if(P.sci){ if(tplIsSci(t)){ bonus+=18; why.push('Backed by published research'); } else s-=8; }
   if(P.goals.flex && t.goal==='flex'){ bonus+=15; why.push('Builds muscle and mobility together'); }
   if(P.concurrent && /hybrid-engine|conditioning|hybrid-3plus3/.test(t.id)){ bonus+=t.id==='hybrid-engine'?30:15; why.push('Mixes lifting with conditioning'); }
   if(pr.addon && P.days && P.days>2) s-=10;
@@ -6927,11 +7096,12 @@ function pfUnderstood(P){
   if(P.lvl) c.push(['','🌱 Beginner','📈 Intermediate','🏆 Advanced'][P.lvl]);
   if(P.bw) c.push('🤸 No equipment'); else if(P.home) c.push('🏠 Home');
   if(P.equip==='kb') c.push('🔔 Kettlebell'); if(P.equip==='db') c.push('🏋️ Dumbbells'); if(P.equip==='gym') c.push('🏢 Full gym');
+  if(P.sci) c.push('🔬 Research-backed');
   if(P.injury) c.push('🩹 '+P.injury[0].toUpperCase()+P.injury.slice(1));
   if(P.avoid.barbell) c.push('🚫 Barbell'); if(P.avoid.machine) c.push('🚫 Machines'); if(P.avoid.jump) c.push('🚫 Jumps'); if(P.avoid.run) c.push('🚫 Running');
   return c;
 }
-const PF_EXAMPLES=['3 days, build muscle, 45 min','Muscle and mobility','Beginner, want to get strong','Kettlebell only at home','Lose fat but keep strength','Bad knees, want stronger legs','Desk job, stiff back and neck','Get faster and jump higher','Bone density, over 50'];
+const PF_EXAMPLES=['3 days, build muscle, 45 min','Muscle and mobility','4 days gym, science-based','Something fun and different','Beginner, want to get strong','Kettlebell only at home','Lose fat but keep strength','Bad knees, want stronger legs','Desk job, stiff back and neck','Get faster and jump higher','Bone density, over 50'];
 function pfBoxHTML(){
   return `<div class="pf-box"><div class="pf-h"><span class="pf-ic">🔎</span><div><b>Program finder</b><small>Say what you want — goal, days, time, gear, level</small></div></div>
     <div class="pf-in"><input id="pfQ" type="search" enterkeyhint="search" autocomplete="off" placeholder="e.g. 4 days, muscle + strength, 60 min" value="${esc(pfQuery)}"><button class="pf-x" data-action="pf-clear" aria-label="Clear" style="${pfQuery?'':'display:none'}">✕</button></div>
@@ -6961,12 +7131,14 @@ let _pfT=0;
 document.addEventListener('input', e=>{ if(e.target && e.target.id==='pfQ'){ pfQuery=String(e.target.value).slice(0,160); const x=$('.pf-x'); if(x) x.style.display=pfQuery?'':'none'; clearTimeout(_pfT); _pfT=setTimeout(pfRender,140); } });
 document.addEventListener('keydown', e=>{ if(e.target && e.target.id==='pfQ' && e.key==='Enter'){ e.preventDefault(); clearTimeout(_pfT); pfRender(); e.target.blur(); } });
 /* ===================== PROGRAM LIST — grouped, compact, filterable ===================== */
-let tplDays='any', tplLvl=0, tplHome=false; const tplMore={};
+let tplDays='any', tplLvl=0, tplHome=false, tplSci=false;
+function tplIsSci(t){ return /\b(19|20)\d\d\b/.test(t.src||''); } const tplMore={};
 const TPL_SEC=[
   ['strength','💪','Get stronger on the big lifts'],
   ['muscle','🏋️','Build size with volume'],
   ['flex','🌀','Grow muscle through full range — get mobile while you build'],
   ['hybrid','⚡','Strength and size together'],
+  ['fun','🎲','Odd lifts, strongman, primal and playground moves — keep it fresh'],
   ['general','❤️','All-round fitness, short sessions, bodyweight'],
   ['endurance','🔥','Conditioning, fat loss, lifting + running'],
   ['power','🚀','Jump higher, move faster'],
@@ -7016,7 +7188,19 @@ const TPL_BEST={
   'full-range-fb':'Dumbbell full body that builds muscle and flexibility',
   'bw-strength-flex':'No-equipment muscle with deep-range moves',
   'deep-legs':'Deep split squats, Nordics and hip range',
-  'flex-ppl':'5-day split with mobility finishers'
+  'flex-ppl':'5-day split with mobility finishers',
+  'phul':'Heavy day + volume day for each half of the body',
+  'gbr':'The classic 4-day upper/lower bulking template',
+  'rpe-ul':'Pick weights by effort (RPE) — no failed sessions',
+  'block-4':'12-week volume → strength → peak cycle',
+  'paired-45':'Full 4-day volume in 45 minutes with paired sets',
+  'ul4-mobile':'Every muscle twice a week + mobility and stability',
+  'fb4-stable':'Four short full-body days with single-limb work',
+  'resilient-4':'Injury-proof strength: landings, balance, Nordics',
+  'odd-strongman':'Zerchers, carries and off-centre lifts',
+  'primal-flow':'Crawl, rotate, get up — training that feels like play',
+  'weird-hyper':'Unusual angles: Svend, JM, Spider, Cyclist squats',
+  'playground':'Jumps, throws and slams — recess for adults'
 };
 const TPL_LV=['','🌱 Beginner','📈 Intermediate','🏆 Advanced'];
 function tplHomeOk(pr){ const W=pr.work.length||1, f=k=>(pr.eq[k]||0)/W; return f('bw')+f('db')+f('kb')+f('bar')*.8+f('box')*.8 >= .8; }
@@ -7026,6 +7210,7 @@ function tplPass(t){ const pr=pfProfile(t);
   if(tplDays!=='any'){ const d=+tplDays; if(d>=5 ? pr.hi<5 : !(d>=pr.lo && d<=pr.hi)) return false; }
   if(tplLvl && pr.lv!==tplLvl) return false;
   if(tplHome && !tplHomeOk(pr)) return false;
+  if(tplSci && !tplIsSci(t)) return false;
   return true; }
 function tplCardHTML(t){
   const pr=pfProfile(t), have=(DB.routines||[]).some(x=>x.name===t.name), dc=t.days.length;
@@ -7033,7 +7218,7 @@ function tplCardHTML(t){
     <button class="tc-head" data-action="toggle-tpl" data-tpl="${t.id}">
       <div class="tc-top"><h4>${esc(t.name)}</h4><span class="tc-lv lv${pr.lv}">${TPL_LV[pr.lv]}</span></div>
       <div class="tc-best">${esc(TPL_BEST[t.id]||t.repFocus)}</div>
-      <div class="tc-meta"><span>📅 ${tplDaysLbl(pr)}</span><span>⏱ ~${pr.min} min</span><span>${tplEquipLbl(pr)}</span>${have?'<span class="tc-have">✓ In routines</span>':''}</div>
+      <div class="tc-meta"><span>📅 ${tplDaysLbl(pr)}</span><span>⏱ ~${pr.min} min</span><span>${tplEquipLbl(pr)}</span>${tplIsSci(t)?'<span class="tc-sci">🔬 Research</span>':''}${have?'<span class="tc-have">✓ In routines</span>':''}</div>
       <span class="tc-chev">▾</span>
     </button>
     <div class="collapse" id="tpl-${t.id}">
@@ -7049,9 +7234,9 @@ function tplListHTML(){
   const secs=TPL_SEC.filter(s=>TEMPLATES.some(t=>t.goal===s[0]));
   TEMPLATES.forEach(t=>{ if(!secs.some(s=>s[0]===t.goal)) secs.push([t.goal,'📋','']); });
   const lbl=g=>(TEMPLATES.find(x=>x.goal===g)||{}).goalLabel||g;
-  const shown=TEMPLATES.filter(tplPass), filt=tplDays!=='any'||tplLvl||tplHome;
+  const shown=TEMPLATES.filter(tplPass), filt=tplDays!=='any'||tplLvl||tplHome||tplSci;
   const gchips=`<div class="tl-row">${[['all','All',shown.length]].concat(secs.map(s=>[s[0],s[1]+' '+lbl(s[0]),shown.filter(t=>t.goal===s[0]).length])).map(([g,l,n])=>`<button class="chip ${tplFilter===g?'on':''}${n?'':' dim'}" data-action="tpl-filter" data-g="${g}">${l} <i>${n}</i></button>`).join('')}</div>`;
-  const fchips=`<div class="tl-row tl-f"><span class="tl-k">Days</span>${['any',2,3,4,5].map(d=>`<button class="fchip ${String(tplDays)===String(d)?'on':''}" data-action="tpl-days" data-d="${d}">${d==='any'?'Any':d===5?'5+':d}</button>`).join('')}<span class="tl-k">Level</span>${[0,1,2,3].map(l=>`<button class="fchip ${tplLvl===l?'on':''}" data-action="tpl-lvl" data-l="${l}">${l?TPL_LV[l].split(' ')[0]:'Any'}</button>`).join('')}<button class="fchip ${tplHome?'on':''}" data-action="tpl-home">🏠 Home</button></div>`;
+  const fchips=`<div class="tl-row tl-f"><span class="tl-k">Days</span>${['any',2,3,4,5].map(d=>`<button class="fchip ${String(tplDays)===String(d)?'on':''}" data-action="tpl-days" data-d="${d}">${d==='any'?'Any':d===5?'5+':d}</button>`).join('')}<span class="tl-k">Level</span>${[0,1,2,3].map(l=>`<button class="fchip ${tplLvl===l?'on':''}" data-action="tpl-lvl" data-l="${l}">${l?TPL_LV[l].split(' ')[0]:'Any'}</button>`).join('')}<button class="fchip ${tplHome?'on':''}" data-action="tpl-home">🏠 Home</button><button class="fchip ${tplSci?'on':''}" data-action="tpl-sci">🔬 Research</button></div>`;
   const status=`<div class="tl-status">${shown.filter(t=>tplFilter==='all'||t.goal===tplFilter).length} of ${TEMPLATES.length} programs${filt?` · <button class="tl-clear" data-action="tpl-clear">Clear filters</button>`:''}</div>`;
   const body=secs.filter(s=>tplFilter==='all'||s[0]===tplFilter).map(s=>{
     const list=shown.filter(t=>t.goal===s[0]).sort((a,b)=>pfProfile(a).lv-pfProfile(b).lv||pfProfile(a).lo-pfProfile(b).lo);
@@ -7890,7 +8075,8 @@ document.addEventListener('click', e=>{
     case 'tpl-days': tplDays=t.dataset.d==='any'?'any':+t.dataset.d; renderTrain(); break;
     case 'tpl-lvl': tplLvl=+t.dataset.l||0; renderTrain(); break;
     case 'tpl-home': tplHome=!tplHome; renderTrain(); break;
-    case 'tpl-clear': tplDays='any'; tplLvl=0; tplHome=false; tplFilter='all'; renderTrain(); break;
+    case 'tpl-sci': tplSci=!tplSci; renderTrain(); break;
+    case 'tpl-clear': tplDays='any'; tplLvl=0; tplHome=false; tplSci=false; tplFilter='all'; renderTrain(); break;
     case 'tpl-more': tplMore[t.dataset.g]=1; renderTrain(); break;
     case 'use-tpl': {
       const tpl=TEMPLATES.find(x=>x.id===t.dataset.tpl);
@@ -7943,7 +8129,7 @@ document.addEventListener('click', e=>{
     case 'tpl-filter': tplFilter=t.dataset.g; renderTrain(); break;
     case 'pf-ex': { pfQuery=t.dataset.q; const i=$('#pfQ'); if(i) i.value=pfQuery; const x=$('.pf-x'); if(x) x.style.display=''; pfRender(); break; }
     case 'pf-clear': { pfQuery=''; const i=$('#pfQ'); if(i){ i.value=''; i.focus&&i.focus(); } if(t.style) t.style.display='none'; pfRender(); break; }
-    case 'pf-view': { const id=t.dataset.tpl, tp=TEMPLATES.find(x=>x.id===id); if(!tp) break; tplFilter=tp.goal; tplDays='any'; tplLvl=0; tplHome=false; tplMore[tp.goal]=1; renderTrain();
+    case 'pf-view': { const id=t.dataset.tpl, tp=TEMPLATES.find(x=>x.id===id); if(!tp) break; tplFilter=tp.goal; tplDays='any'; tplLvl=0; tplHome=false; tplSci=false; tplMore[tp.goal]=1; renderTrain();
       const c=$('#tpl-'+id); if(c && !c.classList.contains('open')){ c.classList.add('open'); }
       const card=$('.tcard[data-tpl="'+id+'"]'); if(card){ card.classList.add('open'); card.classList.remove('pf-flash'); void card.offsetWidth; card.classList.add('pf-flash'); if(card.scrollIntoView) card.scrollIntoView({behavior:'smooth',block:'start'}); } break; }
     case 'pick-ex': { const name=t.dataset.name; const cb=exPickCallback; closeSheet(); setTimeout(()=>cb&&cb(name),60); break; }
