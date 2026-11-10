@@ -1960,6 +1960,33 @@ body.ui2 .sec-head{margin-top:22px}
 .hl-row .hl-eye{padding:0 10px; font-weight:700; color:var(--muted)}
 #screen-awards .ach-grid{gap:8px}
 #screen-awards .badge{padding:11px 9px}
+.duel-bar{display:flex; align-items:center; justify-content:space-between; gap:8px; font-size:12px; color:var(--muted); background:var(--surface); border:1px solid var(--line-soft); border-radius:11px; padding:7px 12px; margin-bottom:10px}
+.duel-bar b{font-family:'Saira Condensed'; font-size:20px; color:var(--text); margin:0 3px}
+.duel-bar .du-me,.duel-bar .du-old{flex:none; white-space:nowrap}
+.duel-bar{padding:4px 12px}
+.duel-bar .du-vs{flex:1; min-width:0; font-size:10px; letter-spacing:.5px; text-transform:uppercase; font-weight:700; text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.duel-bar.lead{border-color:rgba(45,226,196,.45)}.duel-bar.lead .du-me b{color:var(--teal)}
+.duel-bar.behind{border-color:rgba(255,107,138,.4)}.duel-bar.behind .du-old b{color:#FF8FA6}
+.board{background:linear-gradient(150deg,rgba(var(--e1rgb),.10),transparent 55%),var(--surface); border:1px solid var(--line); border-radius:var(--r-md); padding:11px 12px 10px; margin-bottom:12px; cursor:pointer}
+.bd-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px}
+.bd-e{font-size:11px; letter-spacing:1.2px; text-transform:uppercase; font-weight:800; color:var(--muted)}
+.bd-c{font-size:12px; font-weight:700; color:var(--energy-1)}
+.bd-row{display:flex; align-items:center; gap:10px; padding:6px 0}
+.sheet .bd-row{background:var(--surface-2); border-radius:11px; padding:9px 10px; margin-bottom:6px}
+.bd-i{flex:none; width:28px; height:28px; border-radius:9px; display:grid; place-items:center; background:var(--surface-2); font-size:14px}
+.sheet .bd-i{background:var(--surface)}
+.bd-b{flex:1; min-width:0}
+.bd-b b{display:block; font-size:13px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.sheet .bd-b b{white-space:normal}
+.bd-b small{display:block; font-size:11.5px; color:var(--muted-2); margin-top:1px; line-height:1.35}
+.bd-bar{height:3px; border-radius:99px; background:rgba(255,255,255,.08); margin-top:5px; overflow:hidden}
+.bd-bar i{display:block; height:100%; background:var(--grad-energy); border-radius:99px}
+.bd-row.done{opacity:.55}.bd-row.done .bd-i{color:var(--teal)}.bd-row.done .bd-bar i{background:var(--teal)}
+.bd-row .btn{flex:none; padding:7px 11px; font-size:12px}
+.bd-tip{font-size:11.5px; color:var(--muted); margin-top:6px; padding-top:7px; border-top:1px solid var(--line-soft); line-height:1.4}
+.bd-all{font-size:13px; color:var(--teal); padding:4px 0}
+.el-hero{display:flex; align-items:center; gap:12px; margin-bottom:8px}
+.el-ico{font-size:40px; line-height:1}
 </style>
 </head>
 <body>
@@ -2007,6 +2034,7 @@ body.ui2 .sec-head{margin-top:22px}
 
     <div id="homeSecs">
     <div class="hsec" data-sec="today"><div id="quickStart"></div><div id="backupNudge"></div></div>
+    <div class="hsec" data-sec="board"><div id="boardCard"></div></div>
     <div class="hsec" data-sec="contract"><div id="contractCard"></div></div>
     <div class="hsec" data-sec="exp"><div id="expCard"></div></div>
     <div class="hsec" data-sec="stats"><div class="stat-grid">
@@ -3758,6 +3786,11 @@ const TEMPLATES = [
 /* ---------- achievements ---------- */
 const TIER_XP = {bronze:50, silver:120, gold:300};
 const ACH = [
+  {id:'duel_5', ico:'⚔', n:'Better Than Yesterday', d:'Win 5 duels against your last session', tier:'silver', goal:5, val:s=>s.duelWins||0},
+  {id:'duel_streak5', ico:'🔥', n:'On a Tear', d:'Win 5 duels in a row', tier:'gold', goal:5, val:s=>s.duelStreak||0},
+  {id:'elite_4', ico:'🎯', n:'Elite Hunter', d:'Hunt 4 weekly elites', tier:'silver', goal:4, val:s=>s.eliteWins||0},
+  {id:'rot_8', ico:'🚩', n:'Campaigner', d:'Complete 8 full program rotations', tier:'silver', goal:8, val:s=>s.rotations||0},
+  {id:'cycle_1', ico:'🏆', n:'Full Cycle', d:'Finish an entire training cycle', tier:'gold', goal:1, val:s=>s.cycles||0},
   {id:'first_workout', ico:'🥇', n:'First Rep', d:'Finish your first workout', tier:'bronze', goal:1, val:s=>s.workouts},
   {id:'first_cardio', ico:'👟', n:'Lace Up', d:'Complete your first cardio session', tier:'bronze', goal:1, val:s=>s.cardioSessions},
   {id:'first_routine', ico:'📐', n:'Architect', d:'Build a custom routine', tier:'bronze', goal:1, val:s=>s.routinesCreated},
@@ -4102,7 +4135,7 @@ function recapSnap(){ ensureLoot(); ensureAscent(); ensureSeason(); ensureMonu()
   return {xp:DB.stats.xp||0, prs:JSON.parse(JSON.stringify(DB.prs||{})), q:(DB.loot.q||[]).length, node:DB.ascent.node, lap:DB.ascent.lap,
     ss:DB.season.score||0, tier:seasonTier(DB.season.score||0).n, ach:Object.keys(DB.achievements||{}), monu:Object.keys(DB.monu.done||{}),
     boss:DB.stats.bossWins||0, wst:weaponStage(), spr:spriteStage(), relic:relicTier().idx, title:s.title||'Workout', ts:s.ts||Date.now(),
-    prog:s.prog||null, src:s.src||null, bossKey:s.bossKey||null, crit:s.crit?{n:s.crit.n,leg:s.crit.leg}:null, heat:s.heat?{n:s.heat.n, peak:s.heat.peak, bonus:s.heat.bonus}:null,
+    prog:s.prog||null, src:s.src||null, duel:s.duel?{w:s.duel.w,l:s.duel.l}:null, bossKey:s.bossKey||null, crit:s.crit?{n:s.crit.n,leg:s.crit.leg}:null, heat:s.heat?{n:s.heat.n, peak:s.heat.peak, bonus:s.heat.bonus}:null,
     sets:(s.entries||[]).reduce((a,e)=>a+(e.sets||[]).filter(x=>x.done).length,0),
     allDone:(s.entries||[]).length>0 && (s.entries||[]).every(e=>(e.sets||[]).length>0 && e.sets.every(x=>x.done))}; }
 function _ymd(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
@@ -4116,7 +4149,10 @@ function showSummary({volume, prHits, xp, newAch}){
   if(B.crit && (B.crit.n||B.crit.leg)) cards.push({c:'pr',i:'💥',t:(B.crit.n?B.crit.n+' critical hit'+(B.crit.n!==1?'s':''):'')+(B.crit.leg?(B.crit.n?' · ':'')+B.crit.leg+' legendary strike'+(B.crit.leg!==1?'s':''):''),s:'+'+(B.critXP||0)+' XP for beating last time'});
   if(B.heat && B.heat.bonus) cards.push({c:'heat',i:'🔥',t:'Heat '+B.heat.peak+' at its peak',s:'+'+B.heat.bonus+' XP for training on tempo'});
   if(DB.stats.bossWins>B.boss) cards.push({c:'boss',i:'⚔️',t:'Boss defeated',s:'Its title is yours to wear'});
+  else if(_eliteJust){ cards.push({c:'boss',i:_eliteJust.i,t:'Elite hunted · '+_eliteJust.n,s:'Rare cache + 80 XP'}); _eliteJust=null; }
   else if(B.bossKey) cards.push({c:'boss',i:'🛡️',t:'The boss endures',s:'Complete every set to land the killing blow'});
+  if(_duelJust){ const d=_duelJust; cards.push({c:d.win?'pr':'heat',i:'⚔',t:d.win?'Duel won '+d.w+'–'+d.l+' vs last time':d.tie?'Duel drawn '+d.w+'–'+d.l:'Duel lost '+d.w+'–'+d.l,s:d.win?'+'+d.xp+' XP'+(d.st>1?' · '+d.st+'-win streak':''):d.tie?'Streak safe — one more set would have done it':(d.st>1?'Your '+d.st+'-win streak ends — ':'')+'Past you takes this one'}); _duelJust=null; }
+  if(_campJust){ cards.push({c:_campJust.big?'cache':'asc',i:_campJust.big?'🏆':'🚩',t:_campJust.t,s:_campJust.s}); _campJust=null; }
   const dq=(DB.loot.q||[]).length-B.q;
   if(dq>0){ const tq=DB.loot.q.slice(-dq), best=tq.indexOf('mythic')>=0?'Mythic':tq.indexOf('epic')>=0?'Epic':tq.indexOf('rare')>=0?'Rare':'';
     cards.push({c:'cache',i:'📦',t:(dq>1?dq+' Forge Caches':'Forge Cache')+' earned',s:best?best+' or better inside':'Crack it open in the Vault'}); }
@@ -4164,6 +4200,7 @@ function sessionTopHTML(){ if(!activeSession) return ''; let out=''; const E=act
     out+=`<div class="boss-fight${hit?' hit':''}${hp<=0?' dead':''}${B.bossShield?' shielded':''}"><div class="bf-ico">${B.bossIco||'⚔️'}</div><div class="bf-b"><div class="bf-top"><span class="bf-n">${esc(B.bossName||'Boss')}</span><span class="bf-hp">${hp}%</span></div><div class="bf-bar"><i style="width:${hp}%"></i></div><div class="bf-line">${esc(line)}</div></div>${hit?`<span class="bf-dmg${H.c?' crit':''}">−${H.d}${H.c===2?' LEGENDARY':(H.c?' CRIT':'')}${H.broke?' · SHATTERED':''}</span>`:''}</div>`; }
   const h=activeSession.heat||{n:0,bonus:0}, lbl=HEAT_TIERS.find(x=>h.n>=x[0])[1], pop=h.pop && Date.now()-h.pop<900;
   out+=`<div class="heat-bar lv${Math.min(4,Math.floor(h.n/4))}${pop?' pop':''}"><div class="hb-flame">${ico('flame')}</div><div class="hb-b"><div class="hb-top"><span>Heat <b>${h.n}</b> · ${lbl}</span><span>${h.bonus?'+'+h.bonus+' XP':'finish sets on tempo'}</span></div><div class="hb-seg">${Array.from({length:15},(_,i)=>`<i class="${i<Math.min(15,h.n)?'on':''}"></i>`).join('')}</div></div></div>`;
+  out+=duelBarHTML();
   return out; }
 /* ===================== DAILY CONTRACT ===================== */
 const CONTRACTS=[
@@ -4245,7 +4282,7 @@ function critCheck(en, si, st){ const w=+st.weight||0, r=+st.reps||0; if(r<=0) r
     else if(tal('titan') && (w>0? e>=pe-.01 : r>=p.r)){ const done=activeSession.entries.reduce((a,x)=>a+x.sets.filter(s=>s.done).length,0); if(done%5===0) c=1; } }
   if(!c && tal('inferno') && activeSession.heat && activeSession.heat.n>=15) c=1;
   return c; }
-function bossWeak(key){ return ['Back Squat','Barbell Bench Press','Deadlift','Overhead Press'][bossIdx(key)%4]; }
+function bossWeak(key){ if(activeSession && activeSession.bossKey===key && activeSession.eliteWeak) return activeSession.eliteWeak; return ['Back Squat','Barbell Bench Press','Deadlift','Overhead Press'][bossIdx(key)%4]; }
 function bossHit(en, c){ const B=activeSession; if(!B || !B.bossKey) return;
   if(B.bossHP==null){ B.bossHP=100; B.bossShield=false; }
   const tot=B.entries.reduce((a,e)=>a+e.sets.length,0)||1, weak=en.exercise===bossWeak(B.bossKey);
@@ -4258,6 +4295,7 @@ function onSetDone(ei, si, st){ if(!activeSession) return; const en=activeSessio
   heatTick(ei, si);
   const c=critCheck(en, si, st), CR=activeSession.crit||(activeSession.crit={n:0,leg:0,k:{}}), key=ei+'-'+si;
   if(c && !CR.k[key]){ CR.k[key]=c; if(c===2) CR.leg++; else CR.n++; st.crit=c; try{ _burstT=0; burst(c===2?'gold':'pr'); }catch(e){} }
+  duelTick(en, si, st, CR.k[key]||0);
   bossHit(en, CR.k[key]||0); }
 /* ===================== EPIC FX — streaks · shards · bolts · shake · cinematics ===================== */
 const FX={cv:null,ctx:null,parts:[],add:[],raf:0,q:[],busy:false,emb:0,embC:null};
@@ -4622,10 +4660,11 @@ function saveImportedRun(){ const s=_imp; if(!s || (DB.log||[]).some(x=>x.import
   DB.log.sort((a,b)=>(b.ts||0)-(a.ts||0)); save(); _imp=null; closeSheet(); renderCardioTabs();
   toast('⬆️','Run imported', dLabel(s.km)+' · '+fmtMin(s.min)+(s.hrAvg?' · avg '+s.hrAvg+' bpm':'')); }
 document.addEventListener('change', e=>{ const el=e.target; if(el && el.id==='runFile'){ handleRunFile(el.files && el.files[0]); el.value=''; } });
-const HOME_SECS=[['today','Today’s session'],['contract','Daily contract'],['exp','Expedition'],['stats','Stats'],['week','This week — pillars & quests'],['tools','Quick tools'],['unlocks','Recent unlocks'],['forge','Your Forge']];
+const HOME_SECS=[['today','Today’s session'],['board','Quest board'],['contract','Daily contract'],['exp','Expedition'],['stats','Stats'],['week','This week — pillars & quests'],['tools','Quick tools'],['unlocks','Recent unlocks'],['forge','Your Forge']];
 function homeOrder(){ const def=HOME_SECS.map(x=>x[0]), o=(DB.settings.homeOrder||[]).filter(k=>def.indexOf(k)>=0); def.forEach(k=>{ if(o.indexOf(k)<0) o.push(k); }); return o; }
-function applyHomeLayout(){ try{ const o=homeOrder(), hid=DB.settings.homeHide||{}; document.querySelectorAll('#homeSecs .hsec').forEach(el=>{ const k=el.dataset.sec; el.style.order=o.indexOf(k); el.style.display=hid[k]?'none':''; }); }catch(e){} }
-function openHomeLayout(){ const o=homeOrder(), hid=DB.settings.homeHide||{}, nm=k=>(HOME_SECS.find(x=>x[0]===k)||[])[1];
+function applyHomeLayout(){ try{ const o=homeOrder(), hid=homeHidden(); document.querySelectorAll('#homeSecs .hsec').forEach(el=>{ const k=el.dataset.sec; el.style.order=o.indexOf(k); el.style.display=hid[k]?'none':''; }); }catch(e){} }
+function homeHidden(){ return DB.settings.homeHide || {contract:1, exp:1}; }
+function openHomeLayout(){ const o=homeOrder(), hid=homeHidden(), nm=k=>(HOME_SECS.find(x=>x[0]===k)||[])[1];
   openSheet(`<div class="grab"></div><h3 class="hl-sheet">Customize Home</h3><p class="sh-lead">Reorder the cards with the arrows, or hide the ones you don’t use. Your level card always stays on top.</p>
     ${o.map((k,i)=>`<div class="hl-row${hid[k]?' off':''}"><span>${esc(nm(k))}</span><button data-action="hl-move" data-k="${k}" data-d="-1" ${i===0?'disabled':''} aria-label="Move up">▲</button><button data-action="hl-move" data-k="${k}" data-d="1" ${i===o.length-1?'disabled':''} aria-label="Move down">▼</button><button class="hl-eye" data-action="hl-toggle" data-k="${k}">${hid[k]?'Hidden':'Shown'}</button></div>`).join('')}
     <div class="btn-row" style="margin-top:14px"><button class="btn btn-primary" data-action="close-sheet">Done</button><button class="btn btn-ghost" data-action="hl-reset">Reset</button></div>`); }
@@ -4704,7 +4743,7 @@ function renderHome(){
       <div style="font-size:12px;color:var(--muted)">${a.d}</div></div>
       <span class="ra-tier ${a.tier}">${a.tier}</span></div>`).join('');
   }
-  if(!_san){ _san=true; sanitizeDB(); } requestPersist(); fxAmbient(); sprRegent(); renderTalentCard(); renderQuickStart(); renderBackupNudge(); renderContract(); renderExpCard(); renderRelic(); renderWeapon(); renderSpriteDen(); applyFolds(); applyHomeLayout(); renderAscentCard(); renderLapAura(); renderEventCard(); applyLoot(); applyAmoled();
+  if(!_san){ _san=true; sanitizeDB(); } requestPersist(); fxAmbient(); sprRegent(); renderTalentCard(); renderQuickStart(); renderBackupNudge(); renderContract(); renderExpCard(); renderBoard(); renderRelic(); renderWeapon(); renderSpriteDen(); applyFolds(); applyHomeLayout(); renderAscentCard(); renderLapAura(); renderEventCard(); applyLoot(); applyAmoled();
   if(!_caughtUp){ _caughtUp=true; embMigrate(); migrateTplFlags(); ascentCheck(); ascHistory(); monumentCheck(); whatsNew(); setTimeout(()=>checkForUpdate(),400); }
   startEmbers(); setTimeout(tickUp,0);
 }
@@ -5064,7 +5103,7 @@ function hrZones(){ const mx=maxHR(); if(!mx) return null; const rest=(DB.settin
   return {mx, rest, zones:defs.map(d=>({name:d[0], lo:calc(d[1]), hi:calc(d[2])}))}; }
 
 /* ===================== VO2MAX — dedicated entry + analysis ===================== */
-const APP_V='v85';
+const APP_V='v86';
 function vo2Parts(){
   const s=DB.settings, age=currentAge();
   const bv=bestVo2(), vr=vo2FromRestHR();
@@ -7220,18 +7259,21 @@ function finishSession(){
       DB.stats.bossWins=(DB.stats.bossWins||0)+1; gainXP(150); _bossWin=true;
     }
   }
+  const _eliteWin=eliteSettle(activeSession);
   const _ascEvt=_wEvt(activeSession, volume);
   activeSession=null; Store.set('forge.activeSession', null); save();
   cacheGrant(_bossWin?(tal('treasure')?'mythic':'epic'):((prHits.length||activeEvent())?'rare':''));
   ascentCheck(_ascEvt);
   monumentCheck();
   if(_bossWin){ setTimeout(()=>{ _burstT=0; burst('gold'); toast(_bossMeta.ico,'BOSS DEFEATED!', _bossMeta.name+' has fallen — title “'+_bossMeta.title+'” earned','gold'); bossSpeak(_bossMeta.key,'win'); }, 950); }
+  else if(_eliteWin){ setTimeout(()=>{ _burstT=0; burst('gold'); toast(_bossMeta.ico,'ELITE HUNTED!', _bossMeta.name+' has fallen · rare cache + 80 XP','gold'); }, 950); }
   else if(_bossMeta){ setTimeout(()=>toast(_bossMeta.ico,'The boss endures','Every set must be completed — challenge it again'), 900); }
   if(relicTier().idx>_relicBefore){ setTimeout(()=>{ burst('gold'); toast('🗡️','Relic advanced!','Your forge reached '+relicTier().tier.n); }, 750); }
   if(_recapBase && _recapBase.heat && _recapBase.heat.bonus) gainXP(_recapBase.heat.bonus);
   { const cr=_recapBase && _recapBase.crit; if(cr){ const cx=cr.n*(4+3*tal('heavy'))+cr.leg*20; if(cx) gainXP(cx); _recapBase.critXP=cx; } }
   if(prHits.length){ if(tal('midas')) cacheGrant('rare'); if(sprPerk(3) && Math.random()<.5) cacheGrant('rare'); }
   if(tal('scav') && Math.random()<.06*tal('scav')) cacheGrant('');
+  duelSettle(_recapBase && _recapBase.duel); campReward(_recapBase && _recapBase.src, _recapBase && _recapBase.prog);
   progAdvance(_recapBase && _recapBase.prog); cycleAdvance(_recapBase && _recapBase.src);
   contractCheck({type:'workout', volume, sets:_recapBase?_recapBase.sets:0, prs:prHits.length, heat:(_recapBase&&_recapBase.heat)?_recapBase.heat.peak:0, mobN:_ascEvt.mobN, allDone:!!(_recapBase&&_recapBase.allDone), prog:_recapBase&&_recapBase.prog});
   expCheck({type:'workout', sets:_recapBase?_recapBase.sets:0, prs:prHits.length, heat:(_recapBase&&_recapBase.heat)?_recapBase.heat.peak:0, mobN:_ascEvt.mobN, balN:_ascEvt.balN, reg:_ascEvt.reg});
@@ -7534,6 +7576,77 @@ function cycCardHTML(r){
     <div class="chips" style="margin-top:8px">${[0,4,5,6,8].map(n=>`<button class="chip ${(+r.dl||0)===n?'on':''}" data-action="cyc-dl" data-routine="${r.id}" data-n="${n}">${n?'Every '+n+' wks':'Off'}</button>`).join('')}</div>
     ${S?`<p class="cyc-note">On the deload week FORGE cuts sets by about 40% and suggests weights 10% lighter.</p>`:''}</div>`;
 }
+
+/* ===================== GAME LAYER II — duel vs last time · weekly elite · campaign rewards · quest board ===================== */
+var _duelJust=null, _campJust=null, _eliteJust=null;
+/* --- duel: every set is scored against the same set last time --- */
+function duelTick(en, si, st, crit){ const S=activeSession; if(!S) return; const D=S.duel||(S.duel={w:0,l:0,k:{}}), key=en.exercise+'#'+si; if(D.k[key]) return;
+  const ls=lastSets(en.exercise); if(!ls) return; const p=ls.sets[Math.min(si,ls.sets.length-1)], w=+st.weight||0, r=+st.reps||0; if(r<=0) return;
+  const e=w>0?epley(w,r):0, pe=w>0?epley(p.w||0,p.r):0, win=crit>0 || (w>0? e>pe+.01 : r>p.r), lose=!win && (w>0? e<pe-.01 : r<p.r);
+  if(win){ D.w++; D.k[key]=1; } else if(lose){ D.l++; D.k[key]=-1; } else D.k[key]=2; }
+function duelBarHTML(){ const D=activeSession && activeSession.duel; if(!D || !(D.w+D.l)) return ''; const st=DB.stats.duelStreak||0;
+  return `<div class="duel-bar${D.w>D.l?' lead':D.l>D.w?' behind':''}"><span class="du-me">You <b>${D.w}</b></span><span class="du-vs">⚔ sets won vs last time${st>1?' · '+st+'-win streak':''}</span><span class="du-old"><b>${D.l}</b> Past you</span></div>`; }
+function duelSettle(D){ _duelJust=null; if(!D || D.w+D.l<3) return;
+  if(D.w>D.l){ DB.stats.duelWins=(DB.stats.duelWins||0)+1; DB.stats.duelStreak=(DB.stats.duelStreak||0)+1; const xp=20+5*Math.min(6,DB.stats.duelStreak-1); gainXP(xp); _duelJust={win:true,w:D.w,l:D.l,xp,st:DB.stats.duelStreak}; }
+  else if(D.l>D.w){ _duelJust={win:false,w:D.w,l:D.l,st:DB.stats.duelStreak||0}; DB.stats.duelStreak=0; }
+  else _duelJust={tie:true,w:D.w,l:D.l,st:DB.stats.duelStreak||0}; }
+/* --- campaign: finishing the last day of your program / cycle pays out --- */
+function campReward(src, prog){ _campJust=null; if(!src) return; const r=(DB.routines||[]).find(x=>x.id===src.rid); if(!r || !r.days || src.day!==r.days.length-1) return;
+  const S=cycState(r), isProg=!!(prog && DB.settings.prog && DB.settings.prog.rid===r.id); if(!S && !isProg) return;
+  const gap=Math.max(2, r.days.length-1)*864e5; if(r.rotAt && Date.now()-r.rotAt<gap) return; r.rotAt=Date.now();
+  DB.stats.rotations=(DB.stats.rotations||0)+1;
+  if(S && S.wk===S.n-1){ DB.stats.cycles=(DB.stats.cycles||0)+1; gainXP(200); cacheGrant('epic'); _campJust={big:true, t:(S.C?S.C.n:'Training')+' cycle complete', s:r.name+' · +200 XP + epic cache'}; }
+  else { gainXP(40); cacheGrant(''); _campJust={t:S?'Week '+(S.wk+1)+' cleared':'Rotation complete', s:r.name+' — every day done · +40 XP + cache'}; } }
+function campStatus(){ const T=progToday(); if(!T) return null; const S=cycState(T.r), n=T.r.days.length; return {r:T.r, day:T.next, n, S, pct:Math.round(T.next/n*100)}; }
+/* --- weekly elite: a short fight aimed at your least-trained muscle --- */
+const ELITES={chest:['The Brass Ribcage','🛡️'],back:['Spinebreaker Wyrm','🐍'],shoulders:['The Yoke Titan','🗿'],arms:['Grip of Karn','🦾'],quads:['The Stone Stride','🦵'],hams:['The Hamstring Hexer','🕸️'],glutes:['The Seated King','👑'],calves:['Tendril Stalker','🌿'],abs:['The Hollow Core','🌀'],traps:['Atlas Shade','🌑']};
+function eliteState(){ const wk=weekKey(); let E=DB.settings.elite;
+  if(!E || E.wk!==wk || !ELITES[E.gap]){ let gap='abs'; try{ const W=weekStats(4), tot=k=>W.reduce((a,w)=>a+(w.reg[k]||0),0); gap=Object.keys(ELITES).sort((a,b)=>tot(a)-tot(b)||_mhash(wk+a)-_mhash(wk+b))[0]; }catch(e){}
+    E=DB.settings.elite={wk, gap, done:false}; save(); }
+  return E; }
+function eliteLifts(gap){ const pool=allEx().filter(x=>x.p!=='mobility' && (MUSCLE_MAP[x.g]||[])[0]===gap), sc=x=>(lastSets(x.n)?4:0)+(x.c?2:0)+(_mhash(weekKey()+x.n)%100)/100;
+  const out=pool.sort((a,b)=>sc(b)-sc(a)).slice(0,3); if(out.length<3) allEx().filter(x=>x.p!=='mobility' && (MUSCLE_MAP[x.g]||[]).indexOf(gap)>=0 && out.indexOf(x)<0).slice(0,3-out.length).forEach(x=>out.push(x)); return out; }
+function eliteInfo(){ const E=eliteState(), L=ELITES[E.gap]; return {E, name:L[0], ico:L[1], muscle:WS_LABEL[E.gap]||E.gap, lifts:eliteLifts(E.gap), key:'E'+E.wk+E.gap}; }
+function startElite(){ const I=eliteInfo(); if(I.E.done){ toast(I.ico,'Already hunted','A new elite appears next week'); return; }
+  if(activeSession){ toast('⚔️','Finish your session first','An elite demands full attention'); return; }
+  if(I.lifts.length<2){ toast('⚔️','No elite this week','Not enough exercises for that muscle'); return; }
+  closeSheet(); startSession('⚔ '+I.name, 'Weekly elite · '+I.muscle, I.lifts.map((x,i)=>({n:x.n, targetSets:3, targetReps:x.c?'8–10':'10–15', rest:x.c?120:75})));
+  if(activeSession){ activeSession.bossKey=I.key; activeSession.bossName=I.name; activeSession.bossIco=I.ico; activeSession.eliteWeak=I.lifts[0].n; Store.set('forge.activeSession',activeSession); renderSession(); }
+  toast(I.ico, I.name+' appears', 'It feeds on your neglected '+I.muscle.toLowerCase()+' — finish every set'); }
+function eliteSettle(S){ _eliteJust=null; if(!S || !S.bossKey || S.bossKey[0]!=='E') return false; const E=eliteState(); if(E.done || S.bossKey!=='E'+E.wk+E.gap) return false;
+  if(!(S.entries.length>0 && S.entries.every(e=>e.sets.length>0 && e.sets.every(s=>s.done)))) return false;
+  E.done=true; DB.stats.eliteWins=(DB.stats.eliteWins||0)+1; gainXP(80); cacheGrant('rare'); _eliteJust={n:S.bossName, i:S.bossIco}; return true; }
+/* --- quest board: every live objective in one place --- */
+function boardItems(){ const out=[], add=o=>out.push(o);
+  const T=progToday(); if(T && !activeSession) add({k:'prog', ico:'📅', t:T.doneToday?'Program session done':(T.sched?'Today: ':'Up next: ')+T.day.name, s:T.r.name, done:T.doneToday, pct:T.doneToday?100:0, act:T.doneToday?'':'prog-start', btn:'Start', today:T.sched});
+  { const k=todayContract(), S=contractState(), d=!!S.done[k.id], st=contractStreak(); add({k:'contract', ico:'📜', t:k.c.t(k), s:'Daily contract'+(st?' · '+st+'-day streak':'')+' · cache + 50 XP', done:d, pct:d?100:0, today:true, act:(!d&&rerollsLeft()>0)?'ct-reroll':'', btn:'↻ Reroll'}); }
+  { const X=expState(), n=X.rooms.filter(r=>X.done[r]).length, nx=X.rooms.find(r=>!X.done[r]); add({k:'exp', ico:'🗺️', t:X.chest?'Expedition cleared':'Expedition · '+n+' / 5 rooms', s:X.chest?'A new map opens Monday':(nx?'Next: '+EXP_ROOMS[nx].d(X):'Open the chest'), done:!!X.chest, pct:X.chest?100:n*20, act:'exp-open', btn:'Map'}); }
+  { const I=eliteInfo(); add({k:'elite', ico:I.ico, t:I.E.done?I.name+' — hunted':'Weekly elite · '+I.name, s:I.E.done?'A new elite appears next week':'Short '+I.muscle.toLowerCase()+' fight · rare cache + 80 XP', done:I.E.done, pct:I.E.done?100:0, act:I.E.done?'':'elite-open', btn:'Fight'}); }
+  { const b=currentBoss(); add({k:'boss', ico:b.ico, t:b.beaten?b.name+' — slain':'Monthly boss · '+b.name, s:b.beaten?'Returns next month':bossDaysLeft()+' days left · epic cache + 150 XP', done:b.beaten, pct:b.beaten?100:0, act:b.beaten?'':'boss-fight', btn:'Fight'}); }
+  { const c=questCtx(); weekQuests().forEach(q=>{ const raw=q.prog(c), d=raw>=q.goal || !!((DB.quests||{}).claimed||{})[q.id]; add({k:'q-'+q.id, ico:q.ico, t:q.label, s:'Weekly quest · +'+q.xp+' XP · '+(d?'done':fmt(Math.min(q.goal,Math.round(raw*10)/10))+' / '+fmt(q.goal)), done:d, pct:d?100:Math.round(Math.min(1,raw/q.goal)*100)}); }); }
+  { const C=campStatus(); if(C) add({k:'camp', ico:'🚩', t:C.S?C.S.label:'Rotation · day '+(C.day+1)+' of '+C.n, s:C.r.name+' · finish the last day for '+(C.S&&C.S.wk===C.S.n-1?'200 XP + epic cache':'40 XP + cache'), done:false, pct:C.pct}); }
+  { ensureAscent(); const f=ascFlat(), nd=f[DB.ascent.node]; if(nd) add({k:'asc', ico:'⛰️', t:'Ascent · '+nd.n, s:ascDesc(nd)+' · +'+nd.xp+' XP', done:false, pct:Math.round(DB.ascent.node/f.length*100), act:'asc-open', btn:'Climb'}); }
+  { ensureSeason(); const sc=DB.season.score||0, nx=SEASON_TIERS.find(x=>x.at>sc), t=seasonTier(sc), dn=seasonDay().n; add({k:'season', ico:'🌩️', t:'Season · '+t.n+(nx?' → '+nx.n:''), s:(nx?fmt(nx.at-sc)+' pts to go · ':'')+'today '+dn+' / '+SEASON_DAILY_CAP, done:!nx, pct:nx?Math.round(sc/nx.at*100):100}); }
+  return out; }
+function boardTip(){ const k=todayContract(), S=contractState(), X=expState(), tips=[];
+  if(!S.done[k.id]){ const m={vol:'move '+fmt(k.v)+' '+DB.settings.unit,sets:'complete '+k.v+' sets',pr:'set a PR',heat:'keep your tempo to Heat '+k.v,mob:'include 3 mobility moves',full:'finish every planned set',prog:'do your program session',run:'run '+dLabel(k.v,0)}; tips.push((m[k.c.id]||'fulfil the contract')+' → daily contract'); }
+  const room=X.rooms.find(r=>!X.done[r] && r!=='run'); if(room && !X.chest){ const m={lift:'12+ sets',mob:'3 mobility moves',bal:'2 balance moves',gap:'4 sets for '+(WS_LABEL[X.gap]||'your weakest muscle').toLowerCase(),pr:'a PR',heat:'Heat 8'}; tips.push(m[room]+' → '+EXP_ROOMS[room].n); }
+  return tips.length? 'One session can tick: '+tips.join(' · ') : 'Everything due today is done. Rest well.'; }
+function _bdRow(o, big){ return `<div class="bd-row${o.done?' done':''}"><span class="bd-i">${o.done?'✓':o.ico}</span><div class="bd-b"><b>${esc(o.t)}</b>${big?`<small>${esc(o.s)}</small>`:''}<div class="bd-bar"><i style="width:${o.pct}%"></i></div></div>${big&&o.act?`<button class="btn btn-ghost btn-sm" data-action="${o.act}">${o.btn}</button>`:''}</div>`; }
+function renderBoard(){ const host=$('#boardCard'); if(!host) return; const all=boardItems(), done=all.filter(o=>o.done).length;
+  const pick=all.filter(o=>!o.done).sort((a,b)=>(b.today?1:0)-(a.today?1:0)||b.pct-a.pct).slice(0,3);
+  host.innerHTML=`<div class="board" data-action="board-open"><div class="bd-top"><span class="bd-e">🎯 Quest board</span><span class="bd-c">${done} / ${all.length} done ›</span></div>${pick.map(o=>_bdRow(o,false)).join('')||'<div class="bd-all">All objectives cleared — legendary.</div>'}<div class="bd-tip">${esc(boardTip())}</div></div>`; }
+function openBoard(){ const all=boardItems(), G=[['Today',o=>o.today||o.k==='prog'],['This week',o=>/^(exp|elite|camp|q-)/.test(o.k)],['Long game',o=>/^(boss|asc|season)/.test(o.k)]], st=DB.stats.duelStreak||0;
+  openSheet(`<div class="grab"></div><h3 class="bd-sheet">Quest board</h3><p class="sh-lead">${esc(boardTip())}</p>
+    ${G.map(([lbl,f])=>{ const L=all.filter(o=>f(o)&&!(lbl!=='Today'&&(o.today||o.k==='prog'))); return L.length?`<div class="tg-lbl">${lbl} <small>${L.filter(o=>o.done).length}/${L.length}</small></div>${L.map(o=>_bdRow(o,true)).join('')}`:''; }).join('')}
+    <div class="tg-lbl">Duels vs last time</div><div class="bd-row"><span class="bd-i">⚔</span><div class="bd-b"><b>${DB.stats.duelWins||0} session${(DB.stats.duelWins||0)===1?'':'s'} won${st>1?' · '+st+'-win streak':''}</b><small>Win more sets than you lose against your last numbers · +20 XP, growing with your streak</small></div></div>
+    <button class="btn btn-primary" data-action="close-sheet" style="margin-top:14px">Done</button>`); }
+function openElite(){ const I=eliteInfo();
+  openSheet(`<div class="grab"></div><div class="el-hero"><div class="el-ico">${I.ico}</div><div><div class="cyc-eb">Weekly elite · resets Monday</div><h3 style="margin:2px 0 0">${esc(I.name)}</h3></div></div>
+    <p class="sh-lead">Every week an elite rises from whatever you trained least over the last month — this week, your <b>${esc(I.muscle.toLowerCase())}</b>. It is a short fight: three lifts, three sets each. Crits (beating last time) hit twice as hard.</p>
+    ${I.lifts.map((x,i)=>`<div class="bd-row"><span class="bd-i">${i+1}</span><div class="bd-b"><b>${esc(x.n)}</b><small>3 × ${x.c?'8–10':'10–15'}${i===0?' · its weak point — hits ×1.5':''}</small></div></div>`).join('')}
+    <p class="cyc-note">Reward: rare cache + 80 XP. Elites hunted: ${DB.stats.eliteWins||0}.</p>
+    <div class="btn-row" style="margin-top:12px">${I.E.done?`<button class="btn btn-ghost" disabled>✓ Hunted this week</button>`:`<button class="btn btn-primary" data-action="elite-fight">⚔ Fight (~15 min)</button>`}<button class="btn btn-ghost" data-action="close-sheet">Later</button></div>`); }
 
 /* ===================== PROGRAM FINDER — offline natural-language recommender ===================== */
 let pfQuery='';
@@ -9077,8 +9190,11 @@ document.addEventListener('click', e=>{
     // progress / body weight
     case 'prog-metric': progressMetric=t.dataset.metric; renderRecords(); break;
     case 'home-layout': openHomeLayout(); break;
+    case 'board-open': openBoard(); break;
+    case 'elite-open': openElite(); break;
+    case 'elite-fight': startElite(); break;
     case 'hl-move': { const o=homeOrder(), i=o.indexOf(t.dataset.k), j=i+(+t.dataset.d||0); if(i<0||j<0||j>=o.length) break; o.splice(j,0,o.splice(i,1)[0]); DB.settings.homeOrder=o; save(); applyHomeLayout(); openHomeLayout(); break; }
-    case 'hl-toggle': { if(!DB.settings.homeHide) DB.settings.homeHide={}; const k=t.dataset.k; if(DB.settings.homeHide[k]) delete DB.settings.homeHide[k]; else DB.settings.homeHide[k]=1; save(); applyHomeLayout(); openHomeLayout(); break; }
+    case 'hl-toggle': { if(!DB.settings.homeHide) DB.settings.homeHide=Object.assign({},homeHidden()); const k=t.dataset.k; if(DB.settings.homeHide[k]) delete DB.settings.homeHide[k]; else DB.settings.homeHide[k]=1; save(); applyHomeLayout(); openHomeLayout(); break; }
     case 'hl-reset': delete DB.settings.homeOrder; delete DB.settings.homeHide; save(); applyHomeLayout(); openHomeLayout(); break;
     case 'aw-tab': awardsTab=t.dataset.k||'season'; renderAwards(); break;
     case 'ach-filter': achFilter=t.dataset.k||'next'; renderAwards(); break;
@@ -9176,9 +9292,9 @@ document.addEventListener('click', e=>{
     case 'tal-open': openTalents(); break;
     case 'tal-up': if(talUp(t.dataset.id)){ openTalents(); renderTalentCard(); } break;
     case 'tal-respec': if(talState().rs!==weekKey() && confirm('Reset every talent and get your points back? Your free respec returns next week.')){ talRespec(); openTalents(); renderTalentCard(); } break;
-    case 'ct-reroll': contractReroll(); break;
+    case 'ct-reroll': { const inB=!!$('.bd-sheet') && overlay.classList.contains('show'); contractReroll(); renderBoard(); if(inB) openBoard(); break; }
     case 'prog-open': openProgSheet(t.dataset.id); break;
-    case 'prog-start': startProgDay(); break;
+    case 'prog-start': closeSheet(); startProgDay(); break;
     case 'prog-skip': progSkip(); break;
     case 'pg-rt': { const r=DB.routines.find(x=>x.id===t.dataset.id); if(r){ const cur=DB.settings.prog, same=cur&&cur.rid===r.id; _pgDraft={rid:r.id, wd:(same&&cur.wd)?cur.wd.slice():defaultWeekdays(coreDays(r)), next:same?(cur.next||0):0}; paintProgSheet(); } break; }
     case 'pg-wd': { if(!_pgDraft) break; const w=+t.dataset.w, i=_pgDraft.wd.indexOf(w); if(i>=0) _pgDraft.wd.splice(i,1); else _pgDraft.wd.push(w); paintProgSheet(); break; }
@@ -9245,7 +9361,7 @@ document.addEventListener('click', e=>{
       DB.sprite.name=v; save(); toast('🔥', v?'Named!':'Name cleared', v||'Back to its stage name'); renderSpriteDen(); break; }
 
     case 'hr-disconnect': hrDisconnect(); break;
-    case 'boss-fight': startBoss(); break;
+    case 'boss-fight': closeSheet(); startBoss(); break;
     case 'swap-ex': openSwap(+t.dataset.ei); break;
     case 'swap-pick': swapPick(+t.dataset.ei, t.dataset.n); break;
     case 'swap-eq': _swNo=t.dataset.k||''; openSwap(+t.dataset.ei); break;
