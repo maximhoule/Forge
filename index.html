@@ -759,6 +759,11 @@ button:focus-visible,input:focus-visible,select:focus-visible,.toggle-row:focus-
 .boss-rx{display:flex; flex-direction:column; gap:3px; margin-bottom:8px}
 .boss-rx span{font-family:'Inter',sans-serif; font-size:11px; color:var(--muted)}
 .boss-sub{font-size:11.5px; color:var(--muted-2); line-height:1.45}
+.boss-rule{font-size:11px; font-weight:700; color:#FFC98A; margin-top:2px}
+.boss-rule.big{display:flex; flex-direction:column; gap:2px; margin:0 0 9px; padding:8px 10px; border-radius:10px; background:rgba(255,160,60,.09); border:1px solid rgba(255,160,60,.28)}
+.boss-rule.big b{font-size:12.5px; color:#FFC98A} .boss-rule.big span{font-size:11.5px; font-weight:500; color:var(--muted)}
+.bf-rule{font-size:11px; font-weight:700; color:#FFC98A; margin-top:4px; font-variant-numeric:tabular-nums}
+.bf-rule.fail{color:var(--muted-2)}
 .boss-card .btn{width:auto; padding:10px 18px}
 /* Title row */
 .title-row{display:flex; align-items:center; justify-content:space-between; gap:12px; background:var(--surface); border:1px solid var(--line-soft); border-radius:var(--r-md); padding:13px 15px; margin:0 0 6px; box-shadow:var(--shadow-sm)}
@@ -4161,7 +4166,7 @@ function showSummary({volume, prHits, xp, newAch}){
   if(B.heat && B.heat.bonus) cards.push({c:'heat',i:'🔥',t:'Heat '+B.heat.peak+' at its peak',s:'+'+B.heat.bonus+' XP for training on tempo'});
   if(DB.stats.bossWins>B.boss) cards.push({c:'boss',i:'⚔️',t:'Boss defeated',s:'Its title is yours to wear'});
   else if(_eliteJust){ cards.push({c:'boss',i:_eliteJust.i,t:'Elite hunted · '+_eliteJust.n,s:'Rare cache + 80 XP'}); _eliteJust=null; }
-  else if(B.bossKey) cards.push({c:'boss',i:'🛡️',t:'The boss endures',s:'Complete every set to land the killing blow'});
+  else if(B.bossKey) cards.push({c:'boss',i:'🛡️',t:'The boss endures',s:_bossWhy||'Complete every set to land the killing blow'});
   if(_duelJust){ const d=_duelJust; cards.push({c:d.win?'pr':'heat',i:'⚔',t:d.win?'Duel won '+d.w+'–'+d.l+' vs last time':d.tie?'Duel drawn '+d.w+'–'+d.l:'Duel lost '+d.w+'–'+d.l,s:d.win?'+'+d.xp+' XP'+(d.st>1?' · '+d.st+'-win streak':''):d.tie?'Streak safe — one more set would have done it':(d.st>1?'Your '+d.st+'-win streak ends — ':'')+'Past you takes this one'}); _duelJust=null; }
   if(_campJust){ cards.push({c:_campJust.big?'cache':'asc',i:_campJust.big?'🏆':'🚩',t:_campJust.t,s:_campJust.s}); _campJust=null; }
   const dq=(DB.loot.q||[]).length-B.q;
@@ -4208,7 +4213,7 @@ function heatTick(ei, si){ if(!activeSession) return;
 function sessionTopHTML(){ if(!activeSession) return ''; let out=''; const E=activeSession.entries||[];
   if(activeSession.bossKey){ const B=activeSession, hp=Math.round(B.bossHP==null?100:B.bossHP), H=B._hit, hit=H && Date.now()-H.ts<900, wk=bossWeak(B.bossKey);
     const line= hp<=0? 'It staggers — finish the session to claim the kill.' : (B.bossShield? '🛡️ Stone skin — beat your last time to shatter it' : (hp<=50? '“'+bossLine(B.bossKey,'taunt')+'”' : 'Weak to '+wk+' · crits hit twice as hard'));
-    out+=`<div class="boss-fight${hit?' hit':''}${hp<=0?' dead':''}${B.bossShield?' shielded':''}"><div class="bf-ico">${B.bossIco||'⚔️'}</div><div class="bf-b"><div class="bf-top"><span class="bf-n">${esc(B.bossName||'Boss')}</span><span class="bf-hp">${hp}%</span></div><div class="bf-bar"><i style="width:${hp}%"></i></div><div class="bf-line">${esc(line)}</div></div>${hit?`<span class="bf-dmg${H.c?' crit':''}">−${H.d}${H.c===2?' LEGENDARY':(H.c?' CRIT':'')}${H.broke?' · SHATTERED':''}</span>`:''}</div>`; }
+    out+=`<div class="boss-fight${hit?' hit':''}${hp<=0?' dead':''}${B.bossShield?' shielded':''}"><div class="bf-ico">${B.bossIco||'⚔️'}</div><div class="bf-b"><div class="bf-top"><span class="bf-n">${esc(B.bossName||'Boss')}</span><span class="bf-hp">${hp}%</span></div><div class="bf-bar"><i style="width:${hp}%"></i></div><div class="bf-line">${esc(line)}</div>${B.bossRule?`<div class="bf-rule${bossFailWhy(B)?' fail':''}" id="bfRule">${esc(bossRuleLine(B))}</div>`:''}</div>${hit?`<span class="bf-dmg${H.c?' crit':''}">−${H.d}${H.c===2?' LEGENDARY':(H.c?' CRIT':'')}${H.broke?' · SHATTERED':''}</span>`:''}</div>`; }
   const h=activeSession.heat||{n:0,bonus:0}, lbl=HEAT_TIERS.find(x=>h.n>=x[0])[1], pop=h.pop && Date.now()-h.pop<900;
   out+=`<div class="heat-bar lv${Math.min(4,Math.floor(h.n/4))}${pop?' pop':''}"><div class="hb-flame">${ico('flame')}</div><div class="hb-b"><div class="hb-top"><span>Heat <b>${h.n}</b> · ${lbl}</span><span>${h.bonus?'+'+h.bonus+' XP':'finish sets on tempo'}</span></div><div class="hb-seg">${Array.from({length:15},(_,i)=>`<i class="${i<Math.min(15,h.n)?'on':''}"></i>`).join('')}</div></div></div>`;
   out+=duelBarHTML();
@@ -4293,8 +4298,13 @@ function critCheck(en, si, st){ const w=+st.weight||0, r=+st.reps||0; if(r<=0) r
     else if(tal('titan') && (w>0? e>=pe-.01 : r>=p.r)){ const done=activeSession.entries.reduce((a,x)=>a+x.sets.filter(s=>s.done).length,0); if(done%5===0) c=1; } }
   if(!c && tal('inferno') && activeSession.heat && activeSession.heat.n>=15) c=1;
   return c; }
-function bossWeak(key){ if(activeSession && activeSession.bossKey===key && activeSession.eliteWeak) return activeSession.eliteWeak; return ['Back Squat','Barbell Bench Press','Deadlift','Overhead Press'][bossIdx(key)%4]; }
-function bossHit(en, c){ const B=activeSession; if(!B || !B.bossKey) return;
+function bossWeak(key){ if(activeSession && activeSession.bossKey===key && activeSession.eliteWeak) return activeSession.eliteWeak; return bossLifts(key)[bossIdx(key)%4]; }
+function bossRuleTick(B, en, si, st){ const R=bossRuleOf(B); if(!R) return 0; const now=Date.now(), ei=B.entries.indexOf(en), key=ei+'-'+si, K=B.bossK||(B.bossK={}); let heal=0;
+  if(R.gap){ if(B.bossLast && now-B.bossLast>R.gap*1000 && !K[key]){ B.bossStrikes=(B.bossStrikes||0)+1; heal=12; K[key]=1; toast(R.ico,'It regenerates','Heal '+B.bossStrikes+'/'+R.strikes+' — keep rests under '+Math.floor(R.gap/60)+':'+String(R.gap%60).padStart(2,'0')); } B.bossLast=now; }
+  if(R.exact && en.bossReps && st && !K[key]){ const need=en.bossReps[si]; if(need && (+st.reps||0)<need){ B.bossStrikes=(B.bossStrikes||0)+1; heal=8; K[key]=1; toast(R.ico,'It mirrors you','Short set '+B.bossStrikes+'/'+R.strikes+' — '+need+' reps were called for'); } }
+  return heal; }
+function bossHit(en, c, si, st){ const B=activeSession; if(!B || !B.bossKey) return;
+  const _heal=bossRuleTick(B, en, si, st); if(_heal && B.bossHP!=null) B.bossHP=Math.min(100, B.bossHP+_heal);
   if(B.bossHP==null){ B.bossHP=100; B.bossShield=false; }
   const tot=B.entries.reduce((a,e)=>a+e.sets.length,0)||1, weak=en.exercise===bossWeak(B.bossKey);
   let d=100/tot*1.2; if(weak) d*=1.5; if(c) d*= c===2?3:(tal('exec')?3:2); d*=1+.1*tal('sunder');
@@ -4307,7 +4317,7 @@ function onSetDone(ei, si, st){ if(!activeSession) return; const en=activeSessio
   const c=critCheck(en, si, st), CR=activeSession.crit||(activeSession.crit={n:0,leg:0,k:{}}), key=ei+'-'+si;
   if(c && !CR.k[key]){ CR.k[key]=c; if(c===2) CR.leg++; else CR.n++; st.crit=c; try{ _burstT=0; burst(c===2?'gold':'pr'); }catch(e){} }
   duelTick(en, si, st, CR.k[key]||0);
-  bossHit(en, CR.k[key]||0); }
+  bossHit(en, CR.k[key]||0, si, st); }
 /* ===================== EPIC FX — streaks · shards · bolts · shake · cinematics ===================== */
 const FX={cv:null,ctx:null,parts:[],add:[],raf:0,q:[],busy:false,emb:0,embC:null};
 function fxOn(){ try{ return typeof document!=='undefined' && !!document.body && typeof window.requestAnimationFrame==='function' && DB.settings.fx!==false && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }catch(e){ return false; } }
@@ -5115,7 +5125,7 @@ function hrZones(){ const mx=maxHR(); if(!mx) return null; const rest=(DB.settin
   return {mx, rest, zones:defs.map(d=>({name:d[0], lo:calc(d[1]), hi:calc(d[2])}))}; }
 
 /* ===================== VO2MAX — dedicated entry + analysis ===================== */
-const APP_V='v87';
+const APP_V='v88';
 function vo2Parts(){
   const s=DB.settings, age=currentAge();
   const bv=bestVo2(), vr=vo2FromRestHR();
@@ -5608,28 +5618,58 @@ const BOSSES=[
  {n:'The Yule Colossus',ico:'🎄',t:'Winterforged'}];
 function monthKey(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); }
 function _mhash(s){ let h=0; for(let i=0;i<s.length;i++) h=(h*31+s.charCodeAt(i))>>>0; return h; }
+let _bossWhy='';
 function bossDaysLeft(){ const d=new Date(); return Math.max(1, Math.ceil((new Date(d.getFullYear(), d.getMonth()+1, 1)-d)/86400000)); }
 function bossIdx(k){ const m=parseInt(k.slice(5),10); if(m===12) return 12; return _mhash(k)%12; }
+const BOSS_RULES=[
+ {id:'heavy', ico:'🪨', n:'Ironhide', d:'Only heavy steel bites — 5 sets of 3, long rests', sets:5, reps:[3,3,3,3,3], pct:[.84], rest:180},
+ {id:'siege', ico:'🌊', n:'Long Siege', d:'High reps, short rests — 3×12 with 75 s to breathe', sets:3, reps:[12,12,12], pct:[.6], rest:75},
+ {id:'twin', ico:'⛓', n:'Twin Assault', d:'Supersets only — every lift is chained to a partner', sets:3, reps:[8,8,8], pct:[.66], rest:120, ss:1},
+ {id:'regen', ico:'🩸', n:'Regeneration', d:'Rest past 3:30 and it heals — 3 heals and it escapes', sets:4, reps:[6,6,6,6], pct:[.72], rest:120, gap:210, strikes:3},
+ {id:'ladder', ico:'🪜', n:'The Ladder', d:'Climb 8-6-4-2 — heavier every set', sets:4, reps:[8,6,4,2], pct:[.66,.74,.82,.88], rest:150},
+ {id:'timed', ico:'⏳', n:'Hourglass', d:'Slay it within 35 minutes or it escapes', sets:3, reps:[5,5,5], pct:[.74], rest:90, limit:35},
+ {id:'mirror', ico:'🪞', n:'Mirror', d:'Hit every prescribed rep — 3 short sets and it escapes', sets:4, reps:[6,6,6,6], pct:[.72], rest:150, strikes:3, exact:1}
+];
+function bossRule(k){ if(!k || k[0]==='E') return null; const y=parseInt(k.slice(0,4),10), m=parseInt(k.slice(5),10); if(!(y>0&&m>0)) return null; return BOSS_RULES[(y*12+m)%BOSS_RULES.length]; }
+function bossRuleOf(S){ return (S && S.bossRule && BOSS_RULES.find(r=>r.id===S.bossRule)) || null; }
+function bossLifts(k){ const R=bossRule(k); return (R&&R.ss)? ['Barbell Bench Press','Barbell Row','Back Squat','Overhead Press'] : ['Back Squat','Barbell Bench Press','Deadlift','Overhead Press']; }
 function currentBoss(){
-  const k=monthKey(); const B=BOSSES[bossIdx(k)];
+  const k=monthKey(); const B=BOSSES[bossIdx(k)], R=bossRule(k);
   const beaten=(DB.bossLog||[]).some(x=>x.key===k);
-  const lifts=['Back Squat','Barbell Bench Press','Deadlift','Overhead Press'];
-  const rx=lifts.map(nm=>{ const pr=DB.prs[nm];
-    if(pr && pr.e1rm>0){ const w=Math.max(2.5, Math.round((pr.e1rm*0.72)/2.5)*2.5); return {n:nm, w, sets:4, reps:6, line:nm+' · 4×6 @ '+w+' '+DB.settings.unit}; }
-    return {n:nm, w:0, sets:4, reps:8, line:nm+' · 4×8, heavy for you'}; });
-  rx.push({n:'Plank', w:0, sets:2, reps:60, line:'Plank · 2×60 s to seal the kill'});
-  return {key:k, name:B.n, ico:B.ico, title:B.t, beaten, rx};
+  const uniq=R.reps.every(x=>x===R.reps[0]), sch=uniq? R.sets+'×'+R.reps[0] : R.reps.join('-');
+  const rx=bossLifts(k).map(nm=>{ const pr=DB.prs[nm];
+    if(pr && pr.e1rm>0){ const ws=R.reps.map((_,i)=>Math.max(2.5, Math.round((pr.e1rm*(R.pct[i]||R.pct[0]))/2.5)*2.5));
+      return {n:nm, w:ws[0], ws, sets:R.sets, reps:R.reps[0], rs:R.reps, line:nm+' · '+sch+' @ '+(uniq?ws[0]:ws[0]+'→'+ws[ws.length-1])+' '+DB.settings.unit}; }
+    return {n:nm, w:0, ws:null, sets:R.sets, reps:R.reps[0], rs:R.reps, line:nm+' · '+sch+', heavy for you'}; });
+  rx.push({n:'Plank', w:0, ws:null, sets:2, reps:60, rs:[60,60], line:'Plank · 2×60 s to seal the kill'});
+  return {key:k, name:B.n, ico:B.ico, title:B.t, beaten, rx, rule:R};
 }
+/* live state of the rule during a fight */
+function bossClock(S){ const R=bossRuleOf(S); if(!R || !R.limit) return null;
+  const all=S.entries.length>0 && S.entries.every(e=>e.sets.length>0 && e.sets.every(s=>s.done));
+  const end=(all && S._ltT)? S._ltT : Date.now(), left=R.limit*60000-(end-S.ts);
+  return {left, over:left<0, all}; }
+function bossFailWhy(S){ const R=bossRuleOf(S); if(!R) return '';
+  if(R.limit){ const c=bossClock(S); if(c && c.over) return 'The hourglass ran out — '+R.limit+' minutes is all you get'; }
+  if(R.strikes && (S.bossStrikes||0)>=R.strikes) return R.exact? 'Too many short sets — it mirrored your weakness' : 'It healed '+R.strikes+' times and slipped away';
+  return ''; }
+function bossRuleLine(S){ const R=bossRuleOf(S); if(!R) return '';
+  const why=bossFailWhy(S); if(why) return '💨 Escaped — finish for XP, then fight it again';
+  if(R.limit){ const c=bossClock(S), s=Math.max(0,Math.floor(c.left/1000)); return R.ico+' '+R.n+' · '+Math.floor(s/60)+':'+String(s%60).padStart(2,'0')+(c.all?' to spare':' left'); }
+  if(R.strikes) return R.ico+' '+R.n+' · '+(R.exact?'short sets ':'heals ')+(S.bossStrikes||0)+'/'+R.strikes+(R.exact?' · hit every rep':' · next set within '+Math.floor(R.gap/60)+':'+String(R.gap%60).padStart(2,'0'));
+  return R.ico+' '+R.n+' · '+R.d.split(' — ')[0]; }
+setInterval(()=>{ try{ if(!activeSession || !activeSession.bossRule) return; const el=document.getElementById('bfRule'); if(!el) return; const R=bossRuleOf(activeSession); if(R && R.limit) el.textContent=bossRuleLine(activeSession); }catch(e){} }, 1000);
 function renderBoss(){
   const host=$('#bossCard'); if(!host) return; const b=currentBoss();
   if(b.beaten){ host.innerHTML=`<div class="boss-card slain"><div class="boss-ico">${b.ico}</div><div class="boss-body"><div class="boss-eyebrow">Monthly boss · defeated</div><div class="boss-name">${esc(b.name)} ✝</div><div class="boss-sub">Title claimed: “${esc(b.title)}” · a new boss rises next month</div></div></div>`; return; }
-  if(!DB.settings.bossOpen){ host.innerHTML=`<div class="boss-card mini"><div class="boss-ico">${b.ico}</div><div class="boss-body"><div class="boss-eyebrow">Monthly boss · ${bossDaysLeft()}d to slay</div><div class="boss-name">${esc(b.name)}</div></div><button class="btn btn-primary btn-sm" data-action="boss-fight">⚔ Fight</button><button class="boss-tg" data-action="boss-toggle" aria-label="Show boss details">▾</button></div>`; return; }
+  if(!DB.settings.bossOpen){ host.innerHTML=`<div class="boss-card mini"><div class="boss-ico">${b.ico}</div><div class="boss-body"><div class="boss-eyebrow">Monthly boss · ${bossDaysLeft()}d to slay</div><div class="boss-name">${esc(b.name)}</div><div class="boss-rule">${b.rule.ico} ${esc(b.rule.n)}</div></div><button class="btn btn-primary btn-sm" data-action="boss-fight">⚔ Fight</button><button class="boss-tg" data-action="boss-toggle" aria-label="Show boss details">▾</button></div>`; return; }
   host.innerHTML=`<div class="boss-card"><button class="boss-tg up" data-action="boss-toggle" aria-label="Collapse">▴</button><div class="boss-ico">${b.ico}</div><div class="boss-body">
     <div class="boss-eyebrow">Monthly boss · ${bossDaysLeft()}d to slay</div>
     <div class="boss-name">${esc(b.name)}</div>
     <div class="boss-quote">“${esc(bossLine(b.key,'taunt'))}”</div>
+    <div class="boss-rule big"><b>${b.rule.ico} ${esc(b.rule.n)}</b><span>${esc(b.rule.d)}</span></div>
     <div class="boss-rx">${b.rx.map(r=>`<span>${esc(r.line)}</span>`).join('')}</div>
-    <div class="boss-sub">Complete every set in one session to claim “${esc(b.title)}” · +150 XP · your relic surges</div>
+    <div class="boss-sub">Complete every set under this month’s rule to claim “${esc(b.title)}” · +150 XP · your relic surges</div>
     <button class="btn btn-primary btn-sm" data-action="boss-fight" style="margin-top:11px">⚔ Fight</button>
   </div></div>`;
 }
@@ -5637,12 +5677,13 @@ function startBoss(){
   const b=currentBoss();
   if(b.beaten){ toast(b.ico,'Already slain','This boss returns next month'); return; }
   if(activeSession){ toast('⚔️','Finish your session first','A boss demands full attention'); return; }
-  startSession('⚔ '+b.name, 'Boss battle', b.rx.map(r=>({n:r.n, s:r.sets, r:String(r.reps), rest:r.n==='Plank'?45:150})));
-  if(activeSession && activeSession.entries){ activeSession.entries.forEach((en,i)=>{ const r=b.rx[i]; if(!r) return; en.sets.forEach(st=>{ if(r.w>0) st.weight=String(r.w); st.reps=String(r.reps); }); });
-    activeSession.bossKey=b.key; activeSession.bossName=b.name; activeSession.bossIco=b.ico; activeSession.bossTitle=b.title; save(); }
+  const R=b.rule;
+  startSession('⚔ '+b.name, 'Boss battle · '+R.n, b.rx.map((r,i)=>({n:r.n, targetSets:r.sets, targetReps:(r.rs.every(x=>x===r.rs[0])?String(r.reps):r.rs.join('-')), rest:r.n==='Plank'?45:R.rest, ss:!!(R.ss && r.n!=='Plank' && i%2===0)})));
+  if(activeSession && activeSession.entries){ activeSession.entries.forEach((en,i)=>{ const r=b.rx[i]; if(!r) return; en.bossReps=r.rs.slice(); en.sets.forEach((st,si)=>{ const w=r.ws?r.ws[si]:0; if(w>0) st.weight=String(w); st.reps=String(r.rs[si]!=null?r.rs[si]:r.reps); }); });
+    activeSession.bossRule=R.id; activeSession.bossStrikes=0; activeSession.bossKey=b.key; activeSession.bossName=b.name; activeSession.bossIco=b.ico; activeSession.bossTitle=b.title; save(); }
   go('session'); renderSession();
   bossSpeak(b.key,'taunt');
-  toast(b.ico, b.name+' awaits', 'Complete every set to win');
+  toast(b.ico, b.name+' awaits', R.ico+' '+R.n+' — '+R.d);
 }
 /* ===================== SMART SWAPS ===================== */
 let _swNo='';
@@ -7262,11 +7303,12 @@ function finishSession(){
   gainXP(60);
   prHits.forEach(()=>gainXP(40));
   updateBalancedWeeks(); const newAch=checkAchievements();
-  let _bossWin=false, _bossMeta=null;
+  let _bossWin=false, _bossMeta=null; _bossWhy='';
   if(activeSession.bossKey){
     _bossMeta={key:activeSession.bossKey, name:activeSession.bossName, ico:activeSession.bossIco, title:activeSession.bossTitle};
     const _all=activeSession.entries.length>0 && activeSession.entries.every(e=>e.sets.length>0 && e.sets.every(s=>s.done));
-    if(_all && _bossMeta.key===monthKey() && !(DB.bossLog||[]).some(x=>x.key===_bossMeta.key)){
+    _bossWhy=_all? bossFailWhy(activeSession) : '';
+    if(_all && !_bossWhy && _bossMeta.key===monthKey() && !(DB.bossLog||[]).some(x=>x.key===_bossMeta.key)){
       DB.bossLog=DB.bossLog||[]; DB.bossLog.unshift(_bossMeta);
       DB.stats.bossWins=(DB.stats.bossWins||0)+1; gainXP(150); _bossWin=true;
     }
@@ -7279,7 +7321,7 @@ function finishSession(){
   monumentCheck();
   if(_bossWin){ setTimeout(()=>{ _burstT=0; burst('gold'); toast(_bossMeta.ico,'BOSS DEFEATED!', _bossMeta.name+' has fallen — title “'+_bossMeta.title+'” earned','gold'); bossSpeak(_bossMeta.key,'win'); }, 950); }
   else if(_eliteWin){ setTimeout(()=>{ _burstT=0; burst('gold'); toast(_bossMeta.ico,'ELITE HUNTED!', _bossMeta.name+' has fallen · rare cache + 80 XP','gold'); }, 950); }
-  else if(_bossMeta){ setTimeout(()=>toast(_bossMeta.ico,'The boss endures','Every set must be completed — challenge it again'), 900); }
+  else if(_bossMeta){ setTimeout(()=>toast(_bossMeta.ico,'The boss endures',(_bossWhy||'Every set must be completed')+' — challenge it again'), 900); }
   if(relicTier().idx>_relicBefore){ setTimeout(()=>{ burst('gold'); toast('🗡️','Relic advanced!','Your forge reached '+relicTier().tier.n); }, 750); }
   if(_recapBase && _recapBase.heat && _recapBase.heat.bonus) gainXP(_recapBase.heat.bonus);
   { const cr=_recapBase && _recapBase.crit; if(cr){ const cx=cr.n*(4+3*tal('heavy'))+cr.leg*20; if(cx) gainXP(cx); _recapBase.critXP=cx; } }
@@ -7634,7 +7676,7 @@ function boardItems(){ const out=[], add=o=>out.push(o);
   { const k=todayContract(), S=contractState(), d=!!S.done[k.id], st=contractStreak(); add({k:'contract', ico:'📜', t:k.c.t(k), s:'Daily contract'+(st?' · '+st+'-day streak':'')+' · cache + 50 XP', done:d, pct:d?100:0, today:true, act:(!d&&rerollsLeft()>0)?'ct-reroll':'', btn:'↻ Reroll'}); }
   { const X=expState(), n=X.rooms.filter(r=>X.done[r]).length, nx=X.rooms.find(r=>!X.done[r]); add({k:'exp', ico:'🗺️', t:X.chest?'Expedition cleared':'Expedition · '+n+' / 5 rooms', s:X.chest?'A new map opens Monday':(nx?'Next: '+EXP_ROOMS[nx].d(X):'Open the chest'), done:!!X.chest, pct:X.chest?100:n*20, act:'exp-open', btn:'Map'}); }
   { const I=eliteInfo(); add({k:'elite', ico:I.ico, t:I.E.done?I.name+' — hunted':'Weekly elite · '+I.name, s:I.E.done?'A new elite appears next week':'Short '+I.muscle.toLowerCase()+' fight · rare cache + 80 XP', done:I.E.done, pct:I.E.done?100:0, act:I.E.done?'':'elite-open', btn:'Fight'}); }
-  { const b=currentBoss(); add({k:'boss', ico:b.ico, t:b.beaten?b.name+' — slain':'Monthly boss · '+b.name, s:b.beaten?'Returns next month':bossDaysLeft()+' days left · epic cache + 150 XP', done:b.beaten, pct:b.beaten?100:0, act:b.beaten?'':'boss-fight', btn:'Fight'}); }
+  { const b=currentBoss(); add({k:'boss', ico:b.ico, t:b.beaten?b.name+' — slain':'Monthly boss · '+b.name, s:b.beaten?'Returns next month':b.rule.ico+' '+b.rule.n+' · '+bossDaysLeft()+'d left · epic cache + 150 XP', done:b.beaten, pct:b.beaten?100:0, act:b.beaten?'':'boss-fight', btn:'Fight'}); }
   { const c=questCtx(); weekQuests().forEach(q=>{ const raw=q.prog(c), d=raw>=q.goal || !!((DB.quests||{}).claimed||{})[q.id]; add({k:'q-'+q.id, ico:q.ico, t:q.label, s:'Weekly quest · +'+q.xp+' XP · '+(d?'done':fmt(Math.min(q.goal,Math.round(raw*10)/10))+' / '+fmt(q.goal)), done:d, pct:d?100:Math.round(Math.min(1,raw/q.goal)*100)}); }); }
   { const C=campStatus(); if(C) add({k:'camp', ico:'🚩', t:C.S?C.S.label:'Rotation · day '+(C.day+1)+' of '+C.n, s:C.r.name+' · finish the last day for '+(C.S&&C.S.wk===C.S.n-1?'200 XP + epic cache':'40 XP + cache'), done:false, pct:C.pct}); }
   { ensureAscent(); const f=ascFlat(), nd=f[DB.ascent.node]; if(nd) add({k:'asc', ico:'⛰️', t:'Ascent · '+nd.n, s:ascDesc(nd)+' · +'+nd.xp+' XP', done:false, pct:Math.round(DB.ascent.node/f.length*100), act:'asc-open', btn:'Climb'}); }
