@@ -2003,6 +2003,53 @@ body.ui2 .sec-head{margin-top:22px}
 .pd-day li{align-items:center}
 .pb-sw{flex:none; width:30px; height:28px; margin-left:4px; border-radius:8px; background:var(--surface); border:1px solid var(--line); color:var(--muted); font-size:14px; line-height:1}
 .pb-sw.off{border:0; background:none}
+
+/* ===================== v89 FINISH — details and motion (part of Refined UI, switchable in Settings) ===================== */
+.exhead>div:first-child{align-self:stretch}
+.nav-glide{display:none}
+.rest-more{display:none}
+body.ui2{-webkit-tap-highlight-color:transparent}
+body.ui2 .screen-title{margin-bottom:13px}
+body.ui2 :is(.s-val,.st-v,.ov-v,.kl-v,.bf-hp,.timer,.hb-top,.q-xp,.ss-v,.boss-rx,.rest-badge,.ex-last,.ex-next){font-variant-numeric:tabular-nums}
+/* tab bar: one indicator that glides between tabs */
+body.ui2 .nav-glide{display:block; position:absolute; top:0; bottom:0; left:6px; width:calc((100% - 12px)/5); pointer-events:none; transition:transform .42s var(--spring), opacity .2s ease; will-change:transform}
+body.ui2 .nav-glide::before{content:''; position:absolute; left:50%; top:12px; width:50px; height:30px; margin-left:-25px; border-radius:12px; background:rgba(var(--e1rgb),.16); box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}
+body.ui2 .nav-glide::after{content:''; position:absolute; left:50%; top:8px; width:18px; height:3px; margin-left:-9px; border-radius:99px; background:var(--grad-energy); box-shadow:0 0 8px var(--energy-glow)}
+body.ui2 .nav-item.on .ni-ico{background:none}
+body.ui2 .nav-item::after{display:none}
+body.ui2 .nav-item{z-index:1}
+/* sheets leave the way they came */
+.sheet-ghost{position:fixed; inset:0; z-index:99; display:flex; align-items:flex-end; justify-content:center; pointer-events:none; background:rgba(6,8,11,.6); animation:finDim .24s ease forwards}
+.sheet-ghost>.sheet{animation:finDown .24s cubic-bezier(.5,0,.9,.4) forwards}
+@keyframes finDown{to{transform:translateY(102%)}}
+@keyframes finDim{to{background:rgba(6,8,11,0)}}
+/* focus mode: the card slides in from the side you moved to */
+body.ui2 .fz-card.fin-r{animation:finR .3s var(--ease-out,ease-out)}
+body.ui2 .fz-card.fin-l{animation:finL .3s var(--ease-out,ease-out)}
+@keyframes finR{from{transform:translateX(26px)}to{transform:none}}
+@keyframes finL{from{transform:translateX(-26px)}to{transform:none}}
+/* finished set: a sweep across the row */
+body.ui2 .setrow:has(.check.just){overflow:hidden}
+body.ui2 .setrow:has(.check.just)::after{content:''; position:absolute; inset:0; pointer-events:none; background:linear-gradient(100deg, transparent 20%, rgba(52,234,208,.22) 50%, transparent 80%); transform:translateX(-100%); animation:finSweep .7s ease-out}
+@keyframes finSweep{to{transform:translateX(100%)}}
+body.ui2 :is(.s-weight,.s-reps):focus{box-shadow:0 0 0 3px rgba(var(--e1rgb),.2), inset 0 0 0 1px rgba(var(--e1rgb),.5)}
+/* folds open with a short unroll */
+body.ui2 .fold-body.fin-open{animation:finUnroll .32s var(--ease-out,ease-out)}
+@keyframes finUnroll{from{clip-path:inset(0 0 100% 0); transform:translateY(-8px)}to{clip-path:inset(0 0 0 0); transform:none}}
+/* chart bars rise when you open a chart */
+body.ui2 .fin-grow .ch-bars{transform-box:fill-box; transform-origin:50% 100%; animation:finGrow .55s cubic-bezier(.2,.9,.25,1)}
+@keyframes finGrow{from{transform:scaleY(.02)}to{transform:none}}
+/* rest dock stays small until a rest is running */
+body.ui2 #sessionBar.idle:not(.open) :is(.rest-for,.rest-presets,[data-action="rest-15"],[data-action="rest+15"]){display:none}
+body.ui2 #sessionBar.idle .rest-more{display:grid; place-items:center; flex:none; width:44px; height:38px; border-radius:11px; background:var(--surface-2); border:1px solid var(--line); color:var(--muted); font-size:13px; transition:transform .2s var(--ease)}
+body.ui2 #sessionBar.idle.open .rest-more{transform:rotate(180deg)}
+body.ui2 #sessionBar.idle:not(.open) .inner{padding:8px 10px}
+/* chip rows that scroll fade at the edge instead of cutting off */
+body.ui2 div:has(> .chip[data-action="aw-tab"]){flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; -webkit-mask-image:linear-gradient(90deg,#000 88%,transparent); mask-image:linear-gradient(90deg,#000 88%,transparent)}
+/* mini boss card: the name gets room */
+.boss-card.mini .boss-name{white-space:normal; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; font-size:14px; line-height:1.15}
+.boss-card.mini .boss-body{min-width:0; flex:1}
+@media (prefers-reduced-motion:reduce){ .sheet-ghost{display:none} }
 </style>
 </head>
 <body>
@@ -2266,13 +2313,14 @@ body.ui2 .sec-head{margin-top:22px}
     <button class="nav-item" data-nav="awards"><span class="ni-ico"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="5"/><path d="M8.7 13 7.3 21l4.7-2.6 4.7 2.6-1.4-8"/></svg></span><span class="ni-lbl">Awards</span></button>
   </nav>
 
-  <div class="session-bar" id="sessionBar" style="display:none">
+  <div class="session-bar idle" id="sessionBar" style="display:none">
     <div class="inner">
       <div class="rest-top">
         <div class="rest-dial"><svg viewBox="0 0 44 44" class="rest-ring"><circle class="rr-bg" cx="22" cy="22" r="19"></circle><circle class="rr-fg" id="restRing" cx="22" cy="22" r="19"></circle></svg><div class="timer" id="restTimer">0:00</div></div>
         <button class="btn btn-ghost btn-sm" data-action="rest-15">−15s</button>
         <button class="btn btn-ghost btn-sm" data-action="rest+15">+15s</button>
         <button class="btn btn-primary btn-sm" data-action="rest-toggle" id="restToggleBtn" style="flex:1">Start rest</button>
+        <button class="rest-more" data-action="rest-more" aria-label="Rest presets">▴</button>
       </div>
       <div class="rest-for" id="restFor"></div>
       <div class="rest-presets">
@@ -4073,7 +4121,7 @@ function renderQuests(){
 function go(screen){
   $$('.screen').forEach(s=>s.classList.remove('active'));
   $('#screen-'+screen).classList.add('active');
-  $$('.nav-item').forEach(n=>n.classList.toggle('on', n.dataset.nav===screen));
+  $$('.nav-item').forEach(n=>n.classList.toggle('on', n.dataset.nav===screen)); navGlide();
   window.scrollTo(0,0);
   { const _sc=$('#screen-'+screen); if(_sc && _sc.classList && !(fxOn() && screen!=='session')){ _sc.classList.add('rise'); clearTimeout(_sc._riseT); _sc._riseT=setTimeout(()=>_sc.classList.remove('rise'),900); } }
   fxEnter(screen);
@@ -4876,7 +4924,7 @@ function barsSVG(W, series, unit){
     const tip=['Week of '+_wkLbl(w.start)].concat(series.map(s=>s.l+': '+cn(+w[s.k]||0)+(unit?' '+unit:''))).join('|');
     bars+=`<rect class="ch-hit" data-tip="${esc(tip)}" x="${(pl+i*slot).toFixed(1)}" y="${pt-6}" width="${slot.toFixed(1)}" height="${ih+10}" fill="transparent"/>`; });
   const xl=[0,Math.floor((n-1)/2),n-1].filter((v,i,a)=>a.indexOf(v)===i).map(i=>`<text x="${(pl+i*slot+slot/2).toFixed(1)}" y="${VH-6}" text-anchor="middle" font-size="${CH.fs}" fill="${CH.label}" font-family="${CH.font}">${i===n-1?'this wk':_wkLbl(W[i].start)}</text>`).join('');
-  return `<svg viewBox="0 0 ${VW} ${VH}" width="100%" style="display:block;overflow:visible" role="img">${g}${bars}${xl}</svg>`;
+  return `<svg viewBox="0 0 ${VW} ${VH}" width="100%" style="display:block;overflow:visible" role="img">${g}<g class="ch-bars">${bars}</g>${xl}</svg>`;
 }
 function chLegend(series){ return `<div class="ch-leg">${series.map(s=>`<span><i style="background:${s.c}"></i>${esc(s.l)}</span>`).join('')}</div>`; }
 function sparkSVG(v, color){ if(v.length<2) return ''; const W=96,H=30, mn=Math.min(...v), mx=Math.max(...v), rg=(mx-mn)||1;
@@ -5125,7 +5173,7 @@ function hrZones(){ const mx=maxHR(); if(!mx) return null; const rest=(DB.settin
   return {mx, rest, zones:defs.map(d=>({name:d[0], lo:calc(d[1]), hi:calc(d[2])}))}; }
 
 /* ===================== VO2MAX — dedicated entry + analysis ===================== */
-const APP_V='v88';
+const APP_V='v89';
 function vo2Parts(){
   const s=DB.settings, age=currentAge();
   const bv=bestVo2(), vr=vo2FromRestHR();
@@ -5662,7 +5710,7 @@ setInterval(()=>{ try{ if(!activeSession || !activeSession.bossRule) return; con
 function renderBoss(){
   const host=$('#bossCard'); if(!host) return; const b=currentBoss();
   if(b.beaten){ host.innerHTML=`<div class="boss-card slain"><div class="boss-ico">${b.ico}</div><div class="boss-body"><div class="boss-eyebrow">Monthly boss · defeated</div><div class="boss-name">${esc(b.name)} ✝</div><div class="boss-sub">Title claimed: “${esc(b.title)}” · a new boss rises next month</div></div></div>`; return; }
-  if(!DB.settings.bossOpen){ host.innerHTML=`<div class="boss-card mini"><div class="boss-ico">${b.ico}</div><div class="boss-body"><div class="boss-eyebrow">Monthly boss · ${bossDaysLeft()}d to slay</div><div class="boss-name">${esc(b.name)}</div><div class="boss-rule">${b.rule.ico} ${esc(b.rule.n)}</div></div><button class="btn btn-primary btn-sm" data-action="boss-fight">⚔ Fight</button><button class="boss-tg" data-action="boss-toggle" aria-label="Show boss details">▾</button></div>`; return; }
+  if(!DB.settings.bossOpen){ host.innerHTML=`<div class="boss-card mini"><div class="boss-ico">${b.ico}</div><div class="boss-body"><div class="boss-eyebrow">Boss · ${bossDaysLeft()}d left</div><div class="boss-name">${esc(b.name)}</div><div class="boss-rule">${b.rule.ico} ${esc(b.rule.n)}</div></div><button class="btn btn-primary btn-sm" data-action="boss-fight">⚔ Fight</button><button class="boss-tg" data-action="boss-toggle" aria-label="Show boss details">▾</button></div>`; return; }
   host.innerHTML=`<div class="boss-card"><button class="boss-tg up" data-action="boss-toggle" aria-label="Collapse">▴</button><div class="boss-ico">${b.ico}</div><div class="boss-body">
     <div class="boss-eyebrow">Monthly boss · ${bossDaysLeft()}d to slay</div>
     <div class="boss-name">${esc(b.name)}</div>
@@ -8958,8 +9006,23 @@ function toast(ico, title, sub, cls=''){
    SHEETS (modals)
    ============================================================ */
 const overlay=$('#overlay'), sheet=$('#sheet');
-function openSheet(html){ sheet.innerHTML=html; overlay.classList.add('show'); }
-function closeSheet(){ overlay.classList.remove('show'); }
+function sheetGhostClear(){ try{ document.querySelectorAll('.sheet-ghost').forEach(g=>g.remove()); }catch(e){} }
+function openSheet(html){ sheetGhostClear(); sheet.innerHTML=html; overlay.classList.add('show'); }
+function closeSheet(){
+  try{ if(overlay.classList.contains('show') && document.body.classList.contains('ui2') && sheet.childElementCount && sheet.innerHTML.length<60000){
+    sheetGhostClear(); const g=document.createElement('div'); g.className='sheet-ghost'; g.setAttribute('aria-hidden','true'); const c=sheet.cloneNode(true); c.removeAttribute('id');
+    c.querySelectorAll('[id]').forEach(x=>x.removeAttribute('id')); c.querySelectorAll('[data-action]').forEach(x=>x.removeAttribute('data-action')); c.querySelectorAll('[data-nav]').forEach(x=>x.removeAttribute('data-nav'));
+    const st=sheet.scrollTop; g.appendChild(c); document.body.appendChild(g); c.scrollTop=st; setTimeout(()=>{ try{ g.remove(); }catch(e){} }, 260); } }catch(e){}
+  overlay.classList.remove('show'); }
+function navGlide(){ try{ const nav=document.querySelector('.nav'); if(!nav) return; let g=nav.querySelector('.nav-glide'); if(!g){ g=document.createElement('i'); g.className='nav-glide'; nav.insertBefore(g, nav.firstChild); }
+  const i=Array.from(nav.querySelectorAll('.nav-item')).findIndex(n=>n.classList.contains('on')); g.style.opacity=i<0?'0':'1'; if(i>=0) g.style.transform='translateX('+(i*100)+'%)'; }catch(e){} }
+/* motion that answers a tap: runs after the main handler has re-rendered */
+document.addEventListener('click', e=>{ try{ const t=e.target && e.target.closest && e.target.closest('[data-action],[data-nav]'); if(!t || !document.body.classList.contains('ui2')) return; const a=t.dataset.action; const d=t.dataset.d, fold=t.dataset.fold||'', nav=t.dataset.nav; setTimeout(()=>{ try{
+  if(a==='fz-nav' || a==='fz-go'){ const c=document.querySelector('.fz-card'); if(c) c.classList.add((a==='fz-nav' && +d<0)?'fin-l':'fin-r'); }
+  else if(a==='fold-toggle'){ const k=fold, f=document.getElementById('fold'+k.charAt(0).toUpperCase()+k.slice(1)), b=f && !f.classList.contains('closed') && f.querySelector('.fold-body'); if(b){ b.classList.add('fin-open'); setTimeout(()=>b.classList.remove('fin-open'),400); } }
+  else if(a==='prog-tab' || nav==='records'){ const s=document.getElementById('screen-records'); if(s){ s.classList.add('fin-grow'); clearTimeout(s._fg); s._fg=setTimeout(()=>s.classList.remove('fin-grow'),700); } }
+  else if(a==='rest-more'){ const b=document.getElementById('sessionBar'); if(b){ b.classList.toggle('open'); _fitSessionPad(); } }
+}catch(err){} },0); }catch(err){} });
 overlay.addEventListener('click', e=>{ if(e.target===overlay) closeSheet(); });
 
 /* settings sheet */
@@ -9684,6 +9747,7 @@ function paintRest(){
   const el=$('#restTimer'); if(el){ el.textContent=m+':'+String(s).padStart(2,'0'); el.classList.toggle('run', restRunning); }
   const b=$('#restToggleBtn'); if(b) b.textContent = restRunning?'Pause':(restPaused?'Resume':'Start rest');
   paintRestFor();
+  { const bar=$('#sessionBar'); if(bar){ const idle=!restRunning && !restPaused; if(bar.classList.contains('idle')!==idle){ bar.classList.toggle('idle', idle); if(!idle) bar.classList.remove('open'); _fitSessionPad(); } } }
   const ring=$('#restRing'); if(ring){ const C=119.38; const frac=(restRunning && restTotal>0)?(restSeconds/restTotal):1; ring.style.strokeDashoffset=(C*frac).toFixed(1); }
 }
 
